@@ -58,6 +58,31 @@ void pwm_init(void)
   	/* toggle OC2A output when match, CTC mode */
 	TCCR2A = _BV(COM2A0) | _BV(WGM21);
 	
+	/* MCK/8 . */
+	TCCR2B = _BV(CS21);
+	
+	/*
+	 * Set CTC OCR2A to generate 5000Hz wave.
+	 * 4M/8/5000Hz = 100 tick.
+	*/
+	OCR2A = 100;
+	
+	/* make PB4, OC2A, to output wave. */
+	DDRB |= _BV(DDB4);
+	
+	/* initial IE reg. */
+	TIFR2 = _BV(OCF2A);
+	TIMSK2 = _BV(OCIE2A);
+}
+
+/**
+ * @brief ISR for TMR2 interrupt handler
+ *
+ * This service routine is executed TMR2 interrupt.
+ */
+ISR(TIMER2_COMPA_vect)
+{
+  	nop();
 }
 
 /**

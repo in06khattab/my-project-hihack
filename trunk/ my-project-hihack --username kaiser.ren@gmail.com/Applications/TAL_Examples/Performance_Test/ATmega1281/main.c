@@ -98,7 +98,7 @@ static void get_analog_cmp_freq(void)
   	uint16_t freq;
 	
 	freq = 1000000ul/ac_cap_para.interval/2;
-	printf("\r\nFreq:%lu\r\n", freq);
+	printf("\r\nFreq:%d\r\n", freq);
 }
 
 

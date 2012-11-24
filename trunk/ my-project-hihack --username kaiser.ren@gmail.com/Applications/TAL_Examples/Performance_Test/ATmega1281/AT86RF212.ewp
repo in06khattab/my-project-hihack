@@ -153,16 +153,16 @@
         </option>
         <option>
           <name>Input description</name>
-          <state> No specifier n, no float or long long, no scan set, no assignment suppressing.</state>
+          <state>No specifier n, no float nor long long, no scan set, no assignment suppressing.</state>
         </option>
         <option>
           <name>Output variant</name>
           <version>36</version>
-          <state>3</state>
+          <state>6</state>
         </option>
         <option>
           <name>Output description</name>
-          <state> No specifier a or A.</state>
+          <state>No specifier a, A, no specifier n, no float nor long long.</state>
         </option>
         <option>
           <name>GRuntimeLibSelectSlave</name>
@@ -1169,11 +1169,11 @@
         <option>
           <name>Input variant</name>
           <version>36</version>
-          <state>6</state>
+          <state>8</state>
         </option>
         <option>
           <name>Input description</name>
-          <state>No specifier n, no float nor long long, no scan set, no assignment suppressing.</state>
+          <state></state>
         </option>
         <option>
           <name>Output variant</name>
@@ -1967,7 +1967,7 @@
         </option>
         <option>
           <name>ListOutputFormat</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>BufferedTermOutput</name>
@@ -2088,66 +2088,6 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\PAL\AVR\Generic\Src\pal_utils.c</name>
-    </file>
-  </group>
-  <group>
-    <name>Resources</name>
-    <excluded>
-      <configuration>Release</configuration>
-      <configuration>Debug</configuration>
-    </excluded>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\Resources\Buffer_Management\Src\bmm.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\Resources\Queue_Management\Src\qmm.c</name>
-    </file>
-  </group>
-  <group>
-    <name>TAL</name>
-    <excluded>
-      <configuration>Release</configuration>
-      <configuration>Debug</configuration>
-    </excluded>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\TAL\AT86RF212\Src\tal.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\TAL\AT86RF212\Src\tal_ed.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\TAL\AT86RF212\Src\tal_init.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\TAL\AT86RF212\Src\tal_irq_handler.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\TAL\AT86RF212\Src\tal_pib.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\TAL\AT86RF212\Src\tal_pwr_mgmt.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\TAL\AT86RF212\Src\tal_rx.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\TAL\AT86RF212\Src\tal_rx_enable.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\TAL\AT86RF212\Src\tal_slotted_csma.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\TAL\AT86RF212\Src\tal_tx.c</name>
-    </file>
-  </group>
-  <group>
-    <name>TFA</name>
-    <excluded>
-      <configuration>Release</configuration>
-      <configuration>Debug</configuration>
-    </excluded>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\TFA\AT86RF212\Src\tfa.c</name>
     </file>
   </group>
   <file>
