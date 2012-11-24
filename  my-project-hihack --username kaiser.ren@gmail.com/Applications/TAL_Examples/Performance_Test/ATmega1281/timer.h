@@ -25,5 +25,6 @@ extern ac_cap_t ac_cap_para;
 
 /* === PROTOTYPES ========================================================== */
 void ac_init(void);
+void pwm_init(void);
 //eof
 

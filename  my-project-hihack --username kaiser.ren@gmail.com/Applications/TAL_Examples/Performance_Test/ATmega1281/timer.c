@@ -19,6 +19,10 @@ ac_cap_t ac_cap_para = {.occur = 0,
 								.cur_stamp = 0};
 
 /* === Implementation ====================================================== */
+/**
+ * @brief Initialization for AC compare vector
+ *
+ */
 void ac_init(void)
 {
    /* Select ADC3 as negtive input, mcu pin PF3, module pin 30. */
@@ -43,6 +47,17 @@ void ac_init(void)
 	ACSR = _BV(ACIE) | _BV(ACI) | _BV(ACIS1);
 	TCCR1B = _BV(CS11);
 #endif
+}
+
+/**
+ * @brief Initialization for AC compare vector
+ *
+ */
+void pwm_init(void)
+{
+  	/* toggle OC2A output when match, CTC mode */
+	TCCR2A = _BV(COM2A0) | _BV(WGM21);
+	
 }
 
 /**
