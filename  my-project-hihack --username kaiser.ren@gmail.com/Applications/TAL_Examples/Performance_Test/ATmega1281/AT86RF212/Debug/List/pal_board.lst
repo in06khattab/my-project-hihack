@@ -1,0 +1,871 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR        24/Nov/2012  12:22:59 #
+# Copyright 1996-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Source file  =  D:\HiJack\PAL\AVR\ATMEGA1281\Boards\ATZB_900_MN2\pal_boa #
+#                    rd.c                                                     #
+#    Command line =  D:\HiJack\PAL\AVR\ATMEGA1281\Boards\ATZB_900_MN2\pal_boa #
+#                    rd.c --cpu=m1281 -ms -o D:\HiJack\Applications\TAL_Examp #
+#                    les\Performance_Test\ATmega1281\AT86RF212\Debug\Obj\ -D  #
+#                    DEBUG=0 -D FFD -D HIGH_DATA_RATE_SUPPORT -D ENABLE_TFA   #
+#                    -D SIO_HUB -D UART1 -D TAL_TYPE=AT86RF212 -D             #
+#                    PAL_TYPE=ATMEGA1281 -D PAL_GENERIC_TYPE=AVR -D           #
+#                    BOARD_TYPE=ATZB_900_MN2 -D HIGHEST_STACK_LAYER=PAL -lCN  #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\AT86RF212\Debug\List\ --remarks -y               #
+#                    --initializers_in_flash --no_cse --no_inline             #
+#                    --no_code_motion --no_cross_call --no_clustering         #
+#                    --no_tbaa --debug -DENABLE_BIT_DEFINITIONS -e -I         #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\Inc\ -I D:\HiJack\Applications\TAL_Examples\P #
+#                    erformance_Test\ATmega1281\ -I                           #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\Helper_Files\SIO_Support\Inc\ -I        #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\..\Include\ -I                          #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\..\TAL\Inc\ -I                          #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\..\TAL\AT86RF212\Inc\ -I                #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\..\TFA\Inc\ -I                          #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\..\PAL\Inc\ -I                          #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\..\PAL\AVR\Generic\Inc\ -I              #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\..\PAL\AVR\ATMEGA1281\Inc\ -I           #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\..\PAL\AVR\ATMEGA1281\Boards\ -I        #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\..\PAL\AVR\ATMEGA1281\Boards\ATZB_900_M #
+#                    N2\ -I D:\HiJack\Applications\TAL_Examples\Performance_T #
+#                    est\ATmega1281\..\..\..\..\Resources\Buffer_Management\I #
+#                    nc\ -I D:\HiJack\Applications\TAL_Examples\Performance_T #
+#                    est\ATmega1281\..\..\..\..\Resources\Queue_Management\In #
+#                    c\ --eeprom_size 4096 --dlib --dlib_config "D:\Program   #
+#                    Files\IAR Systems\Embedded Workbench                     #
+#                    6.0\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h" -On                #
+#    List file    =  D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\AT86RF212\Debug\List\pal_board.lst               #
+#    Object file  =  D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\AT86RF212\Debug\Obj\pal_board.r90                #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\HiJack\PAL\AVR\ATMEGA1281\Boards\ATZB_900_MN2\pal_board.c
+      1          /**
+      2           * @file pal_board.c
+      3           *
+      4           * @brief PAL board specific functionality
+      5           *
+      6           * This file implements PAL board specific functionality.
+      7           *
+      8           * $Id: pal_board.c 22839 2010-08-10 09:35:20Z sschneid $
+      9           *
+     10           * @author    Atmel Corporation: http://www.atmel.com
+     11           * @author    Support email: avr@atmel.com
+     12           */
+     13          /*
+     14           * Copyright (c) 2009, Atmel Corporation All rights reserved.
+     15           *
+     16           * Licensed under Atmel's Limited License Agreement --> EULA.txt
+     17           */
+     18          
+     19          /* === Includes ============================================================ */
+     20          
+     21          #include <stdbool.h>
+     22          #include <stdlib.h>
+     23          #include "pal.h"
+
+   \                                 In  segment ABSOLUTE, at 0xb6
+   \   union <unnamed> volatile __io _A_ASSR
+   \                     _A_ASSR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0xb2
+   \   union <unnamed> volatile __io _A_TCNT2
+   \                     _A_TCNT2:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0xb1
+   \   union <unnamed> volatile __io _A_TCCR2B
+   \                     _A_TCCR2B:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x86
+   \   union <unnamed> volatile __io _A_ICR1
+   \                     _A_ICR1:
+   \   00000000                      DS8 2
+
+   \                                 In  segment ABSOLUTE, at 0x84
+   \   union <unnamed> volatile __io _A_TCNT1
+   \                     _A_TCNT1:
+   \   00000000                      DS8 2
+
+   \                                 In  segment ABSOLUTE, at 0x81
+   \   union <unnamed> volatile __io _A_TCCR1B
+   \                     _A_TCCR1B:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x80
+   \   union <unnamed> volatile __io _A_TCCR1A
+   \                     _A_TCCR1A:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x6f
+   \   union <unnamed> volatile __io _A_TIMSK1
+   \                     _A_TIMSK1:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x66
+   \   union <unnamed> volatile __io _A_OSCCAL
+   \                     _A_OSCCAL:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x5f
+   \   union <unnamed> volatile __io _A_SREG
+   \                     _A_SREG:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x37
+   \   union <unnamed> volatile __io _A_TIFR2
+   \                     _A_TIFR2:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x36
+   \   union <unnamed> volatile __io _A_TIFR1
+   \                     _A_TIFR1:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x2e
+   \   union <unnamed> volatile __io _A_PORTE
+   \                     _A_PORTE:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x2d
+   \   union <unnamed> volatile __io _A_DDRE
+   \                     _A_DDRE:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x2c
+   \   union <unnamed> volatile __io _A_PINE
+   \                     _A_PINE:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x25
+   \   union <unnamed> volatile __io _A_PORTB
+   \                     _A_PORTB:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x24
+   \   union <unnamed> volatile __io _A_DDRB
+   \                     _A_DDRB:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x21
+   \   union <unnamed> volatile __io _A_DDRA
+   \                     _A_DDRA:
+   \   00000000                      DS8 1
+     24          #include "pal_boardtypes.h"
+     25          #include "pal_config.h"
+     26          /*
+     27           * 'sys_time' is a entity of timer module which is given to other modules
+     28           * through the interface file below. 'sys_time' is required to obtain the
+     29           * frame timestamp
+     30           */
+     31          #include "pal_timer.h"
+     32          
+     33          #if (BOARD_TYPE == ATZB_900_MN2)
+     34          
+     35          /* === Globals ============================================================= */
+     36          
+     37          
+     38          /* === Implementation ======================================================= */
+     39          
+     40          /**
+     41           * @brief Provides timestamp of the last received frame
+     42           *
+     43           * This function provides the timestamp (in microseconds)
+     44           * of the last received frame.
+     45           *
+     46           * @param[out] timestamp Timestamp in microseconds
+     47           */
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     48          void pal_trx_read_timestamp(uint32_t *timestamp)
+   \                     pal_trx_read_timestamp:
+     49          {
+     50              /*
+     51               * Everytime a transceiver interrupt is triggred, input capture register of
+     52               * the AVR is latched. The 'sys_time' is concatenated to the ICR to
+     53               * generate the time stamp of the received frame.
+     54               * 'sys_time'   'ICR'
+     55               *  ---------|--------- => 32 bit timestamp
+     56               *   16 bits   16 bits
+     57               */
+     58              *timestamp = (uint32_t)sys_time << (uint32_t)16;
+   \   00000000   9160....           LDS     R22, sys_time
+   \   00000004   9170....           LDS     R23, (sys_time + 1)
+   \   00000008   E040               LDI     R20, 0
+   \   0000000A   E050               LDI     R21, 0
+   \   0000000C   01F8               MOVW    R31:R30, R17:R16
+   \   0000000E   8340               ST      Z, R20
+   \   00000010   8351               STD     Z+1, R21
+   \   00000012   8362               STD     Z+2, R22
+   \   00000014   8373               STD     Z+3, R23
+     59              *timestamp |= (uint32_t)TIME_STAMP_REGISTER;
+   \   00000016   9140....           LDS     R20, _A_ICR1
+   \   0000001A   9150....           LDS     R21, (_A_ICR1 + 1)
+   \   0000001E   E060               LDI     R22, 0
+   \   00000020   E070               LDI     R23, 0
+   \   00000022   01F8               MOVW    R31:R30, R17:R16
+   \   00000024   8000               LD      R0, Z
+   \   00000026   8011               LDD     R1, Z+1
+   \   00000028   8022               LDD     R2, Z+2
+   \   0000002A   8033               LDD     R3, Z+3
+   \   0000002C   2A04               OR      R0, R20
+   \   0000002E   2A15               OR      R1, R21
+   \   00000030   2A26               OR      R2, R22
+   \   00000032   2A37               OR      R3, R23
+   \   00000034   8200               ST      Z, R0
+   \   00000036   8211               STD     Z+1, R1
+   \   00000038   8222               STD     Z+2, R2
+   \   0000003A   8233               STD     Z+3, R3
+     60          }
+   \   0000003C   9508               RET
+   \   0000003E                      REQUIRE _A_ICR1
+     61          
+     62          
+     63          
+     64          /**
+     65           * @brief Calibrates the internal RC oscillator
+     66           *
+     67           * This function calibrates the internal RC oscillator, based
+     68           * on the external 32.768 Hz crystal clock source.
+     69           *
+     70           * @return True if calibration is successful, false otherwise.
+     71           */
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     72          bool pal_calibrate_rc_osc(void)
+   \                     pal_calibrate_rc_osc:
+     73          {
+   \   00000000   939A               ST      -Y, R25
+   \   00000002   938A               ST      -Y, R24
+     74              /*
+     75               * Use the 32.768 kHz external crystal oscillator as reference clock source.
+     76               */
+     77              /*
+     78               * This is the actual value of the timer to be calibrated
+     79               * after each calibration run.
+     80               */
+     81              uint16_t curr_value_cal_timer = 0;
+   \   00000004   E040               LDI     R20, 0
+   \   00000006   E050               LDI     R21, 0
+     82          
+     83              /* This is the best OSCCAL value. */
+     84              uint8_t best_value_osccal = 0;
+   \   00000008   E010               LDI     R17, 0
+     85              /*
+     86               * This is the smallest difference between the target value and the actual value
+     87               * of the timer the timer to be calibrated.
+     88               */
+     89          
+     90              uint16_t best_dif_timers = ~(uint16_t)0;
+   \   0000000A   EF2F               LDI     R18, 255
+   \   0000000C   EF3F               LDI     R19, 255
+     91              /*
+     92               * This is the difference between  between the target value and the actual value
+     93               * of the timer the timer to be calibrated of the current calibration attempt.
+     94               */
+     95              uint16_t curr_dif_timers = 0;
+   \   0000000E   E060               LDI     R22, 0
+   \   00000010   E070               LDI     R23, 0
+     96          
+     97              uint16_t counter;
+     98              uint8_t tccr2b;
+     99              uint8_t tccr1b;
+    100              uint8_t tccr1a;
+    101              bool cal_result = true;
+   \   00000012   E001               LDI     R16, 1
+    102          
+    103              ENTER_CRITICAL_REGION();
+   \   00000014   B62F               IN      R2, 0x3F
+   \   00000016   94F8               CLI
+    104          
+    105              /*
+    106               * Save current values of timer status.
+    107               */
+    108              tccr2b = TCCR2B;
+   \   00000018   9180....           LDS     R24, _A_TCCR2B
+   \   0000001C   2E38               MOV     R3, R24
+    109              tccr1b = TCCR1B;
+   \   0000001E   9180....           LDS     R24, _A_TCCR1B
+   \   00000022   2E08               MOV     R0, R24
+    110              tccr1a = TCCR1A;
+   \   00000024   9180....           LDS     R24, _A_TCCR1A
+   \   00000028   2E18               MOV     R1, R24
+    111          
+    112              /*
+    113               * Stop timers 1 and 2.
+    114               * Set timer 1 to normal mode (no CTC, no PWM, just count).
+    115               */
+    116              TCCR2B = 0;
+   \   0000002A   E080               LDI     R24, 0
+   \   0000002C   9380....           STS     _A_TCCR2B, R24
+    117              TCCR1B = 0;
+   \   00000030   E080               LDI     R24, 0
+   \   00000032   9380....           STS     _A_TCCR1B, R24
+    118              TCCR1A = 0;
+   \   00000036   E080               LDI     R24, 0
+   \   00000038   9380....           STS     _A_TCCR1A, R24
+    119          
+    120              for (counter = 0; counter < MAX_CAL_LOOP_CNT;  counter++)
+   \   0000003C   E0E0               LDI     R30, 0
+   \   0000003E   E0F0               LDI     R31, 0
+   \                     ??pal_calibrate_rc_osc_0:
+   \   00000040   36E4               CPI     R30, 100
+   \   00000042   E080               LDI     R24, 0
+   \   00000044   07F8               CPC     R31, R24
+   \   00000046   F008               BRCS    $+2+2
+   \   00000048   C04E               RJMP    ??pal_calibrate_rc_osc_1
+    121              {
+    122                  /*
+    123                   * Delete pending timer 1 and 2 interrupts, and clear the
+    124                   * counters.
+    125                   */
+    126                  TIFR1 = 0xFF;
+   \   0000004A   EF8F               LDI     R24, 255
+   \   0000004C   BB86               OUT     0x16, R24
+    127                  TIFR2 = 0xFF;
+   \   0000004E   EF8F               LDI     R24, 255
+   \   00000050   BB87               OUT     0x17, R24
+    128                  TCNT2 = 0;
+   \   00000052   E080               LDI     R24, 0
+   \   00000054   9380....           STS     _A_TCNT2, R24
+    129                  TCNT1 = 0;
+   \   00000058   E080               LDI     R24, 0
+   \   0000005A   E090               LDI     R25, 0
+   \   0000005C   9390....           STS     (_A_TCNT1 + 1), R25
+   \   00000060   9380....           STS     _A_TCNT1, R24
+    130          
+    131                  /* Kick timer1 with internal clock source and no prescaler */
+    132                  TCCR1B = (1 << CS10);
+   \   00000064   E081               LDI     R24, 1
+   \   00000066   9380....           STS     _A_TCCR1B, R24
+    133          
+    134                  /*
+    135                   * Kick timer2 with external 32.768 Hz asynchronous clock
+    136                   * and no prescaler
+    137                   */
+    138                  TCCR2B = (1 << CS20);
+   \   0000006A   E081               LDI     R24, 1
+   \   0000006C   9380....           STS     _A_TCCR2B, R24
+    139                  ASSR = (1 << AS2);
+   \   00000070   E280               LDI     R24, 32
+   \   00000072   9380....           STS     _A_ASSR, R24
+    140          
+    141                  /*
+    142                   * Wait for timer 2 to overflow.
+    143                   */
+    144                  while (!(TIFR2 & (1 << TOV2)))
+   \                     ??pal_calibrate_rc_osc_2:
+   \   00000076   9BB8               SBIS    0x17, 0x00
+   \   00000078   CFFE               RJMP    ??pal_calibrate_rc_osc_2
+    145                  {
+    146                      /* Wait */
+    147                  }
+    148          
+    149          
+    150                  /*
+    151                   * Stop timer 1.  Now, TCNT1 contains the number of CPU cycles
+    152                   * counted during F_CPU / (32 * 256) cycles.
+    153                   */
+    154                  TCCR1B = 0;
+   \   0000007A   E080               LDI     R24, 0
+   \   0000007C   9380....           STS     _A_TCCR1B, R24
+    155                  TCCR2B = 0;
+   \   00000080   E080               LDI     R24, 0
+   \   00000082   9380....           STS     _A_TCCR2B, R24
+    156          
+    157                  curr_value_cal_timer = TCNT1;
+   \   00000086   9180....           LDS     R24, _A_TCNT1
+   \   0000008A   9190....           LDS     R25, (_A_TCNT1 + 1)
+   \   0000008E   01AC               MOVW    R21:R20, R25:R24
+    158          
+    159                  /*
+    160                   * Check if reference timer is running at all,
+    161                   * i.e. the reference clock is available.
+    162                   */
+    163                  if (0 == curr_value_cal_timer)
+   \   00000090   2F84               MOV     R24, R20
+   \   00000092   2B85               OR      R24, R21
+   \   00000094   F411               BRNE    ??pal_calibrate_rc_osc_3
+    164                  {
+    165                      /* Reference timer is not running, return error. */
+    166                      cal_result = false;
+   \   00000096   E000               LDI     R16, 0
+    167                      break;
+   \   00000098   C026               RJMP    ??pal_calibrate_rc_osc_1
+    168                  }
+    169          
+    170                  if (curr_value_cal_timer <= (uint16_t)(TARGETVAL_CALIBRATION))
+   \                     ??pal_calibrate_rc_osc_3:
+   \   0000009A   3143               CPI     R20, 19
+   \   0000009C   E78A               LDI     R24, 122
+   \   0000009E   0758               CPC     R21, R24
+   \   000000A0   F430               BRCC    ??pal_calibrate_rc_osc_4
+    171                  {
+    172                      curr_dif_timers = (uint16_t)(TARGETVAL_CALIBRATION) - curr_value_cal_timer;
+   \   000000A2   E182               LDI     R24, 18
+   \   000000A4   E79A               LDI     R25, 122
+   \   000000A6   1B84               SUB     R24, R20
+   \   000000A8   0B95               SBC     R25, R21
+   \   000000AA   01BC               MOVW    R23:R22, R25:R24
+   \   000000AC   C004               RJMP    ??pal_calibrate_rc_osc_5
+    173                  }
+    174                  else
+    175                  {
+    176                      curr_dif_timers = curr_value_cal_timer - (uint16_t)(TARGETVAL_CALIBRATION);
+   \                     ??pal_calibrate_rc_osc_4:
+   \   000000AE   01CA               MOVW    R25:R24, R21:R20
+   \   000000B0   5182               SUBI    R24, 18
+   \   000000B2   479A               SBCI    R25, 122
+   \   000000B4   01BC               MOVW    R23:R22, R25:R24
+    177                  }
+    178          
+    179                  if (curr_dif_timers < best_dif_timers)
+   \                     ??pal_calibrate_rc_osc_5:
+   \   000000B6   1762               CP      R22, R18
+   \   000000B8   0773               CPC     R23, R19
+   \   000000BA   F420               BRCC    ??pal_calibrate_rc_osc_6
+    180                  {
+    181                      best_dif_timers = curr_dif_timers;
+   \   000000BC   019B               MOVW    R19:R18, R23:R22
+    182                      best_value_osccal = OSCCAL;
+   \   000000BE   9180....           LDS     R24, _A_OSCCAL
+   \   000000C2   2F18               MOV     R17, R24
+    183                  }
+    184          
+    185                  if (curr_value_cal_timer <= (uint16_t)(TARGETVAL_CALIBRATION))
+   \                     ??pal_calibrate_rc_osc_6:
+   \   000000C4   3143               CPI     R20, 19
+   \   000000C6   E78A               LDI     R24, 122
+   \   000000C8   0758               CPC     R21, R24
+   \   000000CA   F430               BRCC    ??pal_calibrate_rc_osc_7
+    186                  {
+    187                      /* Too slow, increase speed */
+    188                      OSCCAL++;
+   \   000000CC   9180....           LDS     R24, _A_OSCCAL
+   \   000000D0   9583               INC     R24
+   \   000000D2   9380....           STS     _A_OSCCAL, R24
+   \   000000D6   C005               RJMP    ??pal_calibrate_rc_osc_8
+    189                  }
+    190                  else
+    191                  {
+    192                      /* Too fast, lower speed */
+    193                      OSCCAL--;
+   \                     ??pal_calibrate_rc_osc_7:
+   \   000000D8   9180....           LDS     R24, _A_OSCCAL
+   \   000000DC   958A               DEC     R24
+   \   000000DE   9380....           STS     _A_OSCCAL, R24
+    194                  }
+    195              }
+   \                     ??pal_calibrate_rc_osc_8:
+   \   000000E2   9631               ADIW    R31:R30, 1
+   \   000000E4   CFAD               RJMP    ??pal_calibrate_rc_osc_0
+    196          
+    197              TCCR2B = tccr2b;
+   \                     ??pal_calibrate_rc_osc_1:
+   \   000000E6   9230....           STS     _A_TCCR2B, R3
+    198              TCCR1B = tccr1b;
+   \   000000EA   9200....           STS     _A_TCCR1B, R0
+    199              TCCR1A = tccr1a;
+   \   000000EE   9210....           STS     _A_TCCR1A, R1
+    200              LEAVE_CRITICAL_REGION();
+   \   000000F2   BE2F               OUT     0x3F, R2
+    201          
+    202              OSCCAL = best_value_osccal;
+   \   000000F4   9310....           STS     _A_OSCCAL, R17
+    203          
+    204              return (cal_result);
+   \   000000F8   9189               LD      R24, Y+
+   \   000000FA   9199               LD      R25, Y+
+   \   000000FC   9508               RET
+   \   000000FE                      REQUIRE _A_SREG
+   \   000000FE                      REQUIRE _A_TCCR2B
+   \   000000FE                      REQUIRE _A_TCCR1B
+   \   000000FE                      REQUIRE _A_TCCR1A
+   \   000000FE                      REQUIRE _A_TIFR1
+   \   000000FE                      REQUIRE _A_TIFR2
+   \   000000FE                      REQUIRE _A_TCNT2
+   \   000000FE                      REQUIRE _A_TCNT1
+   \   000000FE                      REQUIRE _A_ASSR
+   \   000000FE                      REQUIRE _A_OSCCAL
+    205          }
+    206          
+    207          
+    208          
+    209          /**
+    210           * @brief Initializes the GPIO pins
+    211           *
+    212           * This function is used to initialize the port pins used to connect
+    213           * the microcontroller to transceiver.
+    214           */
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    215          void gpio_init(void)
+   \                     gpio_init:
+    216          {
+    217              /* The following pins are output pins.  */
+    218              TRX_PORT1_DDR |= _BV(SEL);
+   \   00000000   9A20               SBI     0x04, 0x00
+    219              TRX_PORT1_DDR |= _BV(SCK);
+   \   00000002   9A21               SBI     0x04, 0x01
+    220              TRX_PORT2_DDR |= _BV(RST);
+   \   00000004   9A0F               SBI     0x01, 0x07
+    221              TRX_PORT1_DDR |= _BV(MOSI);
+   \   00000006   9A22               SBI     0x04, 0x02
+    222              TRX_PORT1_DDR |= _BV(SLP_TR);
+   \   00000008   9A24               SBI     0x04, 0x04
+    223          
+    224              /* The following pins are input pins.  */
+    225              TRX_PORT1_DDR &= ~_BV(MISO);
+   \   0000000A   9823               CBI     0x04, 0x03
+    226          }
+   \   0000000C   9508               RET
+   \   0000000E                      REQUIRE _A_DDRB
+   \   0000000E                      REQUIRE _A_DDRA
+    227          
+    228          
+    229          
+    230          /*
+    231           * This function is called by timer_init() to perform the non-generic portion
+    232           * of the initialization of the timer module.
+    233           */
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    234          void timer_init_non_generic(void)
+   \                     timer_init_non_generic:
+    235          {
+    236              /* Select proper clock as timer clock source when radio is sleeping */
+    237              TIMER_SRC_DURING_TRX_SLEEP();
+   \   00000000   9100....           LDS     R16, _A_TCCR1B
+   \   00000004   7007               ANDI    R16, 0x07
+   \   00000006   9300....           STS     _A_TCCR1B, R16
+   \   0000000A   91000081           LDS     R16, 129
+   \   0000000E   6002               ORI     R16, 0x02
+   \   00000010   93000081           STS     129, R16
+    238          
+    239              /*
+    240               * Clear pending output compare matches of all the OCR1A, OCR1B and
+    241               * OCR1C.
+    242               */
+    243              TIFR1 = _BV(OCF1A);
+   \   00000014   E002               LDI     R16, 2
+   \   00000016   BB06               OUT     0x16, R16
+    244              TIFR1 = _BV(OCF1B);
+   \   00000018   E004               LDI     R16, 4
+   \   0000001A   BB06               OUT     0x16, R16
+    245              TIFR1 = _BV(OCF1C);
+   \   0000001C   E008               LDI     R16, 8
+   \   0000001E   BB06               OUT     0x16, R16
+    246          
+    247              /* Enable the timer overflow interrupt */
+    248              TIMSK1 |= _BV(TOIE1);
+   \   00000020   9100006F           LDS     R16, 111
+   \   00000024   6001               ORI     R16, 0x01
+   \   00000026   9300006F           STS     111, R16
+    249          }
+   \   0000002A   9508               RET
+   \   0000002C                      REQUIRE _A_TCCR1B
+   \   0000002C                      REQUIRE _A_TIFR1
+   \   0000002C                      REQUIRE _A_TIMSK1
+    250          
+    251          
+    252          /**
+    253           * @brief Initialize LEDs
+    254           */
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    255          void pal_led_init(void)
+   \                     pal_led_init:
+    256          {
+    257              LED_PORT &= ~(1 << LED_PIN_0);
+   \   00000000   982D               CBI     0x05, 0x05
+    258              LED_PORT &= ~(1 << LED_PIN_1);
+   \   00000002   982E               CBI     0x05, 0x06
+    259              LED_PORT &= ~(1 << LED_PIN_2);
+   \   00000004   982F               CBI     0x05, 0x07
+    260              LED_PORT_DIR |= (1 << LED_PIN_0);
+   \   00000006   9A25               SBI     0x04, 0x05
+    261              LED_PORT_DIR |= (1 << LED_PIN_1);
+   \   00000008   9A26               SBI     0x04, 0x06
+    262              LED_PORT_DIR |= (1 << LED_PIN_2);
+   \   0000000A   9A27               SBI     0x04, 0x07
+    263          }
+   \   0000000C   9508               RET
+   \   0000000E                      REQUIRE _A_PORTB
+   \   0000000E                      REQUIRE _A_DDRB
+    264          
+    265          
+    266          
+    267          /**
+    268           * @brief Control LED status
+    269           *
+    270           * @param[in]  led_no LED ID
+    271           * @param[in]  led_setting LED_ON, LED_OFF, LED_TOGGLE
+    272           */
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    273          void pal_led(led_id_t led_no, led_action_t led_setting)
+   \                     pal_led:
+    274          {
+   \   00000000   2F30               MOV     R19, R16
+   \   00000002   2F51               MOV     R21, R17
+    275              uint8_t pin;
+    276          
+    277              switch (led_no)
+   \   00000004   2F03               MOV     R16, R19
+   \   00000006   5000               SUBI    R16, 0
+   \   00000008   F029               BREQ    ??pal_led_0
+   \   0000000A   950A               DEC     R16
+   \   0000000C   F029               BREQ    ??pal_led_1
+   \   0000000E   950A               DEC     R16
+   \   00000010   F029               BREQ    ??pal_led_2
+   \   00000012   C006               RJMP    ??pal_led_3
+    278              {
+    279                  case LED_0: pin = LED_PIN_0; break;
+   \                     ??pal_led_0:
+   \   00000014   E025               LDI     R18, 5
+   \   00000016   C005               RJMP    ??pal_led_4
+    280                  case LED_1: pin = LED_PIN_1; break;
+   \                     ??pal_led_1:
+   \   00000018   E026               LDI     R18, 6
+   \   0000001A   C003               RJMP    ??pal_led_4
+    281                  case LED_2: pin = LED_PIN_2; break;
+   \                     ??pal_led_2:
+   \   0000001C   E027               LDI     R18, 7
+   \   0000001E   C001               RJMP    ??pal_led_4
+    282                  default: pin = LED_PIN_0; break;
+   \                     ??pal_led_3:
+   \   00000020   E025               LDI     R18, 5
+    283              }
+    284          
+    285              switch (led_setting)
+   \                     ??pal_led_4:
+   \   00000022   2F05               MOV     R16, R21
+   \   00000024   5000               SUBI    R16, 0
+   \   00000026   F061               BREQ    ??pal_led_5
+   \   00000028   950A               DEC     R16
+   \   0000002A   F499               BRNE    ??pal_led_6
+    286              {
+    287                  case LED_OFF: LED_PORT &= ~(1 << pin); break;
+   \   0000002C   2F42               MOV     R20, R18
+   \   0000002E   E001               LDI     R16, 1
+   \   00000030   E010               LDI     R17, 0
+   \   00000032   ........           CALL    ?S_SHL_L02
+   \   00000036   9500               COM     R16
+   \   00000038   B115               IN      R17, 0x05
+   \   0000003A   2310               AND     R17, R16
+   \   0000003C   B915               OUT     0x05, R17
+   \   0000003E   9508               RET
+    288          
+    289                  case LED_ON: LED_PORT |= (1 << pin); break;
+   \                     ??pal_led_5:
+   \   00000040   2F42               MOV     R20, R18
+   \   00000042   E001               LDI     R16, 1
+   \   00000044   E010               LDI     R17, 0
+   \   00000046   ........           CALL    ?S_SHL_L02
+   \   0000004A   B115               IN      R17, 0x05
+   \   0000004C   2B10               OR      R17, R16
+   \   0000004E   B915               OUT     0x05, R17
+   \   00000050   9508               RET
+    290          
+    291                  case LED_TOGGLE:
+    292                  default:
+    293                      if ((LED_PORT & (1 << pin)) == 0x00)
+   \                     ??pal_led_6:
+   \   00000052   B165               IN      R22, 0x05
+   \   00000054   2F42               MOV     R20, R18
+   \   00000056   E001               LDI     R16, 1
+   \   00000058   E010               LDI     R17, 0
+   \   0000005A   ........           CALL    ?S_SHL_L02
+   \   0000005E   2360               AND     R22, R16
+   \   00000060   2366               TST     R22
+   \   00000062   F449               BRNE    ??pal_led_7
+    294                      {
+    295                          LED_PORT |= (1 << pin);
+   \   00000064   2F42               MOV     R20, R18
+   \   00000066   E001               LDI     R16, 1
+   \   00000068   E010               LDI     R17, 0
+   \   0000006A   ........           CALL    ?S_SHL_L02
+   \   0000006E   B115               IN      R17, 0x05
+   \   00000070   2B10               OR      R17, R16
+   \   00000072   B915               OUT     0x05, R17
+   \   00000074   9508               RET
+    296                      }
+    297                      else
+    298                      {
+    299                          LED_PORT &= ~(1 << pin);
+   \                     ??pal_led_7:
+   \   00000076   2F42               MOV     R20, R18
+   \   00000078   E001               LDI     R16, 1
+   \   0000007A   E010               LDI     R17, 0
+   \   0000007C   ........           CALL    ?S_SHL_L02
+   \   00000080   9500               COM     R16
+   \   00000082   B115               IN      R17, 0x05
+   \   00000084   2310               AND     R17, R16
+   \   00000086   B915               OUT     0x05, R17
+    300                      }
+    301                      break;
+    302              }
+    303          }
+   \   00000088   9508               RET
+   \   0000008A                      REQUIRE _A_PORTB
+    304          
+    305          
+    306          
+    307          /**
+    308           * @brief Initialize the button
+    309           */
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    310          void pal_button_init(void)
+   \                     pal_button_init:
+    311          {
+    312              BUTTON_PORT |= (1 << BUTTON_PIN_0);
+   \   00000000   9A76               SBI     0x0E, 0x06
+    313              BUTTON_PORT |= (1 << BUTTON_PIN_1);
+   \   00000002   9A77               SBI     0x0E, 0x07
+    314              BUTTON_PORT_DIR &= ~(1 << BUTTON_PIN_0);
+   \   00000004   986E               CBI     0x0D, 0x06
+    315              BUTTON_PORT_DIR &= ~(1 << BUTTON_PIN_1);
+   \   00000006   986F               CBI     0x0D, 0x07
+    316          }
+   \   00000008   9508               RET
+   \   0000000A                      REQUIRE _A_PORTE
+   \   0000000A                      REQUIRE _A_DDRE
+    317          
+    318          
+    319          
+    320          /**
+    321           * @brief Read button
+    322           *
+    323           * @param button_no Button ID
+    324           */
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    325          button_state_t pal_button_read(button_id_t button_no)
+   \                     pal_button_read:
+    326          {
+   \   00000000   2F30               MOV     R19, R16
+    327              uint8_t pin;
+    328          
+    329              switch (button_no)
+   \   00000002   2F03               MOV     R16, R19
+   \   00000004   5000               SUBI    R16, 0
+   \   00000006   F019               BREQ    ??pal_button_read_0
+   \   00000008   950A               DEC     R16
+   \   0000000A   F019               BREQ    ??pal_button_read_1
+   \   0000000C   C004               RJMP    ??pal_button_read_2
+    330              {
+    331                  case BUTTON_0: pin = BUTTON_PIN_0; break;
+   \                     ??pal_button_read_0:
+   \   0000000E   E026               LDI     R18, 6
+   \   00000010   C003               RJMP    ??pal_button_read_3
+    332                  case BUTTON_1: pin = BUTTON_PIN_1; break;
+   \                     ??pal_button_read_1:
+   \   00000012   E027               LDI     R18, 7
+   \   00000014   C001               RJMP    ??pal_button_read_3
+    333                  default: pin = BUTTON_PIN_0; break;
+   \                     ??pal_button_read_2:
+   \   00000016   E026               LDI     R18, 6
+    334              }
+    335          
+    336              if ((BUTTON_INPUT_PINS & (1 << pin)) == 0x00)
+   \                     ??pal_button_read_3:
+   \   00000018   B15C               IN      R21, 0x0C
+   \   0000001A   2F42               MOV     R20, R18
+   \   0000001C   E001               LDI     R16, 1
+   \   0000001E   E010               LDI     R17, 0
+   \   00000020   ........           CALL    ?S_SHL_L02
+   \   00000024   2350               AND     R21, R16
+   \   00000026   2355               TST     R21
+   \   00000028   F411               BRNE    ??pal_button_read_4
+    337              {
+    338                  return BUTTON_PRESSED;
+   \   0000002A   E000               LDI     R16, 0
+   \   0000002C   9508               RET
+    339              }
+    340              else
+    341              {
+    342                  return BUTTON_OFF;
+   \                     ??pal_button_read_4:
+   \   0000002E   E001               LDI     R16, 1
+   \   00000030   9508               RET
+   \   00000032                      REQUIRE _A_PINE
+    343              }
+    344          }
+    345          
+    346          #endif /* ATZB_900_MN2 */
+    347          
+    348          /* EOF */
+
+   Maximum stack usage in bytes:
+
+   CSTACK RSTACK Function
+   ------ ------ --------
+       0      2  gpio_init
+       0      2  pal_button_init
+       0      4  pal_button_read
+       2      2  pal_calibrate_rc_osc
+       0      4  pal_led
+       0      2  pal_led_init
+       0      2  pal_trx_read_timestamp
+       0      2  timer_init_non_generic
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       1  _A_ASSR
+       1  _A_DDRA
+       1  _A_DDRB
+       1  _A_DDRE
+       2  _A_ICR1
+       1  _A_OSCCAL
+       1  _A_PINE
+       1  _A_PORTB
+       1  _A_PORTE
+       1  _A_SREG
+       1  _A_TCCR1A
+       1  _A_TCCR1B
+       1  _A_TCCR2B
+       2  _A_TCNT1
+       1  _A_TCNT2
+       1  _A_TIFR1
+       1  _A_TIFR2
+       1  _A_TIMSK1
+      14  gpio_init
+      10  pal_button_init
+      50  pal_button_read
+     254  pal_calibrate_rc_osc
+     138  pal_led
+      14  pal_led_init
+      62  pal_trx_read_timestamp
+      44  timer_init_non_generic
+
+ 
+  20 bytes in segment ABSOLUTE
+ 586 bytes in segment CODE
+ 
+ 586 bytes of CODE memory
+   0 bytes of DATA memory (+ 20 bytes shared)
+
+Errors: none
+Warnings: none
