@@ -256,7 +256,7 @@
           <state>PAL_TYPE=ATMEGA1281</state>
           <state>PAL_GENERIC_TYPE=AVR</state>
           <state>BOARD_TYPE=ATZB_900_MN2</state>
-          <state>HIGHEST_STACK_LAYER=TAL</state>
+          <state>HIGHEST_STACK_LAYER=PAL</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -2093,6 +2093,7 @@
   <group>
     <name>Resources</name>
     <excluded>
+      <configuration>Release</configuration>
       <configuration>Debug</configuration>
     </excluded>
     <file>
@@ -2105,6 +2106,7 @@
   <group>
     <name>TAL</name>
     <excluded>
+      <configuration>Release</configuration>
       <configuration>Debug</configuration>
     </excluded>
     <file>
@@ -2141,6 +2143,7 @@
   <group>
     <name>TFA</name>
     <excluded>
+      <configuration>Release</configuration>
       <configuration>Debug</configuration>
     </excluded>
     <file>

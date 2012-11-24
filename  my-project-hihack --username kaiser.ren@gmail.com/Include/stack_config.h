@@ -33,7 +33,7 @@
  */
 
 #ifdef VENDOR_STACK_CONFIG
-#include "vendor_stack_config.h"
+
 #else   /* Use standard stack layer configurations as defined below. */
 
 /* Highest stack layer definitions above MAC */
