@@ -1,0 +1,345 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR        24/Nov/2012  12:23:00 #
+# Copyright 1996-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Source file  =  D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\timer.c                                          #
+#    Command line =  D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\timer.c --cpu=m1281 -ms -o                       #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\AT86RF212\Debug\Obj\ -D DEBUG=0 -D FFD -D        #
+#                    HIGH_DATA_RATE_SUPPORT -D ENABLE_TFA -D SIO_HUB -D       #
+#                    UART1 -D TAL_TYPE=AT86RF212 -D PAL_TYPE=ATMEGA1281 -D    #
+#                    PAL_GENERIC_TYPE=AVR -D BOARD_TYPE=ATZB_900_MN2 -D       #
+#                    HIGHEST_STACK_LAYER=PAL -lCN                             #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\AT86RF212\Debug\List\ --remarks -y               #
+#                    --initializers_in_flash --no_cse --no_inline             #
+#                    --no_code_motion --no_cross_call --no_clustering         #
+#                    --no_tbaa --debug -DENABLE_BIT_DEFINITIONS -e -I         #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\Inc\ -I D:\HiJack\Applications\TAL_Examples\P #
+#                    erformance_Test\ATmega1281\ -I                           #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\Helper_Files\SIO_Support\Inc\ -I        #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\..\Include\ -I                          #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\..\TAL\Inc\ -I                          #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\..\TAL\AT86RF212\Inc\ -I                #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\..\TFA\Inc\ -I                          #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\..\PAL\Inc\ -I                          #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\..\PAL\AVR\Generic\Inc\ -I              #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\..\PAL\AVR\ATMEGA1281\Inc\ -I           #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\..\PAL\AVR\ATMEGA1281\Boards\ -I        #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\..\PAL\AVR\ATMEGA1281\Boards\ATZB_900_M #
+#                    N2\ -I D:\HiJack\Applications\TAL_Examples\Performance_T #
+#                    est\ATmega1281\..\..\..\..\Resources\Buffer_Management\I #
+#                    nc\ -I D:\HiJack\Applications\TAL_Examples\Performance_T #
+#                    est\ATmega1281\..\..\..\..\Resources\Queue_Management\In #
+#                    c\ --eeprom_size 4096 --dlib --dlib_config "D:\Program   #
+#                    Files\IAR Systems\Embedded Workbench                     #
+#                    6.0\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h" -On                #
+#    List file    =  D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\AT86RF212\Debug\List\timer.lst                   #
+#    Object file  =  D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\AT86RF212\Debug\Obj\timer.r90                    #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\HiJack\Applications\TAL_Examples\Performance_Test\ATmega1281\timer.c
+      1          /**
+      2           * @file timer.c
+      3           *
+      4           * @brief hal board specific functionality
+      5           *
+      6           * This file implements hal board specific functionality.
+      7           *
+      8           * @author    kren
+      9           * @data		Nov 21, 2012
+     10           */
+     11          
+     12          
+     13          /* === Includes ============================================================ */
+     14          #include "hal.h"
+
+   \                                 In  segment ABSOLUTE, at 0x86
+   \   union <unnamed> volatile __io _A_ICR1
+   \                     _A_ICR1:
+   \   00000000                      DS8 2
+
+   \                                 In  segment ABSOLUTE, at 0x81
+   \   union <unnamed> volatile __io _A_TCCR1B
+   \                     _A_TCCR1B:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x7c
+   \   union <unnamed> volatile __io _A_ADMUX
+   \                     _A_ADMUX:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x7b
+   \   union <unnamed> volatile __io _A_ADCSRB
+   \                     _A_ADCSRB:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x7a
+   \   union <unnamed> volatile __io _A_ADCSRA
+   \                     _A_ADCSRA:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x6f
+   \   union <unnamed> volatile __io _A_TIMSK1
+   \                     _A_TIMSK1:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x5f
+   \   union <unnamed> volatile __io _A_SREG
+   \                     _A_SREG:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x50
+   \   union <unnamed> volatile __io _A_ACSR
+   \                     _A_ACSR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x36
+   \   union <unnamed> volatile __io _A_TIFR1
+   \                     _A_TIFR1:
+   \   00000000                      DS8 1
+     15          
+     16          /* === Globals ============================================================== */
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+     17          ac_cap_t ac_cap_para = {.occur = 0,
+   \                     ac_cap_para:
+   \   00000000                      DS8 5
+     18          								.interval = 0,
+     19          								.cur_stamp = 0};
+     20          
+     21          /* === Implementation ====================================================== */
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     22          void ac_init(void)
+   \                     ac_init:
+     23          {
+     24             /* Select ADC3 as negtive input, mcu pin PF3, module pin 30. */
+     25          	ADCSRB = _BV(ACME);
+   \   00000000   E400               LDI     R16, 64
+   \   00000002   9300....           STS     _A_ADCSRB, R16
+     26          	ADCSRA &= ~_BV(ADEN);
+   \   00000006   9100007A           LDS     R16, 122
+   \   0000000A   770F               ANDI    R16, 0x7F
+   \   0000000C   9300007A           STS     122, R16
+     27          	ADMUX = _BV(MUX0) | _BV(MUX1);
+   \   00000010   E003               LDI     R16, 3
+   \   00000012   9300....           STS     _A_ADMUX, R16
+     28          	
+     29          	/* initial global variable. */
+     30          	memset(&ac_cap_para, 0, sizeof(ac_cap_t));
+   \   00000016   E045               LDI     R20, 5
+   \   00000018   E050               LDI     R21, 0
+   \   0000001A   E020               LDI     R18, 0
+   \   0000001C   E030               LDI     R19, 0
+   \   0000001E   ....               LDI     R16, LOW(ac_cap_para)
+   \   00000020   ....               LDI     R17, (ac_cap_para) >> 8
+   \   00000022   ........           CALL    memset
+     31          	
+     32          	/* Config AC's setting, ACO enable and make it connect with Tmr1's
+     33          	capture input, toggle trigger. */
+     34          #if 1
+     35          	ACSR = _BV(ACIC);
+   \   00000026   E004               LDI     R16, 4
+   \   00000028   BF00               OUT     0x30, R16
+     36          	//noise canceller, falling edge detection, prescaler is clkio/8
+     37          	TCCR1B = _BV(ICNC1) | _BV(ICES1) | _BV(CS11);
+   \   0000002A   EC02               LDI     R16, 194
+   \   0000002C   9300....           STS     _A_TCCR1B, R16
+     38          	//clear potential capture int flag
+     39          	TIFR1 = _BV(ICF1);
+   \   00000030   E200               LDI     R16, 32
+   \   00000032   BB06               OUT     0x16, R16
+     40          	//enable capture int
+     41          	TIMSK1 = _BV(ICIE1);
+   \   00000034   E200               LDI     R16, 32
+   \   00000036   9300....           STS     _A_TIMSK1, R16
+     42          #else
+     43          	ACSR = _BV(ACIE) | _BV(ACI) | _BV(ACIS1);
+     44          	TCCR1B = _BV(CS11);
+     45          #endif
+     46          }
+   \   0000003A   9508               RET
+   \   0000003C                      REQUIRE _A_ADCSRB
+   \   0000003C                      REQUIRE _A_ADCSRA
+   \   0000003C                      REQUIRE _A_ADMUX
+   \   0000003C                      REQUIRE _A_ACSR
+   \   0000003C                      REQUIRE _A_TCCR1B
+   \   0000003C                      REQUIRE _A_TIFR1
+   \   0000003C                      REQUIRE _A_TIMSK1
+     47          
+     48          /**
+     49           * @brief ISR for AC compare vector
+     50           *
+     51           * This service routine is executed AC pin edge detection.
+     52           */
+     53          #if 1
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     54          ISR(TIMER1_CAPT_vect)
+   \                     handler_TIMER1_CAPT_vect:
+     55          {
+   \   00000000   921A               ST      -Y, R1
+   \   00000002   920A               ST      -Y, R0
+   \   00000004   937A               ST      -Y, R23
+   \   00000006   936A               ST      -Y, R22
+   \   00000008   935A               ST      -Y, R21
+   \   0000000A   934A               ST      -Y, R20
+   \   0000000C   933A               ST      -Y, R19
+   \   0000000E   932A               ST      -Y, R18
+   \   00000010   931A               ST      -Y, R17
+   \   00000012   930A               ST      -Y, R16
+   \   00000014   B60F               IN      R0, 0x3F
+   \   00000016   B61B               IN      R1, 0x3B
+     56            	uint8_t sreg;
+     57          	uint16_t temp;
+     58          	
+     59          	/* Save global interrupt flag */
+     60          	sreg = SREG;
+   \   00000018   B71F               IN      R17, 0x3F
+   \   0000001A   2F01               MOV     R16, R17
+     61          	/* Disable interrupts */
+     62          	__disable_interrupt();
+   \   0000001C   94F8               CLI
+     63          	
+     64          	
+     65          #if 0
+     66            	if( ACSR & _BV( ACO ) ){
+     67          	  	sio_uart_1_tx("f", 1) ;
+     68            	}
+     69          	else{
+     70          	  	sio_uart_1_tx("r", 1);
+     71          	}
+     72          #else
+     73          	/* auto adding for times int handling . */
+     74          	ac_cap_para.occur++;	
+   \   0000001E   9110....           LDS     R17, ac_cap_para
+   \   00000022   9513               INC     R17
+   \   00000024   9310....           STS     ac_cap_para, R17
+     75          	
+     76          	/* Read ICR1 into current stamp. */
+     77          	temp = ICR1;
+   \   00000028   9140....           LDS     R20, _A_ICR1
+   \   0000002C   9150....           LDS     R21, (_A_ICR1 + 1)
+   \   00000030   019A               MOVW    R19:R18, R21:R20
+     78          	if(temp < ac_cap_para.cur_stamp){
+   \   00000032   9140....           LDS     R20, (ac_cap_para + 3)
+   \   00000036   9150....           LDS     R21, (ac_cap_para + 4)
+   \   0000003A   1724               CP      R18, R20
+   \   0000003C   0735               CPC     R19, R21
+   \   0000003E   F408               BRCC    ??handler_TIMER1_CAPT_vect_0
+     79          		nop();
+   \   00000040   0000               NOP
+     80          	}
+     81          	ac_cap_para.interval = temp - ac_cap_para.cur_stamp;
+   \                     ??handler_TIMER1_CAPT_vect_0:
+   \   00000042   9140....           LDS     R20, (ac_cap_para + 3)
+   \   00000046   9150....           LDS     R21, (ac_cap_para + 4)
+   \   0000004A   01B9               MOVW    R23:R22, R19:R18
+   \   0000004C   1B64               SUB     R22, R20
+   \   0000004E   0B75               SBC     R23, R21
+   \   00000050   9360....           STS     (ac_cap_para + 1), R22
+   \   00000054   9370....           STS     (ac_cap_para + 2), R23
+     82          	ac_cap_para.cur_stamp = temp;
+   \   00000058   9320....           STS     (ac_cap_para + 3), R18
+   \   0000005C   9330....           STS     (ac_cap_para + 4), R19
+     83          #endif
+     84          	/* Restore global interrupt flag */
+     85          	SREG = sreg;
+   \   00000060   BF0F               OUT     0x3F, R16
+     86          }
+   \   00000062   BE1B               OUT     0x3B, R1
+   \   00000064   BE0F               OUT     0x3F, R0
+   \   00000066   9109               LD      R16, Y+
+   \   00000068   9119               LD      R17, Y+
+   \   0000006A   9129               LD      R18, Y+
+   \   0000006C   9139               LD      R19, Y+
+   \   0000006E   9149               LD      R20, Y+
+   \   00000070   9159               LD      R21, Y+
+   \   00000072   9169               LD      R22, Y+
+   \   00000074   9179               LD      R23, Y+
+   \   00000076   9009               LD      R0, Y+
+   \   00000078   9019               LD      R1, Y+
+   \   0000007A   9518               RETI
+   \   0000007C                      REQUIRE _A_SREG
+   \   0000007C                      REQUIRE _A_ICR1
+
+   \                                 In  segment INTVEC, offset 0x40, root
+   \                     `??handler_TIMER1_CAPT_vect??INTVEC 64`:
+   \   00000040   ........           JMP     handler_TIMER1_CAPT_vect
+     87          #else
+     88          ISR(ANALOG_COMP_vect)
+     89          {  	
+     90            	ACSR |=  _BV(ACI);
+     91            	if( ACSR & _BV( ACO ) ){
+     92          	  	printf("f\r\n");
+     93            	}
+     94          	else{
+     95          	  	printf("r\r\n");
+     96          	}
+     97          }
+     98          #endif
+     99          
+    100          
+    101          //eof
+    102          
+
+   Maximum stack usage in bytes:
+
+   CSTACK RSTACK Function
+   ------ ------ --------
+       0      2  ac_init
+                   0 2 -> memset
+      10      2  handler_TIMER1_CAPT_vect
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??handler_TIMER1_CAPT_vect??INTVEC 64
+       1  _A_ACSR
+       1  _A_ADCSRA
+       1  _A_ADCSRB
+       1  _A_ADMUX
+       2  _A_ICR1
+       1  _A_SREG
+       1  _A_TCCR1B
+       1  _A_TIFR1
+       1  _A_TIMSK1
+       5  ac_cap_para
+      60  ac_init
+     124  handler_TIMER1_CAPT_vect
+       7  -- Other
+
+ 
+  10 bytes in segment ABSOLUTE
+ 184 bytes in segment CODE
+   7 bytes in segment INITTAB
+   4 bytes in segment INTVEC
+   5 bytes in segment NEAR_Z
+ 
+ 184 bytes of CODE memory (+ 11 bytes shared)
+   5 bytes of DATA memory (+ 10 bytes shared)
+
+Errors: none
+Warnings: none

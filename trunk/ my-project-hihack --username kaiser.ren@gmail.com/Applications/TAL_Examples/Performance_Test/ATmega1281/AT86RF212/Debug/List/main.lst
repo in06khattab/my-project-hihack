@@ -1,0 +1,396 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR        24/Nov/2012  12:22:59 #
+# Copyright 1996-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Source file  =  D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\main.c                                           #
+#    Command line =  D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\main.c --cpu=m1281 -ms -o                        #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\AT86RF212\Debug\Obj\ -D DEBUG=0 -D FFD -D        #
+#                    HIGH_DATA_RATE_SUPPORT -D ENABLE_TFA -D SIO_HUB -D       #
+#                    UART1 -D TAL_TYPE=AT86RF212 -D PAL_TYPE=ATMEGA1281 -D    #
+#                    PAL_GENERIC_TYPE=AVR -D BOARD_TYPE=ATZB_900_MN2 -D       #
+#                    HIGHEST_STACK_LAYER=PAL -lCN                             #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\AT86RF212\Debug\List\ --remarks -y               #
+#                    --initializers_in_flash --no_cse --no_inline             #
+#                    --no_code_motion --no_cross_call --no_clustering         #
+#                    --no_tbaa --debug -DENABLE_BIT_DEFINITIONS -e -I         #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\Inc\ -I D:\HiJack\Applications\TAL_Examples\P #
+#                    erformance_Test\ATmega1281\ -I                           #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\Helper_Files\SIO_Support\Inc\ -I        #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\..\Include\ -I                          #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\..\TAL\Inc\ -I                          #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\..\TAL\AT86RF212\Inc\ -I                #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\..\TFA\Inc\ -I                          #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\..\PAL\Inc\ -I                          #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\..\PAL\AVR\Generic\Inc\ -I              #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\..\PAL\AVR\ATMEGA1281\Inc\ -I           #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\..\PAL\AVR\ATMEGA1281\Boards\ -I        #
+#                    D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\..\..\..\..\PAL\AVR\ATMEGA1281\Boards\ATZB_900_M #
+#                    N2\ -I D:\HiJack\Applications\TAL_Examples\Performance_T #
+#                    est\ATmega1281\..\..\..\..\Resources\Buffer_Management\I #
+#                    nc\ -I D:\HiJack\Applications\TAL_Examples\Performance_T #
+#                    est\ATmega1281\..\..\..\..\Resources\Queue_Management\In #
+#                    c\ --eeprom_size 4096 --dlib --dlib_config "D:\Program   #
+#                    Files\IAR Systems\Embedded Workbench                     #
+#                    6.0\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h" -On                #
+#    List file    =  D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\AT86RF212\Debug\List\main.lst                    #
+#    Object file  =  D:\HiJack\Applications\TAL_Examples\Performance_Test\ATm #
+#                    ega1281\AT86RF212\Debug\Obj\main.r90                     #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\HiJack\Applications\TAL_Examples\Performance_Test\ATmega1281\main.c
+      1          /**
+      2           * @file main.c
+      3           *
+      4           * @brief  Main of TAL Example - Performance_Test
+      5           *
+      6           * $Id: main.c 22695 2010-07-27 13:13:57Z sschneid $
+      7           *
+      8           * @author    Atmel Corporation: http://www.atmel.com
+      9           * @author    Support email: avr@atmel.com
+     10           */
+     11          /*
+     12           * Copyright (c) 2009, Atmel Corporation All rights reserved.
+     13           *
+     14           * Licensed under Atmel's Limited License Agreement --> EULA.txt
+     15           */
+     16          
+     17          /* === INCLUDES ============================================================ */
+     18          #include "hal.h"
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __intrinsic __nounwind __version_3 int _LocaleC_islower(int)
+   \                     _LocaleC_islower:
+   \   00000000   3601               CPI     R16, 97
+   \   00000002   E020               LDI     R18, 0
+   \   00000004   0712               CPC     R17, R18
+   \   00000006   F034               BRLT    ??_LocaleC_islower_0
+   \   00000008   370B               CPI     R16, 123
+   \   0000000A   E020               LDI     R18, 0
+   \   0000000C   0712               CPC     R17, R18
+   \   0000000E   F414               BRGE    ??_LocaleC_islower_0
+   \   00000010   E001               LDI     R16, 1
+   \   00000012   C001               RJMP    ??_LocaleC_islower_1
+   \                     ??_LocaleC_islower_0:
+   \   00000014   E000               LDI     R16, 0
+   \                     ??_LocaleC_islower_1:
+   \   00000016   E010               LDI     R17, 0
+   \   00000018   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __intrinsic __nounwind __version_3 int _LocaleC_toupper(int)
+   \                     _LocaleC_toupper:
+   \   00000000   939A               ST      -Y, R25
+   \   00000002   938A               ST      -Y, R24
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+   \   00000006   018C               MOVW    R17:R16, R25:R24
+   \   00000008   ........           CALL    _LocaleC_islower
+   \   0000000C   2B01               OR      R16, R17
+   \   0000000E   F019               BREQ    ??_LocaleC_toupper_0
+   \   00000010   9780               SBIW    R25:R24, 32
+   \   00000012   018C               MOVW    R17:R16, R25:R24
+   \   00000014   C001               RJMP    ??_LocaleC_toupper_1
+   \                     ??_LocaleC_toupper_0:
+   \   00000016   018C               MOVW    R17:R16, R25:R24
+   \                     ??_LocaleC_toupper_1:
+   \   00000018   9189               LD      R24, Y+
+   \   0000001A   9199               LD      R25, Y+
+   \   0000001C   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __intrinsic __nounwind __version_3 int toupper(int)
+   \                     toupper:
+   \   00000000   939A               ST      -Y, R25
+   \   00000002   938A               ST      -Y, R24
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+   \   00000006   018C               MOVW    R17:R16, R25:R24
+   \   00000008   ........           CALL    _LocaleC_toupper
+   \   0000000C   9189               LD      R24, Y+
+   \   0000000E   9199               LD      R25, Y+
+   \   00000010   9508               RET
+     19          
+     20          /* === TYPES =============================================================== */
+     21          
+     22          
+     23          /* === MACROS ============================================================== */
+     24          #define VER_MAJOR	0
+     25          #define VER_MINOR 1
+     26          
+     27          
+     28          
+     29          /* === PROTOTYPES ========================================================== */
+     30          static void print_main_menu(void);
+     31          static void get_analog_cmp_freq(void);
+     32          
+     33          /* === GLOBALS ============================================================= */
+     34          #if (PAL_TYPE==ATMEGA1281)
+
+   \                                 In  segment FAR_F, at 0x1dffc, root
+     35          __root __farflash  	uint32_t		Bf_Appflag 	@0x1DFFC = 0xa5a55a5al;
+   \                     Bf_Appflag:
+   \   00000000   5A5AA5A5           DD 2779077210
+     36          #endif
+     37          
+     38          /* === IMPLEMENTATION ====================================================== */
+     39          /**
+     40           * @brief Main function of the Performance_Test application
+     41           */
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     42          int main(void)
+   \                     main:
+     43          {
+     44          	/* initial hal layer. */
+     45             hal_init();
+   \   00000000   ........           CALL    hal_init
+     46          
+     47             /* Initialize LEDs */
+     48             //pal_led_init();
+     49             //pal_led(LED_0, LED_ON);     // indicating application is started
+     50          	
+     51          	printf("-- Welcome to ATmega Test V%d.%02d --\r\n", VER_MAJOR, VER_MINOR);
+   \   00000004   E001               LDI     R16, 1
+   \   00000006   E010               LDI     R17, 0
+   \   00000008   931A               ST      -Y, R17
+   \   0000000A   930A               ST      -Y, R16
+   \   0000000C   E000               LDI     R16, 0
+   \   0000000E   E010               LDI     R17, 0
+   \   00000010   931A               ST      -Y, R17
+   \   00000012   930A               ST      -Y, R16
+   \   00000014   ....               LDI     R16, LOW(`?<Constant "-- Welcome to ATmega ...">`)
+   \   00000016   ....               LDI     R17, (`?<Constant "-- Welcome to ATmega ...">`) >> 8
+   \   00000018   ........           CALL    printf
+   \   0000001C   9624               ADIW    R29:R28, 4
+     52          	printf("-- Build on: "__TIME__" @"__DATE__"\r\n");
+   \   0000001E   ....               LDI     R16, LOW(`?<Constant "-- Build on: 12:22:58...">`)
+   \   00000020   ....               LDI     R17, (`?<Constant "-- Build on: 12:22:58...">`) >> 8
+   \   00000022   ........           CALL    printf
+     53          
+     54          
+     55          	/* Endless while loop */
+     56             while (1)
+     57             {
+     58          		print_main_menu();
+   \                     ??main_0:
+   \   00000026   ....               RCALL   print_main_menu
+   \   00000028   CFFE               RJMP    ??main_0
+     59             }
+     60          }
+     61          
+     62          /*
+     63           * @brief print main menu.
+     64          */
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     65          static void print_main_menu(void)
+   \                     print_main_menu:
+     66          {
+   \   00000000   938A               ST      -Y, R24
+     67            	uint8_t input;
+     68          	//uint8_t sreg;
+     69          	
+     70          	/* Get input from terminal program / user. */
+     71           	input = sio_getchar();
+   \   00000002   ........           CALL    _sio_getchar
+   \   00000006   2F80               MOV     R24, R16
+     72          	
+     73          	/* Save global interrupt flag */
+     74          	//sreg = SREG;
+     75          	
+     76          	/* Disable interrupts */
+     77          	//__disable_interrupt();
+     78          	
+     79             input = toupper(input);
+   \   00000008   2F08               MOV     R16, R24
+   \   0000000A   E010               LDI     R17, 0
+   \   0000000C   ........           CALL    toupper
+   \   00000010   2F80               MOV     R24, R16
+     80          
+     81             /* Handle input from terminal program. */
+     82             switch (input)
+   \   00000012   3486               CPI     R24, 70
+   \   00000014   F409               BRNE    ??print_main_menu_0
+     83             {	
+     84            		case 'F':
+     85                 	get_analog_cmp_freq();
+   \   00000016   ....               RCALL   get_analog_cmp_freq
+     86                   break;
+     87                  //
+     88          	}
+     89          	/* Restore global interrupt flag */
+     90          	//SREG = sreg;
+     91          }
+   \                     ??print_main_menu_0:
+   \   00000018   9189               LD      R24, Y+
+   \   0000001A   9508               RET
+     92          
+     93          /**
+     94           * @brief Sub-menu to get frequency.
+     95           */
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     96          static void get_analog_cmp_freq(void)
+   \                     get_analog_cmp_freq:
+     97          {
+   \   00000000   939A               ST      -Y, R25
+   \   00000002   938A               ST      -Y, R24
+     98            	uint16_t freq;
+     99          	
+    100          	freq = 1000000ul/ac_cap_para.interval/2;
+   \   00000004   9140....           LDS     R20, (ac_cap_para + 1)
+   \   00000008   9150....           LDS     R21, (ac_cap_para + 2)
+   \   0000000C   E060               LDI     R22, 0
+   \   0000000E   E070               LDI     R23, 0
+   \   00000010   E400               LDI     R16, 64
+   \   00000012   E412               LDI     R17, 66
+   \   00000014   E02F               LDI     R18, 15
+   \   00000016   E030               LDI     R19, 0
+   \   00000018   ........           CALL    ?UL_DIVMOD_L03
+   \   0000001C   9536               LSR     R19
+   \   0000001E   9527               ROR     R18
+   \   00000020   9517               ROR     R17
+   \   00000022   9507               ROR     R16
+   \   00000024   01C8               MOVW    R25:R24, R17:R16
+    101          	printf("\r\nFreq:%02d\r\n", freq);
+   \   00000026   939A               ST      -Y, R25
+   \   00000028   938A               ST      -Y, R24
+   \   0000002A   ....               LDI     R16, LOW(`?<Constant "\\r\\nFreq:%02d\\r\\n">`)
+   \   0000002C   ....               LDI     R17, (`?<Constant "\\r\\nFreq:%02d\\r\\n">`) >> 8
+   \   0000002E   ........           CALL    printf
+   \   00000032   9622               ADIW    R29:R28, 2
+    102          }
+   \   00000034   9189               LD      R24, Y+
+   \   00000036   9199               LD      R25, Y+
+   \   00000038   9508               RET
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "-- Welcome to ATm`:
+   \   00000000   2D2D57206C65       DC8 "-- Welcome to ATmega Test V%d.%02d --\015\012"
+   \              6F63656D7420
+   \              206F5441656D
+   \              616754207365
+   \              207425562E64
+   \              302564322D20
+   \              0D2D000A    
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "-- Build on: 12:2`:
+   \   00000000   2D2D42206975       DC8 "-- Build on: 12:22:58 @Nov 24 2012\015\012"
+   \              646C6F203A6E
+   \              31203A323232
+   \              353A20384E40
+   \              766F32202034
+   \              303232310A0D
+   \              00          
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "\\r\\nFreq:%02d\\r\\n`:
+   \   00000000   0A0D72467165       DC8 "\015\012Freq:%02d\015\012"
+   \              253A32300D64
+   \              000A        
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "-- Welcome to ATmega ...">`:
+   \   00000000                      DS8 40
+   \   00000028                      REQUIRE `?<Initializer for <Constant "-- Welcome to ATm`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "-- Build on: 12:22:58...">`:
+   \   00000000                      DS8 37
+   \   00000025                      REQUIRE `?<Initializer for <Constant "-- Build on: 12:2`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "\\r\\nFreq:%02d\\r\\n">`:
+   \   00000000                      DS8 14
+   \   0000000E                      REQUIRE `?<Initializer for <Constant "\\r\\nFreq:%02d\\r\\n`
+    103          
+    104          
+    105          /**
+    106           * @brief Sub-menu to print sensor data
+    107           */
+    108          static void get_sensor_data(void)
+    109          {
+    110              //uint16_t bat_mon;
+    111          
+    112              //bat_mon = tfa_get_batmon_voltage();
+    113              //printf("\r\nBattery monitor: U = %" PRIu16 ".%" PRIu16 " V\r\n", bat_mon/1000, bat_mon%1000);
+    114          }
+    115          
+    116          
+    117          
+    118          /* EOF */
+
+   Maximum stack usage in bytes:
+
+   CSTACK RSTACK Function
+   ------ ------ --------
+       0      2  _LocaleC_islower
+       2      2  _LocaleC_toupper
+                   2 2 -> _LocaleC_islower
+       4      4  get_analog_cmp_freq
+                   4 2 -> printf
+       4      2  main
+                   0 2 -> hal_init
+                   0 2 -> print_main_menu
+                   0 2 -> printf
+                   4 2 -> printf
+       1      2  print_main_menu
+                   1 2 -> _sio_getchar
+                   1 2 -> get_analog_cmp_freq
+                   1 2 -> toupper
+       2      2  toupper
+                   2 2 -> _LocaleC_toupper
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+      37  ?<Constant "-- Build on: 12:22:58...">
+      40  ?<Constant "-- Welcome to ATmega ...">
+      14  ?<Constant "\r\nFreq:%02d\r\n">
+      37  ?<Initializer for <Constant "-- Build on: 12:2
+      40  ?<Initializer for <Constant "-- Welcome to ATm
+      14  ?<Initializer for <Constant "\r\nFreq:%02d\r\n
+       4  Bf_Appflag
+      26  _LocaleC_islower
+      30  _LocaleC_toupper
+      58  get_analog_cmp_freq
+      42  main
+      28  print_main_menu
+      18  toupper
+       7  -- Other
+
+ 
+ 202 bytes in segment CODE
+   4 bytes in segment FAR_F
+   7 bytes in segment INITTAB
+  91 bytes in segment NEAR_I
+  91 bytes in segment NEAR_ID
+ 
+ 219 bytes of CODE memory (+ 85 bytes shared)
+  91 bytes of DATA memory
+
+Errors: none
+Warnings: 1
