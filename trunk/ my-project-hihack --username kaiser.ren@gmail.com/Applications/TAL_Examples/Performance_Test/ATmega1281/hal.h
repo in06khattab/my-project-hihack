@@ -21,7 +21,6 @@
 //#include "tal.h"
 //#include "tfa.h"
 #include "app_config.h"
-//#include "ieee_const.h"
 //#include "bmm.h"
 #include "sio_handler.h"
 #include "pal_uart.h"

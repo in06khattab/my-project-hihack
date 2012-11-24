@@ -2,108 +2,88 @@
 #                                                                              #
 #      IAR Universal Linker V5.2.5.17                                          #
 #                                                                              #
-#           Link time     =  22/Nov/2012  14:42:34                             #
+#           Link time     =  24/Nov/2012  12:39:11                             #
 #           Target CPU    =  A90                                               #
-#           List file     =  D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\List\RM900.map                        #
-#           Output file 1 =  D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Exe\RM900.hex                         #
+#           List file     =  "D:\Firmware\my-project-hihack\trunk\ my-project- #
+#                            hihack --username kaiser.ren@gmail.com\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\ATmega1281\AT86R #
+#                            F212\Release\List\RM900.map"                      #
+#           Output file 1 =  "D:\Firmware\my-project-hihack\trunk\ my-project- #
+#                            hihack --username kaiser.ren@gmail.com\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\ATmega1281\AT86R #
+#                            F212\Release\Exe\RM900.hex"                       #
 #                            Format: intel-extended, variant: -Y2              #
-#           Output file 2 =  D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Exe\RM900.srec                        #
+#           Output file 2 =  "D:\Firmware\my-project-hihack\trunk\ my-project- #
+#                            hihack --username kaiser.ren@gmail.com\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\ATmega1281\AT86R #
+#                            F212\Release\Exe\RM900.srec"                      #
 #                            Format: motorola-s28                              #
-#           Command line  =  D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Obj\bmm.r90                           #
-#                            D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Obj\hal.r90                           #
-#                            D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Obj\main.r90                          #
-#                            D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Obj\pal.r90                           #
-#                            D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Obj\pal_board.r90                     #
-#                            D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Obj\pal_irq.r90                       #
-#                            D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Obj\pal_sio_hub.r90                   #
-#                            D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Obj\pal_timer.r90                     #
-#                            D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Obj\pal_trx_access.r90                #
-#                            D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Obj\pal_uart.r90                      #
-#                            D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Obj\pal_usb_ftdi.r90                  #
-#                            D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Obj\pal_utils.r90                     #
-#                            D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Obj\qmm.r90                           #
-#                            D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Obj\sio_handler.r90                   #
-#                            D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Obj\tal.r90                           #
-#                            D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Obj\tal_ed.r90                        #
-#                            D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Obj\tal_init.r90                      #
-#                            D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Obj\tal_irq_handler.r90               #
-#                            D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Obj\tal_pib.r90                       #
-#                            D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Obj\tal_pwr_mgmt.r90                  #
-#                            D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Obj\tal_rx.r90                        #
-#                            D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Obj\tal_rx_enable.r90                 #
-#                            D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Obj\tal_slotted_csma.r90              #
-#                            D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Obj\tal_tx.r90                        #
-#                            D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Obj\tfa.r90                           #
-#                            D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Obj\timer.r90                         #
-#                            D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Obj\write.r90                         #
+#           Command line  =  "D:\Firmware\my-project-hihack\trunk\ my-project- #
+#                            hihack --username kaiser.ren@gmail.com\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\ATmega1281\AT86R #
+#                            F212\Release\Obj\hal.r90"                         #
+#                            "D:\Firmware\my-project-hihack\trunk\ my-project- #
+#                            hihack --username kaiser.ren@gmail.com\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\ATmega1281\AT86R #
+#                            F212\Release\Obj\main.r90"                        #
+#                            "D:\Firmware\my-project-hihack\trunk\ my-project- #
+#                            hihack --username kaiser.ren@gmail.com\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\ATmega1281\AT86R #
+#                            F212\Release\Obj\pal.r90"                         #
+#                            "D:\Firmware\my-project-hihack\trunk\ my-project- #
+#                            hihack --username kaiser.ren@gmail.com\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\ATmega1281\AT86R #
+#                            F212\Release\Obj\pal_board.r90"                   #
+#                            "D:\Firmware\my-project-hihack\trunk\ my-project- #
+#                            hihack --username kaiser.ren@gmail.com\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\ATmega1281\AT86R #
+#                            F212\Release\Obj\pal_irq.r90"                     #
+#                            "D:\Firmware\my-project-hihack\trunk\ my-project- #
+#                            hihack --username kaiser.ren@gmail.com\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\ATmega1281\AT86R #
+#                            F212\Release\Obj\pal_sio_hub.r90"                 #
+#                            "D:\Firmware\my-project-hihack\trunk\ my-project- #
+#                            hihack --username kaiser.ren@gmail.com\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\ATmega1281\AT86R #
+#                            F212\Release\Obj\pal_timer.r90"                   #
+#                            "D:\Firmware\my-project-hihack\trunk\ my-project- #
+#                            hihack --username kaiser.ren@gmail.com\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\ATmega1281\AT86R #
+#                            F212\Release\Obj\pal_trx_access.r90"              #
+#                            "D:\Firmware\my-project-hihack\trunk\ my-project- #
+#                            hihack --username kaiser.ren@gmail.com\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\ATmega1281\AT86R #
+#                            F212\Release\Obj\pal_uart.r90"                    #
+#                            "D:\Firmware\my-project-hihack\trunk\ my-project- #
+#                            hihack --username kaiser.ren@gmail.com\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\ATmega1281\AT86R #
+#                            F212\Release\Obj\pal_usb_ftdi.r90"                #
+#                            "D:\Firmware\my-project-hihack\trunk\ my-project- #
+#                            hihack --username kaiser.ren@gmail.com\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\ATmega1281\AT86R #
+#                            F212\Release\Obj\pal_utils.r90"                   #
+#                            "D:\Firmware\my-project-hihack\trunk\ my-project- #
+#                            hihack --username kaiser.ren@gmail.com\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\ATmega1281\AT86R #
+#                            F212\Release\Obj\sio_handler.r90"                 #
+#                            "D:\Firmware\my-project-hihack\trunk\ my-project- #
+#                            hihack --username kaiser.ren@gmail.com\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\ATmega1281\AT86R #
+#                            F212\Release\Obj\timer.r90"                       #
+#                            "D:\Firmware\my-project-hihack\trunk\ my-project- #
+#                            hihack --username kaiser.ren@gmail.com\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\ATmega1281\AT86R #
+#                            F212\Release\Obj\write.r90"                       #
 #                            -o                                                #
-#                            D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\Exe\RM900.hex                         #
+#                            "D:\Firmware\my-project-hihack\trunk\ my-project- #
+#                            hihack --username kaiser.ren@gmail.com\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\ATmega1281\AT86R #
+#                            F212\Release\Exe\RM900.hex"                       #
 #                            -Fintel-extended -Y2 -l                           #
-#                            D:\Firmware\RMII\branches\MAC_v_2_5_2\Application #
-#                            s\TAL_Examples\Performance_Test\ATmega1281\AT86RF #
-#                            212\Release\List\RM900.map                        #
+#                            "D:\Firmware\my-project-hihack\trunk\ my-project- #
+#                            hihack --username kaiser.ren@gmail.com\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\ATmega1281\AT86R #
+#                            F212\Release\List\RM900.map"                      #
 #                            -xmsn                                             #
 #                            "-ID:\Program Files\IAR Systems\Embedded Workbenc #
 #                            h 6.0\avr\LIB\"                                   #
@@ -163,9 +143,10 @@
 #                            -D_..X_CSTACK_END=_..X_SRAM_END                   #
 #                            -D_..X_RSTACK_BASE=_..X_SRAM_BASE                 #
 #                            -D_..X_RSTACK_END=_..X_SRAM_END                   #
-#                            -Omotorola-s28=D:\Firmware\RMII\branches\MAC_v_2_ #
-#                            5_2\Applications\TAL_Examples\Performance_Test\AT #
-#                            mega1281\AT86RF212\Release\Exe\RM900.srec         #
+#                            "-Omotorola-s28=D:\Firmware\my-project-hihack\tru #
+#                            nk\ my-project-hihack --username kaiser.ren@gmail #
+#                            .com\Applications\TAL_Examples\Performance_Test\A #
+#                            Tmega1281\AT86RF212\Release\Exe\RM900.srec"       #
 #                            -s __program_start                                #
 #                            "D:\Program Files\IAR Systems\Embedded Workbench  #
 #                            6.0\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.r90"           #
@@ -275,54 +256,7 @@ Absolute parts
            _..X_INTVEC_SIZE        000000CC 
     *************************************************************************
 
-  FILE NAME : D:\Firmware\RMII\branches\MAC_v_2_5_2\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\bmm.r90
-  PROGRAM MODULE, NAME : ?bmm
-
-  SEGMENTS IN THE MODULE
-  ======================
-ABSOLUTE
-  Relative segment, address: DATA 0000001F, align: 0
-  Segment part 1. ROOT.
-           ENTRY                   ADDRESS         REF BY
-           =====                   =======         ======
-           __?EECR                 0000001F 
-    -------------------------------------------------------------------------
-ABSOLUTE
-  Relative segment, address: DATA 00000020, align: 0
-  Segment part 2. ROOT.
-           ENTRY                   ADDRESS         REF BY
-           =====                   =======         ======
-           __?EEDR                 00000020 
-    -------------------------------------------------------------------------
-ABSOLUTE
-  Relative segment, address: DATA 00000021, align: 0
-  Segment part 3. ROOT.
-           ENTRY                   ADDRESS         REF BY
-           =====                   =======         ======
-           __?EEARL                00000021 
-    -------------------------------------------------------------------------
-ABSOLUTE
-  Relative segment, address: DATA 00000022, align: 0
-  Segment part 4. ROOT.
-           ENTRY                   ADDRESS         REF BY
-           =====                   =======         ======
-           __?EEARH                00000022 
-    -------------------------------------------------------------------------
-INITTAB
-  Relative segment, address: CODE 00001EAC - 00001EB2 (0x7 bytes), align: 0
-  Segment part 8.             Intra module refs:   Segment part 10 (?pal_irq)
-                                                   ac_cap_para (?timer)
-                                                   sys_time (?pal)
-                                                   timer_array (?pal_timer)
-                                                   uart_1_buffer (?pal_uart)
-           ENTRY                   ADDRESS         REF BY
-           =====                   =======         ======
-           ?<Segment init: NEAR_Z>
-                                   00001EAC 
-
-    *************************************************************************
-
-  FILE NAME : D:\Firmware\RMII\branches\MAC_v_2_5_2\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\hal.r90
+  FILE NAME : D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\hal.r90
   PROGRAM MODULE, NAME : ?hal
 
   SEGMENTS IN THE MODULE
@@ -365,10 +299,38 @@ CODE
            hal_init                00000104        main (?main)
                calls direct
                RSTACK = 00000000 ( 00000002 )
+    -------------------------------------------------------------------------
+ABSOLUTE
+  Relative segment, address: DATA 0000001F, align: 0
+  Segment part 5. ROOT.
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           __?EECR                 0000001F 
+    -------------------------------------------------------------------------
+ABSOLUTE
+  Relative segment, address: DATA 00000020, align: 0
+  Segment part 6. ROOT.
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           __?EEDR                 00000020 
+    -------------------------------------------------------------------------
+ABSOLUTE
+  Relative segment, address: DATA 00000021, align: 0
+  Segment part 7. ROOT.
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           __?EEARL                00000021 
+    -------------------------------------------------------------------------
+ABSOLUTE
+  Relative segment, address: DATA 00000022, align: 0
+  Segment part 8. ROOT.
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           __?EEARH                00000022 
 
     *************************************************************************
 
-  FILE NAME : D:\Firmware\RMII\branches\MAC_v_2_5_2\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\main.r90
+  FILE NAME : D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\main.r90
   PROGRAM MODULE, NAME : ?main
 
   SEGMENTS IN THE MODULE
@@ -410,17 +372,17 @@ NEAR_ID
   Segment part 9.             Intra module refs:   Segment part 8
     -------------------------------------------------------------------------
 INITTAB
-  Relative segment, address: CODE 00001EB3 - 00001EB9 (0x7 bytes), align: 0
+  Relative segment, address: CODE 00001EAC - 00001EB2 (0x7 bytes), align: 0
   Segment part 10.            Intra module refs:   Segment part 11
                                                    Segment part 3 (?xprintflarge)
                                                    Segment part 6 (?xprintflarge)
                                                    Segment part 8
                                                    Segment part 8 (?xprintflarge)
-                                                   __Constant_0_0 (?tal_init)
+                                                   __Constant_0_0 (?xprintflarge)
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            ?<Segment init: NEAR_I>
-                                   00001EB3 
+                                   00001EAC 
     -------------------------------------------------------------------------
 NEAR_ID
   Relative segment, address: CODE 00001F07 - 00001F14 (0xe bytes), align: 0
@@ -436,7 +398,7 @@ NEAR_I
 
     *************************************************************************
 
-  FILE NAME : D:\Firmware\RMII\branches\MAC_v_2_5_2\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\pal.r90
+  FILE NAME : D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\pal.r90
   PROGRAM MODULE, NAME : ?pal
 
   SEGMENTS IN THE MODULE
@@ -462,10 +424,22 @@ NEAR_Z
            =====                   =======         ======
            sys_time                000004BC        Segment part 52 (?pal_timer)
                                                    prog_ocr (?pal_timer)
+    -------------------------------------------------------------------------
+INITTAB
+  Relative segment, address: CODE 00001EB3 - 00001EB9 (0x7 bytes), align: 0
+  Segment part 14.            Intra module refs:   Segment part 10 (?pal_irq)
+                                                   ac_cap_para (?timer)
+                                                   sys_time
+                                                   timer_array (?pal_timer)
+                                                   uart_1_buffer (?pal_uart)
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           ?<Segment init: NEAR_Z>
+                                   00001EB3 
 
     *************************************************************************
 
-  FILE NAME : D:\Firmware\RMII\branches\MAC_v_2_5_2\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\pal_board.r90
+  FILE NAME : D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\pal_board.r90
   PROGRAM MODULE, NAME : ?pal_board
 
   SEGMENTS IN THE MODULE
@@ -579,7 +553,7 @@ ABSOLUTE
 
     *************************************************************************
 
-  FILE NAME : D:\Firmware\RMII\branches\MAC_v_2_5_2\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\pal_irq.r90
+  FILE NAME : D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\pal_irq.r90
   PROGRAM MODULE, NAME : ?pal_irq
 
   SEGMENTS IN THE MODULE
@@ -624,7 +598,7 @@ INTVEC
 
     *************************************************************************
 
-  FILE NAME : D:\Firmware\RMII\branches\MAC_v_2_5_2\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\pal_sio_hub.r90
+  FILE NAME : D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\pal_sio_hub.r90
   PROGRAM MODULE, NAME : ?pal_sio_hub
 
   SEGMENTS IN THE MODULE
@@ -664,7 +638,7 @@ CODE
 
     *************************************************************************
 
-  FILE NAME : D:\Firmware\RMII\branches\MAC_v_2_5_2\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\pal_timer.r90
+  FILE NAME : D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\pal_timer.r90
   PROGRAM MODULE, NAME : ?pal_timer
 
   SEGMENTS IN THE MODULE
@@ -766,7 +740,7 @@ INTVEC
 
     *************************************************************************
 
-  FILE NAME : D:\Firmware\RMII\branches\MAC_v_2_5_2\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\pal_trx_access.r90
+  FILE NAME : D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\pal_trx_access.r90
   PROGRAM MODULE, NAME : ?pal_trx_access
 
   SEGMENTS IN THE MODULE
@@ -801,7 +775,7 @@ ABSOLUTE
 
     *************************************************************************
 
-  FILE NAME : D:\Firmware\RMII\branches\MAC_v_2_5_2\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\pal_uart.r90
+  FILE NAME : D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\pal_uart.r90
   PROGRAM MODULE, NAME : ?pal_uart
 
   SEGMENTS IN THE MODULE
@@ -930,16 +904,13 @@ INTVEC
 
     *************************************************************************
 
-  FILE NAME : D:\Firmware\RMII\branches\MAC_v_2_5_2\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\pal_usb_ftdi.r90
+  FILE NAME : D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\pal_usb_ftdi.r90
     *************************************************************************
 
-  FILE NAME : D:\Firmware\RMII\branches\MAC_v_2_5_2\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\pal_utils.r90
+  FILE NAME : D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\pal_utils.r90
     *************************************************************************
 
-  FILE NAME : D:\Firmware\RMII\branches\MAC_v_2_5_2\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\qmm.r90
-    *************************************************************************
-
-  FILE NAME : D:\Firmware\RMII\branches\MAC_v_2_5_2\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\sio_handler.r90
+  FILE NAME : D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\sio_handler.r90
   PROGRAM MODULE, NAME : ?sio_handler
 
   SEGMENTS IN THE MODULE
@@ -978,64 +949,7 @@ CODE
 
     *************************************************************************
 
-  FILE NAME : D:\Firmware\RMII\branches\MAC_v_2_5_2\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\tal.r90
-    *************************************************************************
-
-  FILE NAME : D:\Firmware\RMII\branches\MAC_v_2_5_2\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\tal_ed.r90
-    *************************************************************************
-
-  FILE NAME : D:\Firmware\RMII\branches\MAC_v_2_5_2\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\tal_init.r90
-  PROGRAM MODULE, NAME : ?tal_init
-
-  SEGMENTS IN THE MODULE
-  ======================
-ABSOLUTE
-  Relative segment, address: DATA 00000022 - 00000022 (0x1 bytes), align: 0
-  Segment part 4. ROOT.
-           ENTRY                   ADDRESS         REF BY
-           =====                   =======         ======
-           _A_PORTA                00000022 
-    -------------------------------------------------------------------------
-NEAR_ID
-  Relative segment, address: CODE 00001F15 - 00001F1C (0x8 bytes), align: 0
-  Segment part 11.            Intra module refs:   __Constant_0_0
-    -------------------------------------------------------------------------
-NEAR_I
-  Relative segment, address: DATA 0000049B - 000004A2 (0x8 bytes), align: 0
-  Segment part 12.            Intra module refs:   Segment part 66 (?xprintflarge)
-                                                   _LitobLarge (?xprintflarge)
-                                                   _PrintfLarge (?xprintflarge)
-           ENTRY                   ADDRESS         REF BY
-           =====                   =======         ======
-           __Constant_0_0          0000049B 
-
-    *************************************************************************
-
-  FILE NAME : D:\Firmware\RMII\branches\MAC_v_2_5_2\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\tal_irq_handler.r90
-    *************************************************************************
-
-  FILE NAME : D:\Firmware\RMII\branches\MAC_v_2_5_2\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\tal_pib.r90
-    *************************************************************************
-
-  FILE NAME : D:\Firmware\RMII\branches\MAC_v_2_5_2\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\tal_pwr_mgmt.r90
-    *************************************************************************
-
-  FILE NAME : D:\Firmware\RMII\branches\MAC_v_2_5_2\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\tal_rx.r90
-    *************************************************************************
-
-  FILE NAME : D:\Firmware\RMII\branches\MAC_v_2_5_2\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\tal_rx_enable.r90
-    *************************************************************************
-
-  FILE NAME : D:\Firmware\RMII\branches\MAC_v_2_5_2\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\tal_slotted_csma.r90
-    *************************************************************************
-
-  FILE NAME : D:\Firmware\RMII\branches\MAC_v_2_5_2\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\tal_tx.r90
-    *************************************************************************
-
-  FILE NAME : D:\Firmware\RMII\branches\MAC_v_2_5_2\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\tfa.r90
-    *************************************************************************
-
-  FILE NAME : D:\Firmware\RMII\branches\MAC_v_2_5_2\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\timer.r90
+  FILE NAME : D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\timer.r90
   PROGRAM MODULE, NAME : ?timer
 
   SEGMENTS IN THE MODULE
@@ -1106,7 +1020,7 @@ INTVEC
 
     *************************************************************************
 
-  FILE NAME : D:\Firmware\RMII\branches\MAC_v_2_5_2\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\write.r90
+  FILE NAME : D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\Applications\TAL_Examples\Performance_Test\ATmega1281\AT86RF212\Release\Obj\write.r90
   PROGRAM MODULE, NAME : ?__write
 
   SEGMENTS IN THE MODULE
@@ -1183,7 +1097,7 @@ CODE
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            ?need_segment_init      0000068E        ?<Segment init: NEAR_I> (?main)
-                                                   ?<Segment init: NEAR_Z> (?bmm)
+                                                   ?<Segment init: NEAR_Z> (?pal)
     -------------------------------------------------------------------------
 CODE
   Relative segment, address: CODE 00000696 - 000006A1 (0xc bytes), align: 1
@@ -2696,32 +2610,45 @@ CODE
                RSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 NEAR_ID
-  Relative segment, address: CODE 00001F1D - 00001F23 (0x7 bytes), align: 0
+  Relative segment, address: CODE 00001F15 - 00001F1B (0x7 bytes), align: 0
   Segment part 4.             Intra module refs:   Segment part 3
     -------------------------------------------------------------------------
 NEAR_ID
-  Relative segment, address: CODE 00001F24 - 00001F33 (0x10 bytes), align: 0
+  Relative segment, address: CODE 00001F1C - 00001F2B (0x10 bytes), align: 0
   Segment part 7.             Intra module refs:   Segment part 6
     -------------------------------------------------------------------------
 NEAR_ID
-  Relative segment, address: CODE 00001F34 - 00001F35 (0x2 bytes), align: 0
+  Relative segment, address: CODE 00001F2C - 00001F2D (0x2 bytes), align: 0
   Segment part 9.             Intra module refs:   Segment part 8
+    -------------------------------------------------------------------------
+NEAR_ID
+  Relative segment, address: CODE 00001F2E - 00001F35 (0x8 bytes), align: 0
+  Segment part 10.            Intra module refs:   __Constant_0_0
     -------------------------------------------------------------------------
 SWITCH
   Relative segment, address: CODE 000000CC - 00000103 (0x38 bytes), align: 1
   Segment part 108.           Intra module refs:   _PrintfLarge
     -------------------------------------------------------------------------
 NEAR_I
-  Relative segment, address: DATA 000004A3 - 000004A9 (0x7 bytes), align: 0
+  Relative segment, address: DATA 0000049B - 000004A1 (0x7 bytes), align: 0
   Segment part 3.             Intra module refs:   _PrintfLarge
     -------------------------------------------------------------------------
 NEAR_I
-  Relative segment, address: DATA 000004AA - 000004B9 (0x10 bytes), align: 0
+  Relative segment, address: DATA 000004A2 - 000004B1 (0x10 bytes), align: 0
   Segment part 6.             Intra module refs:   _LdtobLarge
     -------------------------------------------------------------------------
 NEAR_I
-  Relative segment, address: DATA 000004BA - 000004BB (0x2 bytes), align: 0
+  Relative segment, address: DATA 000004B2 - 000004B3 (0x2 bytes), align: 0
   Segment part 8.             Intra module refs:   _GenldLarge
+    -------------------------------------------------------------------------
+NEAR_I
+  Relative segment, address: DATA 000004B4 - 000004BB (0x8 bytes), align: 0
+  Segment part 11.            Intra module refs:   Segment part 66
+                                                   _LitobLarge
+                                                   _PrintfLarge
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           __Constant_0_0          000004B4 
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?xprout
@@ -2799,8 +2726,6 @@ Module                  CODE          DATA
 ?__exit                 2
 ?__write               76
 ?_exit                  4
-?bmm
-  + shared              7
 ?div                   36
 ?exit                   4
 ?hal                   56
@@ -2812,17 +2737,15 @@ Module                  CODE          DATA
 ?memcpy                26
 ?memset                18
 ?pal                                  2
-  + shared                                   2
+  + shared              7                    2
 ?pal_board                                  10
   + shared                                   7
-?pal_irq               84             2      1
-  + shared             28                    1
-  + common
+?pal_irq               84             2      2
+  + common             28
 ?pal_sio_hub           68
 ?pal_timer            300            23      2
   + common             84
-?pal_trx_access                              3
-  + shared                                   1
+?pal_trx_access                              4
 ?pal_uart             468            26      6
   + common            156
 ?printf                32
@@ -2831,19 +2754,17 @@ Module                  CODE          DATA
 ?sio_handler           74
 ?strchr                20
 ?strlen                20
-?tal_init               8                    1
-  + shared                            8
 ?timer                158             5      4
   + common             68
 ?xV_SWITCH_L06        156
 ?xdnorm                94
 ?xdunscal             120
-?xprintflarge       3 713            25
+?xprintflarge       3 721            33
 ?xprout                36
 N/A (command line)                  576
 N/A (alignment)
 ----------          -----      -    ---     --
-Total:              7 834      4    758     42
+Total:              7 834      4    758     41
   + common            156
 
 
@@ -2896,7 +2817,7 @@ NEAR_Z               DATA          000004BC - 000004F5          3A   rel    0
                 ****************************************
 
  7 942 bytes of CODE memory (+  4 absolute, 48 range fill )
-   758 bytes of DATA memory (+ 42 absolute  )
+   758 bytes of DATA memory (+ 41 absolute  )
 
 Errors: none
 Warnings: none
