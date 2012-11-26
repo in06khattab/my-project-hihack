@@ -18,6 +18,7 @@
 #define	PWM_TMR0_CLK_SRC_BIT_DEF ( _BV(CS01) | _BV(CS00) )
 #define 	PWM_TMR0_CMP_OUT_FREQ (500ul)
 #define 	PWM_TMR0_CMP_OUT_OCRA(freq, cpu, prescale) (cpu/freq/prescale/2)
+#define 	PWM_TMR0_CMP_OUT_PULSE_CNT 16
 
 /* === Types =============================================================== */
 typedef struct ac_cap_tag
@@ -27,8 +28,15 @@ typedef struct ac_cap_tag
 	uint16_t cur_stamp;
 }ac_cap_t;
 
+typedef struct pwm_out_tag
+{
+  	uint8_t toggle_cnt;
+	uint8_t data;
+}pwm_out_t;
+
 /* === EXTERNALS =========================================================== */
 extern ac_cap_t ac_cap_para;
+extern pwm_out_t pwm_para;
 
 /* === PROTOTYPES ========================================================== */
 void ac_init(void);

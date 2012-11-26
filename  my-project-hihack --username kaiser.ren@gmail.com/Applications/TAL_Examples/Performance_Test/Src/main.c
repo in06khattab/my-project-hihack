@@ -29,6 +29,7 @@
 /* === PROTOTYPES ========================================================== */
 static void print_main_menu(void);
 static void get_analog_cmp_freq(void);
+void data_moduler(uint8_t data);
 
 /* === GLOBALS ============================================================= */
 #if (PAL_TYPE==ATMEGA1281)
@@ -90,12 +91,27 @@ static void print_main_menu(void)
 		  	pwm_set_freq(2000);
 			break;
 			//
+		case 'M':
+	  		data_moduler(0x5a);
+			break;
+			//
 		default:
 	  		break;
 			//
 	}
 	/* Restore global interrupt flag */
 	//SREG = sreg;
+}
+
+void data_moduler(uint8_t data)
+{
+  	int8_t i;
+	
+	pwm_para.data = data;
+	for(i = 7; i >= 0; i--){
+	  	pwm_set_freq( ( (pwm_para.data >> i) & 0x01) * 1000 + 1000 );
+	  	while(pwm_para.toggle_cnt);
+	}
 }
 
 /**
@@ -106,7 +122,7 @@ static void get_analog_cmp_freq(void)
   	uint16_t freq;
 	
 	freq = 1000000ul/ac_cap_para.interval/2;
-	printf("\r\nFreq:%d\r\n", freq);
+	printf("\r\nFreq:%u\r\n", freq);
 }
 
 

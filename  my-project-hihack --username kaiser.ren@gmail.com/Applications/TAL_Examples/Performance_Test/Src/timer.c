@@ -18,6 +18,8 @@ ac_cap_t ac_cap_para = {.occur = 0,
 								.interval = 0,
 								.cur_stamp = 0};
 
+pwm_out_t pwm_para;
+
 /* === Implementation ====================================================== */
 /**
  * @brief Initialization for AC compare vector
@@ -58,17 +60,7 @@ void pwm_init(void)
   	/* toggle OC0A output when match, CTC mode */
 	TCCR0A = _BV(COM0A0) | _BV(WGM01);
 	
-	/* MCK/64 . */
-	//TCCR0B = PWM_TMR0_CLK_SRC_BIT_DEF;
-	
-	/*
-	 * Set CTC OCR2A to generate 5000Hz wave.
-	 * 4M/8/5000Hz = 100 tick.
-	*/
-	//OCR0A = PWM_TMR0_CMP_OUT_OCRA(freq, F_CPU, PWM_TMR0_CLK_SRC_PRE_SCALE) ;
-	
 	/* make PB7, OC0A, to output wave. */
-	//PORTB &= ~_BV(PORTB7);
 	DDRB |= _BV(DDB7);
 	
 	/* initial IE reg. */
@@ -82,6 +74,9 @@ void pwm_init(void)
  */
 void pwm_set_freq(uint16_t freq)
 {
+  	/* pwm pulse output count. */
+  	pwm_para.toggle_cnt = PWM_TMR0_CMP_OUT_PULSE_CNT;
+	
   	/* MCK/64 . */
 	TCCR0B = PWM_TMR0_CLK_SRC_BIT_DEF;
 	
@@ -98,7 +93,6 @@ void pwm_uninit(void)
 {
 	/* no clock source provided. */
 	TCCR0B = 0;
-	//PORTB &= ~_BV(PORTB7);
 }
 
 /**
@@ -108,7 +102,9 @@ void pwm_uninit(void)
  */
 ISR(TIMER0_COMPA_vect)
 {
-  	nop();
+  	pwm_para.toggle_cnt--;
+	if(!pwm_para.toggle_cnt)
+		pwm_uninit();  	
 }
 
 /**
