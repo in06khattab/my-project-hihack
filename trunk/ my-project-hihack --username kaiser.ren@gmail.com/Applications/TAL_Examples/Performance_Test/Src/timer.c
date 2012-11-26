@@ -55,24 +55,24 @@ void ac_init(void)
  */
 void pwm_init(void)
 {
-  	/* toggle OC2A output when match, CTC mode */
-	TCCR2A = _BV(COM2A0) | _BV(WGM21);
+  	/* toggle OC0A output when match, CTC mode */
+	TCCR0A = _BV(COM0A0) | _BV(WGM01);
 	
 	/* MCK/8 . */
-	TCCR2B = _BV(CS21);
+	TCCR0B = _BV(CS01);
 	
 	/*
 	 * Set CTC OCR2A to generate 5000Hz wave.
 	 * 4M/8/5000Hz = 100 tick.
 	*/
-	OCR2A = 100;
+	OCR0A = 100;
 	
-	/* make PB4, OC2A, to output wave. */
-	DDRB |= _BV(DDB4);
+	/* make PB7, OC0A, to output wave. */
+	DDRB |= _BV(DDB7);
 	
 	/* initial IE reg. */
-	TIFR2 = _BV(OCF2A);
-	TIMSK2 = _BV(OCIE2A);
+	TIFR0 = _BV(OCF0A);
+	TIMSK0 = _BV(OCIE0A);
 }
 
 /**
