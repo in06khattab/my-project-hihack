@@ -22,7 +22,7 @@
 
 /* === MACROS ============================================================== */
 #define VER_MAJOR	0
-#define VER_MINOR 2
+#define VER_MINOR 3
 
 
 
@@ -44,8 +44,9 @@ int main(void)
 	/* initial hal layer. */
    hal_init();
 	
-	printf("-- Welcome to ATmega Test V%d.%02d --\r\n", VER_MAJOR, VER_MINOR);
+	printf("\r\n-- Welcome to ATmega Test V%d.%02d --\r\n", VER_MAJOR, VER_MINOR);
 	printf("-- Build on: "__TIME__" @"__DATE__"\r\n");
+	printf("-- F_CPU: %lu\r\n", F_CPU);
 
 	/* Endless while loop */
    while (1)
@@ -78,15 +79,15 @@ static void print_main_menu(void)
 		  	break;
 			//
 		case 'E':
-		  	pwm_init(PWM_TMR0_CMP_OUT_FREQ);
+		  	pwm_set_freq(PWM_TMR0_CMP_OUT_FREQ);
 			break;
 			//
 		case '1':
-		  	pwm_init(1000);
+		  	pwm_set_freq(1000);
 			break;
 			//	
 		case '2':
-		  	pwm_init(2000);
+		  	pwm_set_freq(2000);
 			break;
 			//
 		default:

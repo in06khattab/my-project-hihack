@@ -118,7 +118,7 @@ void hal_init(void)
 	/*
 		initial TMR2 to generate waveform.
 	*/
-	pwm_init(PWM_TMR0_CMP_OUT_FREQ);
+	pwm_init();
 	
 	/* Initialize the serial interface used for communication with terminal program */
     pal_sio_init(SIO_CHANNEL);

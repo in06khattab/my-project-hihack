@@ -53,27 +53,41 @@ void ac_init(void)
  * @brief Initialization for TMR0 CTC mode
  *
  */
-void pwm_init(uint16_t freq)
+void pwm_init(void)
 {
   	/* toggle OC0A output when match, CTC mode */
 	TCCR0A = _BV(COM0A0) | _BV(WGM01);
 	
 	/* MCK/64 . */
-	TCCR0B = PWM_TMR0_CLK_SRC_BIT_DEF;
+	//TCCR0B = PWM_TMR0_CLK_SRC_BIT_DEF;
 	
 	/*
 	 * Set CTC OCR2A to generate 5000Hz wave.
 	 * 4M/8/5000Hz = 100 tick.
 	*/
-	OCR0A = PWM_TMR0_CMP_OUT_OCRA(freq, F_CPU, PWM_TMR0_CLK_SRC_PRE_SCALE) ;
-	 // F_CPU/PWM_TMR0_CLK_SRC_PRE_SCALE/PWM_TMR0_CMP_OUT_FREQ;
+	//OCR0A = PWM_TMR0_CMP_OUT_OCRA(freq, F_CPU, PWM_TMR0_CLK_SRC_PRE_SCALE) ;
 	
 	/* make PB7, OC0A, to output wave. */
+	//PORTB &= ~_BV(PORTB7);
 	DDRB |= _BV(DDB7);
 	
 	/* initial IE reg. */
 	TIFR0 = _BV(OCF0A);
 	TIMSK0 = _BV(OCIE0A);
+}
+
+/**
+ * @brief Set PWM frequency.
+ *
+ */
+void pwm_set_freq(uint16_t freq)
+{
+  	/* MCK/64 . */
+	TCCR0B = PWM_TMR0_CLK_SRC_BIT_DEF;
+	
+	/* Set compare reg for output. */
+	OCR0A = PWM_TMR0_CMP_OUT_OCRA(freq, F_CPU, PWM_TMR0_CLK_SRC_PRE_SCALE) ;
+  	
 }
 
 /**
@@ -84,11 +98,7 @@ void pwm_uninit(void)
 {
 	/* no clock source provided. */
 	TCCR0B = 0;
-	
-	/* initial IE reg. */
-	TIFR0 = _BV(OCF0A);
-	TIMSK0 = 0;
-
+	//PORTB &= ~_BV(PORTB7);
 }
 
 /**
