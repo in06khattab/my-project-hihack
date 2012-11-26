@@ -22,7 +22,7 @@
 
 /* === MACROS ============================================================== */
 #define VER_MAJOR	0
-#define VER_MINOR 1
+#define VER_MINOR 2
 
 
 
@@ -43,14 +43,9 @@ int main(void)
 {
 	/* initial hal layer. */
    hal_init();
-
-   /* Initialize LEDs */
-   //pal_led_init();
-   //pal_led(LED_0, LED_ON);     // indicating application is started
 	
 	printf("-- Welcome to ATmega Test V%d.%02d --\r\n", VER_MAJOR, VER_MINOR);
 	printf("-- Build on: "__TIME__" @"__DATE__"\r\n");
-
 
 	/* Endless while loop */
    while (1)
@@ -69,13 +64,6 @@ static void print_main_menu(void)
 	
 	/* Get input from terminal program / user. */
  	input = sio_getchar();
-	
-	/* Save global interrupt flag */
-	//sreg = SREG;
-	
-	/* Disable interrupts */
-	//__disable_interrupt();
-	
    input = toupper(input);
 
    /* Handle input from terminal program. */
@@ -85,6 +73,25 @@ static void print_main_menu(void)
        	get_analog_cmp_freq();
          break;
         //
+		case 'C':
+	  		pwm_uninit();
+		  	break;
+			//
+		case 'E':
+		  	pwm_init(PWM_TMR0_CMP_OUT_FREQ);
+			break;
+			//
+		case '1':
+		  	pwm_init(1000);
+			break;
+			//	
+		case '2':
+		  	pwm_init(2000);
+			break;
+			//
+		default:
+	  		break;
+			//
 	}
 	/* Restore global interrupt flag */
 	//SREG = sreg;
