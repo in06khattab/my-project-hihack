@@ -43,6 +43,7 @@ void state_switch(void)
 				mod.state = Sta0;
 				mod.factor = Div2;
 				mod.data = us1_get_char();
+				index_sample = 0;
 			}
 			break;
 			//

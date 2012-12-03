@@ -383,8 +383,14 @@ void SysTick_Handler( void )
     //if ( (status & DACC_ISR_EOC) == DACC_ISR_EOC )
     {
 		if ( 0 == ( ticker%mod.factor) ){
-			value = cosine_data[index_sample++] * amplitude / (MAX_DIGITAL/2) + MAX_DIGITAL/2;
-        	DACC_SetConversionData(DACC, value ) ;
+		  	if( Waiting != mod.state){
+		  	 	value = sine_data[index_sample++] * amplitude / (MAX_DIGITAL/2) + MAX_DIGITAL/2;
+        		DACC_SetConversionData(DACC, value ) ;
+			}
+			else{
+				index_sample++;
+				DACC_SetConversionData( DACC,sine_data[0]*amplitude/(MAX_DIGITAL/2)+MAX_DIGITAL/2);
+			}
 		}
 		ticker++;
 		
@@ -421,7 +427,7 @@ void TC0_IrqHandler( void )
     {
 		  ticker++;
 		if ( 0 == ( ticker%mod.factor) ){
-			value = cosine_data[index_sample++] * amplitude / (MAX_DIGITAL/2) + MAX_DIGITAL/2;
+			value = sine_data[index_sample++] * amplitude / (MAX_DIGITAL/2) + MAX_DIGITAL/2;
         	DACC_SetConversionData(DACC, value ) ;
 		}
 		
@@ -514,7 +520,7 @@ extern int main( void )
     DACC_EnableChannel( DACC, DACC_channel_sine ) ;
 
     /*initialize the DACC_CDR*/
-    DACC_SetConversionData( DACC,sine_data[index_sample]*amplitude/(MAX_DIGITAL/2)+MAX_DIGITAL/2);
+    DACC_SetConversionData( DACC,sine_data[0]*amplitude/(MAX_DIGITAL/2)+MAX_DIGITAL/2);
 
 	 /* start tc0. */
 	 //_ConfigureTc0( 1000 );
@@ -573,20 +579,6 @@ extern int main( void )
             case 'M' :
                 _DisplayMenuChoices() ;
             break ;
-				
-		  	case 'C':
-		  	case 'c':
-			  	//pWave = (int16_t*)cosine_data;
-				//_ConfigureTc0( 1000 );
-				//TC_Start( TC0, 0 ) ;
-			 	break;
-				
-			case 'S':
-		  	case 's':
-			  	//pWave = (int16_t*)sine_data;
-				//_ConfigureTc0( 500 );
-				//TC_Start( TC0, 0 ) ;
-			 	break;
 				
 			case 'G':
 			case 'g':

@@ -663,10 +663,6 @@
         <loadFlag>0</loadFlag>
       </plugin>
       <plugin>
-        <file>$TOOLKIT_DIR$\plugins\rtos\Quadros\Quadros_EWB5_Plugin.ewplugin</file>
-        <loadFlag>0</loadFlag>
-      </plugin>
-      <plugin>
         <file>$TOOLKIT_DIR$\plugins\rtos\ThreadX\ThreadXArmPlugin.ENU.ewplugin</file>
         <loadFlag>0</loadFlag>
       </plugin>
@@ -731,7 +727,7 @@
         </option>
         <option>
           <name>MacOverride</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>MacFile</name>
@@ -743,7 +739,7 @@
         </option>
         <option>
           <name>MemFile</name>
-          <state>$TOOLKIT_DIR$\CONFIG\debugger\Atmel\iosam3s4.ddf</state>
+          <state>$TOOLKIT_DIR$\CONFIG\debugger\Atmel\iosam3s.ddf</state>
         </option>
         <option>
           <name>RunToEnable</name>
@@ -787,7 +783,7 @@
         </option>
         <option>
           <name>OCLastSavedByProductVersion</name>
-          <state>5.41.2.51798</state>
+          <state>5.41.0.51757</state>
         </option>
         <option>
           <name>OCDownloadAttachToProgram</name>
@@ -1358,10 +1354,6 @@
       </plugin>
       <plugin>
         <file>$TOOLKIT_DIR$\plugins\rtos\PowerPac\PowerPacRTOS.ewplugin</file>
-        <loadFlag>0</loadFlag>
-      </plugin>
-      <plugin>
-        <file>$TOOLKIT_DIR$\plugins\rtos\Quadros\Quadros_EWB5_Plugin.ewplugin</file>
         <loadFlag>0</loadFlag>
       </plugin>
       <plugin>
