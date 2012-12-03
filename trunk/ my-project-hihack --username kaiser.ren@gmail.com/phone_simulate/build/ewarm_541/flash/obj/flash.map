@@ -1,29 +1,36 @@
 ###############################################################################
 #                                                                             #
-# IAR ELF Linker V5.41.0.51741/W32 for ARM              03/Dec/2012  12:46:47 #
+# IAR ELF Linker V5.41.0.51741/W32 for ARM              03/Dec/2012  13:26:38 #
 # Copyright (C) 2007-2009 IAR Systems AB.                                     #
 #                                                                             #
-#    Output file  =  D:\Firmware\RMII\branches\at91sam3s-ek\examples\phone_si #
-#                    mulate\build\ewarm_541\flash\bin\flash.out               #
-#    Map file     =  D:\Firmware\RMII\branches\at91sam3s-ek\examples\phone_si #
-#                    mulate\build\ewarm_541\flash\obj\flash.map               #
-#    Command line =  D:\Firmware\RMII\branches\at91sam3s-ek\examples\phone_si #
-#                    mulate\build\ewarm_541\flash\obj\main.o                  #
-#                    D:\Firmware\RMII\branches\at91sam3s-ek\examples\phone_si #
-#                    mulate\build\ewarm_541\flash\obj\modular.o               #
-#                    D:\Firmware\RMII\branches\at91sam3s-ek\libraries\libboar #
-#                    d_sam3s-ek\lib\libboard_sam3s_ek_ewarm_dbg.a             #
-#                    D:\Firmware\RMII\branches\at91sam3s-ek\libraries\libchip #
-#                    _sam3s\lib\libchip_sam3s4_ewarm_dbg.a --redirect         #
+#    Output file  =  D:\Firmware\my-project-hihack\trunk\ my-project-hihack   #
+#                    --username kaiser.ren@gmail.com\phone_simulate\build\ewa #
+#                    rm_541\flash\bin\flash.out                               #
+#    Map file     =  D:\Firmware\my-project-hihack\trunk\ my-project-hihack   #
+#                    --username kaiser.ren@gmail.com\phone_simulate\build\ewa #
+#                    rm_541\flash\obj\flash.map                               #
+#    Command line =  "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
+#                    --username kaiser.ren@gmail.com\phone_simulate\build\ewa #
+#                    rm_541\flash\obj\main.o" "D:\Firmware\my-project-hihack\ #
+#                    trunk\ my-project-hihack --username                      #
+#                    kaiser.ren@gmail.com\phone_simulate\build\ewarm_541\flas #
+#                    h\obj\modular.o" "D:\Firmware\my-project-hihack\trunk\   #
+#                    my-project-hihack --username                             #
+#                    kaiser.ren@gmail.com\phone_simulate\libboard_sam3s-ek\li #
+#                    b\libboard_sam3s_ek_ewarm_dbg.a"                         #
+#                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
+#                    --username kaiser.ren@gmail.com\phone_simulate\libchip_s #
+#                    am3s\lib\libchip_sam3s4_ewarm_dbg.a" --redirect          #
 #                    _Printf=_PrintfSmall --redirect _Scanf=_ScanfSmall -o    #
-#                    D:\Firmware\RMII\branches\at91sam3s-ek\examples\phone_si #
-#                    mulate\build\ewarm_541\flash\bin\flash.out --map         #
-#                    D:\Firmware\RMII\branches\at91sam3s-ek\examples\phone_si #
-#                    mulate\build\ewarm_541\flash\obj\flash.map --config      #
-#                    D:\Firmware\RMII\branches\at91sam3s-ek\examples\phone_si #
-#                    mulate\build\ewarm_541/../../../../libraries/libboard_sa #
-#                    m3s-ek/resources/ewarm/sam3s4/flash.icf --remarks        #
-#                    --entry __iar_program_start                              #
+#                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
+#                    --username kaiser.ren@gmail.com\phone_simulate\build\ewa #
+#                    rm_541\flash\bin\flash.out" --map                        #
+#                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
+#                    --username kaiser.ren@gmail.com\phone_simulate\build\ewa #
+#                    rm_541\flash\obj\flash.map" --config                     #
+#                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
+#                    --username kaiser.ren@gmail.com\phone_simulate\build\ewa #
+#                    rm_541/flash.icf" --remarks --entry __iar_program_start  #
 #                                                                             #
 #                                                                             #
 ###############################################################################
@@ -139,7 +146,7 @@ Zero (__iar_zero_init2)
 
     Module                ro code  ro data  rw data
     ------                -------  -------  -------
-D:\Firmware\RMII\branches\at91sam3s-ek\examples\phone_simulate\build\ewarm_541\flash\obj: [1]
+D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\phone_simulate\build\ewarm_541\flash\obj: [1]
     main.o                  1 480    1 008       31
     modular.o                 412                 4
     -----------------------------------------------
@@ -320,7 +327,7 @@ us1_get_char            0x004002e9   0x46  Code  Gb  main.o [1]
 us1_get_count           0x004002e1    0x8  Code  Gb  main.o [1]
 
 
-[1] = D:\Firmware\RMII\branches\at91sam3s-ek\examples\phone_simulate\build\ewarm_541\flash\obj
+[1] = D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\phone_simulate\build\ewarm_541\flash\obj
 [2] = command line
 [3] = dl7M_tl_in.a
 [4] = libboard_sam3s_ek_ewarm_dbg.a
