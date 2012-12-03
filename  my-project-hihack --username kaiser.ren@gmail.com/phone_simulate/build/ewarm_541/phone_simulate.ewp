@@ -1075,9 +1075,14 @@
         </option>
         <option>
           <name>CCIncludePath2</name>
-          <state>$PROJ_DIR$/../../../../libraries</state>
-          <state>$PROJ_DIR$/../../../../libraries/libboard_sam3s-ek</state>
-          <state>$PROJ_DIR$/../../../../libraries/libchip_sam3s</state>
+          <state>$PROJ_DIR$/../../libboard_sam3s-ek</state>
+          <state>$PROJ_DIR$/../../libchip_sam3s</state>
+          <state>$PROJ_DIR$/../../libboard_sam3s-ek/include</state>
+          <state>$PROJ_DIR$/../../libboard_sam3s-ek/resource</state>
+          <state>$PROJ_DIR$/../../libchip_sam3s/cmsis</state>
+          <state>$PROJ_DIR$/../../libchip_sam3s/include</state>
+          <state>$PROJ_DIR$/../../libchip_sam3s/source</state>
+          <state>$PROJ_DIR$/../../libboard_sam3s-ek/source</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1428,7 +1433,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>$PROJ_DIR$/../../../../libraries/libboard_sam3s-ek/resources/ewarm/sam3s4/flash.icf</state>
+          <state>$PROJ_DIR$/flash.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -1593,19 +1598,19 @@
   <group>
     <name>libraries</name>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\libraries\libboard_sam3s-ek\lib\libboard_sam3s_ek_ewarm_dbg.a</name>
+      <name>$PROJ_DIR$\..\..\libboard_sam3s-ek\lib\libboard_sam3s_ek_ewarm_dbg.a</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\libraries\libchip_sam3s\lib\libchip_sam3s4_ewarm_dbg.a</name>
+      <name>$PROJ_DIR$\..\..\libchip_sam3s\lib\libchip_sam3s4_ewarm_dbg.a</name>
     </file>
   </group>
   <group>
     <name>resources</name>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\libraries\libboard_sam3s-ek\resources\ewarm\sam3s4\flash.icf</name>
+      <name>$PROJ_DIR$\flash.icf</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\libraries\libboard_sam3s-ek\resources\ewarm\sam3s4\sram.icf</name>
+      <name>$PROJ_DIR$\sram.icf</name>
     </file>
   </group>
   <file>
