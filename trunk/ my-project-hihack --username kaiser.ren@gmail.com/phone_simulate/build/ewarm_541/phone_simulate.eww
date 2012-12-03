@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<workspace>
+  <project>
+    <path>$WS_DIR$\phone_simulate.ewp</path>
+  </project>
+  <batchBuild>
+    <batchDefinition>
+      <name>flash</name>
+      <member>
+        <project>libchip_sam3s4</project>
+        <configuration>Debug</configuration>
+      </member>
+      <member>
+        <project>libboard_sam3s-ek</project>
+        <configuration>Debug</configuration>
+      </member>
+      <member>
+        <project>dac12_sinewave</project>
+        <configuration>flash</configuration>
+      </member>
+    </batchDefinition>
+    <batchDefinition>
+      <name>sram</name>
+      <member>
+        <project>libchip_sam3s4</project>
+        <configuration>Debug</configuration>
+      </member>
+      <member>
+        <project>libboard_sam3s-ek</project>
+        <configuration>Debug</configuration>
+      </member>
+      <member>
+        <project>dac12_sinewave</project>
+        <configuration>sram</configuration>
+      </member>
+    </batchDefinition>
+    <batchDefinition>
+      <name>all</name>
+      <member>
+        <project>libchip_sam3s4</project>
+        <configuration>Debug</configuration>
+      </member>
+      <member>
+        <project>libchip_sam3s4</project>
+        <configuration>Release</configuration>
+      </member>
+      <member>
+        <project>libboard_sam3s-ek</project>
+        <configuration>Debug</configuration>
+      </member>
+      <member>
+        <project>libboard_sam3s-ek</project>
+        <configuration>Release</configuration>
+      </member>
+      <member>
+        <project>dac12_sinewave</project>
+        <configuration>sram</configuration>
+      </member>
+      <member>
+        <project>dac12_sinewave</project>
+        <configuration>flash</configuration>
+      </member>
+    </batchDefinition>
+  </batchBuild>
+</workspace>
+
+
