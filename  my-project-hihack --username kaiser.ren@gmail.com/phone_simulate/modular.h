@@ -71,6 +71,7 @@ typedef struct module_tag
 
 
 extern modulate_t mod;
+extern uint8_t index_sample;
 
 void state_switch(void);
 uint8_t us1_get_count(void);
