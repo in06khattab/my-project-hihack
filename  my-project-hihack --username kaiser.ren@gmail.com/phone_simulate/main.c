@@ -393,16 +393,6 @@ void SysTick_Handler( void )
 			}
 		}
 		ticker++;
-		
-		if(index_sample >= SAMPLES){
-			state_switch();
-			index_sample = 0;
-			ticker = 0;
-		}
-		else if( ( 50 == index_sample ) && (Div2 == mod.factor ) ){
-			state_switch();
-			ticker = 0;
-		}
     }
 	//else{
 	//	__NOP();
@@ -415,33 +405,7 @@ void SysTick_Handler( void )
  */
 void TC0_IrqHandler( void )
 {
-#if 0
-    uint32_t dwStatus ;
-	uint16_t value;
 
-    /* Read TC0 status*/
-    dwStatus = TC0->TC_CHANNEL[0].TC_SR;
-
-    /* RC compare*/
-    if ( (dwStatus & TC_SR_CPCS) == TC_SR_CPCS )
-    {
-		  ticker++;
-		if ( 0 == ( ticker%mod.factor) ){
-			value = sine_data[index_sample++] * amplitude / (MAX_DIGITAL/2) + MAX_DIGITAL/2;
-        	DACC_SetConversionData(DACC, value ) ;
-		}
-		
-		if(index_sample >= SAMPLES){
-			state_switch();
-			index_sample = 0;
-			ticker = 0;
-		}
-		else if( ( 50 == index_sample ) && (Div2 == mod.factor ) ){
-			state_switch();
-			ticker = 0;
-		}
-    }
-#endif
 }
 
 /**
@@ -470,6 +434,32 @@ void USART1_IrqHandler(void)
 			us1.buff[us1.head] = USART_GetChar(BOARD_USART_BASE);
 		}
     }
+}
+
+/**
+ *  \brief Interrupt handler for DACC.
+ *
+ * Server routine when DACC complete the convertion.
+ */
+void DAC_IrqHandler(void)
+{
+	uint32_t status ;
+
+    status = DACC_GetStatus( DACC ) ;
+
+    /* if conversion is done*/
+    if ( (status & DACC_ISR_EOC) == DACC_ISR_EOC ){
+		if(index_sample >= SAMPLES){
+			state_switch();
+			index_sample = 0;
+			ticker = 0;
+		}
+		else if( ( 50 == index_sample ) && (Div2 == mod.factor ) ){
+			state_switch();
+			ticker = 0;
+		}
+	}
+
 }
 
 /**
@@ -521,6 +511,8 @@ extern int main( void )
 
     /*initialize the DACC_CDR*/
     DACC_SetConversionData( DACC,sine_data[0]*amplitude/(MAX_DIGITAL/2)+MAX_DIGITAL/2);
+	 DACC->DACC_IER = DACC_IER_EOC;
+	 NVIC_EnableIRQ( DACC_IRQn ) ;
 
 	 /* start tc0. */
 	 //_ConfigureTc0( 1000 );
