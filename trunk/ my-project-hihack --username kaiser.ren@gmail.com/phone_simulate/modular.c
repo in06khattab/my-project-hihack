@@ -17,19 +17,23 @@ modulate_t mod;
 
 void findParam(uint8_t bit_msk)
 {
-  	if( ( mod.data & ( 1 << bit_msk) ) && (Occupy == mod.prev) ){
+  	if( ( mod.data & ( 1 << bit_msk) ) && (SET == mod.cur) ){
   		mod.factor = Div1;
+		if( 50 == index_sample )
+		  	mod.reverse = 1;
 	}
-	else if( ( mod.data & ( 1 << bit_msk) ) && (Vacant == mod.prev) ){
+	else if( ( mod.data & ( 1 << bit_msk) ) && (CLR == mod.cur) ){
 		mod.factor = Div2;
-		mod.prev = Occupy;
+		mod.cur = SET;
 	}
-	else if( !( mod.data & ( 1 << bit_msk) ) && (Occupy == mod.prev) ){
+	else if( !( mod.data & ( 1 << bit_msk) ) && (SET == mod.cur) ){
 		mod.factor = Div2;
-		mod.prev = Vacant;
+		mod.cur = CLR;
 	}
-	else if( !( mod.data & ( 1 << bit_msk) ) && (Vacant == mod.prev) ){
+	else if( !( mod.data & ( 1 << bit_msk) ) && (CLR == mod.cur) ){
 		mod.factor = Div1;
+		if( 50 == index_sample )
+		  	mod.reverse = 1;
 	}
 }
 
@@ -59,14 +63,16 @@ void state_switch(void)
 		  	mod.state = Sta3;
 			break;
 			//
-		case Sta3:	//prepare for bit7, prevbit is occupy
+		case Sta3:	//prepare for bit7, sta3 is SET
 		  	if( mod.data & (1 << BIT7) ){
 		  		mod.factor = Div1;
-				mod.prev = Occupy;
+				mod.cur = SET;
+				if( 50 == index_sample )
+		  			mod.reverse = 1;
 		  	}
 			else{
 				mod.factor = Div2;
-				mod.prev = Vacant;	
+				mod.cur = CLR;	
 			}
 		  	mod.state = Bit7;
 			break;
@@ -109,25 +115,33 @@ void state_switch(void)
 		case Bit0: 	//new byte is exist?
 		  	mod.state = Sto0; 	//to stop state 0.
 								//output bit is one.
-			if(Occupy == mod.prev){
+			if(SET == mod.cur){
 				mod.factor = Div1;
+				if( 50 == index_sample )
+		  			mod.reverse = 1;
 			}
 			else{
 				mod.factor = Div2;
 			}
-			mod.prev = Occupy;
+			mod.cur = SET;
 	    	break;
 			//
+
 		case Sto0:     //prepare for sto1
-			mod.state = Sto1;
+			mod.state = Waiting;
 			mod.factor = Div1;
-			//mod.prev = Occupy;
+			mod.cur = SET;
 			break;
 			//
+#if 0
 		case Sto1:		//go to waiting mode
 			mod.state = Waiting;
 			break;
 			//
+#endif
+		default:
+	  		break;
+	  		//
 	}
 }
 
