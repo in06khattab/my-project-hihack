@@ -375,7 +375,7 @@ uint8_t us1_get_char(void)
 void SysTick_Handler( void )
 {
     uint32_t status ;
-	 uint16_t value;
+	uint16_t value;
 
     status = DACC_GetStatus( DACC ) ;
 
@@ -451,12 +451,18 @@ void DAC_IrqHandler(void)
 
     /* if conversion is done*/
     if ( (status & DACC_IER_EOC) == DACC_IER_EOC ){
-		if(index_sample >= SAMPLES){
-			state_switch();
+		if ( index_sample >= SAMPLES ){
+		  	if(0 == mod.reverse)
+				state_switch();
 			index_sample = 0;
 			ticker = 0;
 		}
 		else if( ( 50 == index_sample ) && (Div2 == mod.factor ) ){
+			state_switch();
+			ticker = 0;
+		}
+		else if( ( 50 == index_sample ) && ( 1 == mod.reverse ) ){
+		  	mod.reverse = 0;
 			state_switch();
 			ticker = 0;
 		}
@@ -517,17 +523,14 @@ extern int main( void )
 
     /*initialize the DACC_CDR*/
     DACC_SetConversionData( DACC,sine_data[0]*amplitude/(MAX_DIGITAL/2)+MAX_DIGITAL/2);
-	DACC->DACC_IER = DACC_IER_EOC;
-	
-	 /* start tc0. */
-	 //_ConfigureTc0( 1000 );
-	 //TC_Start( TC0, 0 ) ;
+	DACC->DACC_IER = DACC_IER_EOC;	//Enable DACC end-of-convertion interrupt
 	
 	/* variable initial. */
 	mod.data = 0;
 	mod.state = Waiting;
-	mod.prev = Occupy;
+	mod.cur = SET;
 	mod.factor = Div1;
+	mod.reverse = 0;
 	ticker = 0;
 	index_sample = 0;
 	

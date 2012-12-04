@@ -51,11 +51,11 @@ typedef enum modulation_state_tag
 	Sto1
 }mod_state_t;
 
-typedef enum prev_bit_tag
+typedef enum next_bit_tag
 {
-	Vacant = 0,
-	Occupy = 1
-}prev_bit_t;
+	CLR = 0,
+	SET = 1
+}next_bit_t;
 
 typedef enum factor_tag
 {
@@ -65,10 +65,11 @@ typedef enum factor_tag
 
 typedef struct module_tag
 {
-  	unsigned char data;
+  	uint8_t 	data;
 	mod_state_t state;
-	prev_bit_t  prev;
+	next_bit_t  cur;
     factor_t	factor;
+	uint8_t		reverse;
 }modulate_t;
 
 
