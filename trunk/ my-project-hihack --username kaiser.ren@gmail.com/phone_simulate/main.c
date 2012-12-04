@@ -386,10 +386,12 @@ void SysTick_Handler( void )
 		  	if( Waiting != mod.state){
 		  	 	value = sine_data[index_sample++] * amplitude / (MAX_DIGITAL/2) + MAX_DIGITAL/2;
         		DACC_SetConversionData(DACC, value ) ;
+				DACC->DACC_IER = DACC_IER_EOC;
 			}
 			else{
 				index_sample++;
 				DACC_SetConversionData( DACC,sine_data[0]*amplitude/(MAX_DIGITAL/2)+MAX_DIGITAL/2);
+				DACC->DACC_IER = DACC_IER_EOC;
 			}
 		}
 		ticker++;
@@ -448,7 +450,7 @@ void DAC_IrqHandler(void)
     status = DACC_GetStatus( DACC ) ;
 
     /* if conversion is done*/
-    if ( (status & DACC_ISR_EOC) == DACC_ISR_EOC ){
+    if ( (status & DACC_IER_EOC) == DACC_IER_EOC ){
 		if(index_sample >= SAMPLES){
 			state_switch();
 			index_sample = 0;
@@ -458,6 +460,7 @@ void DAC_IrqHandler(void)
 			state_switch();
 			ticker = 0;
 		}
+		DACC->DACC_IDR = DACC_IER_EOC;
 	}
 
 }
@@ -481,13 +484,12 @@ extern int main( void )
     PIO_Configure( pins, PIO_LISTSIZE( pins ) ) ;
 
     /* Output example information */
-    printf( "-- Phone Simulator %s --\r\n", SOFTPACK_VERSION ) ;
-    printf( "-- %s\r\n", BOARD_NAME ) ;
+    printf( "-- Phone Simulator V%s --\r\n", SOFTPACK_VERSION ) ;
     printf( "-- Compiled: %s %s --\r\n", __DATE__, __TIME__ ) ;
 
     /* initialize amplitude and frequency */
     amplitude = MAX_DIGITAL / 2;
-    frequency = 1000;
+    frequency = 2000;
 
     /*10 us timer*/
     SysTick_Config( BOARD_MCK / (frequency * SAMPLES) ) ;
@@ -506,14 +508,17 @@ extern int main( void )
                     0, /* Tag Selection Mode disabled */
                     16 /*  value of the start up time */);
 
+	/* enable NVIC_DACC. */
+	NVIC_EnableIRQ( DACC_IRQn ) ;
+	NVIC_SetPriority(DACC_IRQn, 5);
+	
     /*Enable  channel for potentiometer*/
     DACC_EnableChannel( DACC, DACC_channel_sine ) ;
 
     /*initialize the DACC_CDR*/
     DACC_SetConversionData( DACC,sine_data[0]*amplitude/(MAX_DIGITAL/2)+MAX_DIGITAL/2);
-	 DACC->DACC_IER = DACC_IER_EOC;
-	 NVIC_EnableIRQ( DACC_IRQn ) ;
-
+	DACC->DACC_IER = DACC_IER_EOC;
+	
 	 /* start tc0. */
 	 //_ConfigureTc0( 1000 );
 	 //TC_Start( TC0, 0 ) ;
