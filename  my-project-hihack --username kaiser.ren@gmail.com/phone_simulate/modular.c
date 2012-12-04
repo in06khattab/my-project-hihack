@@ -59,8 +59,8 @@ void state_switch(void)
 		  	mod.state = Sta3;
 			break;
 			//
-		case Sta3:	//prepare for sta3, prevbit is occupy
-		  	if( mod.data & (1 << 0) ){
+		case Sta3:	//prepare for bit7, prevbit is occupy
+		  	if( mod.data & (1 << BIT7) ){
 		  		mod.factor = Div1;
 				mod.prev = Occupy;
 		  	}
@@ -68,46 +68,47 @@ void state_switch(void)
 				mod.factor = Div2;
 				mod.prev = Vacant;	
 			}
-		  	mod.state = Bit0;
+		  	mod.state = Bit7;
 			break;
 			//	
-		case Bit0: 	//prepare for Bit1
-		  	findParam(BIT1);
-			mod.state = Bit1;
-	    	break;
-			//
-		case Bit1: 	//prepare for Bit2
-		  	findParam(BIT2);
-			mod.state = Bit2;
-	    	break;
-			//
-		case Bit2: 	//prepare for Bit3
-		  	findParam(BIT3);
-			mod.state = Bit3;
-	    	break;
-			//
-		case Bit3: 	//prepare for Bit4
-		  	findParam(BIT4);
-			mod.state = Bit4;
-	    	break;
-			//
-		case Bit4: 	//prepare for Bit5
-		  	findParam(BIT5);
-			mod.state = Bit5;
-	    	break;
-			//
-		case Bit5: 	//prepare for Bit6
+		case Bit7: 	//prepare for Bit6
 		  	findParam(BIT6);
 			mod.state = Bit6;
 	    	break;
 			//
-		case Bit6: 	//prepare for Bit7
-		  	findParam(BIT7);
-			mod.state = Bit7;
+		case Bit6: 	//prepare for Bit5
+		  	findParam(BIT5);
+			mod.state = Bit5;
 	    	break;
 			//
-		case Bit7: 	//new byte is exist?
-		  	mod.state = Waiting;
+		case Bit5: 	//prepare for Bit4
+		  	findParam(BIT4);
+			mod.state = Bit4;
+	    	break;
+			//
+		case Bit4: 	//prepare for Bit3
+		  	findParam(BIT3);
+			mod.state = Bit3;
+	    	break;
+			//
+		case Bit3: 	//prepare for Bit2
+		  	findParam(BIT2);
+			mod.state = Bit2;
+	    	break;
+			//
+		case Bit2: 	//prepare for Bit1
+		  	findParam(BIT1);
+			mod.state = Bit1;
+	    	break;
+			//
+		case Bit1: 	//prepare for Bit0
+		  	findParam(BIT0);
+			mod.state = Bit0;
+	    	break;
+			//
+		case Bit0: 	//new byte is exist?
+		  	mod.state = Sto0; 	//to stop state 0.
+								//output bit is one.
 			if(Occupy == mod.prev){
 				mod.factor = Div1;
 			}
@@ -116,6 +117,16 @@ void state_switch(void)
 			}
 			mod.prev = Occupy;
 	    	break;
+			//
+		case Sto0:     //prepare for sto1
+			mod.state = Sto1;
+			mod.factor = Div1;
+			//mod.prev = Occupy;
+			break;
+			//
+		case Sto1:		//go to waiting mode
+			mod.state = Waiting;
+			break;
 			//
 	}
 }
