@@ -39,14 +39,16 @@ typedef enum modulation_state_tag
 	Sta1,
 	Sta2,
 	Sta3,
-	Bit0,
-	Bit1,
-	Bit2,
-	Bit3,
-	Bit4,
-	Bit5,
+	Bit7,
 	Bit6,
-	Bit7
+	Bit5,
+	Bit4,
+	Bit3,
+	Bit2,
+	Bit1,
+	Bit0,
+	Sto0,
+	Sto1
 }mod_state_t;
 
 typedef enum prev_bit_tag
