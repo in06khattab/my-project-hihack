@@ -21,35 +21,7 @@ ac_cap_t ac_cap_para = {.occur = 0,
 pwm_out_t pwm_para;
 
 /* === Implementation ====================================================== */
-/**
- * @brief Initialization for AC compare vector
- *
- */
-void ac_init(void)
-{
-   /* Select ADC3 as negtive input, mcu pin PF3, module pin 30. */
-	ADCSRB = _BV(ACME);
-	ADCSRA &= ~_BV(ADEN);
-	ADMUX = _BV(MUX0) | _BV(MUX1);
-	
-	/* initial global variable. */
-	memset(&ac_cap_para, 0, sizeof(ac_cap_t));
-	
-	/* Config AC's setting, ACO enable and make it connect with Tmr1's
-	capture input, toggle trigger. */
-#if 1
-	ACSR = _BV(ACIC);
-	//noise canceller, falling edge detection, prescaler is clkio/8
-	TCCR1B = _BV(ICNC1) | _BV(ICES1) | _BV(CS11);
-	//clear potential capture int flag
-	TIFR1 = _BV(ICF1);
-	//enable capture int
-	TIMSK1 = _BV(ICIE1);
-#else
-	ACSR = _BV(ACIE) | _BV(ACI) | _BV(ACIS1);
-	TCCR1B = _BV(CS11);
-#endif
-}
+
 
 /**
  * @brief Initialization for TMR0 CTC mode
@@ -108,11 +80,9 @@ ISR(TIMER0_COMPA_vect)
 }
 
 /**
- * @brief ISR for AC compare vector
- *
- * This service routine is executed AC pin edge detection.
+ * @brief TMR1 CAP ISR
  */
-#if 1
+#if HAL_USE_ACC_CAP==0
 ISR(TIMER1_CAPT_vect)
 {
   	uint8_t sreg;
@@ -145,17 +115,6 @@ ISR(TIMER1_CAPT_vect)
 #endif
 	/* Restore global interrupt flag */
 	SREG = sreg;
-}
-#else
-ISR(ANALOG_COMP_vect)
-{  	
-  	ACSR |=  _BV(ACI);
-  	if( ACSR & _BV( ACO ) ){
-	  	printf("f\r\n");
-  	}
-	else{
-	  	printf("r\r\n");
-	}
 }
 #endif
 

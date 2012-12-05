@@ -39,7 +39,6 @@ extern ac_cap_t ac_cap_para;
 extern pwm_out_t pwm_para;
 
 /* === PROTOTYPES ========================================================== */
-void ac_init(void);
 void pwm_init(void);
 void pwm_uninit(void);
 void pwm_set_freq(uint16_t freq);
