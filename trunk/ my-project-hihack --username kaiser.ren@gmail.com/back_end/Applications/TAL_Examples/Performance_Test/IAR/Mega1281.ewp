@@ -2043,6 +2043,42 @@
     </settings>
   </configuration>
   <group>
+    <name>Application</name>
+    <file>
+      <name>$PROJ_DIR$\..\Src\decode.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Src\encode.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Src\hal.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Src\main.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Src\timer.c</name>
+    </file>
+  </group>
+  <group>
+    <name>Inc</name>
+    <file>
+      <name>$PROJ_DIR$\..\Inc\app_config.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Inc\decode.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Inc\encode.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Inc\hal.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Inc\timer.h</name>
+    </file>
+  </group>
+  <group>
     <name>PAL</name>
     <group>
       <name>Board</name>
@@ -2091,16 +2127,7 @@
     </file>
   </group>
   <file>
-    <name>$PROJ_DIR$\..\Src\hal.c</name>
-  </file>
-  <file>
-    <name>$PROJ_DIR$\..\Src\main.c</name>
-  </file>
-  <file>
     <name>$PROJ_DIR$\..\..\..\Helper_Files\SIO_Support\Src\sio_handler.c</name>
-  </file>
-  <file>
-    <name>$PROJ_DIR$\..\Src\timer.c</name>
   </file>
   <file>
     <name>$PROJ_DIR$\..\..\..\Helper_Files\SIO_Support\IAR_Support\write.c</name>
