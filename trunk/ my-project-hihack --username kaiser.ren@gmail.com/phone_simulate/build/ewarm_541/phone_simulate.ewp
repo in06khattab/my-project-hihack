@@ -1614,10 +1614,10 @@
     </file>
   </group>
   <file>
-    <name>$PROJ_DIR$\..\..\main.c</name>
+    <name>$PROJ_DIR$\..\..\encode.c</name>
   </file>
   <file>
-    <name>$PROJ_DIR$\..\..\modular.c</name>
+    <name>$PROJ_DIR$\..\..\main.c</name>
   </file>
 </project>
 
