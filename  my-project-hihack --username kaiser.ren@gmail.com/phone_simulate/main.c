@@ -360,7 +360,7 @@ extern int main( void )
     DACC_EnableChannel( DACC, DACC_channel_sine ) ;
 
     /*initialize the DACC_CDR*/
-    DACC_SetConversionData( DACC,sine_data[0]*amplitude/(MAX_DIGITAL/2)+MAX_DIGITAL/2);
+    DACC_SetConversionData( DACC,sine_data[90]*amplitude/(MAX_DIGITAL/2)+MAX_DIGITAL/2);
 	DACC->DACC_IER = DACC_IER_EOC;	//Enable DACC end-of-convertion interrupt
 	
 	/* variable initial. */

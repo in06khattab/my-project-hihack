@@ -96,16 +96,16 @@ void SysTick_Handler( void )
     //if ( (status & DACC_ISR_EOC) == DACC_ISR_EOC )
     {
 		if ( 0 == ( ticker%mod.factor) ){
-		  	if( Waiting != mod.state){
+		  	//if( Waiting != mod.state){
 		  	 	value = sine_data[index_sample++] * amplitude / (MAX_DIGITAL/2) + MAX_DIGITAL/2;
         		DACC_SetConversionData(DACC, value ) ;
 				DACC->DACC_IER = DACC_IER_EOC;
-			}
-			else{
-				index_sample++;
-				DACC_SetConversionData( DACC,sine_data[0]*amplitude/(MAX_DIGITAL/2)+MAX_DIGITAL/2);
-				DACC->DACC_IER = DACC_IER_EOC;
-			}
+			//}
+			//else{
+			//	index_sample++;
+			//	DACC_SetConversionData( DACC,sine_data[90]*amplitude/(MAX_DIGITAL/2)+MAX_DIGITAL/2);
+			//	DACC->DACC_IER = DACC_IER_EOC;
+			//}
 		}
 		ticker++;
     }
