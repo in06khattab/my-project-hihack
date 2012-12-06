@@ -90,6 +90,7 @@ ISR(TIMER1_CAPT_vect)
 	
 	/* Save global interrupt flag */
 	sreg = SREG;
+	
 	/* Disable interrupts */
 	__disable_interrupt();
 	

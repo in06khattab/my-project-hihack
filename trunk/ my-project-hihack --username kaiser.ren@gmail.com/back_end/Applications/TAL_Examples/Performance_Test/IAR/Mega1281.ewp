@@ -1178,11 +1178,11 @@
         <option>
           <name>Output variant</name>
           <version>36</version>
-          <state>3</state>
+          <state>6</state>
         </option>
         <option>
           <name>Output description</name>
-          <state>No specifier a, A.</state>
+          <state>No specifier a, A, no specifier n, no float nor long long.</state>
         </option>
         <option>
           <name>GRuntimeLibSelectSlave</name>

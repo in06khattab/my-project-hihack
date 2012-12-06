@@ -50,9 +50,14 @@ int main(void)
 	printf("-- F_CPU: %lu\r\n", F_CPU);
 
 	/* Endless while loop */
-   while (1)
+	while (1)
    {
-		print_main_menu();
+		//print_main_menu();
+	  	// there is acc occur, goto state machine to parser.
+	  	if( acc_occur ){
+	  		acc_occur = 0;
+			decode_machine();
+		}
    }
 }
 
