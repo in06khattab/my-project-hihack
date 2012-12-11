@@ -26,8 +26,8 @@
  *        Macro
  *----------------------------------------------------------------------------*/
 //F_CPU == (4000000UL)
-#define DECODE_TMR2_FREQ_2KHZ_MIN	61
-#define DECODE_TMR2_FREQ_2KHZ_MAX	63
+#define DECODE_TMR2_FREQ_2KHZ_MIN	60
+#define DECODE_TMR2_FREQ_2KHZ_MAX	64
 
 /*----------------------------------------------------------------------------
  *        Typedef

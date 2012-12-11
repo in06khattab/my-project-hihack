@@ -226,33 +226,28 @@ void decode_machine(void)
 	//printf("%u\r\n", inv);
   	switch (dec.state){
 		case Waiting:
-		  	if( ( inv >= DECODE_TMR2_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR2_FREQ_2KHZ_MAX)){
-		  		dec_update_tmr();
-				if( dec.acsr & ( 1 << ACO) )		//rising
-				  	dec.state = Sta0;
-			}
-			else if( inv < DECODE_TMR2_FREQ_2KHZ_MIN ){
-			  	dec.skip = 1;
+		  	if( dec.acsr & ( 1 << ACO) )	{	//rising
+				dec_update_tmr();
+				dec.state = Sta0;
 			}
 			break;
 			//
 		case Sta0:
-		  	if( ( inv >= DECODE_TMR2_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR2_FREQ_2KHZ_MAX)){
-		  		dec_update_tmr();
-				if ( !( dec.acsr & ( 1 << ACO) )	)	//falling
+		  	if ( !( dec.acsr & ( 1 << ACO) )	)	{//falling
+		  		if( ( inv >= DECODE_TMR2_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR2_FREQ_2KHZ_MAX))
 				  	dec.state = Sta1;
-				else	//rising
+				else	
 				  	dec.state = Waiting;
 			}
 			else{
 				dec.state = Waiting;
 			}
+			dec_update_tmr();
 			break;
 			//
 		case Sta1:
-		  	if( ( inv >= DECODE_TMR2_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR2_FREQ_2KHZ_MAX)){
-		  		dec_update_tmr();
-				if ( dec.acsr & ( 1 << ACO) )		//rising
+		  	if ( dec.acsr & ( 1 << ACO) )	{	//rising
+		  		if( ( inv >= DECODE_TMR2_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR2_FREQ_2KHZ_MAX))
 				  	dec.state = Sta2;
 				else	//falling
 				  	dec.state = Waiting;
@@ -260,25 +255,25 @@ void decode_machine(void)
 			else{
 				dec.state = Waiting;
 			}
+			dec_update_tmr();
 			break;
 			//
 		case Sta2:
-		  	if( ( inv >= DECODE_TMR2_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR2_FREQ_2KHZ_MAX)){
-		  		dec_update_tmr();
-				if ( !( dec.acsr & ( 1 << ACO) ) )		//falling
+		  	if ( !( dec.acsr & ( 1 << ACO) ) )	{	//falling
+		  		if( ( inv >= DECODE_TMR2_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR2_FREQ_2KHZ_MAX))
 				  	dec.state = Sta3;
-				else	//rising
+				else	
 				  	dec.state = Waiting;
 			}
 			else{
 				dec.state = Waiting;
 			}
+			dec_update_tmr();
 			break;
 			//
 		case Sta3:
-		  	if( ( inv >= DECODE_TMR2_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR2_FREQ_2KHZ_MAX)){
-		  		dec_update_tmr();
-				if ( dec.acsr & ( 1 << ACO) ) //rising
+		  	if ( dec.acsr & ( 1 << ACO) )	{ //rising
+		  		if( ( inv >= DECODE_TMR2_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR2_FREQ_2KHZ_MAX))			
 				  	dec.state = Bit7;
 				else									//falling
 				  	dec.state = Waiting;
@@ -286,22 +281,131 @@ void decode_machine(void)
 			else{
 				dec.state = Waiting;
 			}
+			dec_update_tmr();
 			break;
 			//
 		case Bit7:
 	  		if( ( inv >= DECODE_TMR2_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR2_FREQ_2KHZ_MAX)){
 		  		dec_update_tmr();
-				if ( dec.acsr & ( 1 << ACO) ) //rising
+				if ( dec.acsr & ( 1 << ACO) ) 	//rising
 				  	dec.data |= ( 1 << BIT7 ) ;
-				else									//falling
+				else							//falling
 				  	dec.data &= ~( 1 << BIT7 ) ;
+				dec.state = Bit6;
 			}
 			else if (inv > DECODE_TMR2_FREQ_2KHZ_MAX ) {
 				dec.state = Waiting;
+				dec_update_tmr();
 			}
 			break;
 			//
-			
+		case Bit6:
+	  		if( ( inv >= DECODE_TMR2_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR2_FREQ_2KHZ_MAX)){
+		  		dec_update_tmr();
+				if ( dec.acsr & ( 1 << ACO) ) 	//rising
+				  	dec.data |= ( 1 << BIT6 ) ;
+				else						 	//falling
+				  	dec.data &= ~( 1 << BIT6 ) ;
+				dec.state = Bit5;
+			}
+			else if (inv > DECODE_TMR2_FREQ_2KHZ_MAX ) {
+				dec.state = Waiting;
+				dec_update_tmr();
+			}
+			break;
+			//
+		case Bit5:
+	  		if( ( inv >= DECODE_TMR2_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR2_FREQ_2KHZ_MAX)){
+		  		dec_update_tmr();
+				if ( dec.acsr & ( 1 << ACO) ) 	//rising
+				  	dec.data |= ( 1 << BIT5 ) ;
+				else							//falling
+				  	dec.data &= ~( 1 << BIT5 ) ;
+				dec.state = Bit4;
+			}
+			else if (inv > DECODE_TMR2_FREQ_2KHZ_MAX ) {
+				dec.state = Waiting;
+				dec_update_tmr();
+			}
+			break;
+			//	
+		case Bit4:
+	  		if( ( inv >= DECODE_TMR2_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR2_FREQ_2KHZ_MAX)){
+		  		dec_update_tmr();
+				if ( dec.acsr & ( 1 << ACO) ) 	//rising
+				  	dec.data |= ( 1 << BIT4 ) ;
+				else							//falling
+				  	dec.data &= ~( 1 << BIT4 ) ;
+				dec.state = Bit3;
+			}
+			else if (inv > DECODE_TMR2_FREQ_2KHZ_MAX ) {
+				dec.state = Waiting;
+				dec_update_tmr();
+			}
+			break;
+			//	
+		case Bit3:
+	  		if( ( inv >= DECODE_TMR2_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR2_FREQ_2KHZ_MAX)){
+		  		dec_update_tmr();
+				if ( dec.acsr & ( 1 << ACO) ) 	//rising
+				  	dec.data |= ( 1 << BIT3 ) ;
+				else							//falling
+				  	dec.data &= ~( 1 << BIT3 ) ;
+				dec.state = Bit2;
+			}
+			else if (inv > DECODE_TMR2_FREQ_2KHZ_MAX ) {
+				dec.state = Waiting;
+				dec_update_tmr();
+			}
+			break;
+			//
+		case Bit2:
+	  		if( ( inv >= DECODE_TMR2_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR2_FREQ_2KHZ_MAX)){
+		  		dec_update_tmr();
+				if ( dec.acsr & ( 1 << ACO) ) 	//rising
+				  	dec.data |= ( 1 << BIT2 ) ;
+				else							//falling
+				  	dec.data &= ~( 1 << BIT2 ) ;
+				dec.state = Bit1;
+			}
+			else if (inv > DECODE_TMR2_FREQ_2KHZ_MAX ) {
+				dec.state = Waiting;
+				dec_update_tmr();
+			}
+			break;
+			//
+		case Bit1:
+	  		if( ( inv >= DECODE_TMR2_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR2_FREQ_2KHZ_MAX)){
+		  		dec_update_tmr();
+				if ( dec.acsr & ( 1 << ACO) ) 	//rising
+				  	dec.data |= ( 1 << BIT1 ) ;
+				else							//falling
+				  	dec.data &= ~( 1 << BIT1 ) ;
+				dec.state = Bit0;
+			}
+			else if (inv > DECODE_TMR2_FREQ_2KHZ_MAX ) {
+				dec.state = Waiting;
+				dec_update_tmr();
+			}
+			break;
+			//
+		case Bit0:
+	  		if( ( inv >= DECODE_TMR2_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR2_FREQ_2KHZ_MAX)){
+		  		dec_update_tmr();
+				if ( dec.acsr & ( 1 << ACO) ) 	//rising
+				  	dec.data |= ( 1 << BIT0 ) ;
+				else							//falling
+				  	dec.data &= ~( 1 << BIT0 ) ;
+				sio_putchar(dec.data);
+				dec.state = Waiting;
+				
+			}
+			else if (inv > DECODE_TMR2_FREQ_2KHZ_MAX ) {
+				dec.state = Waiting;
+				dec_update_tmr();
+			}
+			break;
+			//
 		default:
 	  		break;
 			//
