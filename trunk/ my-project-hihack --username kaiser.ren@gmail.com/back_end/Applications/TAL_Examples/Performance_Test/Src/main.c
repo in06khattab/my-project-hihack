@@ -43,7 +43,7 @@ __root __farflash  	uint32_t		Bf_Appflag 	@0x1DFFC = 0xa5a55a5al;
 int main(void)
 {
 	/* initial hal layer. */
-   hal_init();
+	hal_init();
 	
 	printf("\r\n-- Welcome to ATmega Test V%d.%02d --\r\n", VER_MAJOR, VER_MINOR);
 	printf("-- Build on: "__TIME__" @"__DATE__"\r\n");
@@ -55,8 +55,10 @@ int main(void)
 		//print_main_menu();
 	  	// there is acc occur, goto state machine to parser.
 	  	if( acc_occur ){
+		  	pal_led(LED_0, LED_ON);
 	  		acc_occur = 0;
 			decode_machine();
+			pal_led(LED_0, LED_OFF);
 		}
    }
 }

@@ -27,6 +27,20 @@ pwm_out_t pwm_para;
  * @brief Initialization for TMR0 CTC mode
  *
  */
+#if (PAL_TYPE==ATTINY88)
+void pwm_init(void)
+{
+  	/* toggle OC0A output when match, CTC mode */
+	TCCR0A = _BV(CTC0);
+	
+	/* make PB7, OC0A, to output wave. */
+	DDRB |= _BV(DDB7);
+	
+	/* initial IE reg. */
+	TIFR0 = _BV(OCF0A);
+	TIMSK0 = _BV(OCIE0A);
+}
+#else//ATMEGA1281
 void pwm_init(void)
 {
   	/* toggle OC0A output when match, CTC mode */
@@ -39,11 +53,26 @@ void pwm_init(void)
 	TIFR0 = _BV(OCF0A);
 	TIMSK0 = _BV(OCIE0A);
 }
+#endif//ATTINY88
 
 /**
  * @brief Set PWM frequency.
  *
  */
+#if (PAL_TYPE==ATTINY88)
+void pwm_set_freq(uint16_t freq)
+{
+  	/* pwm pulse output count. */
+  	pwm_para.toggle_cnt = PWM_TMR0_CMP_OUT_PULSE_CNT;
+	
+  	/* MCK/64 . */
+	//TCCR0B = PWM_TMR0_CLK_SRC_BIT_DEF;
+	
+	/* Set compare reg for output. */
+	OCR0A = PWM_TMR0_CMP_OUT_OCRA(freq, F_CPU, PWM_TMR0_CLK_SRC_PRE_SCALE) ;
+  	
+}
+#else//ATMEGA1281
 void pwm_set_freq(uint16_t freq)
 {
   	/* pwm pulse output count. */
@@ -56,16 +85,25 @@ void pwm_set_freq(uint16_t freq)
 	OCR0A = PWM_TMR0_CMP_OUT_OCRA(freq, F_CPU, PWM_TMR0_CLK_SRC_PRE_SCALE) ;
   	
 }
+#endif//ATTINY88
 
 /**
  * @brief Un-Initialization for TMR0 CTC mode
  *
  */
+#if (PAL_TYPE==ATTINY88)
+void pwm_uninit(void)
+{
+	/* no clock source provided. */
+	TCCR0A &= ~(0x07);
+}
+#else//ATMEGA1281
 void pwm_uninit(void)
 {
 	/* no clock source provided. */
 	TCCR0B = 0;
 }
+#endif//ATTINY88
 
 /**
  * @brief ISR for TMR2 interrupt handler

@@ -34,6 +34,7 @@
     #define ATMEGA1284P                 (0x03)
     #define ATMEGA2561                  (0x04)
     #define ATMEGA644P                  (0x05)
+	#define ATTINY88		(0x06)
 
 #elif (PAL_GENERIC_TYPE == XMEGA)
     /* PAL_TYPE for XMEGA MCUs */

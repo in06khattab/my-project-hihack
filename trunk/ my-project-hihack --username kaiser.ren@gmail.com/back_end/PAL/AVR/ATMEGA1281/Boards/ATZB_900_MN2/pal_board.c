@@ -60,7 +60,7 @@ void pal_trx_read_timestamp(uint32_t *timestamp)
 }
 
 
-
+#if (PAL_TYPE==ATMEGA1281)
 /**
  * @brief Calibrates the internal RC oscillator
  *
@@ -247,6 +247,7 @@ void timer_init_non_generic(void)
     /* Enable the timer overflow interrupt */
     TIMSK1 |= _BV(TOIE1);
 }
+#endif//ATMEGA1281
 
 
 /**
@@ -303,7 +304,7 @@ void pal_led(led_id_t led_no, led_action_t led_setting)
 }
 
 
-
+#if (PAL_TYPE==ATMEGA1281)
 /**
  * @brief Initialize the button
  */
@@ -342,6 +343,7 @@ button_state_t pal_button_read(button_id_t button_no)
         return BUTTON_OFF;
     }
 }
+#endif//ATMEGA1281
 
 #endif /* ATZB_900_MN2 */
 
