@@ -130,8 +130,7 @@ void hal_init(void)
     pal_global_irq_enable();
 	
 	 /* Initialize LEDs */
-   pal_led_init();
-   //pal_led(LED_0, LED_ON);     // indicating application is started
+   	pal_led_init();
 }
 
 //eof

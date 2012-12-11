@@ -33,7 +33,34 @@ static void dec_update_tmr(void);
  * @brief ACC_ISR, load TMR2 cnt and ACSR for further operation, decode_state()
  *
  */
-#if HAL_USE_ACC_CAP>0
+#if (PAL_TYPE==ATTINY88)
+ISR(ANA_COMP_vect)
+{  	
+  	uint8_t sreg;
+	
+	sreg = SREG; 	// Save global interrupt flag
+	__disable_interrupt();	// Disable interrupts
+	
+	pal_led(LED_1, LED_TOGGLE);
+	
+  	acc_occur = 1;		// set the flag for further operation in while(1)
+  	cur_stamp = TCNT0;	// load TMR2 count
+	dec.acsr  = ACSR;   // load ACSR status
+	
+	SREG = sreg;	// Restore global interrupt flag
+}
+
+/**
+ * @brief TMR0 Overflow interrupt.
+ *
+ */
+ISR(TIMER0_OVF_vect)
+{
+	cur_ovfw++;  	
+}
+
+#else //ATMEGA1281
+	#if HAL_USE_ACC_CAP>0
 ISR(ANALOG_COMP_vect)
 {  	
   	uint8_t sreg;
@@ -49,8 +76,7 @@ ISR(ANALOG_COMP_vect)
 	
 	SREG = sreg;	// Restore global interrupt flag
 }
-#endif
-
+	#endif
 /**
  * @brief TMR2 Overflow interrupt.
  *
@@ -59,6 +85,9 @@ ISR(TIMER2_OVF_vect)
 {
 	cur_ovfw++;  	
 }
+#endif//ATTINY88
+
+
 
 /*----------------------------------------------------------------------------
  *        Exported functions
@@ -67,6 +96,49 @@ ISR(TIMER2_OVF_vect)
  * @brief Initialization for AC compare vector
  *
  */
+#if (PAL_TYPE==ATTINY88)
+void ac_init(void)
+{
+   /* Select ADC3 as negtive input, mcu pin PF3, module pin 30. */
+	ADCSRB = _BV(ACME);
+	ADCSRA &= ~_BV(ADEN);
+	ADMUX = _BV(MUX0) | _BV(MUX1);
+	
+	/* initial global variable. */
+	memset(&ac_cap_para, 0, sizeof(ac_cap_t));
+
+#if HAL_USE_ACC_CAP==0
+	/* Config AC's setting, ACO enable and make it connect with Tmr1's
+	capture input, toggle trigger. */
+	ACSR = _BV(ACIC);
+	//noise canceller, falling edge detection, prescaler is clkio/8
+	TCCR1B = _BV(ICNC1) | _BV(ICES1) | _BV(CS11);
+	//clear potential capture int flag
+	TIFR1 = _BV(ICF1);
+	//enable capture int
+	TIMSK1 = _BV(ICIE1);
+#else
+	memset(&dec, 0, sizeof(decode_t) );
+	/**
+	 *	Acc_Int enable,
+	 *	ACC_Int flag clear
+	 *  Acc_Int mode is edge sensitive.
+	**/
+	ACSR = _BV(ACIE) | _BV(ACI);
+	
+	/**
+	 *	PRESCALSE: 32
+	 *	F_CPU: 4MHz
+	 * Tick:  4MHz/32 = 8us.
+	 *	enable TMR0 overflow interrupt, 256*8us = 2048us
+	**/
+	TCCR0A = _BV(CS01) | _BV(CS00) ;	
+	TIMSK0 = _BV(TOIE0) ;
+	
+#endif
+}
+
+#else //ATMEGA1281
 void ac_init(void)
 {
    /* Select ADC3 as negtive input, mcu pin PF3, module pin 30. */
@@ -107,6 +179,7 @@ void ac_init(void)
 	
 #endif
 }
+#endif//ATTINY88
 
 /**
  * @brief Calculate the interval between ACC_ISR.
