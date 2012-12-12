@@ -60,15 +60,15 @@ ISR(TIMER0_OVF_vect)
 }
 
 #else //ATMEGA1281
-	#if HAL_USE_ACC_CAP>0
+#if HAL_USE_ACC_CAP>0
 ISR(ANALOG_COMP_vect)
 {  	
   	uint8_t sreg;
 	
+	pal_led(LED_1, LED_TOGGLE);
+	
 	sreg = SREG; 	// Save global interrupt flag
 	__disable_interrupt();	// Disable interrupts
-	
-	pal_led(LED_1, LED_TOGGLE);
 	
   	acc_occur = 1;		// set the flag for further operation in while(1)
   	cur_stamp = TCNT2;	// load TMR2 count
@@ -76,7 +76,7 @@ ISR(ANALOG_COMP_vect)
 	
 	SREG = sreg;	// Restore global interrupt flag
 }
-	#endif
+#endif
 /**
  * @brief TMR2 Overflow interrupt.
  *
@@ -127,10 +127,10 @@ void ac_init(void)
 	ACSR = _BV(ACIE) | _BV(ACI);
 	
 	/**
-	 *	PRESCALSE: 32
+	 *	PRESCALSE: 128
 	 *	F_CPU: 4MHz
-	 * Tick:  4MHz/32 = 8us.
-	 *	enable TMR0 overflow interrupt, 256*8us = 2048us
+	 * Tick:  4MHz/128 = 32us.
+	 *	enable TMR0 overflow interrupt, 256*32us = 8192us
 	**/
 	TCCR0A = _BV(CS01) | _BV(CS00) ;	
 	TIMSK0 = _BV(TOIE0) ;
@@ -169,12 +169,12 @@ void ac_init(void)
 	ACSR = _BV(ACIE) | _BV(ACI);
 	
 	/**
-	 *	PRESCALSE: 32
+	 *	PRESCALSE: 128
 	 *	F_CPU: 4MHz
-	 * Tick:  4MHz/32 = 8us.
-	 *	enable TMR2 overflow interrupt, 256*8us = 2048us
+	 * Tick:  4MHz/128 = 32us.
+	 *	enable TMR2 overflow interrupt, 256*32us = 8192us
 	**/
-	TCCR2B = _BV(CS21) | _BV(CS20) ;	
+	TCCR2B = _BV(CS22) | _BV(CS20) ;	
 	TIMSK2 = _BV(TOIE2) ;
 	
 #endif
@@ -226,10 +226,10 @@ void decode_machine(void)
 	//printf("%u\r\n", inv);
   	switch (dec.state){
 		case Waiting:
-		  	if( dec.acsr & ( 1 << ACO) )	{	//rising
-				dec_update_tmr();
+		  	if( dec.acsr & ( 1 << ACO) )	{	//rising	
 				dec.state = Sta0;
 			}
+			dec_update_tmr();
 			break;
 			//
 		case Sta0:
