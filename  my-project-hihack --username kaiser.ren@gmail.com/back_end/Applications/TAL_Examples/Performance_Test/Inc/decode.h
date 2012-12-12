@@ -25,9 +25,14 @@
 /*----------------------------------------------------------------------------
  *        Macro
  *----------------------------------------------------------------------------*/
-//F_CPU == (4000000UL)
-#define DECODE_TMR2_FREQ_2KHZ_MIN	60
-#define DECODE_TMR2_FREQ_2KHZ_MAX	64
+/* F_CPU == (4000000UL)   */
+//prescale: 32
+//#define DECODE_TMR2_FREQ_2KHZ_MIN	60
+//#define DECODE_TMR2_FREQ_2KHZ_MAX	64
+
+//prescale: 128
+#define DECODE_TMR2_FREQ_2KHZ_MIN	14
+#define DECODE_TMR2_FREQ_2KHZ_MAX	16
 
 /*----------------------------------------------------------------------------
  *        Typedef
