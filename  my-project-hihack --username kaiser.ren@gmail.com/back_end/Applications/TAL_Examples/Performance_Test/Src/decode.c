@@ -21,7 +21,8 @@
  *----------------------------------------------------------------------------*/
 decode_t dec;
 uint8_t	cur_stamp = 0;
-uint8_t 	cur_ovfw = 0;
+uint8_t cur_ovfw = 0;
+uint8_t	ovfw = 0;
 uint8_t	acc_occur = 0;
 
 static void dec_update_tmr(void);
@@ -72,6 +73,7 @@ ISR(ANALOG_COMP_vect)
 	
   	acc_occur = 1;		// set the flag for further operation in while(1)
   	cur_stamp = TCNT2;	// load TMR2 count
+	cur_ovfw = ovfw;
 	dec.acsr  = ACSR;   // load ACSR status
 	
 	SREG = sreg;	// Restore global interrupt flag
@@ -83,7 +85,7 @@ ISR(ANALOG_COMP_vect)
  */
 ISR(TIMER2_OVF_vect)
 {
-	cur_ovfw++;  	
+	ovfw++;  	
 }
 #endif//ATTINY88
 
@@ -175,7 +177,7 @@ void ac_init(void)
 	 *	enable TMR2 overflow interrupt, 256*32us = 8192us
 	**/
 	TCCR2B = _BV(CS22) | _BV(CS20) ;	
-	TIMSK2 = _BV(TOIE2) ;
+	//TIMSK2 = _BV(TOIE2) ;
 	
 #endif
 }
