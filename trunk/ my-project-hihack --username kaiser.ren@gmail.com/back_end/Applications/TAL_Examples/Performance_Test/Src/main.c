@@ -53,6 +53,10 @@ int main(void)
 	while (1)
    {
 		//print_main_menu();
+	 	if( TIFR2 & _BV(TOV2)){
+	 		TIFR2 = 0xFF;
+			ovfw++;
+		}
 	  	// there is acc occur, goto state machine to parser.
 	  	if( acc_occur ){
 		  	pal_led(LED_0, LED_ON);
