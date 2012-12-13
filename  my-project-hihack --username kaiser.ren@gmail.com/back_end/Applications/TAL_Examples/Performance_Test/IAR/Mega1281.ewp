@@ -1267,6 +1267,7 @@
         <option>
           <name>CCDefines</name>
           <state>DEBUG=0</state>
+          <state>F_CPU=4000000UL</state>
           <state>FFD</state>
           <state>HIGH_DATA_RATE_SUPPORT</state>
           <state>ENABLE_TFA</state>
