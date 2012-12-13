@@ -53,10 +53,19 @@ int main(void)
 	while (1)
    {
 		//print_main_menu();
+#if DECODE_USED_TMR_ID==2
 	 	if( TIFR2 & _BV(TOV2)){
 	 		TIFR2 = 0xFF;
 			ovfw++;
 		}
+#elif DECODE_USED_TMR_ID==1
+		if( TIFR1 & _BV(TOV1)){
+	 		TIFR1 = 0xFF;
+			ovfw++;
+		}
+#else
+	#error "Unsupported Decode Timer Id"		
+#endif//DECODE_USED_TMR_ID
 	  	// there is acc occur, goto state machine to parser.
 	  	if( acc_occur ){
 		  	pal_led(LED_0, LED_ON);
