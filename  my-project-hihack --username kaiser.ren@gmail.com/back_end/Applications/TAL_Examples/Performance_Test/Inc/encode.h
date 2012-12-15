@@ -65,52 +65,34 @@ typedef enum factor_tag
 	Div2 = 2  	
 }factor_t;
 
-typedef struct module_tag
+typedef struct encode_tag
 {
   	uint8_t 	data;
 	mod_state_t state;
 	next_bit_t  cur;
     factor_t	factor;
 	uint8_t		reverse;
-}modulate_t;
+}encode_t;
 
-typedef struct _usart_rx_tag
-{
-  	uint8_t count;
-	uint8_t head;
-	uint8_t tail;
-	uint8_t buff[20];
-}us_rx_t;
+
 
 /*----------------------------------------------------------------------------
  *        Macros
  *----------------------------------------------------------------------------*/
-/** Reference voltage for DACC,in mv*/
-#define VOLT_REF   (3300)
 
-/** The maximal digital value*/
-#define MAX_DIGITAL (4095)
-
-/** SAMPLES per cycle*/
-#define SAMPLES (100)
 
 /*----------------------------------------------------------------------------
  *        External Variable
  *----------------------------------------------------------------------------*/
-extern modulate_t mod;
-extern uint8_t index_sample;
+extern encode_t enc;
 extern uint8_t ticker;
-extern us_rx_t us1;
-extern const int16_t sine_data[SAMPLES];
-extern uint16_t amplitude ;
+extern uint8_t tmr0_occur;
 
 /*----------------------------------------------------------------------------
  *        External Function
  *----------------------------------------------------------------------------*/
-void state_switch(void);
-uint8_t us1_get_count(void);
-uint8_t us1_get_char(void);
-void _ConfigureUsart( void );
+void encode_machine(void);
+void tmr0_init(void);
 
 #endif //_ENCODE_H_
 //end of file
