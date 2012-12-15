@@ -115,9 +115,6 @@ void hal_init(void)
 	*/
 	ac_init();
 	
-	/* encode start. */
-	tmr0_init();
-	
 	/*
 		initial TMR2 to generate waveform.
 	*/
