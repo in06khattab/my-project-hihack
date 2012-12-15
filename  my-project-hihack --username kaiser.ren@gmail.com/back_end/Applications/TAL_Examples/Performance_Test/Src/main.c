@@ -56,11 +56,19 @@ int main(void)
 	while (1)
    {
 		//print_main_menu();
+	 	/*
+		 * there is tmr0 compare match occur.
+		 * need to start encode engine.
+		 *
+		*/
 	 	if( tmr0_occur ){
 		  	tmr0_occur = 0;
 	 		encode_machine();
 	 	}
 	
+		/*
+		 * Encode tmr's ovfw flag should be prcessed here.
+		*/
 #if DECODE_USED_TMR_ID==2
 	 	if( TIFR2 & _BV(TOV2)){
 	 		TIFR2 = 0xFF;
@@ -74,7 +82,12 @@ int main(void)
 #else
 	#error "Unsupported Decode Timer Id"		
 #endif//DECODE_USED_TMR_ID
-	  	// there is acc occur, goto state machine to parser.
+		
+	  	/*
+		 * there is acc occur, goto state machine to parser.
+		 * need to start decode engine.
+		 *
+		*/
 	  	if( acc_occur ){
 		  	pal_led(LED_0, LED_ON);
 	  		acc_occur = 0;

@@ -205,10 +205,11 @@ void encode_machine(void)
 			}
 			else{
 			  	enc.port = 0x80;	
-				enc.state = Sto0;	//state switch
+				enc.state = Waiting;	//state switch
 			}
 	    	break;
 			//
+#if 0
 		case Sto0:     //prepare for sto1
 			if( 0 == ticker % 2){
 				enc.port = 0x00;	//next is 0x80, for rising
@@ -220,7 +221,7 @@ void encode_machine(void)
 			}
 			break;
 			//
-#if 0
+
 		case Sto1:		//go to waiting mode
 			enc.state = Waiting;
 			break;
