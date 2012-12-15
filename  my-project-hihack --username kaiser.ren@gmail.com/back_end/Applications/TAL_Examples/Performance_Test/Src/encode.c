@@ -29,9 +29,9 @@ uint8_t ticker = 0 ;
  */
 ISR(TIMER0_COMPA_vect)
 {
+  	PORTB = enc.port ;
 	ticker++;
 	tmr0_occur = 1; 	
-	pal_led(LED_2, LED_TOGGLE);
 }
 
 /*----------------------------------------------------------------------------
@@ -75,25 +75,26 @@ void tmr0_init(void)
  * Find proper factor depending on state and bit mask.
 */
 
-void findParam(uint8_t bit_msk)
+void findParam(uint8_t bit_msk, mod_state_t state)
 {
-  	if( ( enc.data & ( 1 << bit_msk) ) && (SET == enc.cur) ){
-  		enc.factor = Div1;
-		//if( 50 == index_sample )
-		  	enc.reverse = 1;
+	if( 0 == ticker % 2){
+		if( enc.data & ( 1 << bit_msk) ){
+			enc.edge = rising;
+            enc.port = 0x00;	//next is 0x80, for rising
+		}
+		else{
+			enc.edge = falling;
+            enc.port = 0x80;	//next is 0x00, for falling
+		}
 	}
-	else if( ( enc.data & ( 1 << bit_msk) ) && (CLR == enc.cur) ){
-		enc.factor = Div2;
-		enc.cur = SET;
-	}
-	else if( !( enc.data & ( 1 << bit_msk) ) && (SET == enc.cur) ){
-		enc.factor = Div2;
-		enc.cur = CLR;
-	}
-	else if( !( enc.data & ( 1 << bit_msk) ) && (CLR == enc.cur) ){
-		enc.factor = Div1;
-		//if( 50 == index_sample )
-		  	enc.reverse = 1;
+	else{
+	  	if( rising == enc.edge ){
+		  	enc.port = 0x80;	//rising	
+	  	}
+	  	else{
+		  	enc.port = 0x00;	//falling
+	  	}
+		enc.state = state;	//state switch
 	}
 }
 
@@ -104,101 +105,112 @@ void findParam(uint8_t bit_msk)
 
 void encode_machine(void)
 {
+  	uint8_t c;
   	mod_state_t sta = enc.state;
 
 	switch(sta){
 		case Waiting:
-			//if(us1_get_count() ){ 	//prepare for sta0
-				enc.state = Sta0;
-				enc.factor = Div2;
-				//nc.data = us1_get_char();
-				//index_sample = 0;
-			//}
-			break;
-			//
-		case Sta0: 	//prepare for sta1
-	  		enc.state = Sta1;
-			break;
-			//
-		case Sta1:	//prepare for sta2
-		  	enc.state = Sta2;
-			break;
-			//
-	  	case Sta2:	//prepare for sta3
-		  	enc.state = Sta3;
-			break;
-			//
-		case Sta3:	//prepare for bit7, sta3 is SET
-		  	if( enc.data & (1 << BIT7) ){
-		  		enc.factor = Div1;
-				enc.cur = SET;
-				//if( 50 == index_sample )
-		  			enc.reverse = 1;
+		  	if( 0 == ticker % 2){
+			  	c = sio_getchar_nowait();
+				if( c == 0xff){	//no byte	
+					enc.port = 0x00;	//next is 0x80, rising	
+					enc.byte_rev = 0;
+				}
+				else{	//new byte
+					enc.data = c;
+					enc.byte_rev = 1;
+					enc.port = 0x80;	//next is 0x00, falling
+				}
 		  	}
 			else{
-				enc.factor = Div2;
-				enc.cur = CLR;
+			  	if(enc.byte_rev){//new byte
+			  	 	enc.port = 0x00;	//falling
+					enc.state = Sta0;	//state switch
+				}
+				else{	//no byte
+				    enc.port = 0x80;	//rising, keep in waiting state
+				}
 			}
-		  	enc.state = Bit7;
+			break;
+			//
+		case Sta0: 	//prepare for sta1, rising edge
+		  	if( 0 == ticker % 2){
+			 	enc.port = 0x00;	//next is 0x80, for rising
+			}
+			else{
+				enc.port = 0x80;	//rising
+				enc.state = Sta1;  	//state switch
+			}
+			break;
+			//
+		case Sta1:	//prepare for sta2, falling edge
+		  	if( 0 == ticker % 2){
+			 	enc.port = 0x80;	//next is 0x00, for falling
+			}
+			else{
+				enc.port = 0x00;	//falling
+				enc.state = Sta2; 	//state switch
+			}
+			break;
+			//
+	  	case Sta2:	//prepare for sta3, rising edge
+		  	if( 0 == ticker % 2){
+			 	enc.port = 0x00;	//next is 0x80, for rising
+			}
+			else{
+				enc.port = 0x80;	//rising
+				enc.state = Sta3;	//state switch
+			}
+			break;
+			//
+		case Sta3:	//prepare for bit7
+		  	findParam(BIT7, Bit7);
 			break;
 			//
 		case Bit7: 	//prepare for Bit6
-		  	findParam(BIT6);
-			enc.state = Bit6;
+		  	findParam(BIT6, Bit6);
 	    	break;
 			//
 		case Bit6: 	//prepare for Bit5
-		  	findParam(BIT5);
-			enc.state = Bit5;
+		  	findParam(BIT5, Bit5);
 	    	break;
 			//
 		case Bit5: 	//prepare for Bit4
-		  	findParam(BIT4);
-			enc.state = Bit4;
+		  	findParam(BIT4, Bit4);
 	    	break;
 			//
 		case Bit4: 	//prepare for Bit3
-		  	findParam(BIT3);
-			enc.state = Bit3;
+		  	findParam(BIT3, Bit3);
 	    	break;
 			//
 		case Bit3: 	//prepare for Bit2
-		  	findParam(BIT2);
-			enc.state = Bit2;
+		  	findParam(BIT2, Bit2);
 	    	break;
 			//
 		case Bit2: 	//prepare for Bit1
-		  	findParam(BIT1);
-			enc.state = Bit1;
+		  	findParam(BIT1, Bit1);
 	    	break;
 			//
 		case Bit1: 	//prepare for Bit0
-		  	findParam(BIT0);
-			enc.state = Bit0;
+		  	findParam(BIT0, Bit0);
 	    	break;
 			//
 		case Bit0: 	//new byte is exist?
-		  	enc.state = Sto0; 	//to stop state 0.
-								//output bit is one.
-			if(SET == enc.cur){
-				enc.factor = Div1;
-				//if( 50 == index_sample )
-		  			enc.reverse = 1;
+		  	if( 0 == ticker % 2){
+				enc.port = 0x00;	//next is 0x80, for rising
 			}
 			else{
-				enc.factor = Div2;
+				enc.port = 0x80;	//rising	
+				enc.byte_rev = 0;
+				enc.state = Waiting;	//state switch
 			}
-			enc.cur = SET;
 	    	break;
 			//
-
+#if 0
 		case Sto0:     //prepare for sto1
 			enc.state = Waiting;
-			enc.factor = Div1;
-			enc.cur = SET;
 			break;
 			//
-#if 0
 		case Sto1:		//go to waiting mode
 			enc.state = Waiting;
 			break;

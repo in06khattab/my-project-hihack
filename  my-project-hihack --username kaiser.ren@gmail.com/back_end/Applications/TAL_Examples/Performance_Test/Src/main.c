@@ -48,6 +48,9 @@ int main(void)
 	printf("\r\n-- Welcome to ATmega Test V%d.%02d --\r\n", VER_MAJOR, VER_MINOR);
 	printf("-- Build on: "__TIME__" @"__DATE__"\r\n");
 	printf("-- F_CPU: %lu\r\n", F_CPU);
+	
+	/* encode start. */
+	tmr0_init();
 
 	/* Endless while loop */
 	while (1)

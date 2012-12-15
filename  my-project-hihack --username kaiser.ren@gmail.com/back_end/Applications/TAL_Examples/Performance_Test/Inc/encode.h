@@ -65,13 +65,19 @@ typedef enum factor_tag
 	Div2 = 2  	
 }factor_t;
 
+typedef enum edge_tag
+{
+  	falling = 0xf0,
+	rising = 0x0f
+}edge_t;
+
 typedef struct encode_tag
 {
   	uint8_t 	data;
 	mod_state_t state;
-	next_bit_t  cur;
-    factor_t	factor;
-	uint8_t		reverse;
+	uint8_t port;
+	uint8_t byte_rev;
+	edge_t edge;
 }encode_t;
 
 
