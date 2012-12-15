@@ -105,6 +105,7 @@ void pwm_uninit(void)
 }
 #endif//ATTINY88
 
+#if 0
 /**
  * @brief ISR for TMR2 interrupt handler
  *
@@ -116,7 +117,7 @@ ISR(TIMER0_COMPA_vect)
 	if(!pwm_para.toggle_cnt)
 		pwm_uninit();  	
 }
-
+#endif
 /**
  * @brief TMR1 CAP ISR
  */

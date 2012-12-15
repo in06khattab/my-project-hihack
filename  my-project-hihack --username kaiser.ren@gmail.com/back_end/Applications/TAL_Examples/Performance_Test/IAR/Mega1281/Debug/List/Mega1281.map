@@ -2,84 +2,84 @@
 #                                                                              #
 #      IAR Universal Linker V5.2.5.17                                          #
 #                                                                              #
-#           Link time     =  15/Dec/2012  09:10:24                             #
+#           Link time     =  15/Dec/2012  09:36:02                             #
 #           Target CPU    =  A90                                               #
-#           List file     =  "D:\Firmware\my-project-hihack\trunk\ my-project- #
-#                            hihack --username kaiser.ren@gmail.com\back_end\A #
-#                            pplications\TAL_Examples\Performance_Test\IAR\Meg #
-#                            a1281\Debug\List\Mega1281.map"                    #
-#           Output file 1 =  "D:\Firmware\my-project-hihack\trunk\ my-project- #
-#                            hihack --username kaiser.ren@gmail.com\back_end\A #
-#                            pplications\TAL_Examples\Performance_Test\IAR\Meg #
-#                            a1281\Debug\Exe\Mega1281.srec"                    #
+#           List file     =  "I:\my-project-hihack\trunk\ my-project-hihack -- #
+#                            username kaiser.ren@gmail.com\back_end\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\IAR\Mega1281\Deb #
+#                            ug\List\Mega1281.map"                             #
+#           Output file 1 =  "I:\my-project-hihack\trunk\ my-project-hihack -- #
+#                            username kaiser.ren@gmail.com\back_end\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\IAR\Mega1281\Deb #
+#                            ug\Exe\Mega1281.srec"                             #
 #                            Format: motorola-s28                              #
-#           Output file 2 =  "D:\Firmware\my-project-hihack\trunk\ my-project- #
-#                            hihack --username kaiser.ren@gmail.com\back_end\A #
-#                            pplications\TAL_Examples\Performance_Test\IAR\Meg #
-#                            a1281\Debug\Exe\Mega1281.hex"                     #
+#           Output file 2 =  "I:\my-project-hihack\trunk\ my-project-hihack -- #
+#                            username kaiser.ren@gmail.com\back_end\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\IAR\Mega1281\Deb #
+#                            ug\Exe\Mega1281.hex"                              #
 #                            Format: intel-extended, variant: -Y2              #
-#           Output file 3 =  "D:\Firmware\my-project-hihack\trunk\ my-project- #
-#                            hihack --username kaiser.ren@gmail.com\back_end\A #
-#                            pplications\TAL_Examples\Performance_Test\IAR\Meg #
-#                            a1281\Debug\Exe\Mega1281.d90"                     #
+#           Output file 3 =  "I:\my-project-hihack\trunk\ my-project-hihack -- #
+#                            username kaiser.ren@gmail.com\back_end\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\IAR\Mega1281\Deb #
+#                            ug\Exe\Mega1281.d90"                              #
 #                            Format: debug                                     #
 #                            UBROF version 10.0.6                              #
 #                            Using library modules for C-SPY (-rt)             #
 #           Command line  =  -Omotorola-s28=.srec                              #
-#                            "D:\Firmware\my-project-hihack\trunk\ my-project- #
-#                            hihack --username kaiser.ren@gmail.com\back_end\A #
-#                            pplications\TAL_Examples\Performance_Test\IAR\Meg #
-#                            a1281\Debug\Obj\decode.r90"                       #
-#                            "D:\Firmware\my-project-hihack\trunk\ my-project- #
-#                            hihack --username kaiser.ren@gmail.com\back_end\A #
-#                            pplications\TAL_Examples\Performance_Test\IAR\Meg #
-#                            a1281\Debug\Obj\encode.r90"                       #
-#                            "D:\Firmware\my-project-hihack\trunk\ my-project- #
-#                            hihack --username kaiser.ren@gmail.com\back_end\A #
-#                            pplications\TAL_Examples\Performance_Test\IAR\Meg #
-#                            a1281\Debug\Obj\hal.r90"                          #
-#                            "D:\Firmware\my-project-hihack\trunk\ my-project- #
-#                            hihack --username kaiser.ren@gmail.com\back_end\A #
-#                            pplications\TAL_Examples\Performance_Test\IAR\Meg #
-#                            a1281\Debug\Obj\main.r90"                         #
-#                            "D:\Firmware\my-project-hihack\trunk\ my-project- #
-#                            hihack --username kaiser.ren@gmail.com\back_end\A #
-#                            pplications\TAL_Examples\Performance_Test\IAR\Meg #
-#                            a1281\Debug\Obj\pal_board.r90"                    #
-#                            "D:\Firmware\my-project-hihack\trunk\ my-project- #
-#                            hihack --username kaiser.ren@gmail.com\back_end\A #
-#                            pplications\TAL_Examples\Performance_Test\IAR\Meg #
-#                            a1281\Debug\Obj\pal_sio_hub.r90"                  #
-#                            "D:\Firmware\my-project-hihack\trunk\ my-project- #
-#                            hihack --username kaiser.ren@gmail.com\back_end\A #
-#                            pplications\TAL_Examples\Performance_Test\IAR\Meg #
-#                            a1281\Debug\Obj\pal_uart.r90"                     #
-#                            "D:\Firmware\my-project-hihack\trunk\ my-project- #
-#                            hihack --username kaiser.ren@gmail.com\back_end\A #
-#                            pplications\TAL_Examples\Performance_Test\IAR\Meg #
-#                            a1281\Debug\Obj\pal_utils.r90"                    #
-#                            "D:\Firmware\my-project-hihack\trunk\ my-project- #
-#                            hihack --username kaiser.ren@gmail.com\back_end\A #
-#                            pplications\TAL_Examples\Performance_Test\IAR\Meg #
-#                            a1281\Debug\Obj\sio_handler.r90"                  #
-#                            "D:\Firmware\my-project-hihack\trunk\ my-project- #
-#                            hihack --username kaiser.ren@gmail.com\back_end\A #
-#                            pplications\TAL_Examples\Performance_Test\IAR\Meg #
-#                            a1281\Debug\Obj\timer.r90"                        #
-#                            "D:\Firmware\my-project-hihack\trunk\ my-project- #
-#                            hihack --username kaiser.ren@gmail.com\back_end\A #
-#                            pplications\TAL_Examples\Performance_Test\IAR\Meg #
-#                            a1281\Debug\Obj\write.r90"                        #
+#                            "I:\my-project-hihack\trunk\ my-project-hihack -- #
+#                            username kaiser.ren@gmail.com\back_end\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\IAR\Mega1281\Deb #
+#                            ug\Obj\decode.r90"                                #
+#                            "I:\my-project-hihack\trunk\ my-project-hihack -- #
+#                            username kaiser.ren@gmail.com\back_end\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\IAR\Mega1281\Deb #
+#                            ug\Obj\encode.r90"                                #
+#                            "I:\my-project-hihack\trunk\ my-project-hihack -- #
+#                            username kaiser.ren@gmail.com\back_end\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\IAR\Mega1281\Deb #
+#                            ug\Obj\hal.r90"                                   #
+#                            "I:\my-project-hihack\trunk\ my-project-hihack -- #
+#                            username kaiser.ren@gmail.com\back_end\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\IAR\Mega1281\Deb #
+#                            ug\Obj\main.r90"                                  #
+#                            "I:\my-project-hihack\trunk\ my-project-hihack -- #
+#                            username kaiser.ren@gmail.com\back_end\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\IAR\Mega1281\Deb #
+#                            ug\Obj\pal_board.r90"                             #
+#                            "I:\my-project-hihack\trunk\ my-project-hihack -- #
+#                            username kaiser.ren@gmail.com\back_end\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\IAR\Mega1281\Deb #
+#                            ug\Obj\pal_sio_hub.r90"                           #
+#                            "I:\my-project-hihack\trunk\ my-project-hihack -- #
+#                            username kaiser.ren@gmail.com\back_end\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\IAR\Mega1281\Deb #
+#                            ug\Obj\pal_uart.r90"                              #
+#                            "I:\my-project-hihack\trunk\ my-project-hihack -- #
+#                            username kaiser.ren@gmail.com\back_end\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\IAR\Mega1281\Deb #
+#                            ug\Obj\pal_utils.r90"                             #
+#                            "I:\my-project-hihack\trunk\ my-project-hihack -- #
+#                            username kaiser.ren@gmail.com\back_end\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\IAR\Mega1281\Deb #
+#                            ug\Obj\sio_handler.r90"                           #
+#                            "I:\my-project-hihack\trunk\ my-project-hihack -- #
+#                            username kaiser.ren@gmail.com\back_end\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\IAR\Mega1281\Deb #
+#                            ug\Obj\timer.r90"                                 #
+#                            "I:\my-project-hihack\trunk\ my-project-hihack -- #
+#                            username kaiser.ren@gmail.com\back_end\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\IAR\Mega1281\Deb #
+#                            ug\Obj\write.r90"                                 #
 #                            -o                                                #
-#                            "D:\Firmware\my-project-hihack\trunk\ my-project- #
-#                            hihack --username kaiser.ren@gmail.com\back_end\A #
-#                            pplications\TAL_Examples\Performance_Test\IAR\Meg #
-#                            a1281\Debug\Exe\Mega1281.d90"                     #
+#                            "I:\my-project-hihack\trunk\ my-project-hihack -- #
+#                            username kaiser.ren@gmail.com\back_end\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\IAR\Mega1281\Deb #
+#                            ug\Exe\Mega1281.d90"                              #
 #                            -z -l                                             #
-#                            "D:\Firmware\my-project-hihack\trunk\ my-project- #
-#                            hihack --username kaiser.ren@gmail.com\back_end\A #
-#                            pplications\TAL_Examples\Performance_Test\IAR\Meg #
-#                            a1281\Debug\List\Mega1281.map"                    #
+#                            "I:\my-project-hihack\trunk\ my-project-hihack -- #
+#                            username kaiser.ren@gmail.com\back_end\Applicatio #
+#                            ns\TAL_Examples\Performance_Test\IAR\Mega1281\Deb #
+#                            ug\List\Mega1281.map"                             #
 #                            -xmsn                                             #
 #                            "-ID:\Program Files\IAR Systems\Embedded Workbenc #
 #                            h 6.0\avr\LIB\"                                   #
@@ -139,10 +139,10 @@
 #                            -D_..X_CSTACK_END=_..X_SRAM_END                   #
 #                            -D_..X_RSTACK_BASE=_..X_SRAM_BASE                 #
 #                            -D_..X_RSTACK_END=_..X_SRAM_END -rt               #
-#                            "-Ointel-extended,2=D:\Firmware\my-project-hihack #
-#                            \trunk\ my-project-hihack --username kaiser.ren@g #
-#                            mail.com\back_end\Applications\TAL_Examples\Perfo #
-#                            rmance_Test\IAR\Mega1281\Debug\Exe\Mega1281.hex"  #
+#                            "-Ointel-extended,2=I:\my-project-hihack\trunk\ m #
+#                            y-project-hihack --username kaiser.ren@gmail.com\ #
+#                            back_end\Applications\TAL_Examples\Performance_Te #
+#                            st\IAR\Mega1281\Debug\Exe\Mega1281.hex"           #
 #                            -s __program_start                                #
 #                            "D:\Program Files\IAR Systems\Embedded Workbench  #
 #                            6.0\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.r90"           #
@@ -250,7 +250,7 @@ Absolute parts
            _..X_INTVEC_SIZE        000000CC 
     *************************************************************************
 
-  FILE NAME : D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\back_end\Applications\TAL_Examples\Performance_Test\IAR\Mega1281\Debug\Obj\decode.r90
+  FILE NAME : I:\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\back_end\Applications\TAL_Examples\Performance_Test\IAR\Mega1281\Debug\Obj\decode.r90
   PROGRAM MODULE, NAME : decode
 
   SEGMENTS IN THE MODULE
@@ -479,19 +479,18 @@ INTVEC
                                    00000070 
     -------------------------------------------------------------------------
 INITTAB
-  Relative segment, address: CODE 000013C2 - 000013C8 (0x7 bytes), align: 0
+  Relative segment, address: CODE 00001374 - 0000137A (0x7 bytes), align: 0
   Segment part 17.            Intra module refs:   ac_cap_para (timer)
                                                    acc_occur
                                                    cur_ovfw
                                                    cur_stamp
                                                    dec
                                                    ovfw
-                                                   pwm_para (timer)
                                                    uart_1_buffer (pal_uart)
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            ?<Segment init: NEAR_Z>
-                                   000013C2 
+                                   00001374 
     -------------------------------------------------------------------------
 SWITCH
   Relative segment, address: CODE 000000CC - 000000EB (0x20 bytes), align: 1
@@ -499,10 +498,94 @@ SWITCH
 
     *************************************************************************
 
-  FILE NAME : D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\back_end\Applications\TAL_Examples\Performance_Test\IAR\Mega1281\Debug\Obj\encode.r90
+  FILE NAME : I:\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\back_end\Applications\TAL_Examples\Performance_Test\IAR\Mega1281\Debug\Obj\encode.r90
+  PROGRAM MODULE, NAME : encode
+
+  SEGMENTS IN THE MODULE
+  ======================
+ABSOLUTE
+  Relative segment, address: DATA 0000006E - 0000006E (0x1 bytes), align: 0
+  Segment part 1. ROOT.       Intra module refs:   pwm_init (timer)
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           _A_TIMSK0               0000006E 
+           LOCAL                   ADDRESS         
+           =====                   =======         
+           TIMSK0                  0000006E 
+    -------------------------------------------------------------------------
+ABSOLUTE
+  Relative segment, address: DATA 00000047 - 00000047 (0x1 bytes), align: 0
+  Segment part 2. ROOT.
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           _A_OCR0A                00000047 
+           LOCAL                   ADDRESS         
+           =====                   =======         
+           OCR0A                   00000047 
+    -------------------------------------------------------------------------
+ABSOLUTE
+  Relative segment, address: DATA 00000045 - 00000045 (0x1 bytes), align: 0
+  Segment part 3. ROOT.
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           _A_TCCR0B               00000045 
+           LOCAL                   ADDRESS         
+           =====                   =======         
+           TCCR0B                  00000045 
+    -------------------------------------------------------------------------
+ABSOLUTE
+  Relative segment, address: DATA 00000044 - 00000044 (0x1 bytes), align: 0
+  Segment part 4. ROOT.       Intra module refs:   pwm_init (timer)
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           _A_TCCR0A               00000044 
+           LOCAL                   ADDRESS         
+           =====                   =======         
+           TCCR0A                  00000044 
+    -------------------------------------------------------------------------
+ABSOLUTE
+  Relative segment, address: DATA 00000035 - 00000035 (0x1 bytes), align: 0
+  Segment part 5. ROOT.       Intra module refs:   pwm_init (timer)
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           _A_TIFR0                00000035 
+           LOCAL                   ADDRESS         
+           =====                   =======         
+           TIFR0                   00000035 
+    -------------------------------------------------------------------------
+ABSOLUTE
+  Relative segment, address: DATA 00000024 - 00000024 (0x1 bytes), align: 0
+  Segment part 6. ROOT.       Intra module refs:   pal_led_init (pal_board)
+                                                   pwm_init (timer)
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           _A_DDRB                 00000024 
+           LOCAL                   ADDRESS         
+           =====                   =======         
+           DDRB                    00000024 
+    -------------------------------------------------------------------------
+CODE
+  Relative segment, address: CODE 000005C0 - 000005D5 (0x16 bytes), align: 1
+  Segment part 16.            Intra module refs:   handler_TIMER0_COMPA_vect::??INTVEC 84
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           handler_TIMER0_COMPA_vect
+                                   000005C0 
+               interrupt function
+               CSTACK = 00000000 ( 00000003 )
+               RSTACK = 00000000 ( 00000002 )
+    -------------------------------------------------------------------------
+INTVEC
+  Common segment, address: CODE 00000000 - 00000057 (0x58 bytes), align: 1
+  Segment part 11. ROOT.
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           handler_TIMER0_COMPA_vect::??INTVEC 84
+                                   00000054 
+
     *************************************************************************
 
-  FILE NAME : D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\back_end\Applications\TAL_Examples\Performance_Test\IAR\Mega1281\Debug\Obj\hal.r90
+  FILE NAME : I:\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\back_end\Applications\TAL_Examples\Performance_Test\IAR\Mega1281\Debug\Obj\hal.r90
   PROGRAM MODULE, NAME : hal
 
   SEGMENTS IN THE MODULE
@@ -538,41 +621,41 @@ ABSOLUTE
            MCUSR                   00000054 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000005C0 - 000005C3 (0x4 bytes), align: 1
+  Relative segment, address: CODE 000005D6 - 000005D9 (0x4 bytes), align: 1
   Segment part 11.            Intra module refs:   hal_init
            LOCAL                   ADDRESS         
            =====                   =======         
-           pal_global_irq_enable   000005C0 
+           pal_global_irq_enable   000005D6 
                RSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000005C4 - 000005D7 (0x14 bytes), align: 1
+  Relative segment, address: CODE 000005DA - 000005ED (0x14 bytes), align: 1
   Segment part 12.            Intra module refs:   hal_init
            LOCAL                   ADDRESS         
            =====                   =======         
-           mcu_clock_init          000005C4 
+           mcu_clock_init          000005DA 
                RSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000005D8 - 000005F1 (0x1a bytes), align: 1
+  Relative segment, address: CODE 000005EE - 00000607 (0x1a bytes), align: 1
   Segment part 13.            Intra module refs:   hal_init
            LOCAL                   ADDRESS         
            =====                   =======         
-           wdt_init                000005D8 
+           wdt_init                000005EE 
                RSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000005F2 - 0000060B (0x1a bytes), align: 1
+  Relative segment, address: CODE 00000608 - 00000621 (0x1a bytes), align: 1
   Segment part 14.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           hal_init                000005F2        main (main)
+           hal_init                00000608        main (main)
                calls direct
                RSTACK = 00000000 ( 00000002 )
 
     *************************************************************************
 
-  FILE NAME : D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\back_end\Applications\TAL_Examples\Performance_Test\IAR\Mega1281\Debug\Obj\main.r90
+  FILE NAME : I:\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\back_end\Applications\TAL_Examples\Performance_Test\IAR\Mega1281\Debug\Obj\main.r90
   PROGRAM MODULE, NAME : main
 
   SEGMENTS IN THE MODULE
@@ -595,21 +678,21 @@ FAR_F
            Bf_Appflag              0001DFFC 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000060C - 00000681 (0x76 bytes), align: 1
+  Relative segment, address: CODE 00000622 - 00000697 (0x76 bytes), align: 1
   Segment part 16.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           main                    0000060C        ?cstartup_call_main (?C_STARTUP)
+           main                    00000622        ?cstartup_call_main (?C_STARTUP)
                calls direct
                CSTACK = 00000000 ( 00000004 )
                RSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 NEAR_ID
-  Relative segment, address: CODE 000013D0 - 000013F9 (0x2a bytes), align: 0
+  Relative segment, address: CODE 00001382 - 000013AB (0x2a bytes), align: 0
   Segment part 10.            Intra module refs:   Segment part 9
     -------------------------------------------------------------------------
 INITTAB
-  Relative segment, address: CODE 000013C9 - 000013CF (0x7 bytes), align: 0
+  Relative segment, address: CODE 0000137B - 00001381 (0x7 bytes), align: 0
   Segment part 11.            Intra module refs:   Segment part 12
                                                    Segment part 14
                                                    Segment part 3 (?xprintfsmall)
@@ -617,14 +700,14 @@ INITTAB
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            ?<Segment init: NEAR_I>
-                                   000013C9 
+                                   0000137B 
     -------------------------------------------------------------------------
 NEAR_ID
-  Relative segment, address: CODE 000013FA - 0000141E (0x25 bytes), align: 0
+  Relative segment, address: CODE 000013AC - 000013D0 (0x25 bytes), align: 0
   Segment part 13.            Intra module refs:   Segment part 12
     -------------------------------------------------------------------------
 NEAR_ID
-  Relative segment, address: CODE 0000141F - 0000142E (0x10 bytes), align: 0
+  Relative segment, address: CODE 000013D1 - 000013E0 (0x10 bytes), align: 0
   Segment part 15.            Intra module refs:   Segment part 14
     -------------------------------------------------------------------------
 NEAR_I
@@ -641,7 +724,7 @@ NEAR_I
 
     *************************************************************************
 
-  FILE NAME : D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\back_end\Applications\TAL_Examples\Performance_Test\IAR\Mega1281\Debug\Obj\pal_board.r90
+  FILE NAME : I:\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\back_end\Applications\TAL_Examples\Performance_Test\IAR\Mega1281\Debug\Obj\pal_board.r90
   PROGRAM MODULE, NAME : pal_board
 
   SEGMENTS IN THE MODULE
@@ -770,17 +853,6 @@ ABSOLUTE
            PORTB                   00000025 
     -------------------------------------------------------------------------
 ABSOLUTE
-  Relative segment, address: DATA 00000024 - 00000024 (0x1 bytes), align: 0
-  Segment part 17. ROOT.      Intra module refs:   pal_led_init
-                                                   pwm_init (timer)
-           ENTRY                   ADDRESS         REF BY
-           =====                   =======         ======
-           _A_DDRB                 00000024 
-           LOCAL                   ADDRESS         
-           =====                   =======         
-           DDRB                    00000024 
-    -------------------------------------------------------------------------
-ABSOLUTE
   Relative segment, address: DATA 00000021 - 00000021 (0x1 bytes), align: 0
   Segment part 18. ROOT.
            ENTRY                   ADDRESS         REF BY
@@ -791,52 +863,52 @@ ABSOLUTE
            DDRA                    00000021 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000682 - 0000068F (0xe bytes), align: 1
+  Relative segment, address: CODE 00000698 - 000006A5 (0xe bytes), align: 1
   Segment part 29.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           pal_led_init            00000682        hal_init (hal)
+           pal_led_init            00000698        hal_init (hal)
                RSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000690 - 00000719 (0x8a bytes), align: 1
+  Relative segment, address: CODE 000006A6 - 0000072F (0x8a bytes), align: 1
   Segment part 30.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           pal_led                 00000690        handler_ANALOG_COMP_vect (decode)
+           pal_led                 000006A6        handler_ANALOG_COMP_vect (decode)
                                                    main (main)
                RSTACK = 00000000 ( 00000004 )
 
     *************************************************************************
 
-  FILE NAME : D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\back_end\Applications\TAL_Examples\Performance_Test\IAR\Mega1281\Debug\Obj\pal_sio_hub.r90
+  FILE NAME : I:\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\back_end\Applications\TAL_Examples\Performance_Test\IAR\Mega1281\Debug\Obj\pal_sio_hub.r90
   PROGRAM MODULE, NAME : pal_sio_hub
 
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 0000071A - 0000073D (0x24 bytes), align: 1
+  Relative segment, address: CODE 00000730 - 00000753 (0x24 bytes), align: 1
   Segment part 7.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           pal_sio_init            0000071A        hal_init (hal)
+           pal_sio_init            00000730        hal_init (hal)
                calls direct
                CSTACK = 00000000 ( 00000002 )
                RSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000073E - 00000761 (0x24 bytes), align: 1
+  Relative segment, address: CODE 00000754 - 00000777 (0x24 bytes), align: 1
   Segment part 8.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           pal_sio_tx              0000073E        _sio_putchar (sio_handler)
+           pal_sio_tx              00000754        _sio_putchar (sio_handler)
                calls direct
                CSTACK = 00000000 ( 00000005 )
                RSTACK = 00000000 ( 00000002 )
 
     *************************************************************************
 
-  FILE NAME : D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\back_end\Applications\TAL_Examples\Performance_Test\IAR\Mega1281\Debug\Obj\pal_uart.r90
+  FILE NAME : I:\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\back_end\Applications\TAL_Examples\Performance_Test\IAR\Mega1281\Debug\Obj\pal_uart.r90
   PROGRAM MODULE, NAME : pal_uart
 
   SEGMENTS IN THE MODULE
@@ -906,40 +978,40 @@ NEAR_Z
            uart_1_buffer           000004C0 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000762 - 000007CD (0x6c bytes), align: 1
+  Relative segment, address: CODE 00000778 - 000007E3 (0x6c bytes), align: 1
   Segment part 16.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           sio_uart_1_init         00000762        pal_sio_init (pal_sio_hub)
+           sio_uart_1_init         00000778        pal_sio_init (pal_sio_hub)
                CSTACK = 00000000 ( 00000008 )
                RSTACK = 00000000 ( 00000004 )
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000007CE - 0000086F (0xa2 bytes), align: 1
+  Relative segment, address: CODE 000007E4 - 00000885 (0xa2 bytes), align: 1
   Segment part 17.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           sio_uart_1_tx           000007CE        pal_sio_tx (pal_sio_hub)
+           sio_uart_1_tx           000007E4        pal_sio_tx (pal_sio_hub)
                RSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000870 - 000008CB (0x5c bytes), align: 1
+  Relative segment, address: CODE 00000886 - 000008E1 (0x5c bytes), align: 1
   Segment part 19.            Intra module refs:   handler_USART1_RX_vect::??INTVEC 144
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            handler_USART1_RX_vect
-                                   00000870 
+                                   00000886 
                interrupt function
                CSTACK = 00000000 ( 00000007 )
                RSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000008CC - 0000092D (0x62 bytes), align: 1
+  Relative segment, address: CODE 000008E2 - 00000943 (0x62 bytes), align: 1
   Segment part 20.            Intra module refs:   handler_USART1_TX_vect::??INTVEC 152
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            handler_USART1_TX_vect
-                                   000008CC 
+                                   000008E2 
                interrupt function
                CSTACK = 00000000 ( 00000006 )
                RSTACK = 00000000 ( 00000002 )
@@ -962,20 +1034,20 @@ INTVEC
 
     *************************************************************************
 
-  FILE NAME : D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\back_end\Applications\TAL_Examples\Performance_Test\IAR\Mega1281\Debug\Obj\pal_utils.r90
+  FILE NAME : I:\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\back_end\Applications\TAL_Examples\Performance_Test\IAR\Mega1281\Debug\Obj\pal_utils.r90
     *************************************************************************
 
-  FILE NAME : D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\back_end\Applications\TAL_Examples\Performance_Test\IAR\Mega1281\Debug\Obj\sio_handler.r90
+  FILE NAME : I:\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\back_end\Applications\TAL_Examples\Performance_Test\IAR\Mega1281\Debug\Obj\sio_handler.r90
   PROGRAM MODULE, NAME : sio_handler
 
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 0000092E - 00000967 (0x3a bytes), align: 1
+  Relative segment, address: CODE 00000944 - 0000097D (0x3a bytes), align: 1
   Segment part 7.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           _sio_putchar            0000092E        decode_machine (decode)
+           _sio_putchar            00000944        decode_machine (decode)
                                                    low_level_putchar (?__write)
                calls direct
                CSTACK = 00000000 ( 00000002 )
@@ -983,134 +1055,49 @@ CODE
 
     *************************************************************************
 
-  FILE NAME : D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\back_end\Applications\TAL_Examples\Performance_Test\IAR\Mega1281\Debug\Obj\timer.r90
+  FILE NAME : I:\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\back_end\Applications\TAL_Examples\Performance_Test\IAR\Mega1281\Debug\Obj\timer.r90
   PROGRAM MODULE, NAME : timer
 
   SEGMENTS IN THE MODULE
   ======================
-ABSOLUTE
-  Relative segment, address: DATA 0000006E - 0000006E (0x1 bytes), align: 0
-  Segment part 1. ROOT.       Intra module refs:   pwm_init
-           ENTRY                   ADDRESS         REF BY
-           =====                   =======         ======
-           _A_TIMSK0               0000006E 
-           LOCAL                   ADDRESS         
-           =====                   =======         
-           TIMSK0                  0000006E 
-    -------------------------------------------------------------------------
-ABSOLUTE
-  Relative segment, address: DATA 00000047 - 00000047 (0x1 bytes), align: 0
-  Segment part 2. ROOT.
-           ENTRY                   ADDRESS         REF BY
-           =====                   =======         ======
-           _A_OCR0A                00000047 
-           LOCAL                   ADDRESS         
-           =====                   =======         
-           OCR0A                   00000047 
-    -------------------------------------------------------------------------
-ABSOLUTE
-  Relative segment, address: DATA 00000045 - 00000045 (0x1 bytes), align: 0
-  Segment part 3. ROOT.       Intra module refs:   pwm_uninit
-           ENTRY                   ADDRESS         REF BY
-           =====                   =======         ======
-           _A_TCCR0B               00000045 
-           LOCAL                   ADDRESS         
-           =====                   =======         
-           TCCR0B                  00000045 
-    -------------------------------------------------------------------------
-ABSOLUTE
-  Relative segment, address: DATA 00000044 - 00000044 (0x1 bytes), align: 0
-  Segment part 4. ROOT.       Intra module refs:   pwm_init
-           ENTRY                   ADDRESS         REF BY
-           =====                   =======         ======
-           _A_TCCR0A               00000044 
-           LOCAL                   ADDRESS         
-           =====                   =======         
-           TCCR0A                  00000044 
-    -------------------------------------------------------------------------
-ABSOLUTE
-  Relative segment, address: DATA 00000035 - 00000035 (0x1 bytes), align: 0
-  Segment part 5. ROOT.       Intra module refs:   pwm_init
-           ENTRY                   ADDRESS         REF BY
-           =====                   =======         ======
-           _A_TIFR0                00000035 
-           LOCAL                   ADDRESS         
-           =====                   =======         
-           TIFR0                   00000035 
-    -------------------------------------------------------------------------
 NEAR_Z
   Relative segment, address: DATA 000004DA - 000004DE (0x5 bytes), align: 0
-  Segment part 14.
+  Segment part 13.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            ac_cap_para             000004DA        ac_init (decode)
     -------------------------------------------------------------------------
-NEAR_Z
-  Relative segment, address: DATA 000004DF - 000004E0 (0x2 bytes), align: 0
-  Segment part 16.            Intra module refs:   handler_TIMER0_COMPA_vect
-           ENTRY                   ADDRESS         REF BY
-           =====                   =======         ======
-           pwm_para                000004DF 
-    -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000968 - 00000979 (0x12 bytes), align: 1
-  Segment part 17.
+  Relative segment, address: CODE 0000097E - 0000098F (0x12 bytes), align: 1
+  Segment part 16.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           pwm_init                00000968        hal_init (hal)
+           pwm_init                0000097E        hal_init (hal)
                RSTACK = 00000000 ( 00000002 )
-    -------------------------------------------------------------------------
-CODE
-  Relative segment, address: CODE 0000097A - 0000097F (0x6 bytes), align: 1
-  Segment part 19.            Intra module refs:   handler_TIMER0_COMPA_vect
-           ENTRY                   ADDRESS         REF BY
-           =====                   =======         ======
-           pwm_uninit              0000097A 
-               RSTACK = 00000000 ( 00000002 )
-    -------------------------------------------------------------------------
-CODE
-  Relative segment, address: CODE 00000980 - 000009DD (0x5e bytes), align: 1
-  Segment part 20.            Intra module refs:   handler_TIMER0_COMPA_vect::??INTVEC 84
-           ENTRY                   ADDRESS         REF BY
-           =====                   =======         ======
-           handler_TIMER0_COMPA_vect
-                                   00000980 
-               interrupt function
-               calls direct
-               CSTACK = 00000000 ( 00000010 )
-               RSTACK = 00000000 ( 00000002 )
-    -------------------------------------------------------------------------
-INTVEC
-  Common segment, address: CODE 00000000 - 00000057 (0x58 bytes), align: 1
-  Segment part 11. ROOT.
-           ENTRY                   ADDRESS         REF BY
-           =====                   =======         ======
-           handler_TIMER0_COMPA_vect::??INTVEC 84
-                                   00000054 
 
     *************************************************************************
 
-  FILE NAME : D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\back_end\Applications\TAL_Examples\Performance_Test\IAR\Mega1281\Debug\Obj\write.r90
+  FILE NAME : I:\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\back_end\Applications\TAL_Examples\Performance_Test\IAR\Mega1281\Debug\Obj\write.r90
   PROGRAM MODULE, NAME : ?__write
 
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 000009DE - 000009EF (0x12 bytes), align: 1
+  Relative segment, address: CODE 00000990 - 000009A1 (0x12 bytes), align: 1
   Segment part 7.             Intra module refs:   __write
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           low_level_putchar       000009DE 
+           low_level_putchar       00000990 
                calls direct
                CSTACK = 00000000 ( 00000002 )
                RSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000009F0 - 00000A51 (0x62 bytes), align: 1
+  Relative segment, address: CODE 000009A2 - 00000A03 (0x62 bytes), align: 1
   Segment part 8.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __write                 000009F0        putchar (?putchar)
+           __write                 000009A2        putchar (?putchar)
                calls direct
                CSTACK = 00000000 ( 00000008 )
                RSTACK = 00000000 ( 00000002 )
@@ -1123,11 +1110,11 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000A52 - 00000A53 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000A04 - 00000A05 (0x2 bytes), align: 1
   Segment part 3.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __DebugBreak            00000A52        __exit (?__exit)
+           __DebugBreak            00000A04        __exit (?__exit)
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?__exit
@@ -1135,11 +1122,11 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000A54 - 00000A69 (0x16 bytes), align: 1
+  Relative segment, address: CODE 00000A06 - 00000A1B (0x16 bytes), align: 1
   Segment part 3.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __exit                  00000A54        Segment part 5 (?_exit)
+           __exit                  00000A06        Segment part 5 (?_exit)
                calls direct
 
     -------------------------------------------------------------------------
@@ -1148,15 +1135,15 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000A6A, align: 1
+  Relative segment, address: CODE 00000A1C, align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           _exit                   00000A6A        ?cstartup_call_main (?C_STARTUP)
+           _exit                   00000A1C        ?cstartup_call_main (?C_STARTUP)
                                                    exit (?exit)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000A6A - 00000A6D (0x4 bytes), align: 1
+  Relative segment, address: CODE 00000A1C - 00000A1F (0x4 bytes), align: 1
   Segment part 5.             Intra module refs:   _exit
 
     -------------------------------------------------------------------------
@@ -1178,38 +1165,38 @@ INTVEC
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000A6E, align: 1
+  Relative segment, address: CODE 00000A20, align: 1
   Segment part 2.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?C_STARTUP              00000A6E        Segment part 0 (?RESET)
-           __RESTART               00000A6E 
+           ?C_STARTUP              00000A20        Segment part 0 (?RESET)
+           __RESTART               00000A20 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000A6E - 00000A79 (0xc bytes), align: 1
+  Relative segment, address: CODE 00000A20 - 00000A2B (0xc bytes), align: 1
   Segment part 5.             Intra module refs:   Segment part 2
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000A7A - 00000A7D (0x4 bytes), align: 1
+  Relative segment, address: CODE 00000A2C - 00000A2F (0x4 bytes), align: 1
   Segment part 7.             Intra module refs:   Segment part 5
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?call_low_level_init    00000A7A 
+           ?call_low_level_init    00000A2C 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000A7E - 00000A85 (0x8 bytes), align: 1
+  Relative segment, address: CODE 00000A30 - 00000A37 (0x8 bytes), align: 1
   Segment part 8.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?need_segment_init      00000A7E        ?<Segment init: NEAR_I> (main)
+           ?need_segment_init      00000A30        ?<Segment init: NEAR_I> (main)
                                                    ?<Segment init: NEAR_Z> (decode)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000A86 - 00000A91 (0xc bytes), align: 1
+  Relative segment, address: CODE 00000A38 - 00000A43 (0xc bytes), align: 1
   Segment part 11.            Intra module refs:   ?call_low_level_init
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?cstartup_call_main     00000A86 
+           ?cstartup_call_main     00000A38 
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?exit
@@ -1217,11 +1204,11 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000A92 - 00000A95 (0x4 bytes), align: 1
+  Relative segment, address: CODE 00000A44 - 00000A47 (0x4 bytes), align: 1
   Segment part 3.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           exit                    00000A92        ?cstartup_call_main (?C_STARTUP)
+           exit                    00000A44        ?cstartup_call_main (?C_STARTUP)
                calls direct
                RSTACK = 00000000 ( 00000002 )
 
@@ -1231,11 +1218,11 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000A96 - 00000AA5 (0x10 bytes), align: 1
+  Relative segment, address: CODE 00000A48 - 00000A57 (0x10 bytes), align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?S_EC_MUL_L02           00000A96        Segment part 13 (?xprintfsmall)
+           ?S_EC_MUL_L02           00000A48        Segment part 13 (?xprintfsmall)
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?S_SHL_L02
@@ -1243,11 +1230,11 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000AA6 - 00000AB1 (0xc bytes), align: 1
+  Relative segment, address: CODE 00000A58 - 00000A63 (0xc bytes), align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?S_SHL_L02              00000AA6        pal_led (pal_board)
+           ?S_SHL_L02              00000A58        pal_led (pal_board)
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?L_EC_MUL_L03
@@ -1255,11 +1242,11 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000AB2 - 00000AF1 (0x40 bytes), align: 1
+  Relative segment, address: CODE 00000A64 - 00000AA3 (0x40 bytes), align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?L_EC_MUL_L03           00000AB2        sio_uart_1_init (pal_uart)
+           ?L_EC_MUL_L03           00000A64        sio_uart_1_init (pal_uart)
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?UL_DIVMOD_L03
@@ -1267,11 +1254,11 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000AF2 - 00000B37 (0x46 bytes), align: 1
+  Relative segment, address: CODE 00000AA4 - 00000AE9 (0x46 bytes), align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?UL_DIVMOD_L03          00000AF2        Segment part 40 (?xprintfsmall)
+           ?UL_DIVMOD_L03          00000AA4        Segment part 40 (?xprintfsmall)
                                                    sio_uart_1_init (pal_uart)
 
     -------------------------------------------------------------------------
@@ -1280,13 +1267,13 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000B38 - 00000BD3 (0x9c bytes), align: 1
+  Relative segment, address: CODE 00000AEA - 00000B85 (0x9c bytes), align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?CV_SWITCH_L06          00000B4A        decode_machine (decode)
-           ?SV_SWITCH_L06          00000B52 
-           ?LV_SWITCH_L06          00000B5E 
+           ?CV_SWITCH_L06          00000AFC        decode_machine (decode)
+           ?SV_SWITCH_L06          00000B04 
+           ?LV_SWITCH_L06          00000B10 
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?PROLOGUE_L09
@@ -1294,114 +1281,114 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000BD4 - 00000BD5 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B86 - 00000B87 (0x2 bytes), align: 1
   Segment part 1.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE15_L09         00000BD4        _LitobSmall (?xprintfsmall)
+           ?PROLOGUE15_L09         00000B86        _LitobSmall (?xprintfsmall)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000BD6 - 00000BD7 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B88 - 00000B89 (0x2 bytes), align: 1
   Segment part 2.             Intra module refs:   ?PROLOGUE15_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE14_L09         00000BD6 
+           ?PROLOGUE14_L09         00000B88 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000BD8 - 00000BD9 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B8A - 00000B8B (0x2 bytes), align: 1
   Segment part 3.             Intra module refs:   ?PROLOGUE14_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE13_L09         00000BD8 
+           ?PROLOGUE13_L09         00000B8A 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000BDA - 00000BDB (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B8C - 00000B8D (0x2 bytes), align: 1
   Segment part 4.             Intra module refs:   ?PROLOGUE13_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE12_L09         00000BDA 
+           ?PROLOGUE12_L09         00000B8C 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000BDC - 00000BDD (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B8E - 00000B8F (0x2 bytes), align: 1
   Segment part 5.             Intra module refs:   ?PROLOGUE12_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE11_L09         00000BDC 
+           ?PROLOGUE11_L09         00000B8E 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000BDE - 00000BDF (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B90 - 00000B91 (0x2 bytes), align: 1
   Segment part 6.             Intra module refs:   ?PROLOGUE11_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE10_L09         00000BDE 
+           ?PROLOGUE10_L09         00000B90 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000BE0 - 00000BE1 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B92 - 00000B93 (0x2 bytes), align: 1
   Segment part 7.             Intra module refs:   ?PROLOGUE10_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE9_L09          00000BE0 
+           ?PROLOGUE9_L09          00000B92 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000BE2 - 00000BE3 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B94 - 00000B95 (0x2 bytes), align: 1
   Segment part 8.             Intra module refs:   ?PROLOGUE9_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE8_L09          00000BE2        Segment part 38 (?xprintfsmall)
+           ?PROLOGUE8_L09          00000B94        Segment part 38 (?xprintfsmall)
                                                    __write (?__write)
                                                    sio_uart_1_init (pal_uart)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000BE4 - 00000BE5 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B96 - 00000B97 (0x2 bytes), align: 1
   Segment part 9.             Intra module refs:   ?PROLOGUE8_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE7_L09          00000BE4 
+           ?PROLOGUE7_L09          00000B96 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000BE6 - 00000BE7 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B98 - 00000B99 (0x2 bytes), align: 1
   Segment part 10.            Intra module refs:   ?PROLOGUE7_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE6_L09          00000BE6 
+           ?PROLOGUE6_L09          00000B98 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000BE8 - 00000BE9 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B9A - 00000B9B (0x2 bytes), align: 1
   Segment part 11.            Intra module refs:   ?PROLOGUE6_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE5_L09          00000BE8        pal_sio_tx (pal_sio_hub)
+           ?PROLOGUE5_L09          00000B9A        pal_sio_tx (pal_sio_hub)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000BEA - 00000BEB (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B9C - 00000B9D (0x2 bytes), align: 1
   Segment part 12.            Intra module refs:   ?PROLOGUE5_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE4_L09          00000BEA        _Prout (?xprout)
+           ?PROLOGUE4_L09          00000B9C        _Prout (?xprout)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000BEC - 00000BED (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000B9E - 00000B9F (0x2 bytes), align: 1
   Segment part 13.            Intra module refs:   ?PROLOGUE4_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE3_L09          00000BEC 
+           ?PROLOGUE3_L09          00000B9E 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000BEE - 00000BEF (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000BA0 - 00000BA1 (0x2 bytes), align: 1
   Segment part 14.            Intra module refs:   ?PROLOGUE3_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE2_L09          00000BEE 
+           ?PROLOGUE2_L09          00000BA0 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000BF0 - 00000BF1 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000BA2 - 00000BA3 (0x2 bytes), align: 1
   Segment part 15.            Intra module refs:   ?PROLOGUE2_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?PROLOGUE1_L09          00000BF0 
+           ?PROLOGUE1_L09          00000BA2 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000BF2 - 00000BF3 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000BA4 - 00000BA5 (0x2 bytes), align: 1
   Segment part 16.            Intra module refs:   ?PROLOGUE1_L09
 
     -------------------------------------------------------------------------
@@ -1410,118 +1397,118 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000BF4 - 00000BF5 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000BA6 - 00000BA7 (0x2 bytes), align: 1
   Segment part 1.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B15_L09       00000BF4        _LitobSmall (?xprintfsmall)
+           ?EPILOGUE_B15_L09       00000BA6        _LitobSmall (?xprintfsmall)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000BF6 - 00000BF7 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000BA8 - 00000BA9 (0x2 bytes), align: 1
   Segment part 2.             Intra module refs:   ?EPILOGUE_B15_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B14_L09       00000BF6 
+           ?EPILOGUE_B14_L09       00000BA8 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000BF8 - 00000BF9 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000BAA - 00000BAB (0x2 bytes), align: 1
   Segment part 3.             Intra module refs:   ?EPILOGUE_B14_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B13_L09       00000BF8 
+           ?EPILOGUE_B13_L09       00000BAA 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000BFA - 00000BFB (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000BAC - 00000BAD (0x2 bytes), align: 1
   Segment part 4.             Intra module refs:   ?EPILOGUE_B13_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B12_L09       00000BFA 
+           ?EPILOGUE_B12_L09       00000BAC 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000BFC - 00000BFD (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000BAE - 00000BAF (0x2 bytes), align: 1
   Segment part 5.             Intra module refs:   ?EPILOGUE_B12_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B11_L09       00000BFC 
+           ?EPILOGUE_B11_L09       00000BAE 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000BFE - 00000BFF (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000BB0 - 00000BB1 (0x2 bytes), align: 1
   Segment part 6.             Intra module refs:   ?EPILOGUE_B11_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B10_L09       00000BFE 
+           ?EPILOGUE_B10_L09       00000BB0 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000C00 - 00000C01 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000BB2 - 00000BB3 (0x2 bytes), align: 1
   Segment part 7.             Intra module refs:   ?EPILOGUE_B10_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B9_L09        00000C00 
+           ?EPILOGUE_B9_L09        00000BB2 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000C02 - 00000C03 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000BB4 - 00000BB5 (0x2 bytes), align: 1
   Segment part 8.             Intra module refs:   ?EPILOGUE_B9_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B8_L09        00000C02        Segment part 7 (?xprintfsmall)
+           ?EPILOGUE_B8_L09        00000BB4        Segment part 7 (?xprintfsmall)
                                                    __write (?__write)
                                                    sio_uart_1_init (pal_uart)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000C04 - 00000C05 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000BB6 - 00000BB7 (0x2 bytes), align: 1
   Segment part 9.             Intra module refs:   ?EPILOGUE_B8_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B7_L09        00000C04 
+           ?EPILOGUE_B7_L09        00000BB6 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000C06 - 00000C07 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000BB8 - 00000BB9 (0x2 bytes), align: 1
   Segment part 10.            Intra module refs:   ?EPILOGUE_B7_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B6_L09        00000C06 
+           ?EPILOGUE_B6_L09        00000BB8 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000C08 - 00000C09 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000BBA - 00000BBB (0x2 bytes), align: 1
   Segment part 11.            Intra module refs:   ?EPILOGUE_B6_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B5_L09        00000C08        pal_sio_tx (pal_sio_hub)
+           ?EPILOGUE_B5_L09        00000BBA        pal_sio_tx (pal_sio_hub)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000C0A - 00000C0B (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000BBC - 00000BBD (0x2 bytes), align: 1
   Segment part 12.            Intra module refs:   ?EPILOGUE_B5_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B4_L09        00000C0A        _Prout (?xprout)
+           ?EPILOGUE_B4_L09        00000BBC        _Prout (?xprout)
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000C0C - 00000C0D (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000BBE - 00000BBF (0x2 bytes), align: 1
   Segment part 13.            Intra module refs:   ?EPILOGUE_B4_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B3_L09        00000C0C 
+           ?EPILOGUE_B3_L09        00000BBE 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000C0E - 00000C0F (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000BC0 - 00000BC1 (0x2 bytes), align: 1
   Segment part 14.            Intra module refs:   ?EPILOGUE_B3_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B2_L09        00000C0E 
+           ?EPILOGUE_B2_L09        00000BC0 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000C10 - 00000C11 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000BC2 - 00000BC3 (0x2 bytes), align: 1
   Segment part 15.            Intra module refs:   ?EPILOGUE_B2_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B1_L09        00000C10 
+           ?EPILOGUE_B1_L09        00000BC2 
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000C12 - 00000C1B (0xa bytes), align: 1
+  Relative segment, address: CODE 00000BC4 - 00000BCD (0xa bytes), align: 1
   Segment part 16.            Intra module refs:   ?EPILOGUE_B1_L09
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?EPILOGUE_B0_L09        00000C12 
+           ?EPILOGUE_B0_L09        00000BC4 
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?REGISTER_CGREGR4_L10
@@ -1529,12 +1516,12 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000C1C, align: 1
+  Relative segment, address: CODE 00000BCE, align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            ?Register_R4_is_cg_reg
-                                   00000C1C        _LitobSmall (?xprintfsmall)
+                                   00000BCE        _LitobSmall (?xprintfsmall)
                                                    _PrintfSmall (?xprintfsmall)
                                                    _PutcharsSmall (?xprintfsmall)
                                                    __write (?__write)
@@ -1548,12 +1535,12 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000C1C, align: 1
+  Relative segment, address: CODE 00000BCE, align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            ?Register_R5_is_cg_reg
-                                   00000C1C        _LitobSmall (?xprintfsmall)
+                                   00000BCE        _LitobSmall (?xprintfsmall)
                                                    _PrintfSmall (?xprintfsmall)
                                                    _PutcharsSmall (?xprintfsmall)
                                                    __write (?__write)
@@ -1566,12 +1553,12 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000C1C, align: 1
+  Relative segment, address: CODE 00000BCE, align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            ?Register_R6_is_cg_reg
-                                   00000C1C        _LitobSmall (?xprintfsmall)
+                                   00000BCE        _LitobSmall (?xprintfsmall)
                                                    _PrintfSmall (?xprintfsmall)
                                                    _PutcharsSmall (?xprintfsmall)
                                                    __write (?__write)
@@ -1584,12 +1571,12 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000C1C, align: 1
+  Relative segment, address: CODE 00000BCE, align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            ?Register_R7_is_cg_reg
-                                   00000C1C        _LitobSmall (?xprintfsmall)
+                                   00000BCE        _LitobSmall (?xprintfsmall)
                                                    _PrintfSmall (?xprintfsmall)
                                                    _PutcharsSmall (?xprintfsmall)
                                                    __write (?__write)
@@ -1602,12 +1589,12 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000C1C, align: 1
+  Relative segment, address: CODE 00000BCE, align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            ?Register_R8_is_cg_reg
-                                   00000C1C        _LitobSmall (?xprintfsmall)
+                                   00000BCE        _LitobSmall (?xprintfsmall)
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?REGISTER_CGREGR9_L10
@@ -1615,12 +1602,12 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000C1C, align: 1
+  Relative segment, address: CODE 00000BCE, align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            ?Register_R9_is_cg_reg
-                                   00000C1C        _LitobSmall (?xprintfsmall)
+                                   00000BCE        _LitobSmall (?xprintfsmall)
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?REGISTER_CGREGR10_L10
@@ -1628,12 +1615,12 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000C1C, align: 1
+  Relative segment, address: CODE 00000BCE, align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            ?Register_R10_is_cg_reg
-                                   00000C1C        _LitobSmall (?xprintfsmall)
+                                   00000BCE        _LitobSmall (?xprintfsmall)
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?REGISTER_CGREGR12_L10
@@ -1641,12 +1628,12 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000C1C, align: 1
+  Relative segment, address: CODE 00000BCE, align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            ?Register_R12_is_cg_reg
-                                   00000C1C        _LitobSmall (?xprintfsmall)
+                                   00000BCE        _LitobSmall (?xprintfsmall)
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?REGISTER_CGREGR13_L10
@@ -1654,12 +1641,12 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000C1C, align: 1
+  Relative segment, address: CODE 00000BCE, align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            ?Register_R13_is_cg_reg
-                                   00000C1C        _LitobSmall (?xprintfsmall)
+                                   00000BCE        _LitobSmall (?xprintfsmall)
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?REGISTER_CGREGR14_L10
@@ -1667,12 +1654,12 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000C1C, align: 1
+  Relative segment, address: CODE 00000BCE, align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            ?Register_R14_is_cg_reg
-                                   00000C1C        _LitobSmall (?xprintfsmall)
+                                   00000BCE        _LitobSmall (?xprintfsmall)
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?low_level_init
@@ -1680,11 +1667,11 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000C1C - 00000C1F (0x4 bytes), align: 1
+  Relative segment, address: CODE 00000BCE - 00000BD1 (0x4 bytes), align: 1
   Segment part 3.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __low_level_init        00000C1C        ?call_low_level_init (?C_STARTUP)
+           __low_level_init        00000BCE        ?call_low_level_init (?C_STARTUP)
                RSTACK = 00000000 ( 00000002 )
 
     -------------------------------------------------------------------------
@@ -1693,11 +1680,11 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000C20 - 00000C3F (0x20 bytes), align: 1
+  Relative segment, address: CODE 00000BD2 - 00000BF1 (0x20 bytes), align: 1
   Segment part 4.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __iar_Memchr            00000C20        _PrintfSmall (?xprintfsmall)
+           __iar_Memchr            00000BD2        _PrintfSmall (?xprintfsmall)
                RSTACK = 00000000 ( 00000002 )
 
     -------------------------------------------------------------------------
@@ -1706,11 +1693,11 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000C40 - 00000C51 (0x12 bytes), align: 1
+  Relative segment, address: CODE 00000BF2 - 00000C03 (0x12 bytes), align: 1
   Segment part 3.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           memset                  00000C40        ac_init (decode)
+           memset                  00000BF2        ac_init (decode)
                RSTACK = 00000000 ( 00000002 )
 
     -------------------------------------------------------------------------
@@ -1719,11 +1706,11 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000C52 - 00000C71 (0x20 bytes), align: 1
+  Relative segment, address: CODE 00000C04 - 00000C23 (0x20 bytes), align: 1
   Segment part 3.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           printf                  00000C52        main (main)
+           printf                  00000C04        main (main)
                calls direct
                CSTACK = 00000000 ( 00000002 )
                RSTACK = 00000000 ( 00000002 )
@@ -1734,11 +1721,11 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000C72 - 00000CA5 (0x34 bytes), align: 1
+  Relative segment, address: CODE 00000C24 - 00000C57 (0x34 bytes), align: 1
   Segment part 3.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           putchar                 00000C72        _Prout (?xprout)
+           putchar                 00000C24        _Prout (?xprout)
                calls direct
                CSTACK = 00000000 ( 00000003 )
                RSTACK = 00000000 ( 00000002 )
@@ -1749,32 +1736,32 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000CA6 - 00000CAD (0x8 bytes), align: 1
+  Relative segment, address: CODE 00000C58 - 00000C5F (0x8 bytes), align: 1
   Segment part 3.             Intra module refs:   __segment_init
            LOCAL                   ADDRESS         
            =====                   =======         
-           __memclr                00000CA6 
+           __memclr                00000C58 
                RSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000CAE - 00000CB9 (0xc bytes), align: 1
+  Relative segment, address: CODE 00000C60 - 00000C6B (0xc bytes), align: 1
   Segment part 4.             Intra module refs:   __segment_init
            LOCAL                   ADDRESS         
            =====                   =======         
-           __flashcpy              00000CAE 
+           __flashcpy              00000C60 
                RSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000CBA - 00000CC5 (0xc bytes), align: 1
+  Relative segment, address: CODE 00000C6C - 00000C77 (0xc bytes), align: 1
   Segment part 5.             Intra module refs:   __flashcpy
                                                    __memclr
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00000CC6 - 00000D25 (0x60 bytes), align: 1
+  Relative segment, address: CODE 00000C78 - 00000CD7 (0x60 bytes), align: 1
   Segment part 6.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __segment_init          00000CC6        ?need_segment_init (?C_STARTUP)
+           __segment_init          00000C78        ?need_segment_init (?C_STARTUP)
                calls direct
                RSTACK = 00000000 ( 00000002 )
 
@@ -1784,11 +1771,11 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000D26 - 00000D39 (0x14 bytes), align: 1
+  Relative segment, address: CODE 00000CD8 - 00000CEB (0x14 bytes), align: 1
   Segment part 4.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __iar_Strchr            00000D26        _PrintfSmall (?xprintfsmall)
+           __iar_Strchr            00000CD8        _PrintfSmall (?xprintfsmall)
                RSTACK = 00000000 ( 00000002 )
 
     -------------------------------------------------------------------------
@@ -1797,11 +1784,11 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000D3A - 00000D4D (0x14 bytes), align: 1
+  Relative segment, address: CODE 00000CEC - 00000CFF (0x14 bytes), align: 1
   Segment part 3.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           strlen                  00000D3A        _PrintfSmall (?xprintfsmall)
+           strlen                  00000CEC        _PrintfSmall (?xprintfsmall)
                RSTACK = 00000000 ( 00000002 )
 
     -------------------------------------------------------------------------
@@ -1810,211 +1797,211 @@ CODE
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 00000D4E - 0000102B (0x2de bytes), align: 1
+  Relative segment, address: CODE 00000D00 - 00000FDD (0x2de bytes), align: 1
   Segment part 6.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           _PrintfSmall            00000D4E        printf (?printf)
+           _PrintfSmall            00000D00        printf (?printf)
                calls direct
                CSTACK = 00000000 ( 00000039 )
                RSTACK = 00000000 ( 00000004 )
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000102C - 00001031 (0x6 bytes), align: 1
+  Relative segment, address: CODE 00000FDE - 00000FE3 (0x6 bytes), align: 1
   Segment part 7.             Intra module refs:   _PrintfSmall
                                                    _PutcharsSmall
                                                    pad
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00001032 - 00001033 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00000FE4 - 00000FE5 (0x2 bytes), align: 1
   Segment part 8.             Intra module refs:   _LitobSmall
                                                    _PrintfSmall
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00001034 - 00001039 (0x6 bytes), align: 1
+  Relative segment, address: CODE 00000FE6 - 00000FEB (0x6 bytes), align: 1
   Segment part 9.             Intra module refs:   Segment part 11
                                                    Segment part 24
                                                    Segment part 8
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000103A - 0000103F (0x6 bytes), align: 1
+  Relative segment, address: CODE 00000FEC - 00000FF1 (0x6 bytes), align: 1
   Segment part 10.            Intra module refs:   _PrintfSmall
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00001040 - 00001047 (0x8 bytes), align: 1
+  Relative segment, address: CODE 00000FF2 - 00000FF9 (0x8 bytes), align: 1
   Segment part 11.            Intra module refs:   _PrintfSmall
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00001048 - 0000104F (0x8 bytes), align: 1
+  Relative segment, address: CODE 00000FFA - 00001001 (0x8 bytes), align: 1
   Segment part 12.            Intra module refs:   _PrintfSmall
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00001050 - 00001065 (0x16 bytes), align: 1
+  Relative segment, address: CODE 00001002 - 00001017 (0x16 bytes), align: 1
   Segment part 13.            Intra module refs:   _PrintfSmall
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00001066 - 0000106F (0xa bytes), align: 1
+  Relative segment, address: CODE 00001018 - 00001021 (0xa bytes), align: 1
   Segment part 14.            Intra module refs:   Segment part 17
                                                    _PrintfSmall
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00001070 - 00001077 (0x8 bytes), align: 1
+  Relative segment, address: CODE 00001022 - 00001029 (0x8 bytes), align: 1
   Segment part 15.            Intra module refs:   _PrintfSmall
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00001078 - 00001079 (0x2 bytes), align: 1
+  Relative segment, address: CODE 0000102A - 0000102B (0x2 bytes), align: 1
   Segment part 16.            Intra module refs:   _PrintfSmall
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000107A - 00001087 (0xe bytes), align: 1
+  Relative segment, address: CODE 0000102C - 00001039 (0xe bytes), align: 1
   Segment part 17.            Intra module refs:   Segment part 16
                                                    _PrintfSmall
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00001088 - 0000108D (0x6 bytes), align: 1
+  Relative segment, address: CODE 0000103A - 0000103F (0x6 bytes), align: 1
   Segment part 18.            Intra module refs:   LoadInt
                                                    Segment part 15
                                                    Segment part 16
                                                    _PrintfSmall
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000108E - 0000108F (0x2 bytes), align: 1
+  Relative segment, address: CODE 00001040 - 00001041 (0x2 bytes), align: 1
   Segment part 19.            Intra module refs:   _PrintfSmall
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00001090 - 00001095 (0x6 bytes), align: 1
+  Relative segment, address: CODE 00001042 - 00001047 (0x6 bytes), align: 1
   Segment part 20.            Intra module refs:   Segment part 19
                                                    _PrintfSmall
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00001096 - 0000109F (0xa bytes), align: 1
+  Relative segment, address: CODE 00001048 - 00001051 (0xa bytes), align: 1
   Segment part 21.            Intra module refs:   _PrintfSmall
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000010A0 - 000010A5 (0x6 bytes), align: 1
+  Relative segment, address: CODE 00001052 - 00001057 (0x6 bytes), align: 1
   Segment part 22.            Intra module refs:   _PrintfSmall
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000010A6 - 000010A9 (0x4 bytes), align: 1
+  Relative segment, address: CODE 00001058 - 0000105B (0x4 bytes), align: 1
   Segment part 23.            Intra module refs:   Segment part 22
                                                    Segment part 31
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000010AA - 000010B3 (0xa bytes), align: 1
+  Relative segment, address: CODE 0000105C - 00001065 (0xa bytes), align: 1
   Segment part 24.            Intra module refs:   _PrintfSmall
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000010B4 - 000010B5 (0x2 bytes), align: 1
+  Relative segment, address: CODE 00001066 - 00001067 (0x2 bytes), align: 1
   Segment part 25.            Intra module refs:   _PrintfSmall
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000010B6 - 000010C1 (0xc bytes), align: 1
+  Relative segment, address: CODE 00001068 - 00001073 (0xc bytes), align: 1
   Segment part 26.            Intra module refs:   Segment part 25
                                                    Segment part 28
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000010C2 - 000010C7 (0x6 bytes), align: 1
+  Relative segment, address: CODE 00001074 - 00001079 (0x6 bytes), align: 1
   Segment part 27.            Intra module refs:   Segment part 25
                                                    _PrintfSmall
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000010C8 - 000010CF (0x8 bytes), align: 1
+  Relative segment, address: CODE 0000107A - 00001081 (0x8 bytes), align: 1
   Segment part 28.            Intra module refs:   _PrintfSmall
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000010D0 - 000010D9 (0xa bytes), align: 1
+  Relative segment, address: CODE 00001082 - 0000108B (0xa bytes), align: 1
   Segment part 29.            Intra module refs:   Segment part 10
                                                    Segment part 28
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000010DA - 000010DD (0x4 bytes), align: 1
+  Relative segment, address: CODE 0000108C - 0000108F (0x4 bytes), align: 1
   Segment part 30.            Intra module refs:   _PrintfSmall
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000010DE - 000010E5 (0x8 bytes), align: 1
+  Relative segment, address: CODE 00001090 - 00001097 (0x8 bytes), align: 1
   Segment part 31.            Intra module refs:   Segment part 30
                                                    _PrintfSmall
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000010E6 - 00001157 (0x72 bytes), align: 1
+  Relative segment, address: CODE 00001098 - 00001109 (0x72 bytes), align: 1
   Segment part 32.            Intra module refs:   _PrintfSmall
            LOCAL                   ADDRESS         
            =====                   =======         
-           LoadInt                 000010E6 
+           LoadInt                 00001098 
                RSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00001158 - 0000115D (0x6 bytes), align: 1
+  Relative segment, address: CODE 0000110A - 0000110F (0x6 bytes), align: 1
   Segment part 33.            Intra module refs:   LoadInt
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 0000115E - 00001171 (0x14 bytes), align: 1
+  Relative segment, address: CODE 00001110 - 00001123 (0x14 bytes), align: 1
   Segment part 34.            Intra module refs:   LoadInt
                                                    Segment part 33
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00001172 - 00001177 (0x6 bytes), align: 1
+  Relative segment, address: CODE 00001124 - 00001129 (0x6 bytes), align: 1
   Segment part 35.            Intra module refs:   LoadInt
                                                    _PrintfSmall
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00001178 - 00001181 (0xa bytes), align: 1
+  Relative segment, address: CODE 0000112A - 00001133 (0xa bytes), align: 1
   Segment part 36.            Intra module refs:   LoadInt
                                                    _PrintfSmall
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00001182 - 000011BD (0x3c bytes), align: 1
+  Relative segment, address: CODE 00001134 - 0000116F (0x3c bytes), align: 1
   Segment part 37.            Intra module refs:   Segment part 31
            LOCAL                   ADDRESS         
            =====                   =======         
-           pad                     00001182 
+           pad                     00001134 
                calls direct
                CSTACK = 00000000 ( 00000009 )
                RSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000011BE - 000011C1 (0x4 bytes), align: 1
+  Relative segment, address: CODE 00001170 - 00001173 (0x4 bytes), align: 1
   Segment part 38.            Intra module refs:   _PrintfSmall
                                                    _PutcharsSmall
                                                    pad
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 000011C2 - 00001327 (0x166 bytes), align: 1
+  Relative segment, address: CODE 00001174 - 000012D9 (0x166 bytes), align: 1
   Segment part 39.            Intra module refs:   _PrintfSmall
            LOCAL                   ADDRESS         
            =====                   =======         
-           _LitobSmall             000011C2 
+           _LitobSmall             00001174 
                CSTACK = 00000000 ( 00000013 )
                RSTACK = 00000000 ( 00000004 )
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00001328 - 00001335 (0xe bytes), align: 1
+  Relative segment, address: CODE 000012DA - 000012E7 (0xe bytes), align: 1
   Segment part 40.            Intra module refs:   _LitobSmall
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00001336 - 0000136F (0x3a bytes), align: 1
+  Relative segment, address: CODE 000012E8 - 00001321 (0x3a bytes), align: 1
   Segment part 41.            Intra module refs:   _PrintfSmall
                                                    _PutcharsSmall
            LOCAL                   ADDRESS         
            =====                   =======         
-           _PutcharSmall           00001336 
+           _PutcharSmall           000012E8 
                calls indirect
                CSTACK = 00000000 ( 00000002 )
                RSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 CODE
-  Relative segment, address: CODE 00001370 - 0000139D (0x2e bytes), align: 1
+  Relative segment, address: CODE 00001322 - 0000134F (0x2e bytes), align: 1
   Segment part 42.            Intra module refs:   Segment part 22
                                                    pad
            LOCAL                   ADDRESS         
            =====                   =======         
-           _PutcharsSmall          00001370 
+           _PutcharsSmall          00001322 
                calls direct
                CSTACK = 00000000 ( 00000008 )
                RSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 NEAR_ID
-  Relative segment, address: CODE 0000142F - 00001434 (0x6 bytes), align: 0
+  Relative segment, address: CODE 000013E1 - 000013E6 (0x6 bytes), align: 0
   Segment part 4.             Intra module refs:   Segment part 3
     -------------------------------------------------------------------------
 NEAR_I
@@ -2027,11 +2014,11 @@ NEAR_I
   SEGMENTS IN THE MODULE
   ======================
 CODE
-  Relative segment, address: CODE 0000139E - 000013C1 (0x24 bytes), align: 1
+  Relative segment, address: CODE 00001350 - 00001373 (0x24 bytes), align: 1
   Segment part 3.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           _Prout                  0000139E        printf (?printf)
+           _Prout                  00001350        printf (?printf)
                calls direct
                CSTACK = 00000000 ( 00000004 )
                RSTACK = 00000000 ( 00000002 )
@@ -2093,21 +2080,22 @@ Module                  CODE          DATA
 decode              1 268            11      4
   + shared              7                    4
   + common            116
+encode                 22
+  + shared             88                    6
+  + common
 hal                    76                    3
 main                  213      4     95
   + shared              7                    1
 pal_board             152                   14
-  + shared                                   1
 pal_sio_hub            72
 pal_uart              460            26      6
   + common            156
 sio_handler            58
-timer                 118             7      5
-  + common             88
+timer                  18             5
 N/A (command line)                  592
 N/A (alignment)
 ----------          -----      -    ---     --
-Total:              5 017      4    737     38
+Total:              4 939      4    735     38
   + common            156
 
 
@@ -2123,9 +2111,9 @@ SEGMENT              SPACE    START ADDRESS   END ADDRESS     SIZE  TYPE  ALIGN
 INTVEC               CODE          00000000 - 0000009B          9C   com    1
 ?FILL1               CODE          0000009C - 000000CB          30   rel    0
 SWITCH               CODE          000000CC - 000000EB          20   rel    1
-CODE                 CODE          000000EC - 000013C1        12D6   rel    1
-INITTAB              CODE          000013C2 - 000013CF           E   rel    0
-NEAR_ID              CODE          000013D0 - 00001434          65   rel    0
+CODE                 CODE          000000EC - 00001373        1288   rel    1
+INITTAB              CODE          00001374 - 00001381           E   rel    0
+NEAR_ID              CODE          00001382 - 000013E6          65   rel    0
 FAR_F                CODE          0001DFFC - 0001DFFF           4   rel    0
 ABSOLUTE             DATA               0000001F                     rel    0
                      DATA               00000020                   
@@ -2150,7 +2138,7 @@ ABSOLUTE             DATA               0000001F                     rel    0
 CSTACK               DATA          00000200 - 000003FF         200   dse    0
 RSTACK               DATA          00000400 - 0000044F          50   dse    0
 NEAR_I               DATA          00000450 - 000004B4          65   rel    0
-NEAR_Z               DATA          000004B5 - 000004E0          2C   rel    0
+NEAR_Z               DATA          000004B5 - 000004DE          2A   rel    0
 
                 ****************************************
                 *                                      *
@@ -2158,8 +2146,8 @@ NEAR_Z               DATA          000004B5 - 000004E0          2C   rel    0
                 *                                      *
                 ****************************************
 
- 5 125 bytes of CODE memory (+  4 absolute, 48 range fill )
-   737 bytes of DATA memory (+ 38 absolute  )
+ 5 047 bytes of CODE memory (+  4 absolute, 48 range fill )
+   735 bytes of DATA memory (+ 38 absolute  )
 
 Errors: none
 Warnings: none
