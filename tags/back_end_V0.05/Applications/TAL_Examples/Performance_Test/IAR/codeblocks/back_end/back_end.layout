@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Debug" />
+	<File name="..\..\..\Inc\decode.h" open="1" top="0" tabpos="2">
+		<Cursor position="3340" topLine="52" />
+	</File>
+	<File name="..\..\..\Inc\encode.h" open="1" top="0" tabpos="6">
+		<Cursor position="1347" topLine="61" />
+	</File>
+	<File name="..\..\..\Src\decode.c" open="1" top="0" tabpos="3">
+		<Cursor position="2682" topLine="119" />
+	</File>
+	<File name="..\..\..\Src\encode.c" open="1" top="1" tabpos="5">
+		<Cursor position="835" topLine="7" />
+	</File>
+	<File name="..\..\..\Src\main.c" open="1" top="0" tabpos="1">
+		<Cursor position="1783" topLine="35" />
+	</File>
+	<File name="..\..\..\Src\timer.c" open="1" top="0" tabpos="4">
+		<Cursor position="1025" topLine="39" />
+	</File>
+	<File name="..\..\..\..\..\..\PAL\AVR\ATMEGA1281\Boards\ATZB_900_MN2\pal_board.c" open="0" top="0" tabpos="0">
+		<Cursor position="6947" topLine="259" />
+	</File>
+</CodeBlocks_layout_file>
