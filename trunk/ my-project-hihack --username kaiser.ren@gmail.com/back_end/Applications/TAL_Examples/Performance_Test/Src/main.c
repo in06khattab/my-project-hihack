@@ -53,6 +53,11 @@ int main(void)
 	while (1)
    {
 		//print_main_menu();
+	 	if( tmr0_occur ){
+		  	tmr0_occur = 0;
+	 		encode_machine();
+	 	}
+	
 #if DECODE_USED_TMR_ID==2
 	 	if( TIFR2 & _BV(TOV2)){
 	 		TIFR2 = 0xFF;
