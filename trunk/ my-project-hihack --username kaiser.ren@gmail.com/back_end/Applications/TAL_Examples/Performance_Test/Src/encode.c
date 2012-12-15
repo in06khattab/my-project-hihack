@@ -29,7 +29,10 @@ uint8_t ticker = 0 ;
  */
 ISR(TIMER0_COMPA_vect)
 {
-  	PORTB = enc.port ;
+  	if(0x80 == enc.port)
+		PORTF |= _BV(PORTF1)  ;  	
+  	else
+	  	PORTF &= ~(_BV(PORTF1))  ;
 	ticker++;
 	tmr0_occur = 1; 	
 }
@@ -59,8 +62,8 @@ void tmr0_init(void)
     /* load compare cnt. */
     OCR0A = 125;
 
-    /* make PB7, OC0A, to output wave. */
-	DDRB |= _BV(DDB7);
+    /* make PF1, ADC_INPUT1, OC0A, to output wave. */
+	DDRF |= _BV(DDF1);
 
 	/* clear int flag and enable OCR0A compare. */
 	TIFR0 = 0xFF;
@@ -129,6 +132,7 @@ void encode_machine(void)
 				}
 				else{	//no byte
 				    enc.port = 0x80;	//rising, keep in waiting state
+				  	//enc.port = 0x00;
 				}
 			}
 			break;
@@ -200,17 +204,23 @@ void encode_machine(void)
 				enc.port = 0x00;	//next is 0x80, for rising
 			}
 			else{
+			  	enc.port = 0x80;	
+				enc.state = Sto0;	//state switch
+			}
+	    	break;
+			//
+		case Sto0:     //prepare for sto1
+			if( 0 == ticker % 2){
+				enc.port = 0x00;	//next is 0x80, for rising
+			}
+			else{
 				enc.port = 0x80;	//rising	
 				enc.byte_rev = 0;
 				enc.state = Waiting;	//state switch
 			}
-	    	break;
-			//
-#if 0
-		case Sto0:     //prepare for sto1
-			enc.state = Waiting;
 			break;
 			//
+#if 0
 		case Sto1:		//go to waiting mode
 			enc.state = Waiting;
 			break;
