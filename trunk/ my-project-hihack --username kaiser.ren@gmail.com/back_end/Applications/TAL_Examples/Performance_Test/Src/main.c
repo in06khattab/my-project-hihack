@@ -22,7 +22,7 @@
 
 /* === MACROS ============================================================== */
 #define VER_MAJOR	0
-#define VER_MINOR 4
+#define VER_MINOR 5
 
 
 

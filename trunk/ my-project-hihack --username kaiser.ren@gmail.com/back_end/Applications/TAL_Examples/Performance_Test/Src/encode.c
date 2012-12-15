@@ -13,162 +13,57 @@
 /*----------------------------------------------------------------------------
  *        Headers
  *----------------------------------------------------------------------------*/
-//#include "encode.h"
+#include "hal.h"
 
-#if 0
 modulate_t mod;
 
 /*----------------------------------------------------------------------------
  *        ISR Handler
  *----------------------------------------------------------------------------*/
 /**
- *  \brief Interrupt handler for DACC.
+ *  \brief Interrupt handler for TMR0.
  *
- * Server routine when DACC complete the convertion.
+ * Server routine when TMR0 Compare Int occur.
  */
-void DAC_IrqHandler(void)
+ISR(TIMER0_COMPA_vect)
 {
-	uint32_t status ;
 
-    status = DACC_GetStatus( DACC ) ;
-
-    /* if conversion is done*/
-    if ( (status & DACC_IER_EOC) == DACC_IER_EOC ){
-		if ( index_sample >= SAMPLES ){
-		  	if(0 == mod.reverse)
-				state_switch();
-			index_sample = 0;
-			ticker = 0;
-		}
-		else if( ( 50 == index_sample ) && (Div2 == mod.factor ) ){
-			state_switch();
-			ticker = 0;
-		}
-		else if( ( 50 == index_sample ) && ( 1 == mod.reverse ) ){
-		  	mod.reverse = 0;
-			state_switch();
-			ticker = 0;
-		}
-		DACC->DACC_IDR = DACC_IER_EOC;
-	}
-
-}
-
-/**
- *  \brief Interrupt handler for USART.
- *
- * Increments the number of bytes received in the
- * current second and starts another transfer if the desired bps has not been
- * met yet.
- */
-void USART1_IrqHandler(void)
-{
-    uint32_t status;
-
-    /* Read USART status*/
-    status = BOARD_USART_BASE->US_CSR;
-
-    /* Receive byte is stored in buffer. */
-    if ((status & US_CSR_RXRDY) == US_CSR_RXRDY) {
-		if(us1.count < 20){
-	    	us1.buff[us1.head++] = USART_GetChar(BOARD_USART_BASE);
-			us1.count++;
-			if(us1.head >= 20)
-				us1.head = 0;
-	  	}
-		else{
-			us1.buff[us1.head] = USART_GetChar(BOARD_USART_BASE);
-		}
-    }
-}
-
-/**
- *  \brief Interrupt handler for SysTick.
- *
- */
-void SysTick_Handler( void )
-{
-    //uint32_t status ;
-	uint16_t value;
-
-    //status = DACC_GetStatus( DACC ) ;
-
-    /* if conversion is done*/
-    //if ( (status & DACC_ISR_EOC) == DACC_ISR_EOC )
-    {
-		if ( 0 == ( ticker%mod.factor) ){
-		  	if( Waiting != mod.state){
-		  	 	value = sine_data[index_sample++] * amplitude / (MAX_DIGITAL/2) + MAX_DIGITAL/2;
-        		DACC_SetConversionData(DACC, value ) ;
-				DACC->DACC_IER = DACC_IER_EOC;
-			}
-			else{
-				index_sample++;
-				DACC_SetConversionData( DACC,sine_data[0]*amplitude/(MAX_DIGITAL/2)+MAX_DIGITAL/2);
-				DACC->DACC_IER = DACC_IER_EOC;
-			}
-		}
-		ticker++;
-    }
 }
 
 /*----------------------------------------------------------------------------
  *        Exported functions
  *----------------------------------------------------------------------------*/
 /**
- *  \brief USART hardware handshaking configuration
+ *  \brief TMR0 initialization
  *
- * Configures USART in hardware handshaking mode, asynchronous, 8 bits, 1 stop
- * bit, no parity, 115200 bauds and enables its transmitter and receiver.
+ * F_CPU: 4MHz
+ * Prescaler: 8
+ * Ticker: 4MHz/8 = 2us,
+ * CNT: 250us/2us = 125.
  */
-void _ConfigureUsart( void )
-{
-    uint32_t mode = US_MR_USART_MODE_NORMAL
-                        | US_MR_USCLKS_MCK
-                        | US_MR_CHRL_8_BIT
-                        | US_MR_PAR_NO
-                        | US_MR_NBSTOP_1_BIT
-                        | US_MR_CHMODE_NORMAL ;
+ void tmr0_init(void)
+ {
+    /* CTC mode, no compare unit */
+	TCCR0A = _BV(WGM01);
 
-    /* Enable the peripheral clock in the PMC*/
-    PMC->PMC_PCER0 = 1 << BOARD_ID_USART ;
+	/* Clock source and prescaler, 8 */
+	TCCR0B = _BV(CS01);
 
-    /* Configure the USART in the desired mode @115200 bauds*/
-    USART_Configure( BOARD_USART_BASE, mode, 115200, BOARD_MCK ) ;
+    /* load compare cnt. */
+    OCR0A = 125;
 
-    /* Configure the RXBUFF interrupt*/
-    NVIC_EnableIRQ( USART1_IRQn ) ;
+    /* make PB7, OC0A, to output wave. */
+	DDRB |= _BV(DDB7);
 
-    /* Enable receiver & transmitter*/
-    USART_SetTransmitterEnabled( BOARD_USART_BASE, 1 ) ;
-    USART_SetReceiverEnabled( BOARD_USART_BASE, 1 ) ;
-	
-	 BOARD_USART_BASE->US_IER = US_IER_RXRDY ;
-}
+	/* clear int flag and enable OCR0A compare. */
+	TIFR0 = _BV(OCF0A);
+	TIMSK0 = _BV(OCIE0A);
+ }
+
 /*
  * Get us1 buffer amount.
 */
-uint8_t us1_get_count(void)
-{
-  	return (us1.count);
-}
 
-/*
- * Get a charactors.
-*/
-uint8_t us1_get_char(void)
-{
-  	uint8_t temp;
-	
-	if(us1.count){
-    	temp = us1.buff[us1.tail++];
-		us1.count--;
-		if(us1.tail >= 20){
-			us1.tail = 0;
-		}
-  	}
-    return temp;
-}
 /*
  * Find proper factor depending on state and bit mask.
 */
@@ -203,7 +98,7 @@ void findParam(uint8_t bit_msk)
 void state_switch(void)
 {
   	mod_state_t sta = mod.state;
-	
+
 	switch(sta){
 		case Waiting:
 			if(us1_get_count() ){ 	//prepare for sta0
@@ -235,11 +130,11 @@ void state_switch(void)
 		  	}
 			else{
 				mod.factor = Div2;
-				mod.cur = CLR;	
+				mod.cur = CLR;
 			}
 		  	mod.state = Bit7;
 			break;
-			//	
+			//
 		case Bit7: 	//prepare for Bit6
 		  	findParam(BIT6);
 			mod.state = Bit6;
@@ -308,5 +203,4 @@ void state_switch(void)
 	}
 }
 
-#endif
 //end of file
