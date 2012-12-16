@@ -2,7 +2,7 @@
 #                                                                              #
 #      IAR Universal Linker V5.2.5.17                                          #
 #                                                                              #
-#           Link time     =  16/Dec/2012  16:18:25                             #
+#           Link time     =  16/Dec/2012  16:55:52                             #
 #           Target CPU    =  A90                                               #
 #           List file     =  "F:\ Firmware\my-project-hihack\trunk\ my-project #
 #                            -hihack --username kaiser.ren@gmail.com\back_end\ #
@@ -81,10 +81,10 @@
 #                            Applications\TAL_Examples\Performance_Test\IAR\Me #
 #                            ga1281\Debug\List\Mega1281.map"                   #
 #                            -xmsn                                             #
-#                            "-Id:\Program Files\IAR Systems\Embedded Workbenc #
+#                            "-ID:\Program Files\IAR Systems\Embedded Workbenc #
 #                            h 6.0\avr\LIB\"                                   #
 #                            -f                                                #
-#                            "d:\Program Files\IAR Systems\Embedded Workbench  #
+#                            "D:\Program Files\IAR Systems\Embedded Workbench  #
 #                            6.0\avr\src\template\cfgm1281.xcl"                #
 #                            (-D_..X_INTVEC_SIZE=CC -D_..X_FLASH_NEND=FFFF     #
 #                            -D_..X_FLASH_END=1FFFF -D_..X_SRAM_BASE=200       #
@@ -96,7 +96,7 @@
 #                            -D_..X_HUGE_HEAP_SIZE=0 -D_..X_CSTACK_SIZE=200    #
 #                            -D_..X_RSTACK_SIZE=50                             #
 #                            -D_..X_FLASH_CODE_END=1FFFF -f                    #
-#                            "d:\Program Files\IAR Systems\Embedded Workbench  #
+#                            "D:\Program Files\IAR Systems\Embedded Workbench  #
 #                            6.0\avr\src\template\cfg3soim.xcl"                #
 #                            (-ca90 -w29                                       #
 #                            -Z(CODE)INTVEC=0-(_..X_INTVEC_SIZE-1)             #
@@ -144,7 +144,7 @@
 #                            gmail.com\back_end\Applications\TAL_Examples\Perf #
 #                            ormance_Test\IAR\Mega1281\Debug\Exe\Mega1281.hex" #
 #                            -s __program_start                                #
-#                            "d:\Program Files\IAR Systems\Embedded Workbench  #
+#                            "D:\Program Files\IAR Systems\Embedded Workbench  #
 #                            6.0\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.r90"           #
 #                            -e_PrintfSmall=_Printf                            #
 #                                                                              #
@@ -1218,7 +1218,7 @@ CODE
 
     *************************************************************************
 
-  FILE NAME : d:\Program Files\IAR Systems\Embedded Workbench 6.0\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.r90
+  FILE NAME : D:\Program Files\IAR Systems\Embedded Workbench 6.0\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.r90
   LIBRARY MODULE, NAME : ?__dbg_break
 
   SEGMENTS IN THE MODULE
