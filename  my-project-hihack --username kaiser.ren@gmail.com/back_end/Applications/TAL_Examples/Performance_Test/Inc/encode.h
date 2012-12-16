@@ -19,6 +19,20 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <assert.h>
+#include "pal_types.h"
+
+/*----------------------------------------------------------------------------
+ *        Macro
+ *----------------------------------------------------------------------------*/
+#if (PAL_TYPE==ATTINY88)
+   #define ENC_DIR   DDRB
+   #define ENC_PORT  PORTB
+   #define ENC_PIN   PORTB7
+#else//ATMEGA1281
+   #define ENC_DIR   DDRF
+   #define ENC_PORT  PORTF
+   #define ENC_PIN   PORTF1
+#endif//PAL_TYPE==ATTINY88
 
 /*----------------------------------------------------------------------------
  *        Typedef

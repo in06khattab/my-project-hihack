@@ -35,7 +35,7 @@ static void dec_update_tmr(void);
  *
  */
 #if (PAL_TYPE==ATTINY88)
-ISR(ANA_COMP_vect)
+ISR(ANALOG_COMP_vect)
 {
   	uint8_t sreg;
 

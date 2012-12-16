@@ -1269,7 +1269,7 @@
           <state>DEBUG=0</state>
           <state>F_CPU=4000000UL</state>
           <state>SIO_HUB</state>
-          <state>UART1</state>
+          <state>UART0</state>
           <state>TAL_TYPE=AT86RF212</state>
           <state>PAL_TYPE=ATTINY88</state>
           <state>PAL_GENERIC_TYPE=AVR</state>
@@ -2081,11 +2081,11 @@
     <group>
       <name>Board</name>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\PAL\AVR\ATMEGA1281\Boards\ATZB_900_MN2\pal_board.c</name>
+        <name>$PROJ_DIR$\..\..\..\..\PAL\AVR\ATTINY\Boards\ATZB_900_MN2\pal_board.c</name>
       </file>
     </group>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\PAL\AVR\ATMEGA1281\Src\pal_sio_hub.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\PAL\AVR\ATTINY\Src\pal_sio_hub.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\PAL\AVR\Generic\Src\pal_uart.c</name>
