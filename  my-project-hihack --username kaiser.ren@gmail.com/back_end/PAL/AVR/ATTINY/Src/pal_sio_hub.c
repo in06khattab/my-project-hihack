@@ -21,9 +21,9 @@
 
 #include <stdint.h>
 #include "pal.h"
-//#include "return_val.h"
+#include "return_val.h"
 #include "pal_uart.h"
-//#include "pal_usb.h"
+#include "pal_usb.h"
 
 /* === Globals =============================================================*/
 
