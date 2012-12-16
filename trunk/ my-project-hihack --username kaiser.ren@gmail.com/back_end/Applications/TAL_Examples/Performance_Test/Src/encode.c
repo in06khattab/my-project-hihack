@@ -30,9 +30,9 @@ uint8_t ticker = 0 ;
 ISR(TIMER0_COMPA_vect)
 {
   	if(0x80 == enc.port)
-		PORTF |= _BV(PORTF1)  ;  	
+		ENC_PORT |= _BV(ENC_PIN)  ;  	
   	else
-	  	PORTF &= ~(_BV(PORTF1))  ;
+	  	ENC_PORT &= ~(_BV(ENC_PIN))  ;
 	ticker++;
 	tmr0_occur = 1; 	
 }
@@ -62,8 +62,8 @@ void tmr0_init(void)
     /* load compare cnt. */
     OCR0A = 125;
 
-    /* make PF1, ADC_INPUT1, OC0A, to output wave. */
-	DDRF |= _BV(DDF1);
+    /* output wave pin. */
+	ENC_DIR |= _BV(ENC_PIN);
 
 	/* clear int flag and enable OCR0A compare. */
 	TIFR0 = 0xFF;

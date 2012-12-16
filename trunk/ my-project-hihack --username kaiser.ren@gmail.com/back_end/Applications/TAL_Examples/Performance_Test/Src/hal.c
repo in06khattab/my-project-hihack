@@ -81,6 +81,20 @@ static void mcu_clock_init(void)
 /**
  * @brief Initialization of wdt
  */
+#if (PAL_TYPE==ATTINY88)
+static void wdt_init(void)
+{
+  	__watchdog_reset();
+	/* Clear WDRF in MCUSR */
+		MCUSR &= ~(1<<WDRF);
+		/* Write logical one to WDCE and WDE */
+		/* Keep old prescaler setting to prevent unintentional time-out
+		*/
+		WDTCR |= (1<<WDCE) | (1<<WDE);
+		/* Turn off WDT */
+		WDTCR = 0x00;
+}
+#else//ATMEGA1281
 static void wdt_init(void)
 {
   	__watchdog_reset();
@@ -93,6 +107,7 @@ static void wdt_init(void)
 		/* Turn off WDT */
 		WDTCSR = 0x00;
 }
+#endif//#if (PAL_TYPE==ATTINY88)
 
 /**
  * @brief Initialization of hal

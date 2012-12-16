@@ -31,7 +31,7 @@ pwm_out_t pwm_para;
 void pwm_init(void)
 {
   	/* toggle OC0A output when match, CTC mode */
-	TCCR0A = _BV(CTC0);
+	TCCR0A = _BV(WGM01);
 	
 	/* make PB7, OC0A, to output wave. */
 	DDRB |= _BV(DDB7);
