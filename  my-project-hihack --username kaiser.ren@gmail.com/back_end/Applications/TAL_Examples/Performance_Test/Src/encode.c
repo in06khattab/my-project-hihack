@@ -18,6 +18,7 @@
 encode_t enc;
 uint8_t tmr0_occur = 0;
 uint8_t ticker = 0 ;
+static uint8_t odd ;
 
 /*----------------------------------------------------------------------------
  *        ISR Handler
@@ -84,6 +85,7 @@ void findParam(uint8_t bit_msk, mod_state_t state)
 		if( enc.data & ( 1 << bit_msk) ){
 			enc.edge = rising;
             enc.port = 0x00;	//next is 0x80, for rising
+			odd++;
 		}
 		else{
 			enc.edge = falling;
@@ -138,13 +140,7 @@ void encode_machine(void)
 			break;
 			//
 		case Sta0: 	//prepare for sta1, rising edge
-		  	if( 0 == ticker % 2){
-			 	enc.port = 0x00;	//next is 0x80, for rising
-			}
-			else{
-				enc.port = 0x80;	//rising
-				enc.state = Sta1;  	//state switch
-			}
+			findParam(BIT0, Bit0);
 			break;
 			//
 		case Sta1:	//prepare for sta2, falling edge
@@ -171,57 +167,77 @@ void encode_machine(void)
 		  	findParam(BIT7, Bit7);
 			break;
 			//
-		case Bit7: 	//prepare for Bit6
-		  	findParam(BIT6, Bit6);
-	    	break;
-			//
-		case Bit6: 	//prepare for Bit5
-		  	findParam(BIT5, Bit5);
-	    	break;
-			//
-		case Bit5: 	//prepare for Bit4
-		  	findParam(BIT4, Bit4);
-	    	break;
-			//
-		case Bit4: 	//prepare for Bit3
-		  	findParam(BIT3, Bit3);
-	    	break;
-			//
-		case Bit3: 	//prepare for Bit2
-		  	findParam(BIT2, Bit2);
-	    	break;
-			//
-		case Bit2: 	//prepare for Bit1
+		case Bit0: 	//prepare for Bit1
 		  	findParam(BIT1, Bit1);
 	    	break;
 			//
-		case Bit1: 	//prepare for Bit0
-		  	findParam(BIT0, Bit0);
+		case Bit1: 	//prepare for Bit2
+		  	findParam(BIT2, Bit2);
 	    	break;
 			//
-		case Bit0: 	//new byte is exist?
+		case Bit2: 	//prepare for Bit3
+		  	findParam(BIT3, Bit3);
+	    	break;
+			//
+		case Bit3: 	//prepare for Bit4
+		  	findParam(BIT4, Bit4);
+	    	break;
+			//
+		case Bit4: 	//prepare for Bit5
+		  	findParam(BIT5, Bit5);
+	    	break;
+			//
+		case Bit5: 	//prepare for Bit6
+		  	findParam(BIT6, Bit6);
+	    	break;
+			//
+		case Bit6: 	//prepare for Bit7
+		  	findParam(BIT7, Bit7);
+	    	break;
+			//
+		case Bit7: 	//prepare for parity
+		  	if( 0 == ticker % 2){
+				if( 0 == ( odd%2 ) ){//there is even 1(s), output 1
+					enc.edge = rising;
+					enc.port = 0x00;	//next is 0x80, for rising
+				}
+				else{//there is odd 1(s), output 0
+					enc.edge = falling;
+					enc.port = 0x80;	//next is 0x00, for falling
+				}
+			}
+			else{
+				if( rising == enc.edge ){
+					enc.port = 0x80;	//rising	
+				}
+				else{
+					enc.port = 0x00;	//falling
+				}
+				enc.state = Parity;	//state switch
+			}
+	    	break;
+			//
+		case Parity://prepare for stop bit, it is always 1
 		  	if( 0 == ticker % 2){
 				enc.port = 0x00;	//next is 0x80, for rising
 			}
 			else{
-			  	enc.port = 0x80;	
-				enc.state = Waiting;	//state switch
+				enc.port = 0x80;	//rising	
+				enc.state = Sto0;	//state switch
 			}
-	    	break;
+        	break;
 			//
-#if 0
-		case Sto0:     //prepare for sto1
+		case Sto0:     //back to waiting
 			if( 0 == ticker % 2){
 				enc.port = 0x00;	//next is 0x80, for rising
 			}
 			else{
 				enc.port = 0x80;	//rising	
-				enc.byte_rev = 0;
 				enc.state = Waiting;	//state switch
 			}
 			break;
 			//
-
+#if 0
 		case Sto1:		//go to waiting mode
 			enc.state = Waiting;
 			break;
