@@ -15,7 +15,11 @@
  *----------------------------------------------------------------------------*/
 #include "encode.h"
 
+/*----------------------------------------------------------------------------
+ *        Variable
+ *----------------------------------------------------------------------------*/
 modulate_t mod;
+static uint8_t odd;	//odd parity
 
 /*----------------------------------------------------------------------------
  *        ISR Handler
@@ -35,17 +39,17 @@ void DAC_IrqHandler(void)
     if ( (status & DACC_IER_EOC) == DACC_IER_EOC ){
 		if ( index_sample >= SAMPLES ){
 		  	if(0 == mod.reverse)
-				state_switch();
+				encode_switch();
 			index_sample = 0;
 			ticker = 0;
 		}
 		else if( ( 50 == index_sample ) && (Div2 == mod.factor ) ){
-			state_switch();
+			encode_switch();
 			ticker = 0;
 		}
 		else if( ( 50 == index_sample ) && ( 1 == mod.reverse ) ){
 		  	mod.reverse = 0;
-			state_switch();
+			encode_switch();
 			ticker = 0;
 		}
 		DACC->DACC_IDR = DACC_IER_EOC;
@@ -175,11 +179,13 @@ uint8_t us1_get_char(void)
 void findParam(uint8_t bit_msk)
 {
   	if( ( mod.data & ( 1 << bit_msk) ) && (SET == mod.cur) ){
+	  	odd++;	//bit is one, odd cnt increacement
   		mod.factor = Div1;
 		if( 50 == index_sample )
 		  	mod.reverse = 1;
 	}
 	else if( ( mod.data & ( 1 << bit_msk) ) && (CLR == mod.cur) ){
+	  	odd++;	//bit is one, odd cnt increacement
 		mod.factor = Div2;
 		mod.cur = SET;
 	}
@@ -199,22 +205,25 @@ void findParam(uint8_t bit_msk)
  * Achieve wave phase.
 */
 
-void state_switch(void)
+void encode_switch(void)
 {
   	mod_state_t sta = mod.state;
 	
 	switch(sta){
 		case Waiting:
 			if(us1_get_count() ){ 	//prepare for sta0
-				mod.state = Sta0;
-				mod.factor = Div2;
+				mod.state = Sta0; 	//next state is start bit
+				mod.factor = Div2;  //start bit is zero
+				mod.cur = CLR;
 				mod.data = us1_get_char();
 				index_sample = 0;
 			}
 			break;
 			//
 		case Sta0: 	//prepare for sta1
-	  		mod.state = Sta1;
+		  	odd = 0;	//clear odd cnt
+		  	findParam(BIT7);
+	  		mod.state = Bit7;
 			break;
 			//
 		case Sta1:	//prepare for sta2
@@ -274,22 +283,45 @@ void state_switch(void)
 			mod.state = Bit0;
 	    	break;
 			//
-		case Bit0: 	//new byte is exist?
-		  	mod.state = Sto0; 	//to stop state 0.
-								//output bit is one.
-			if(SET == mod.cur){
+		case Bit0: 	//prepare for Parity
+		  	if( ( 0 == ( odd % 2 ) ) && (SET == mod.cur) ){//there is even 1(s), output 1, cur is 1 	
 				mod.factor = Div1;
+				mod.cur = SET;
 				if( 50 == index_sample )
-		  			mod.reverse = 1;
+					mod.reverse = 1;
+			}
+			else if( ( 0 == ( odd % 2 ) ) && (CLR == mod.cur) ){//there is even 1(s), output 1, cur is 0 	
+				mod.factor = Div2;
+				mod.cur = SET;
+			}
+			else if( ( 1 == ( odd % 2 ) ) && (CLR == mod.cur) ){//there is odd 1(s), output 0, cur is 0 	
+				mod.factor = Div1;
+				mod.cur = CLR;
+				if( 50 == index_sample )
+					mod.reverse = 1;
+			}
+			else if( ( 1 == ( odd % 2 ) ) && (SET == mod.cur) ){//there is odd 1(s), output 0, cur is 1
+				mod.factor = Div2;
+				mod.cur = CLR;
+			}
+			mod.state = Parity;
+	    	break;
+			//
+		case Parity:	//prepare for stop bit
+		  	if(SET == mod.cur){
+		  		mod.factor = Div1;
+				mod.cur = SET;
+				if( 50 == index_sample )
+					mod.reverse = 1;	
 			}
 			else{
 				mod.factor = Div2;
+				mod.cur = CLR;
 			}
-			mod.cur = SET;
-	    	break;
-			//
-
-		case Sto0:     //prepare for sto1
+			mod.state = Sto0;
+		  	break;
+            //
+		case Sto0:     //prepare for Waiting
 			mod.state = Waiting;
 			mod.factor = Div1;
 			mod.cur = SET;
