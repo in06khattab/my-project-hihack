@@ -50,7 +50,8 @@ typedef enum modulation_state_tag
 	Bit1,
 	Bit0,
 	Sto0,
-	Sto1
+	Sto1,
+	Parity
 }mod_state_t;
 
 typedef enum next_bit_tag
@@ -107,7 +108,7 @@ extern uint16_t amplitude ;
 /*----------------------------------------------------------------------------
  *        External Function
  *----------------------------------------------------------------------------*/
-void state_switch(void);
+void encode_switch(void);
 uint8_t us1_get_count(void);
 uint8_t us1_get_char(void);
 void _ConfigureUsart( void );
