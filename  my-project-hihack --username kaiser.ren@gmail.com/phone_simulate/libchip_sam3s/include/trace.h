@@ -77,7 +77,7 @@
  */
 
 /**  Softpack Version */
-#define SOFTPACK_VERSION       "0.02"
+#define SOFTPACK_VERSION       "0.03"
 
 #define TRACE_LEVEL_DEBUG      5
 #define TRACE_LEVEL_INFO       4

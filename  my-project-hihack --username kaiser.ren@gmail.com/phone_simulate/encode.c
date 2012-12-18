@@ -220,10 +220,10 @@ void encode_switch(void)
 			}
 			break;
 			//
-		case Sta0: 	//prepare for sta1
+		case Sta0: 	//prepare for bit0
 		  	odd = 0;	//clear odd cnt
-		  	findParam(BIT7);
-	  		mod.state = Bit7;
+		  	findParam(BIT0);
+	  		mod.state = Bit0;
 			break;
 			//
 		case Sta1:	//prepare for sta2
@@ -248,42 +248,42 @@ void encode_switch(void)
 		  	mod.state = Bit7;
 			break;
 			//	
-		case Bit7: 	//prepare for Bit6
-		  	findParam(BIT6);
-			mod.state = Bit6;
-	    	break;
-			//
-		case Bit6: 	//prepare for Bit5
-		  	findParam(BIT5);
-			mod.state = Bit5;
-	    	break;
-			//
-		case Bit5: 	//prepare for Bit4
-		  	findParam(BIT4);
-			mod.state = Bit4;
-	    	break;
-			//
-		case Bit4: 	//prepare for Bit3
-		  	findParam(BIT3);
-			mod.state = Bit3;
-	    	break;
-			//
-		case Bit3: 	//prepare for Bit2
-		  	findParam(BIT2);
-			mod.state = Bit2;
-	    	break;
-			//
-		case Bit2: 	//prepare for Bit1
+		case Bit0: 	//prepare for Bit1
 		  	findParam(BIT1);
 			mod.state = Bit1;
 	    	break;
 			//
-		case Bit1: 	//prepare for Bit0
-		  	findParam(BIT0);
-			mod.state = Bit0;
+		case Bit1: 	//prepare for Bit2
+		  	findParam(BIT2);
+			mod.state = Bit2;
 	    	break;
 			//
-		case Bit0: 	//prepare for Parity
+		case Bit2: 	//prepare for Bit3
+		  	findParam(BIT3);
+			mod.state = Bit3;
+	    	break;
+			//
+		case Bit3: 	//prepare for Bit4
+		  	findParam(BIT4);
+			mod.state = Bit4;
+	    	break;
+			//
+		case Bit4: 	//prepare for Bit5
+		  	findParam(BIT5);
+			mod.state = Bit5;
+	    	break;
+			//
+		case Bit5: 	//prepare for Bit6
+		  	findParam(BIT6);
+			mod.state = Bit6;
+	    	break;
+			//
+		case Bit6: 	//prepare for Bit7
+		  	findParam(BIT7);
+			mod.state = Bit7;
+	    	break;
+			//
+		case Bit7: 	//prepare for Parity
 		  	if( ( 0 == ( odd % 2 ) ) && (SET == mod.cur) ){//there is even 1(s), output 1, cur is 1 	
 				mod.factor = Div1;
 				mod.cur = SET;
@@ -327,12 +327,6 @@ void encode_switch(void)
 			mod.cur = SET;
 			break;
 			//
-#if 0
-		case Sto1:		//go to waiting mode
-			mod.state = Waiting;
-			break;
-			//
-#endif
 		default:
 	  		break;
 	  		//
