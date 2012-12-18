@@ -63,6 +63,7 @@ typedef enum modulation_state_tag
 	Bit2,
 	Bit1,
 	Bit0,
+	Parity,
 	Sto0,
 	Sto1
 }mod_state_t;

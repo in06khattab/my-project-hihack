@@ -24,6 +24,7 @@ uint16_t cur_stamp = 0;
 uint8_t cur_ovfw = 0;
 uint8_t	ovfw = 0;
 uint8_t	acc_occur = 0;
+static uint8_t odd;	//odd parity
 
 static void dec_update_tmr(void);
 
@@ -247,17 +248,20 @@ void decode_machine(void)
   	switch (dec.state){
 		case Waiting:
 		  	if( dec.acsr & ( 1 << ACO) )	{	//rising
-				dec.state = Sta0;
+				dec.state = Sta0;	//goto start bit
 			}
 			dec_update_tmr();
 			break;
 			//
 		case Sta0:
 		  	if ( !( dec.acsr & ( 1 << ACO) )	)	{//falling
-		  		if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX))
-				  	dec.state = Sta1;
-				else
+			  	if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
+				  	dec.state = Bit0; 	//goto bit0
+			  		odd = 0;	//clear odd parity cnt
+				}
+				else{
 				  	dec.state = Waiting;
+				}
 			}
 			else{
 				dec.state = Waiting;
@@ -304,88 +308,16 @@ void decode_machine(void)
 			dec_update_tmr();
 			break;
 			//
-		case Bit7:
+		case Bit0:
 	  		if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
 		  		dec_update_tmr();
-				if ( dec.acsr & ( 1 << ACO) ) 	//rising
-				  	dec.data |= ( 1 << BIT7 ) ;
-				else							//falling
-				  	dec.data &= ~( 1 << BIT7 ) ;
-				dec.state = Bit6;
-			}
-			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
-				dec.state = Waiting;
-				dec_update_tmr();
-			}
-			break;
-			//
-		case Bit6:
-	  		if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
-		  		dec_update_tmr();
-				if ( dec.acsr & ( 1 << ACO) ) 	//rising
-				  	dec.data |= ( 1 << BIT6 ) ;
-				else						 	//falling
-				  	dec.data &= ~( 1 << BIT6 ) ;
-				dec.state = Bit5;
-			}
-			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
-				dec.state = Waiting;
-				dec_update_tmr();
-			}
-			break;
-			//
-		case Bit5:
-	  		if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
-		  		dec_update_tmr();
-				if ( dec.acsr & ( 1 << ACO) ) 	//rising
-				  	dec.data |= ( 1 << BIT5 ) ;
-				else							//falling
-				  	dec.data &= ~( 1 << BIT5 ) ;
-				dec.state = Bit4;
-			}
-			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
-				dec.state = Waiting;
-				dec_update_tmr();
-			}
-			break;
-			//
-		case Bit4:
-	  		if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
-		  		dec_update_tmr();
-				if ( dec.acsr & ( 1 << ACO) ) 	//rising
-				  	dec.data |= ( 1 << BIT4 ) ;
-				else							//falling
-				  	dec.data &= ~( 1 << BIT4 ) ;
-				dec.state = Bit3;
-			}
-			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
-				dec.state = Waiting;
-				dec_update_tmr();
-			}
-			break;
-			//
-		case Bit3:
-	  		if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
-		  		dec_update_tmr();
-				if ( dec.acsr & ( 1 << ACO) ) 	//rising
-				  	dec.data |= ( 1 << BIT3 ) ;
-				else							//falling
-				  	dec.data &= ~( 1 << BIT3 ) ;
-				dec.state = Bit2;
-			}
-			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
-				dec.state = Waiting;
-				dec_update_tmr();
-			}
-			break;
-			//
-		case Bit2:
-	  		if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
-		  		dec_update_tmr();
-				if ( dec.acsr & ( 1 << ACO) ) 	//rising
-				  	dec.data |= ( 1 << BIT2 ) ;
-				else							//falling
-				  	dec.data &= ~( 1 << BIT2 ) ;
+				if ( dec.acsr & ( 1 << ACO) ) 	{//rising
+				  	dec.data |= ( 1 << BIT0 ) ;
+					odd++;
+				}
+				else{							//falling
+				  	dec.data &= ~( 1 << BIT0 ) ;
+				}
 				dec.state = Bit1;
 			}
 			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
@@ -397,11 +329,14 @@ void decode_machine(void)
 		case Bit1:
 	  		if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
 		  		dec_update_tmr();
-				if ( dec.acsr & ( 1 << ACO) ) 	//rising
+				if ( dec.acsr & ( 1 << ACO) ) 	{//rising
 				  	dec.data |= ( 1 << BIT1 ) ;
-				else							//falling
+					odd++;
+				}
+				else{							//falling
 				  	dec.data &= ~( 1 << BIT1 ) ;
-				dec.state = Bit0;
+				}
+				dec.state = Bit2;
 			}
 			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
 				dec.state = Waiting;
@@ -409,15 +344,108 @@ void decode_machine(void)
 			}
 			break;
 			//
-		case Bit0:
+		case Bit2:
 	  		if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
 		  		dec_update_tmr();
-				if ( dec.acsr & ( 1 << ACO) ) 	//rising
-				  	dec.data |= ( 1 << BIT0 ) ;
-				else							//falling
-				  	dec.data &= ~( 1 << BIT0 ) ;
-				sio_putchar(dec.data);
+				if ( dec.acsr & ( 1 << ACO) ) 	{//rising
+				  	dec.data |= ( 1 << BIT2 ) ;
+					odd++;
+				}
+				else{							//falling
+				  	dec.data &= ~( 1 << BIT2 ) ;
+				}
+				dec.state = Bit3;
+			}
+			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
 				dec.state = Waiting;
+				dec_update_tmr();
+			}
+			break;
+			//
+		case Bit3:
+	  		if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
+		  		dec_update_tmr();
+				if ( dec.acsr & ( 1 << ACO) ) 	{//rising
+				  	dec.data |= ( 1 << BIT3 ) ;
+					odd++;
+				}
+				else{							//falling
+				  	dec.data &= ~( 1 << BIT3 ) ;
+				}
+				dec.state = Bit4;
+			}
+			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
+				dec.state = Waiting;
+				dec_update_tmr();
+			}
+			break;
+			//
+		case Bit4:
+	  		if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
+		  		dec_update_tmr();
+				if ( dec.acsr & ( 1 << ACO) ) 	{//rising
+				  	dec.data |= ( 1 << BIT4 ) ;
+					odd++;
+				}
+				else{							//falling
+				  	dec.data &= ~( 1 << BIT4 ) ;
+				}
+				dec.state = Bit5;
+			}
+			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
+				dec.state = Waiting;
+				dec_update_tmr();
+			}
+			break;
+			//
+		case Bit5:
+	  		if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
+		  		dec_update_tmr();
+				if ( dec.acsr & ( 1 << ACO) ) 	{//rising
+				  	dec.data |= ( 1 << BIT5 ) ;
+					odd++;
+				}
+				else{							//falling
+				  	dec.data &= ~( 1 << BIT5 ) ;
+				}
+				dec.state = Bit6;
+			}
+			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
+				dec.state = Waiting;
+				dec_update_tmr();
+			}
+			break;
+			//
+		case Bit6:
+	  		if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
+		  		dec_update_tmr();
+				if ( dec.acsr & ( 1 << ACO) ) 	{//rising
+				  	dec.data |= ( 1 << BIT6 ) ;
+					odd++;
+				}
+				else{							//falling
+				  	dec.data &= ~( 1 << BIT6 ) ;
+				}
+				dec.state = Bit7;
+			}
+			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
+				dec.state = Waiting;
+				dec_update_tmr();
+			}
+			break;
+			//
+		case Bit7:
+	  		if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
+		  		dec_update_tmr();
+				if ( dec.acsr & ( 1 << ACO) ) 	{//rising
+				  	dec.data |= ( 1 << BIT7 ) ;
+					odd++;
+				}
+				else{							//falling
+				  	dec.data &= ~( 1 << BIT7 ) ;
+				}
+				//sio_putchar(dec.data);
+				dec.state = Parity;
 
 			}
 			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
@@ -425,6 +453,39 @@ void decode_machine(void)
 				dec_update_tmr();
 			}
 			break;
+			//
+		case Parity:
+		  	if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
+		  		dec_update_tmr();
+				if ( ( 0 == (odd % 2 ) ) && ( dec.acsr & ( 1 << ACO ) ) ) {//there is even 1(s)
+					dec.state = Sto0;                                    //rev 1 is ok when odd parity
+				}
+				else if( ( 1 == (odd % 2 ) ) && !( dec.acsr & ( 1 << ACO ) ) ){ 	//there is odd 1(s)
+					dec.state = Sto0;                                      		//rev 0 is ok when odd parity
+				}
+				else{
+					dec.state = Waiting;
+				}
+			}
+			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
+				dec.state = Waiting;
+				dec_update_tmr();
+			}
+		  	break;
+			//
+		case Sto0:
+		  	if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
+		  		dec_update_tmr();
+				if ( dec.acsr & ( 1 << ACO ) ) {//stop bit should be always 1
+					sio_putchar(dec.data);
+				}
+				dec.state = Waiting;
+			}
+			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
+				dec.state = Waiting;
+				dec_update_tmr();
+			}
+		  	break;
 			//
 		default:
 	  		break;
