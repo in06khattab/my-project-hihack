@@ -118,7 +118,7 @@ void hal_init(void)
    mcu_clock_init();
 	
 	/* Calibrate MCU's RC oscillator */
-    pal_calibrate_rc_osc();
+    //pal_calibrate_rc_osc();
 	
 	/* wdt initial. */
 	wdt_init();

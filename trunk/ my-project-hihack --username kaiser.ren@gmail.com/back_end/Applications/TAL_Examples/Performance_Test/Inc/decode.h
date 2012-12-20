@@ -132,8 +132,8 @@ typedef struct decode_tag
 /*----------------------------------------------------------------------------
  *        External Variable
  *----------------------------------------------------------------------------*/
-extern volatile uint8_t	acc_occur;
-extern volatile uint8_t	ovfw ;
+extern uint8_t	acc_occur;
+extern uint8_t	ovfw ;
 
 /*----------------------------------------------------------------------------
  *        External Function
