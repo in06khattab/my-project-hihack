@@ -16,10 +16,9 @@
 #include "hal.h"
 
 encode_t enc;
-volatile uint8_t tmr0_occur = 0;
-volatile uint8_t ticker = 0 ;
-static volatile  uint8_t enc_odd ;
-static volatile  uint8_t dbg_led = 0 ;
+uint8_t tmr0_occur = 0;
+uint8_t ticker = 0 ;
+static uint8_t odd ;
 
 /*----------------------------------------------------------------------------
  *        ISR Handler
@@ -35,11 +34,6 @@ ISR(TIMER0_COMPA_vect)
 		ENC_PORT |= _BV(ENC_PIN)  ;  	
   	else
 	  	ENC_PORT &= ~(_BV(ENC_PIN))  ;
-	
-	if(dbg_led)
-		pal_led(LED_2, LED_OFF ) ;  	
-	else
-	  	pal_led(LED_2, LED_ON) ;
 	ticker++;
 	tmr0_occur = 1; 	
 }
@@ -91,13 +85,11 @@ void findParam(uint8_t bit_msk, mod_state_t state)
 		if( enc.data & ( 1 << bit_msk) ){
 			enc.edge = rising;
             enc.port = 0x00;	//next is 0x80, for rising
-			++enc_odd;
-			dbg_led = 1;
+			odd++;
 		}
 		else{
 			enc.edge = falling;
             enc.port = 0x80;	//next is 0x00, for falling
-			dbg_led = 0;
 		}
 	}
 	else{
@@ -124,7 +116,6 @@ void encode_machine(void)
 	switch(sta){
 		case Waiting:
 		  	if( 0 == ticker % 2){
-			  	dbg_led = 0;
 			  	c = sio_getchar_nowait();
 				if( c == 0xff){	//no byte	
 					enc.port = 0x00;	//next is 0x80, rising	
@@ -134,7 +125,6 @@ void encode_machine(void)
 					enc.data = c;
 					enc.byte_rev = 1;
 					enc.port = 0x80;	//next is 0x00, falling
-					enc_odd = 0;
 				}
 		  	}
 			else{
@@ -207,15 +197,13 @@ void encode_machine(void)
 			//
 		case Bit7: 	//prepare for parity
 		  	if( 0 == ticker % 2){
-				if( 0 == ( enc_odd%2 ) ){//there is even 1(s), output 1
+				if( 0 == ( odd%2 ) ){//there is even 1(s), output 1
 					enc.edge = rising;
 					enc.port = 0x00;	//next is 0x80, for rising
-					dbg_led = 1;
 				}
 				else{//there is odd 1(s), output 0
 					enc.edge = falling;
 					enc.port = 0x80;	//next is 0x00, for falling
-					dbg_led = 0;
 				}
 			}
 			else{
@@ -232,7 +220,6 @@ void encode_machine(void)
 		case Parity://prepare for stop bit, it is always 1
 		  	if( 0 == ticker % 2){
 				enc.port = 0x00;	//next is 0x80, for rising
-				dbg_led = 0 ;
 			}
 			else{
 				enc.port = 0x80;	//rising	

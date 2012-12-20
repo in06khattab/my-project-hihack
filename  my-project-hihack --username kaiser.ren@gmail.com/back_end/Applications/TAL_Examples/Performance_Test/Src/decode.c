@@ -20,11 +20,11 @@
  *        Variable
  *----------------------------------------------------------------------------*/
 decode_t dec;
-volatile uint16_t cur_stamp = 0;
-volatile uint8_t cur_ovfw = 0;
-volatile uint8_t ovfw = 0;
-volatile uint8_t acc_occur = 0;
-static volatile uint8_t dec_odd;	//odd parity
+uint16_t cur_stamp = 0;
+uint8_t cur_ovfw = 0;
+uint8_t	ovfw = 0;
+uint8_t	acc_occur = 0;
+static uint8_t odd;	//odd parity
 
 static void dec_update_tmr(void);
 
@@ -249,7 +249,6 @@ void decode_machine(void)
 		case Waiting:
 		  	if( dec.acsr & ( 1 << ACO) )	{	//rising
 				dec.state = Sta0;	//goto start bit
-				//pal_led(LED_1, LED_ON ) ;	//low level
 			}
 			dec_update_tmr();
 			break;
@@ -258,7 +257,7 @@ void decode_machine(void)
 		  	if ( !( dec.acsr & ( 1 << ACO) )	)	{//falling
 			  	if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
 				  	dec.state = Bit0; 	//goto bit0
-			  		dec_odd = 0;	//clear odd parity cnt
+			  		odd = 0;	//clear odd parity cnt
 				}
 				else{
 				  	dec.state = Waiting;
@@ -314,19 +313,16 @@ void decode_machine(void)
 		  		dec_update_tmr();
 				if ( dec.acsr & ( 1 << ACO) ) 	{//rising
 				  	dec.data |= ( 1 << BIT0 ) ;
-					dec_odd++;
-					//pal_led(LED_1, LED_OFF)	;	//high level
+					odd++;
 				}
 				else{							//falling
 				  	dec.data &= ~( 1 << BIT0 ) ;
-					//pal_led(LED_1, LED_ON)	;	//low level
 				}
 				dec.state = Bit1;
 			}
 			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
 				dec.state = Waiting;
 				dec_update_tmr();
-				//pal_led(LED_1, LED_ON)	;	//low level
 			}
 			break;
 			//
@@ -335,19 +331,16 @@ void decode_machine(void)
 		  		dec_update_tmr();
 				if ( dec.acsr & ( 1 << ACO) ) 	{//rising
 				  	dec.data |= ( 1 << BIT1 ) ;
-					dec_odd++;
-					//pal_led(LED_1, LED_OFF)	;	//high level
+					odd++;
 				}
 				else{							//falling
 				  	dec.data &= ~( 1 << BIT1 ) ;
-					//pal_led(LED_1, LED_ON)	;	//low level
 				}
 				dec.state = Bit2;
 			}
 			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
 				dec.state = Waiting;
 				dec_update_tmr();
-				//pal_led(LED_1, LED_ON)	;	//low level
 			}
 			break;
 			//
@@ -356,19 +349,16 @@ void decode_machine(void)
 		  		dec_update_tmr();
 				if ( dec.acsr & ( 1 << ACO) ) 	{//rising
 				  	dec.data |= ( 1 << BIT2 ) ;
-					dec_odd++;
-					//pal_led(LED_1, LED_OFF)	;	//high level
+					odd++;
 				}
 				else{							//falling
 				  	dec.data &= ~( 1 << BIT2 ) ;
-					//pal_led(LED_1, LED_ON)	;	//low level
 				}
 				dec.state = Bit3;
 			}
 			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
 				dec.state = Waiting;
 				dec_update_tmr();
-				//pal_led(LED_1, LED_ON)	;	//low level
 			}
 			break;
 			//
@@ -377,19 +367,16 @@ void decode_machine(void)
 		  		dec_update_tmr();
 				if ( dec.acsr & ( 1 << ACO) ) 	{//rising
 				  	dec.data |= ( 1 << BIT3 ) ;
-					dec_odd++;
-					//pal_led(LED_1, LED_OFF)	;	//high level
+					odd++;
 				}
 				else{							//falling
 				  	dec.data &= ~( 1 << BIT3 ) ;
-					//pal_led(LED_1, LED_ON)	;	//low level
 				}
 				dec.state = Bit4;
 			}
 			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
 				dec.state = Waiting;
 				dec_update_tmr();
-				//pal_led(LED_1, LED_ON)	;	//low level
 			}
 			break;
 			//
@@ -398,19 +385,16 @@ void decode_machine(void)
 		  		dec_update_tmr();
 				if ( dec.acsr & ( 1 << ACO) ) 	{//rising
 				  	dec.data |= ( 1 << BIT4 ) ;
-					dec_odd++;
-					//pal_led(LED_1, LED_OFF)	;	//high level
+					odd++;
 				}
 				else{							//falling
 				  	dec.data &= ~( 1 << BIT4 ) ;
-					//pal_led(LED_1, LED_ON)	;	//low level
 				}
 				dec.state = Bit5;
 			}
 			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
 				dec.state = Waiting;
 				dec_update_tmr();
-				//pal_led(LED_1, LED_ON)	;	//low level
 			}
 			break;
 			//
@@ -419,19 +403,16 @@ void decode_machine(void)
 		  		dec_update_tmr();
 				if ( dec.acsr & ( 1 << ACO) ) 	{//rising
 				  	dec.data |= ( 1 << BIT5 ) ;
-					dec_odd++;
-					//pal_led(LED_1, LED_OFF)	;	//high level
+					odd++;
 				}
 				else{							//falling
 				  	dec.data &= ~( 1 << BIT5 ) ;
-					//pal_led(LED_1, LED_ON)	;	//low level
 				}
 				dec.state = Bit6;
 			}
 			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
 				dec.state = Waiting;
 				dec_update_tmr();
-				//pal_led(LED_1, LED_ON)	;	//low level
 			}
 			break;
 			//
@@ -440,19 +421,16 @@ void decode_machine(void)
 		  		dec_update_tmr();
 				if ( dec.acsr & ( 1 << ACO) ) 	{//rising
 				  	dec.data |= ( 1 << BIT6 ) ;
-					dec_odd++;
-					//pal_led(LED_1, LED_OFF)	;	//high level
+					odd++;
 				}
 				else{							//falling
 				  	dec.data &= ~( 1 << BIT6 ) ;
-					//pal_led(LED_1, LED_ON)	;	//low level
 				}
 				dec.state = Bit7;
 			}
 			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
 				dec.state = Waiting;
 				dec_update_tmr();
-				//pal_led(LED_1, LED_ON)	;	//low level
 			}
 			break;
 			//
@@ -461,43 +439,37 @@ void decode_machine(void)
 		  		dec_update_tmr();
 				if ( dec.acsr & ( 1 << ACO) ) 	{//rising
 				  	dec.data |= ( 1 << BIT7 ) ;
-					dec_odd++;
-					//pal_led(LED_1, LED_OFF)	;	//high level
+					odd++;
 				}
 				else{							//falling
 				  	dec.data &= ~( 1 << BIT7 ) ;
-					//pal_led(LED_1, LED_ON)	;	//low level
 				}
 				//sio_putchar(dec.data);
 				dec.state = Parity;
+
 			}
 			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
 				dec.state = Waiting;
 				dec_update_tmr();
-				//pal_led(LED_1, LED_ON)	;	//low level
 			}
 			break;
 			//
 		case Parity:
 		  	if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
 		  		dec_update_tmr();
-				if ( ( 0 == (dec_odd % 2 ) ) && ( dec.acsr & ( 1 << ACO ) ) ) {//there is even 1(s)
+				if ( ( 0 == (odd % 2 ) ) && ( dec.acsr & ( 1 << ACO ) ) ) {//there is even 1(s)
 					dec.state = Sto0;                                    //rev 1 is ok when odd parity
-					//pal_led(LED_1, LED_OFF)	;	//high level
 				}
-				else if( ( 1 == (dec_odd % 2 ) ) && !( dec.acsr & ( 1 << ACO ) ) ){ 	//there is odd 1(s)
+				else if( ( 1 == (odd % 2 ) ) && !( dec.acsr & ( 1 << ACO ) ) ){ 	//there is odd 1(s)
 					dec.state = Sto0;                                      		//rev 0 is ok when odd parity
-					//pal_led(LED_1, LED_ON)	;	//low level
 				}
 				else{
 					dec.state = Waiting;
-					//pal_led(LED_1, LED_ON)	;	//low level
 				}
 			}
 			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
 				dec.state = Waiting;
 				dec_update_tmr();
-				//pal_led(LED_1, LED_ON)	;	//low level
 			}
 		  	break;
 			//
@@ -506,24 +478,12 @@ void decode_machine(void)
 		  		dec_update_tmr();
 				if ( dec.acsr & ( 1 << ACO ) ) {//stop bit should be always 1
 					sio_putchar(dec.data);
-					/*if(0xa5 != dec.data){
-					  	cli();
-					  	pal_led(LED_1, LED_ON);
-						delay_us(2000);
-						pal_led(LED_1, LED_OFF);
-						delay_us(2000);
-						pal_led(LED_1, LED_ON);
-						pal_led(LED_1, LED_ON);
-						sei();
-					}*/
 				}
-				//pal_led(LED_1, LED_ON)	;	//low level
 				dec.state = Waiting;
 			}
 			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
 				dec.state = Waiting;
 				dec_update_tmr();
-				//pal_led(LED_1, LED_ON)	;	//low level
 			}
 		  	break;
 			//

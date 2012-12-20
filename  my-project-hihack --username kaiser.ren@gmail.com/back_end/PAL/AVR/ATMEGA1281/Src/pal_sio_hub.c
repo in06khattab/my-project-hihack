@@ -63,7 +63,7 @@ retval_t pal_sio_init(uint8_t sio_unit)
     #ifdef BAUD_RATE
             sio_uart_1_init(BAUD_RATE);
     #else
-            sio_uart_1_init(38400);
+            sio_uart_1_init(57600);
     #endif
             break;
 #endif
