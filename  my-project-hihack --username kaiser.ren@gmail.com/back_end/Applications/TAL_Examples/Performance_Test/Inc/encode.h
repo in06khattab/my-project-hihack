@@ -106,8 +106,8 @@ typedef struct encode_tag
  *        External Variable
  *----------------------------------------------------------------------------*/
 extern encode_t enc;
-extern uint8_t ticker;
-extern uint8_t tmr0_occur;
+extern volatile uint8_t ticker;
+extern volatile uint8_t tmr0_occur;
 
 /*----------------------------------------------------------------------------
  *        External Function
