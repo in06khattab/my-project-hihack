@@ -32,9 +32,7 @@ static void get_analog_cmp_freq(void);
 void data_moduler(uint8_t data);
 
 /* === GLOBALS ============================================================= */
-#if (PAL_TYPE==ATMEGA1281)
-__root __farflash  	uint32_t		Bf_Appflag 	@0x1DFFC = 0xa5a55a5al;
-#endif
+
 
 /* === IMPLEMENTATION ====================================================== */
 /**

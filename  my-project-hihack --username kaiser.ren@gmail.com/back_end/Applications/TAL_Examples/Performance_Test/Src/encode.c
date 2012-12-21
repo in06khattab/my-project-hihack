@@ -18,7 +18,7 @@
 encode_t enc;
 uint8_t tmr0_occur = 0;
 uint8_t ticker = 0 ;
-static uint8_t odd ;
+static uint8_t enc_odd ;
 
 /*----------------------------------------------------------------------------
  *        ISR Handler
@@ -85,7 +85,7 @@ void findParam(uint8_t bit_msk, mod_state_t state)
 		if( enc.data & ( 1 << bit_msk) ){
 			enc.edge = rising;
             enc.port = 0x00;	//next is 0x80, for rising
-			odd++;
+			enc_odd++;
 		}
 		else{
 			enc.edge = falling;
@@ -125,6 +125,7 @@ void encode_machine(void)
 					enc.data = c;
 					enc.byte_rev = 1;
 					enc.port = 0x80;	//next is 0x00, falling
+					enc_odd = 0;
 				}
 		  	}
 			else{
@@ -197,7 +198,7 @@ void encode_machine(void)
 			//
 		case Bit7: 	//prepare for parity
 		  	if( 0 == ticker % 2){
-				if( 0 == ( odd%2 ) ){//there is even 1(s), output 1
+				if( 0 == ( enc_odd%2 ) ){//there is even 1(s), output 1
 					enc.edge = rising;
 					enc.port = 0x00;	//next is 0x80, for rising
 				}
