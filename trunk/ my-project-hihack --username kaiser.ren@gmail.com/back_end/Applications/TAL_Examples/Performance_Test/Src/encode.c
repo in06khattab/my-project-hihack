@@ -19,6 +19,7 @@ encode_t enc;
 uint8_t tmr0_occur = 0;
 uint8_t ticker = 0 ;
 static uint8_t enc_odd ;
+static uint8_t dbg_led = 0 ;
 
 /*----------------------------------------------------------------------------
  *        ISR Handler
@@ -86,10 +87,12 @@ void findParam(uint8_t bit_msk, mod_state_t state)
 			enc.edge = rising;
             enc.port = 0x00;	//next is 0x80, for rising
 			enc_odd++;
+			dbg_led = 1;
 		}
 		else{
 			enc.edge = falling;
             enc.port = 0x80;	//next is 0x00, for falling
+			dbg_led = 0;
 		}
 	}
 	else{
@@ -116,6 +119,7 @@ void encode_machine(void)
 	switch(sta){
 		case Waiting:
 		  	if( 0 == ticker % 2){
+			  	dbg_led = 0;
 			  	c = sio_getchar_nowait();
 				if( c == 0xff){	//no byte	
 					enc.port = 0x00;	//next is 0x80, rising	
@@ -201,10 +205,12 @@ void encode_machine(void)
 				if( 0 == ( enc_odd%2 ) ){//there is even 1(s), output 1
 					enc.edge = rising;
 					enc.port = 0x00;	//next is 0x80, for rising
+					dbg_led = 1;
 				}
 				else{//there is odd 1(s), output 0
 					enc.edge = falling;
 					enc.port = 0x80;	//next is 0x00, for falling
+					dbg_led = 0;
 				}
 			}
 			else{
@@ -221,6 +227,7 @@ void encode_machine(void)
 		case Parity://prepare for stop bit, it is always 1
 		  	if( 0 == ticker % 2){
 				enc.port = 0x00;	//next is 0x80, for rising
+				dbg_led = 0 ;
 			}
 			else{
 				enc.port = 0x80;	//rising	
