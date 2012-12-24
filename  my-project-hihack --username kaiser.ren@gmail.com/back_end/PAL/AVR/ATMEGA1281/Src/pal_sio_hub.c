@@ -63,7 +63,13 @@ retval_t pal_sio_init(uint8_t sio_unit)
     #ifdef BAUD_RATE
             sio_uart_1_init(BAUD_RATE);
     #else
+		#if F_CPU==4000000UL
             sio_uart_1_init(38400);
+		#elif F_CPU==2000000UL
+			 sio_uart_1_init(19200);
+		#else
+    		#error "Unsupported F_CPU value"
+		#endif
     #endif
             break;
 #endif

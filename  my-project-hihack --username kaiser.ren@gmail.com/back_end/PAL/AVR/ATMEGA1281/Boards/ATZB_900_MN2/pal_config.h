@@ -273,24 +273,27 @@ typedef enum button_id_tag
  * In case the system clock is slower than 32 MHz we do not need
  * to have this value filled.
  */
-#define PAL_WAIT_65_NS()                // empty
+	#define PAL_WAIT_65_NS()                // empty
 
 /* Wait for 500 ns. */
-#define PAL_WAIT_500_NS()               {nop(); nop(); nop(); nop(); }
+	#define PAL_WAIT_500_NS()               {nop(); nop(); nop(); nop(); }
 
 /* Wait for 1 us. */
-#define PAL_WAIT_1_US()                 {nop(); nop(); nop(); nop(); nop(); nop(); nop(); nop();}
+	define PAL_WAIT_1_US()                 {nop(); nop(); nop(); nop(); nop(); nop(); nop(); nop();}
 
 #elif (F_CPU == (4000000UL))
-#define PAL_WAIT_65_NS()                // empty
+	#define PAL_WAIT_65_NS()                // empty
 
 /* Wait for 500 ns. */
-#define PAL_WAIT_500_NS()               {nop(); nop();}
+	#define PAL_WAIT_500_NS()               {nop(); nop();}
 
 /* Wait for 1 us. */
-#define PAL_WAIT_1_US()                 {nop(); nop(); nop(); nop();}
+	#define PAL_WAIT_1_US()                 {nop(); nop(); nop(); nop();}
+	
+#elif (F_CPU == (2000000UL))
+	#define PAL_WAIT_1_US()                 {nop(); nop(); }
 #else
-#error "Unsupported F_CPU value"
+	#error "Unsupported F_CPU value"
 #endif
 /*
  * The smallest timeout in microseconds
