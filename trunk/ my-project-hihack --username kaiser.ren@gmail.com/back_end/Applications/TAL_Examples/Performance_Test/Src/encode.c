@@ -59,10 +59,10 @@ void tmr0_init(void)
 	TCCR0A = _BV(WGM01);
 
 	/* Clock source and prescaler, 8 */
-	TCCR0B = _BV(CS01);
+	TCCR0B = ENCODE_TMR_CLK_SRC_PRESCALER_REG;
 
     /* load compare cnt. */
-    OCR0A = 125;
+    OCR0A = ENCODE_TMR_OCR_CNT;
 
     /* output wave pin. */
 	ENC_DIR |= _BV(ENC_PIN);

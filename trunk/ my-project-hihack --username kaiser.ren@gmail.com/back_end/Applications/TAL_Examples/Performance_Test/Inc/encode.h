@@ -34,6 +34,61 @@
    #define ENC_PIN   PORTF1
 #endif//PAL_TYPE==ATTINY88
 
+/* use which timer as encode machine timer stamp generator. */
+#define ENCODE_USED_TMR_ID  0
+
+/* use which prescaler as decode machine clock source. */
+#define ENCODE_TMR_CLK_SRC_PRESCALER 8
+
+/* encode timer's prescaler definition. */
+#if ENCODE_USED_TMR_ID==0
+    #if ENCODE_TMR_CLK_SRC_PRESCALER==0
+		#define ENCODE_TMR_CLK_SRC_PRESCALER_REG 0//timer stop
+    #elif ENCODE_TMR_CLK_SRC_PRESCALER==1
+        #define ENCODE_TMR_CLK_SRC_PRESCALER_REG 1//no prescaler
+    #elif ENCODE_TMR_CLK_SRC_PRESCALER==8
+        #define ENCODE_TMR_CLK_SRC_PRESCALER_REG 2//prescaler 8
+    #elif ENCODE_TMR_CLK_SRC_PRESCALER==64
+        #define ENCODE_TMR_CLK_SRC_PRESCALER_REG 3//prescaler 64
+    #elif ENCODE_TMR_CLK_SRC_PRESCALER==256
+        #define ENCODE_TMR_CLK_SRC_PRESCALER_REG 4//prescaler 256
+    #elif ENCODE_TMR_CLK_SRC_PRESCALER==1024
+        #define ENCODE_TMR_CLK_SRC_PRESCALER_REG 5//prescaler 1024
+    #else
+        #error "Unsupported Decode Timer Prescaler."
+    #endif//ENCODE_TMR_CLK_SRC_PRESCALER
+#endif//ENCODE_USED_TMR_ID
+
+/* F_CPU == (4000000UL)   */
+#if F_CPU==4000000UL
+    #if ENCODE_TMR_CLK_SRC_PRESCALER==8    //prescale: 8
+		/**
+         *	PRESCALSE: 8
+         *	F_CPU: 4MHz
+         * Tick:  4MHz/8 = 2us.
+         * TMR overflow interrupt, 256*2us = 512us
+	     * 250us need 125 tick.
+        **/
+        #define ENCODE_TMR_OCR_CNT	125
+    #else
+        #error "Unsupported Decode Timer Prescaler."
+    #endif//ENCODE_TMR_CLK_SRC_PRESCALER
+#elif F_CPU==2000000UL	//F_CPU = 2MHz
+	#if ENCODE_TMR_CLK_SRC_PRESCALER==8    //prescale: 8
+		/**
+         *	PRESCALSE: 8
+         *	F_CPU: 2MHz
+         * Tick:  2MHz/8 = 4us.
+         * TMR overflow interrupt, 256*4us = 1024us
+         * 500us need 125 tick.
+        **/
+        #define ENCODE_TMR_OCR_CNT	125
+	#else
+        #error "Unsupported Decode Timer Prescaler."
+    #endif//ENCODE_TMR_CLK_SRC_PRESCALER
+#else
+    #error "Unsupported F_CPU value"
+#endif
 /*----------------------------------------------------------------------------
  *        Typedef
  *----------------------------------------------------------------------------*/

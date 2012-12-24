@@ -105,6 +105,18 @@
     #else
         #error "Unsupported Decode Timer Prescaler."
     #endif//DECODE_TMR_CLK_SRC_PRESCALER
+#elif F_CPU==2000000UL	//F_CPU = 2MHz
+	#if DECODE_TMR_CLK_SRC_PRESCALER==64    //prescale: 64
+		/**
+         *	PRESCALSE: 64
+         *	F_CPU: 2MHz
+         * Tick:  2MHz/64 = 32us.
+         * TMR2 overflow interrupt, 256*32us = 8192us
+         * TMR1 overflow interrupt, 65536*32us = 2097152us, 2.097s
+        **/
+        #define DECODE_TMR_FREQ_2KHZ_MIN	30
+        #define DECODE_TMR_FREQ_2KHZ_MAX	32	
+	#endif
 #else
     #error "Unsupported F_CPU value"
 #endif
