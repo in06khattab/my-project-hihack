@@ -123,6 +123,19 @@ void hal_init(void)
 	/* wdt initial. */
 	wdt_init();
 	
+	/* initial RF port to make rf chip into sleep mode. */
+	TRX_PORT2_DDR |= _BV(RST);
+	RST_LOW();
+	PAL_WAIT_1_US();
+	PAL_WAIT_1_US();
+	PAL_WAIT_1_US();
+	RST_HIGH();
+	PAL_WAIT_1_US();
+	PAL_WAIT_1_US();
+	PAL_WAIT_1_US();
+	TRX_PORT1_DDR |= _BV(SLP_TR);
+	PAL_SLP_TR_HIGH();
+	
 	/*
 		analog initial.
 		AIN0, positive, is PE2 on mcu, module pin 40, which connect with
