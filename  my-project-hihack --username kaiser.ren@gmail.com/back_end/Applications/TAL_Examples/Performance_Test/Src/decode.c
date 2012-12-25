@@ -42,8 +42,9 @@ ISR(ANALOG_COMP_vect)
 
 	sreg = SREG; 	// Save global interrupt flag
 	__disable_interrupt();	// Disable interrupts
-
+#if CURRENT_TEST==0
 	pal_led(LED_1, LED_TOGGLE);
+#endif
 
   	acc_occur = 1;		// set the flag for further operation in while(1)
   	cur_stamp = TCNT0;	// load TMR2 count
@@ -67,9 +68,7 @@ ISR(TIMER0_OVF_vect)
 ISR(ANALOG_COMP_vect)
 {
   	uint8_t sreg;
-
-	pal_led(LED_1, LED_TOGGLE);
-
+	
 	sreg = SREG; 	// Save global interrupt flag
 	cli();	// Disable interrupts
 
@@ -79,6 +78,13 @@ ISR(ANALOG_COMP_vect)
 	dec.acsr  = ACSR;   // load ACSR status
 
 	SREG = sreg;	// Restore global interrupt flag
+	
+#if CURRENT_TEST==0
+	if(dec.acsr & 0x20)
+		pal_led(LED_1, LED_ON);
+	else
+	  	pal_led(LED_1, LED_OFF);
+#endif
 }
 #endif//HAL_USE_ACC_CAP
 
@@ -192,7 +198,7 @@ void ac_init(void)
 	//TIMSK2 = _BV(TOIE2) ;
 #elif DECODE_USED_TMR_ID==1
     TCCR1B = DECODE_TMR_CLK_SRC_PRESCALER_REG ;
-    //TIMSK1 = _BV(TOIE1) ;
+    TIMSK1 = _BV(TOIE1) ;
 #else
     #error "Unsupported Decode Timer Id"
 #endif//DECODE_USED_TMR_ID
@@ -477,7 +483,9 @@ void decode_machine(void)
 		  	if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
 		  		dec_update_tmr();
 				if ( dec.acsr & ( 1 << ACO ) ) {//stop bit should be always 1
-					sio_putchar(dec.data);
+					pal_led(LED_2, LED_ON);
+				 	sio_putchar(dec.data);
+					pal_led(LED_2, LED_OFF);
 				}
 				dec.state = Waiting;
 			}

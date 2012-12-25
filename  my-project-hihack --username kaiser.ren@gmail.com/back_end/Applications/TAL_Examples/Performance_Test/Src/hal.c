@@ -159,6 +159,9 @@ void hal_init(void)
 	
 	 /* Initialize LEDs */
    	pal_led_init();
+	pal_led(LED_0, LED_OFF);
+	pal_led(LED_1, LED_OFF);
+	pal_led(LED_2, LED_OFF);
 }
 
 //eof

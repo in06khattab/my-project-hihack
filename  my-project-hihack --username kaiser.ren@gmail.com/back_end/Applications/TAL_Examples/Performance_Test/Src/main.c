@@ -73,10 +73,10 @@ int main(void)
 			ovfw++;
 		}
 #elif DECODE_USED_TMR_ID==1
-		if( TIFR1 & _BV(TOV1)){
-	 		TIFR1 = 0xFF;
-			ovfw++;
-		}
+		//if( TIFR1 & _BV(TOV1)){
+	 	//	TIFR1 = 0xFF;
+		//	ovfw++;
+		//}
 #else
 	#error "Unsupported Decode Timer Id"		
 #endif//DECODE_USED_TMR_ID
@@ -87,10 +87,14 @@ int main(void)
 		 *
 		*/
 	  	if( acc_occur ){
+#if CURRENT_TEST==0
 		  	pal_led(LED_0, LED_ON);
+#endif
 	  		acc_occur = 0;
 			decode_machine();
+#if CURRENT_TEST==0
 			pal_led(LED_0, LED_OFF);
+#endif
 		}
    }
 }
