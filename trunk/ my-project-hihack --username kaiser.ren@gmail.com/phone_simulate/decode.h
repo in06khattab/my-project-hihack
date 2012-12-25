@@ -38,8 +38,8 @@
 
 typedef struct decode_tag
 {
-  	uint16_t prev_stamp;
-	uint8_t prev_ovfw;
+  	uint32_t prev_stamp;
+	uint32_t prev_ovfw;
 	mod_state_t state;
 	uint8_t acsr;
 	uint8_t data;
