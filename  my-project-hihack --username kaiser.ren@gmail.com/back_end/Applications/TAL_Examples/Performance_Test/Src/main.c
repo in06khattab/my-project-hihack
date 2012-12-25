@@ -96,6 +96,8 @@ int main(void)
 			pal_led(LED_0, LED_OFF);
 #endif
 		}
+		//access into idle mode
+		set_sleep_mode(SLEEP_MODE_IDLE);
    }
 }
 
