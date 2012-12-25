@@ -326,6 +326,9 @@ extern int main( void )
 	
 	/* Configure pins*/
     PIO_Configure( pins, PIO_LISTSIZE( pins ) ) ;
+	
+	/* Configure led 0, blue one . */
+	LED_Configure(0) ;
 
     /* Output example information */
     printf( "-- Phone Simulator V%s --\r\n", SOFTPACK_VERSION ) ;
@@ -333,7 +336,7 @@ extern int main( void )
 
     /* initialize amplitude and frequency */
     amplitude = MAX_DIGITAL / 2;
-    frequency = 2000;
+    frequency = 1000;
 
     /*10 us timer*/
     SysTick_Config( BOARD_MCK / (frequency * SAMPLES) ) ;
@@ -355,6 +358,15 @@ extern int main( void )
 	/* enable NVIC_DACC. */
 	NVIC_EnableIRQ( DACC_IRQn ) ;
 	NVIC_SetPriority(DACC_IRQn, 5);
+	
+	/* Initialize TC Capture. */
+	TcCaptureInitialize();
+	
+	/* Configure TC interrupts for TC0 channel 2 only */
+    NVIC_DisableIRQ( TC2_IRQn ) ;
+    NVIC_ClearPendingIRQ( TC2_IRQn ) ;
+    NVIC_SetPriority( TC2_IRQn, 0 ) ;
+    NVIC_EnableIRQ( TC2_IRQn ) ;
 	
     /*Enable  channel for potentiometer*/
     DACC_EnableChannel( DACC, DACC_channel_sine ) ;

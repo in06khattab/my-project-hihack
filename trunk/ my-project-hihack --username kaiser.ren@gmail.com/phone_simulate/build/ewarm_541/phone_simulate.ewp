@@ -1614,6 +1614,9 @@
     </file>
   </group>
   <file>
+    <name>$PROJ_DIR$\..\..\decode.c</name>
+  </file>
+  <file>
     <name>$PROJ_DIR$\..\..\encode.c</name>
   </file>
   <file>
