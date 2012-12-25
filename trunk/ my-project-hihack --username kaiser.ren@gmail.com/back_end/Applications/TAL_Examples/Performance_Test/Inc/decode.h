@@ -90,7 +90,7 @@
          * TMR2 overflow interrupt, 256*16us = 4096us
          * TMR1 overflow interrupt, 65536*16us = 1048576us, 1.048s
         **/
-        #define DECODE_TMR_FREQ_2KHZ_MIN	30
+        #define DECODE_TMR_FREQ_2KHZ_MIN	29
         #define DECODE_TMR_FREQ_2KHZ_MAX	32
     #elif DECODE_TMR_CLK_SRC_PRESCALER==128 //prescals: 128
         /**
@@ -114,7 +114,7 @@
          * TMR2 overflow interrupt, 256*32us = 8192us
          * TMR1 overflow interrupt, 65536*32us = 2097152us, 2.097s
         **/
-        #define DECODE_TMR_FREQ_2KHZ_MIN	30
+        #define DECODE_TMR_FREQ_2KHZ_MIN	29
         #define DECODE_TMR_FREQ_2KHZ_MAX	32	
 	#endif
 #else
