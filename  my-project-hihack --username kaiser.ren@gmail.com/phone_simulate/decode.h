@@ -39,11 +39,18 @@
 typedef struct decode_tag
 {
   	uint32_t prev_stamp;
-	uint32_t prev_ovfw;
+	uint32_t prev_bit;
+	uint32_t step;
 	mod_state_t state;
-	uint8_t acsr;
 	uint8_t data;
 }decode_t;
+
+typedef enum _edge_tag_
+{
+  	none = 0,
+	falling,
+	rising
+}edge_t;
 
 /*----------------------------------------------------------------------------
  *        Macros
