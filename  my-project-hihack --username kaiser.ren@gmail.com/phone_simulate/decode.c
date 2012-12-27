@@ -26,8 +26,8 @@ uint64_t cnt;
 static uint8_t odd;	//odd parity
 /** Capture status*/
 //static uint32_t _dwCaptured_pulses;
-//static uint32_t _dwCaptured_ra ;
-//static uint32_t _dwCaptured_rb ;
+static uint32_t _dwCaptured_ra = 0 ;
+static uint32_t _dwCaptured_rb = 0 ;
 /** PIOs for TC0 */
 static const Pin pTcPins[] = {PIN_TC0_TIOA2};
 
@@ -47,21 +47,29 @@ void TC2_IrqHandler( void )
     uint32_t status ;
     status = REG_TC0_SR2 ;
 
-    if ( (status & TC_SR_ETRGS) == TC_SR_ETRGS )
+    /*if ( (status & TC_SR_LDRAS) == TC_SR_LDRAS )
     {
-	  	if ( status & TC_SR_MTIOA ){
+	  	//if ( status & TC_SR_MTIOA ){
 		  	LED_Clear(0) ;	//PA19 output high
-	  	}
-		else{
-			LED_Set(0) ;	//PA19 output low
-		}
-		cur_stamp = REG_TC0_CV2;
-		printf( "%ul\r\n", REG_TC0_CV2 - dec.prev_stamp ) ;
-		dec.prev_stamp = REG_TC0_CV2;
+	  	//}
+		//else{
+		//	LED_Set(0) ;	//PA19 output low
+		//}
+		//cur_stamp = REG_TC0_CV2;
+		//printf( "%ul\r\n", REG_TC0_CV2 - dec.prev_stamp ) ;
+		//dec.prev_stamp = REG_TC0_CV2;
         //_dwCaptured_pulses++ ;
-        //_dwCaptured_ra = REG_TC0_RA2 ;
+        _dwCaptured_ra = REG_TC0_RA2 ;
         //_dwCaptured_rb = REG_TC0_RB2 ;
-    }
+		printf( "RA: %ul\r\n", _dwCaptured_ra ) ;
+    } */
+	if ( (status & TC_SR_LDRBS) == TC_SR_LDRBS ){
+	 	//LED_Set(0) ;	//PA19 output low
+		_dwCaptured_ra = REG_TC0_RA2 ;
+	  	_dwCaptured_rb = REG_TC0_RB2 ;
+		printf( "RA: %u\r\n", _dwCaptured_ra ) ;
+		printf( "RB: %u\r\n", _dwCaptured_rb ) ;
+	}
 	else if( (status & TC_SR_COVFS) == TC_SR_COVFS )
 	{
 	 	cur_ovfw++;
@@ -92,14 +100,14 @@ void TcCaptureInitialize(void)
     /*  Set channel 2 as capture mode.
 	 *  Clock source MCK/8, 8MHz.
 	 */
-    REG_TC0_CMR2 = (TC_CMR_TCCLKS_TIMER_CLOCK2    /* Clock Selection */
-                   /*| TC_CMR_LDRA_RISING*/           /* RA Loading Selection: rising edge of TIOA */
-                   /*| TC_CMR_LDRB_FALLING*/          /* RB Loading Selection: falling edge of TIOA */
+    REG_TC0_CMR2 = (TC_CMR_TCCLKS_TIMER_CLOCK4    /* Clock Selection, PRE = 128 */
+                   | TC_CMR_LDRA_RISING           /* RA Loading Selection: rising edge of TIOA */
+                   | TC_CMR_LDRB_FALLING          /* RB Loading Selection: falling edge of TIOA */
                    | TC_CMR_ABETRG                /* External Trigger Selection: TIOA */
-                   | TC_CMR_ETRGEDG_EDGE );    /* External Trigger Edge Selection: Falling edge */
+                   | TC_CMR_ETRGEDG_FALLING );    /* External Trigger Edge Selection: Falling edge */
 	
 	/* Ext edge trigger, overflow .*/
-	REG_TC0_IER2 = TC_IER_ETRGS | TC_IER_COVFS;	
+	REG_TC0_IER2 =  /*TC_IER_LDRAS |*/ TC_IER_LDRBS;	
 	
     /* Reset and enable the tiimer counter for TC0 channel 2 */
     REG_TC0_CCR2 =  TC_CCR_CLKEN | TC_CCR_SWTRG;
