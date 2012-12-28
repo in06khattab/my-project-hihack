@@ -23,8 +23,8 @@ decode_t dec;
 uint32_t edge_occur = 0;
 static volatile uint32_t cur_stamp = 0 ;
 static volatile edge_t 	 cur_edge = none ;
-static volatile uint32_t odd;	//odd parity
-static volatile uint32_t half_duty;
+static volatile uint32_t offset_us = 0;
+//static volatile uint32_t odd;	//odd parity
 
 /** PIOs for TC0 */
 static const Pin pTcPins[] = {PIN_TC0_TIOA2};
@@ -58,10 +58,6 @@ void TC2_IrqHandler( void )
 			cur_edge = falling;
 		}
 		//printf( "%u ", cur_stamp) ;
-		if ( IsAbout500us(cur_stamp) )
-			half_duty++;
-		else if( IsAbout1000us(cur_stamp) )
-		  	half_duty += 2;
 	}
 }
 
@@ -150,34 +146,23 @@ static uint32_t IsAbout1000us(uint32_t cnt)
 
 void findPhase(uint8_t bit_msk, mod_state_t state)
 {
-  	if (IsAbout500us(cur_stamp) && !dec.step){
+  	if ( IsAbout1000us(offset_us) ){ //it's time to determine
 		if( falling == cur_edge ){
 	  		dec.data &= ~(1 << bit_msk);
 		}
 		else{
-		    dec.data |= (1 << bit_msk);
-			odd++;
+		   dec.data |= (1 << bit_msk);
+			dec.odd++;
 		}
-		dec.step = 1;
+      offset_us = 0;
+		dec.state = state;   //state switch
 	}
-	else if (IsAbout500us(cur_stamp) && dec.step){
-		dec.state = state;
-		dec.step = 0;
+	else if ( IsAbout500us(offset_us) && (0 == offset_us) ){   //wait for edge detection time
+		offset_us = 500;  //update 500us
 	}
-  	else if( IsAbout1000us(cur_stamp) && dec.step ){  //phase reversal
-	  	if( falling == cur_edge ){
-	  		dec.data &= ~(1 << bit_msk);
-		}
-		else{
-		    dec.data |= (1 << bit_msk);
-			odd++;
-		}
-		dec.state = state;
-		dec.step = 1;
-  	}
-	else if ( IsAbout1000us(cur_stamp) && !dec.step ){
-		dec.step = 0;
-		dec.state = Waiting;
+  	else {
+      dec.state = Waiting;
+      offset_us = 0;
 	}
 }
 
@@ -188,135 +173,101 @@ void findPhase(uint8_t bit_msk, mod_state_t state)
  */
 void decode_machine(void)
 {
-  	//uint16_t inv;	//interval
-
-	//inv = cal_interval();
+   offset_us += cur_stamp; //update offset
+   
 	switch (dec.state){
 		case Waiting:
-		  	if( ( falling == cur_edge) && IsAbout1000us(cur_stamp) && dec.step ){  //phase reversal
-		  		odd = 0;
-				dec.data = 0;
-			  	dec.state = Sta0;
-				dec.step = 1;
-			}
-			else if( ( rising == cur_edge) && IsAbout500us(cur_stamp) && !dec.step ){
-				dec.step = 1;
-				dec.state = Waiting;
-			}
-			else{
-				dec.step = 0;
-				dec.state = Waiting;
-			}
+         /* go to start bit if rising edge exist. */
+         if (rising == cur_edge) {
+            dec.state = Sta0;
+            offset_us = 0;
+         }
 			break;
 			//
 		case Sta0:
-		  	findPhase(BIT0, Bit0);
-	   		break;
+         if( IsAbout1000us(offset_us) && ( falling == cur_edge ) ){
+            offset_us = 0; //start from edge field
+            dec.data = 0;  //clear data field for store new potential data
+            dec.odd = 0;   //clear odd field parity counter
+            dec.state = Bit0;
+         } 
+         else{
+            offset_us = 0; //start from edge field
+            dec.state = Waiting;
+         }
+	   	break;
 			//
 		case Bit0:
-		  	findPhase(BIT1, Bit1);
-	   		break;
+		  	findPhase(BIT0, Bit1);
+	   	break;
 			//
 		case Bit1:
-		  	findPhase(BIT2, Bit2);
-	   		break;
+		  	findPhase(BIT1, Bit2);
+	   	break;
 			//
 		case Bit2:
-		  	findPhase(BIT3, Bit3);
+		  	findPhase(BIT2, Bit3);
 	   		break;
 			//
 		case Bit3:
-		  	findPhase(BIT4, Bit4);
+		  	findPhase(BIT3, Bit4);
 	   		break;
 			//
 		case Bit4:
-		  	findPhase(BIT5, Bit5);
-	   		break;
+		  	findPhase(BIT4, Bit5);
+	   	break;
 			//
 		case Bit5:
-		  	findPhase(BIT6, Bit6);
-	   		break;
+		  	findPhase(BIT5, Bit6);
+	   	break;
 			//
 		case Bit6:
-		  	findPhase(BIT7, Bit7);
-	   		break;
+		  	findPhase(BIT6, Bit7);
+	   	break;
 			//
 		case Bit7:
-		  	if (IsAbout500us(cur_stamp) && !dec.step){
-				if( rising == cur_edge ){
-				  	odd++;
-				}
-				dec.step = 1;
-			}
-			else if (IsAbout500us(cur_stamp) && dec.step){
-			  	if( 1 == (odd%2) ){
-			    	dec.state = Parity;
-			  	}
-				else{
-					dec.state = Waiting;
-				}
-				dec.step = 0;
-			}
-			else if( IsAbout1000us(cur_stamp) && dec.step ){  //phase reversal
-				if( rising == cur_edge ){
-				  	odd++;
-				}
-				if( 1 == (odd%2) ){
-			    	dec.state = Parity;
-					dec.step = 1;
-			  	}
-				else{
-					dec.state = Waiting;
-					dec.step = 0;
-				}
-			}
-			else if ( IsAbout1000us(cur_stamp) && !dec.step ){
-				dec.step = 0;
-				dec.state = Waiting;
-			}
-	   		break;
+		  	findPhase(BIT7, Parity);
+	   	break;
 			//
 		case Parity:
-		  	if( IsAbout1000us(cur_stamp) && dec.step ){  //phase reversal
-				if( rising == cur_edge ){
-				  	UART_PutChar(dec.data);
-					dec.step = 1;
-				}
-				else{
-					dec.step = 0;
-				}
-				dec.state = Waiting;
-			}
-			else if ( IsAbout500us(cur_stamp) && !dec.step ){
-				if( rising == cur_edge ){
-					dec.step = 1;
-					UART_PutChar(dec.data);
-				}
-				else{
-					dec.step = 0;
-					dec.state = Waiting;
-				}
-			}
-			else if ( IsAbout500us(cur_stamp) && dec.step ){
-			  	//if( rising == cur_edge ){
-				//  	UART_PutChar(dec.data);
-				//	dec.step = 1;
-				//}
-				//else{
-				//	dec.step = 0;
-				//}
-			  	if( 1 == (odd%2) ){
-					UART_PutChar(dec.data);	
-				}
-			  	dec.step = 0;
-				dec.state = Waiting;
-			}
-			else if ( IsAbout1000us(cur_stamp) && !dec.step ){
-				dec.step = 0;	
-				dec.state = Waiting;
-			}
-	   		break;
+		  	if ( IsAbout1000us(offset_us) ){ //it's time to determine
+            if( rising == cur_edge ){
+               dec.odd++;
+            }
+            if( 1 == (dec.odd%2)){  //parity pass
+               dec.state = Sto0;
+            }
+            else{ //parity failed
+               dec.state = Waiting;
+            }
+            offset_us = 0;
+         }
+         else if ( IsAbout500us(offset_us) && (0 == offset_us) ){   //wait for edge detection time
+            offset_us = 500;  //update 500us
+         }
+         else {
+            dec.state = Waiting;
+            offset_us = 0;
+         }
+	   	break;
 			//
+      case Sto0:
+         if ( IsAbout1000us(offset_us) ){ //it's time to determine
+            if( rising == cur_edge ){  //stop bit is rising edge
+               UART_PutChar(dec.data);
+            }
+            dec.state = Waiting;
+            offset_us = 0;
+         }
+         else if ( IsAbout500us(offset_us) && (0 == offset_us) ){   //wait for edge detection time
+            offset_us = 500;  //update 500us
+         }
+         else {
+            dec.state = Waiting;
+            offset_us = 0;
+         }
+         break;
+         //
 		default:
 	  		break;
 			//
