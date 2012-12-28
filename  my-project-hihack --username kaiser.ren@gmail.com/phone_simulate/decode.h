@@ -39,7 +39,6 @@
 typedef struct decode_tag
 {
   	uint32_t prev_stamp;
-	uint32_t prev_bit;
 	uint32_t step;
 	mod_state_t state;
 	uint8_t data;
@@ -60,8 +59,7 @@ typedef enum _edge_tag_
 /*----------------------------------------------------------------------------
  *        External Variable
  *----------------------------------------------------------------------------*/
-extern uint8_t	acc_occur;
-extern uint8_t	ovfw ;
+extern uint32_t	edge_occur;
 
 /*----------------------------------------------------------------------------
  *        External Function

@@ -101,6 +101,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include "encode.h"
+#include "decode.h"
 /*----------------------------------------------------------------------------
  *        Local definitions
  *----------------------------------------------------------------------------*/
@@ -392,7 +393,11 @@ extern int main( void )
 
     while( 1 )
     {
-        c = UART_GetChar() ;
+	  	if(edge_occur){
+	  		edge_occur = 0;
+			decode_machine();
+		}
+        //c = UART_GetChar() ;
 
         switch ( c )
         {
