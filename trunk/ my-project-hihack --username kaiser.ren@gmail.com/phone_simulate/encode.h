@@ -11,6 +11,8 @@
  *
  */
 
+#ifndef ENCODE_H
+#define ENCODE_H
 /*----------------------------------------------------------------------------
  *        Header
  *----------------------------------------------------------------------------*/
@@ -112,4 +114,5 @@ void encode_switch(void);
 uint8_t us1_get_count(void);
 uint8_t us1_get_char(void);
 void _ConfigureUsart( void );
+#endif /* ENCODE_H */
 //end of file

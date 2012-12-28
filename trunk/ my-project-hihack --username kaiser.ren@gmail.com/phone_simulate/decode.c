@@ -20,6 +20,7 @@
  *        Variable
  *----------------------------------------------------------------------------*/
 decode_t dec;
+uint32_t edge_occur = 0;
 static volatile uint32_t cur_stamp = 0 ;
 static volatile edge_t 	 cur_edge = none ;
 static volatile uint32_t odd;	//odd parity
@@ -31,7 +32,6 @@ static const Pin pTcPins[] = {PIN_TC0_TIOA2};
 /*----------------------------------------------------------------------------
  *        Local function
  *----------------------------------------------------------------------------*/
-static void dec_update_tmr(void);
 static uint32_t IsAbout500us(uint32_t cnt);
 static uint32_t IsAbout1000us(uint32_t cnt);
 /*----------------------------------------------------------------------------
@@ -47,6 +47,7 @@ void TC2_IrqHandler( void )
 
 	if ( (status & TC_SR_LDRAS) == TC_SR_LDRAS ){
 	 	cur_stamp = REG_TC0_RA2 ;
+		edge_occur = 1;
 	  	if ( status & TC_SR_MTIOA ){
 		  	LED_Clear(0) ;	//PA19 output high
 			cur_edge = rising;
@@ -55,7 +56,7 @@ void TC2_IrqHandler( void )
 			LED_Set(0) ;	//PA19 output low
 			cur_edge = falling;
 		}
-		printf( "%u ", cur_stamp) ;
+		//printf( "%u ", cur_stamp) ;
 		if ( IsAbout500us(cur_stamp) )
 			half_duty++;
 		else if( IsAbout1000us(cur_stamp) )
@@ -73,6 +74,10 @@ void TC2_IrqHandler( void )
 void TcCaptureInitialize(void)
 {
     volatile uint32_t dummy;
+	
+	/* Clear structure. */
+	//memset(&dec, 0, sizeof(decode_t) );
+	
 	/* Configure PIO Pins for TC0 */
     PIO_Configure( pTcPins, PIO_LISTSIZE( pTcPins ) ) ;
 	
@@ -99,39 +104,7 @@ void TcCaptureInitialize(void)
     /* Reset and enable the tiimer counter for TC0 channel 2 */
     REG_TC0_CCR2 =  TC_CCR_CLKEN | TC_CCR_SWTRG;
 }
-#if 0
-/**
- * @brief Calculate the interval between ACC_ISR.
- *
- */
-uint64_t cal_interval(void)
-{
-  	uint16_t inv;	//interval
 
-	// equal condition, no overflow occur
-	if(cur_ovfw == dec.prev_ovfw)
-	  	return (cur_stamp - dec.prev_stamp);
-
-	inv = cur_ovfw - dec.prev_ovfw;	//get the overflow
-	if(inv > 1){
-	  	dec_update_tmr();
-		return 256;		//this is invalid interval, too huge.
-	}
-	//only one overflow occur
-	inv = 65535 - dec.prev_stamp;
-	inv = cur_stamp + inv;
-	return (inv);
-}
-#endif
-/**
- * @brief update dec's timer stamp.
- *
- */
-static void dec_update_tmr(void)
-{
-	//dec.prev_stamp = cur_stamp;		//reload time stamp
-	//dec.prev_ovfw = cur_ovfw;        //reload overflow cnt
-}
 /**
  * @brief calculate whether cnt is in 500us region
  * ticker = 64Mhz/128 = 2us
@@ -143,7 +116,7 @@ static uint32_t IsAbout500us(uint32_t cnt)
   	uint32_t temp;
 	
 	temp = cnt * 2;
-	if( ( temp > 475 ) && ( temp < 510 ) ) {
+	if( ( temp > 475 ) && ( temp < 550 ) ) {
 		return true;
 	} 	
 	else{
@@ -162,7 +135,7 @@ static uint32_t IsAbout1000us(uint32_t cnt)
   	uint32_t temp;
 	
 	temp = cnt * 2;
-	if( ( temp > 975 ) && ( temp < 1010 ) ) {
+	if( ( temp > 975 ) && ( temp < 1050 ) ) {
 		return true;
 	} 	
 	else{
@@ -179,11 +152,10 @@ void findPhase(uint8_t bit_msk, mod_state_t state)
   	if (IsAbout500us(cur_stamp) && !dec.step){
 		if( falling == cur_edge ){
 	  		dec.data &= ~(1 << bit_msk);
-			dec.prev_bit = 0;
 		}
 		else{
 		    dec.data |= (1 << bit_msk);
-			dec.prev_bit = 1;
+			odd++;
 		}
 		dec.step = 1;
 	}
@@ -194,16 +166,18 @@ void findPhase(uint8_t bit_msk, mod_state_t state)
   	else if( IsAbout1000us(cur_stamp) && dec.step ){  //phase reversal
 	  	if( falling == cur_edge ){
 	  		dec.data &= ~(1 << bit_msk);
-			dec.prev_bit = 0;
 		}
 		else{
 		    dec.data |= (1 << bit_msk);
-			dec.prev_bit = 1;
+			odd++;
 		}
 		dec.state = state;
 		dec.step = 1;
   	}
-	
+	else if ( IsAbout1000us(cur_stamp) && !dec.step ){
+		dec.step = 0;
+		dec.state = Waiting;
+	}
 }
 
 
@@ -219,8 +193,9 @@ void decode_machine(void)
 	switch (dec.state){
 		case Waiting:
 		  	if( ( falling == cur_edge) && IsAbout1000us(cur_stamp) && dec.step ){  //phase reversal
-		  		dec.state = Sta0;
-				dec.prev_bit = 0;	//falling edge
+		  		odd = 0;
+				dec.data = 0;
+			  	dec.state = Sta0;
 				dec.step = 1;
 			}
 			else if( ( rising == cur_edge) && IsAbout500us(cur_stamp) && !dec.step ){
@@ -234,264 +209,116 @@ void decode_machine(void)
 			break;
 			//
 		case Sta0:
+		  	findPhase(BIT0, Bit0);
+	   		break;
+			//
+		case Bit0:
+		  	findPhase(BIT1, Bit1);
+	   		break;
+			//
+		case Bit1:
+		  	findPhase(BIT2, Bit2);
+	   		break;
+			//
+		case Bit2:
+		  	findPhase(BIT3, Bit3);
+	   		break;
+			//
+		case Bit3:
+		  	findPhase(BIT4, Bit4);
+	   		break;
+			//
+		case Bit4:
+		  	findPhase(BIT5, Bit5);
+	   		break;
+			//
+		case Bit5:
+		  	findPhase(BIT6, Bit6);
+	   		break;
+			//
+		case Bit6:
+		  	findPhase(BIT7, Bit7);
+	   		break;
+			//
+		case Bit7:
+		  	if (IsAbout500us(cur_stamp) && !dec.step){
+				if( rising == cur_edge ){
+				  	odd++;
+				}
+				dec.step = 1;
+			}
+			else if (IsAbout500us(cur_stamp) && dec.step){
+			  	if( 1 == (odd%2) ){
+			    	dec.state = Parity;
+			  	}
+				else{
+					dec.state = Waiting;
+				}
+				dec.step = 0;
+			}
+			else if( IsAbout1000us(cur_stamp) && dec.step ){  //phase reversal
+				if( rising == cur_edge ){
+				  	odd++;
+				}
+				if( 1 == (odd%2) ){
+			    	dec.state = Parity;
+					dec.step = 1;
+			  	}
+				else{
+					dec.state = Waiting;
+					dec.step = 0;
+				}
+			}
+			else if ( IsAbout1000us(cur_stamp) && !dec.step ){
+				dec.step = 0;
+				dec.state = Waiting;
+			}
+	   		break;
+			//
+		case Parity:
+		  	if( IsAbout1000us(cur_stamp) && dec.step ){  //phase reversal
+				if( rising == cur_edge ){
+				  	UART_PutChar(dec.data);
+					dec.step = 1;
+				}
+				else{
+					dec.step = 0;
+				}
+				dec.state = Waiting;
+			}
+			else if ( IsAbout500us(cur_stamp) && !dec.step ){
+				if( rising == cur_edge ){
+					dec.step = 1;
+					UART_PutChar(dec.data);
+				}
+				else{
+					dec.step = 0;
+					dec.state = Waiting;
+				}
+			}
+			else if ( IsAbout500us(cur_stamp) && dec.step ){
+			  	//if( rising == cur_edge ){
+				//  	UART_PutChar(dec.data);
+				//	dec.step = 1;
+				//}
+				//else{
+				//	dec.step = 0;
+				//}
+			  	if( 1 == (odd%2) ){
+					UART_PutChar(dec.data);	
+				}
+			  	dec.step = 0;
+				dec.state = Waiting;
+			}
+			else if ( IsAbout1000us(cur_stamp) && !dec.step ){
+				dec.step = 0;	
+				dec.state = Waiting;
+			}
 	   		break;
 			//
 		default:
 	  		break;
 			//
 	}
-	
-#if 0
-	//printf("%u\r\n", inv);
-  	switch (dec.state){
-		case Waiting:
-		  	if( dec.acsr & ( 1 << ACO) )	{	//rising
-				dec.state = Sta0;	//goto start bit
-			}
-			dec_update_tmr();
-			break;
-			//
-		case Sta0:
-		  	if ( !( dec.acsr & ( 1 << ACO) )	)	{//falling
-			  	if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
-				  	dec.state = Bit0; 	//goto bit0
-			  		odd = 0;	//clear odd parity cnt
-				}
-				else{
-				  	dec.state = Waiting;
-				}
-			}
-			else{
-				dec.state = Waiting;
-			}
-			dec_update_tmr();
-			break;
-			//
-		case Sta1:
-		  	if ( dec.acsr & ( 1 << ACO) )	{	//rising
-		  		if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX))
-				  	dec.state = Sta2;
-				else	//falling
-				  	dec.state = Waiting;
-			}
-			else{
-				dec.state = Waiting;
-			}
-			dec_update_tmr();
-			break;
-			//
-		case Sta2:
-		  	if ( !( dec.acsr & ( 1 << ACO) ) )	{	//falling
-		  		if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX))
-				  	dec.state = Sta3;
-				else
-				  	dec.state = Waiting;
-			}
-			else{
-				dec.state = Waiting;
-			}
-			dec_update_tmr();
-			break;
-			//
-		case Sta3:
-		  	if ( dec.acsr & ( 1 << ACO) )	{ //rising
-		  		if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX))
-				  	dec.state = Bit7;
-				else									//falling
-				  	dec.state = Waiting;
-			}
-			else{
-				dec.state = Waiting;
-			}
-			dec_update_tmr();
-			break;
-			//
-		case Bit0:
-	  		if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
-		  		dec_update_tmr();
-				if ( dec.acsr & ( 1 << ACO) ) 	{//rising
-				  	dec.data |= ( 1 << BIT0 ) ;
-					odd++;
-				}
-				else{							//falling
-				  	dec.data &= ~( 1 << BIT0 ) ;
-				}
-				dec.state = Bit1;
-			}
-			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
-				dec.state = Waiting;
-				dec_update_tmr();
-			}
-			break;
-			//
-		case Bit1:
-	  		if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
-		  		dec_update_tmr();
-				if ( dec.acsr & ( 1 << ACO) ) 	{//rising
-				  	dec.data |= ( 1 << BIT1 ) ;
-					odd++;
-				}
-				else{							//falling
-				  	dec.data &= ~( 1 << BIT1 ) ;
-				}
-				dec.state = Bit2;
-			}
-			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
-				dec.state = Waiting;
-				dec_update_tmr();
-			}
-			break;
-			//
-		case Bit2:
-	  		if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
-		  		dec_update_tmr();
-				if ( dec.acsr & ( 1 << ACO) ) 	{//rising
-				  	dec.data |= ( 1 << BIT2 ) ;
-					odd++;
-				}
-				else{							//falling
-				  	dec.data &= ~( 1 << BIT2 ) ;
-				}
-				dec.state = Bit3;
-			}
-			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
-				dec.state = Waiting;
-				dec_update_tmr();
-			}
-			break;
-			//
-		case Bit3:
-	  		if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
-		  		dec_update_tmr();
-				if ( dec.acsr & ( 1 << ACO) ) 	{//rising
-				  	dec.data |= ( 1 << BIT3 ) ;
-					odd++;
-				}
-				else{							//falling
-				  	dec.data &= ~( 1 << BIT3 ) ;
-				}
-				dec.state = Bit4;
-			}
-			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
-				dec.state = Waiting;
-				dec_update_tmr();
-			}
-			break;
-			//
-		case Bit4:
-	  		if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
-		  		dec_update_tmr();
-				if ( dec.acsr & ( 1 << ACO) ) 	{//rising
-				  	dec.data |= ( 1 << BIT4 ) ;
-					odd++;
-				}
-				else{							//falling
-				  	dec.data &= ~( 1 << BIT4 ) ;
-				}
-				dec.state = Bit5;
-			}
-			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
-				dec.state = Waiting;
-				dec_update_tmr();
-			}
-			break;
-			//
-		case Bit5:
-	  		if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
-		  		dec_update_tmr();
-				if ( dec.acsr & ( 1 << ACO) ) 	{//rising
-				  	dec.data |= ( 1 << BIT5 ) ;
-					odd++;
-				}
-				else{							//falling
-				  	dec.data &= ~( 1 << BIT5 ) ;
-				}
-				dec.state = Bit6;
-			}
-			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
-				dec.state = Waiting;
-				dec_update_tmr();
-			}
-			break;
-			//
-		case Bit6:
-	  		if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
-		  		dec_update_tmr();
-				if ( dec.acsr & ( 1 << ACO) ) 	{//rising
-				  	dec.data |= ( 1 << BIT6 ) ;
-					odd++;
-				}
-				else{							//falling
-				  	dec.data &= ~( 1 << BIT6 ) ;
-				}
-				dec.state = Bit7;
-			}
-			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
-				dec.state = Waiting;
-				dec_update_tmr();
-			}
-			break;
-			//
-		case Bit7:
-	  		if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
-		  		dec_update_tmr();
-				if ( dec.acsr & ( 1 << ACO) ) 	{//rising
-				  	dec.data |= ( 1 << BIT7 ) ;
-					odd++;
-				}
-				else{							//falling
-				  	dec.data &= ~( 1 << BIT7 ) ;
-				}
-				//sio_putchar(dec.data);
-				dec.state = Parity;
-
-			}
-			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
-				dec.state = Waiting;
-				dec_update_tmr();
-			}
-			break;
-			//
-		case Parity:
-		  	if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
-		  		dec_update_tmr();
-				if ( ( 0 == (odd % 2 ) ) && ( dec.acsr & ( 1 << ACO ) ) ) {//there is even 1(s)
-					dec.state = Sto0;                                    //rev 1 is ok when odd parity
-				}
-				else if( ( 1 == (odd % 2 ) ) && !( dec.acsr & ( 1 << ACO ) ) ){ 	//there is odd 1(s)
-					dec.state = Sto0;                                      		//rev 0 is ok when odd parity
-				}
-				else{
-					dec.state = Waiting;
-				}
-			}
-			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
-				dec.state = Waiting;
-				dec_update_tmr();
-			}
-		  	break;
-			//
-		case Sto0:
-		  	if( ( inv >= DECODE_TMR_FREQ_2KHZ_MIN ) && (inv <= DECODE_TMR_FREQ_2KHZ_MAX)){
-		  		dec_update_tmr();
-				if ( dec.acsr & ( 1 << ACO ) ) {//stop bit should be always 1
-					pal_led(LED_2, LED_ON);
-				 	sio_putchar(dec.data);
-					pal_led(LED_2, LED_OFF);
-				}
-				dec.state = Waiting;
-			}
-			else if (inv > DECODE_TMR_FREQ_2KHZ_MAX ) {
-				dec.state = Waiting;
-				dec_update_tmr();
-			}
-		  	break;
-			//
-		default:
-	  		break;
-			//
-
-	}
-#endif
 }
 //end of file
