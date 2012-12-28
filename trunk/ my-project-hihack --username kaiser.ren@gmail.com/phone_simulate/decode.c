@@ -34,6 +34,7 @@ static const Pin pTcPins[] = {PIN_TC0_TIOA2};
  *----------------------------------------------------------------------------*/
 static uint32_t IsAbout500us(uint32_t cnt);
 static uint32_t IsAbout1000us(uint32_t cnt);
+void findPhase(uint8_t bit_msk, mod_state_t state);
 /*----------------------------------------------------------------------------
  *        ISR Handler
  *----------------------------------------------------------------------------*/
