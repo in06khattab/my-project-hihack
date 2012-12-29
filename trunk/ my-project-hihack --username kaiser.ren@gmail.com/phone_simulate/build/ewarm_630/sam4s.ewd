@@ -914,7 +914,7 @@
         </option>
         <option>
           <name>MacFile</name>
-          <state>$PROJ_DIR$\sam4s-ek-flash.mac</state>
+          <state>$PROJ_DIR$/../../resource/sam4s16/sam4s-ek-flash.mac</state>
         </option>
         <option>
           <name>MemOverride</name>

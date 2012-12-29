@@ -28,7 +28,7 @@ static uint32_t inv = 0;
 //static volatile uint32_t odd;	//odd parity
 
 /** PIOs for TC0 */
-static const Pin pTcPins[] = {PIN_TC0_TIOA2};
+static const Pin pTcPins[] = {DEC_CAPTURE_INPUT};
 
 /*----------------------------------------------------------------------------
  *        Local function
@@ -39,6 +39,34 @@ void findPhase(uint8_t bit_msk, mod_state_t state);
 /*----------------------------------------------------------------------------
  *        ISR Handler
  *----------------------------------------------------------------------------*/
+#if defined	__SAM4S16C__
+/**
+ * \brief Interrupt handler for the TC0 channel 2.
+ */
+void TC1_IrqHandler(void)
+{
+	uint32_t status ;
+    status = REG_TC0_SR1 ;
+
+	if ( (status & TC_SR_LDRAS) == TC_SR_LDRAS ){
+	 	cur_stamp = REG_TC0_RA1 ;
+		cur_stamp = cur_stamp/10 ;        //420 falling, 351 rising
+		edge_occur = 1;
+	  	if ( status & TC_SR_MTIOA ){
+		  	LED_Clear(0) ;	//PA19 output high
+			cur_edge = rising;
+			printf( "%u1 ", cur_stamp) ;
+	  	}
+		else{
+			LED_Set(0) ;	//PA19 output low
+			cur_edge = falling;
+			printf( "%u0 ", cur_stamp) ;
+		}
+	}
+}
+#endif
+
+#if defined	sam3s4
 /**
  * \brief Interrupt handler for the TC0 channel 2.
  */
@@ -49,19 +77,21 @@ void TC2_IrqHandler( void )
 
 	if ( (status & TC_SR_LDRAS) == TC_SR_LDRAS ){
 	 	cur_stamp = REG_TC0_RA2 ;
+		cur_stamp = cur_stamp/10 ;
 		edge_occur = 1;
 	  	if ( status & TC_SR_MTIOA ){
 		  	LED_Clear(0) ;	//PA19 output high
 			cur_edge = rising;
+			printf( "%u1 ", cur_stamp) ;
 	  	}
 		else{
 			LED_Set(0) ;	//PA19 output low
 			cur_edge = falling;
+			printf( "%u0 ", cur_stamp) ;
 		}
-		//printf( "%u ", cur_stamp) ;
 	}
 }
-
+#endif
 
 /*----------------------------------------------------------------------------
  *        Exported functions
@@ -79,6 +109,7 @@ void TcCaptureInitialize(void)
 	/* Configure PIO Pins for TC0 */
     PIO_Configure( pTcPins, PIO_LISTSIZE( pTcPins ) ) ;
 	
+#if defined	sam3s4	
     /* Configure the PMC to enable the Timer Counter clock TC0 channel 2.*/
     PMC_EnablePeripheral(ID_TC2);
     /*  Disable TC clock */
@@ -101,6 +132,30 @@ void TcCaptureInitialize(void)
 	
     /* Reset and enable the tiimer counter for TC0 channel 2 */
     REG_TC0_CCR2 =  TC_CCR_CLKEN | TC_CCR_SWTRG;
+#else //SAM4S-XPLAINED
+	/* Configure the PMC to enable the Timer Counter clock TC0 channel 1.*/
+    PMC_EnablePeripheral(ID_TC1);
+    /*  Disable TC clock */
+    REG_TC0_CCR1 = TC_CCR_CLKDIS;
+    /*  Disable interrupts */
+    REG_TC0_IDR1 = 0xFFFFFFFF;
+    /*  Clear status register */
+    dummy = REG_TC0_SR1;
+    /*  Set channel 2 as capture mode.
+	 *  Clock source MCK/8, 8MHz.
+	 */
+    REG_TC0_CMR1 = (TC_CMR_TCCLKS_TIMER_CLOCK4    /* Clock Selection, PRE = 128 */
+                   | TC_CMR_LDRA_EDGE           /* RA Loading Selection: rising edge of TIOA */
+                   /*| TC_CMR_LDRB_FALLING*/          /* RB Loading Selection: falling edge of TIOA */
+                   | TC_CMR_ABETRG                /* External Trigger Selection: TIOA */
+                   | TC_CMR_ETRGEDG_EDGE );    /* External Trigger Edge Selection: Falling edge */
+	
+	/* Ext edge trigger, overflow .*/
+	REG_TC0_IER1 =  TC_IER_LDRAS /*| TC_IER_LDRBS*/ ;	
+	
+    /* Reset and enable the tiimer counter for TC0 channel 2 */
+    REG_TC0_CCR1 =  TC_CCR_CLKEN | TC_CCR_SWTRG;
+#endif
 }
 
 /**

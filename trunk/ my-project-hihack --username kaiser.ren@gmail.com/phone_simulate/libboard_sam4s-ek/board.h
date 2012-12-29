@@ -497,6 +497,9 @@
 /* PIOS for QTouch */
 #define PINS_QTOUCH     PINS_SLIDER_SNS, PINS_SLIDER_SNSK, PINS_KEY_SNS, PINS_KEY_SNSK
 
+/** PA19B PCK2 for pck output */
+#define BOARD_PIN_PA18B_PCK2     {PIO_PA18B_PCK2, PIOA, ID_PIOA, PIO_PERIPH_B, PIO_DEFAULT}
+
 
 /*----------------------------------------------------------------------------*/
 /**

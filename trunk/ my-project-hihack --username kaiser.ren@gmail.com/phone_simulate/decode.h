@@ -25,8 +25,13 @@
 /*----------------------------------------------------------------------------
  *        Macro
  *----------------------------------------------------------------------------*/
-#define PIN_TC0_TIOA1    {PIO_PA15, PIOA, ID_PIOA, PIO_PERIPH_B, PIO_DEFAULT}
+#define PIN_TC0_TIOA1    {PIO_PA15, PIOA, ID_PIOA, PIO_INPUT, PIO_DEFAULT}
 #define PIN_TC0_TIOA2    {PIO_PA26, PIOA, ID_PIOA, PIO_INPUT, PIO_DEFAULT}
+#if defined	sam3s4
+	#define DEC_CAPTURE_INPUT	PIN_TC0_TIOA2
+#else
+	#define DEC_CAPTURE_INPUT	PIN_TC0_TIOA1
+#endif
 
 /* use which timer as decode machine timer stamp generator. */
 #define DECODE_USED_TMR_ID  2

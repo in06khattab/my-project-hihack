@@ -1008,7 +1008,7 @@
         </option>
         <option>
           <name>MacOverride</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>MacFile</name>
@@ -1020,7 +1020,7 @@
         </option>
         <option>
           <name>MemFile</name>
-          <state>$TOOLKIT_DIR$\CONFIG\debugger\Atmel\iosam4s16c.svd</state>
+          <state>$TOOLKIT_DIR$\CONFIG\debugger\Atmel\iosam3s4c.svd</state>
         </option>
         <option>
           <name>RunToEnable</name>
@@ -1092,7 +1092,7 @@
         </option>
         <option>
           <name>FlashLoadersV3</name>
-          <state>$TOOLKIT_DIR$\config\flashloader\Atmel\SAM4S16\sam4s16-flash.board</state>
+          <state>$TOOLKIT_DIR$\config\flashloader\Atmel\AT91SAM3S4-EK\at91sam3s4-flash.board</state>
         </option>
         <option>
           <name>OCImagesSuppressCheck1</name>

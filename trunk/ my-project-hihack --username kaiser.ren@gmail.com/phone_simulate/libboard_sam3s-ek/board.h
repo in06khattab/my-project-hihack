@@ -746,5 +746,8 @@
 /** USART ID for application */
 #define BOARD_ID_USART             ID_USART1
 
+/** PA19B PCK2 for pck output */
+#define BOARD_PIN_PA18B_PCK2     {PIO_PA18B_PCK2, PIOA, ID_PIOA, PIO_PERIPH_B, PIO_DEFAULT}
+
 #endif /* #ifndef _BOARD_ */
 
