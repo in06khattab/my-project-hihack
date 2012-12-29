@@ -115,6 +115,9 @@
  *        Local variables
  *----------------------------------------------------------------------------*/
 
+/** USART1 pin ENABLE */
+#define BOARD_PIN_PA18B_PCK2     {PIO_PA18B_PCK2, PIOA, ID_PIOA, PIO_PERIPH_B, PIO_DEFAULT}
+
 /**  Pins to configure for the application.*/
 const Pin pins[] = {
     BOARD_PIN_USART_RXD,
@@ -122,9 +125,9 @@ const Pin pins[] = {
     BOARD_PIN_USART_CTS,
     BOARD_PIN_USART_RTS,
     BOARD_PIN_USART_EN,
-
-
+    BOARD_PIN_PA18B_PCK2
 };
+
 
 /** usart1 rx entity. **/
 us_rx_t us1 = {.count = 0, .head = 0, .tail = 0};
@@ -330,7 +333,7 @@ extern int main( void )
 	
 	/* Configure led 0, blue one . */
 	LED_Configure(0) ;
-
+	
     /* Output example information */
     printf( "-- Phone Simulator V%s --\r\n", SOFTPACK_VERSION ) ;
     printf( "-- Compiled: %s %s --\r\n", __DATE__, __TIME__ ) ;
@@ -375,6 +378,14 @@ extern int main( void )
     /*initialize the DACC_CDR*/
     DACC_SetConversionData( DACC,sine_data[90]*amplitude/(MAX_DIGITAL/2)+MAX_DIGITAL/2);
 	DACC->DACC_IER = DACC_IER_EOC;	//Enable DACC end-of-convertion interrupt
+	
+	/* Initial PMC_PCK2 PA18B as pck output
+	 * clock source is PLLB and no prescaler.
+	 */
+	//PMC->PMC_PCK[2] = PMC_PCK_CSS_PLLB_CLK ;
+    //PMC->PMC_SCER = PMC_SCER_PCK2;
+	/* Wait for the PCKRDY1 bit to be set in the PMC_SR register */
+    //while ( (PMC->PMC_SR & PMC_SR_PCKRDY1) == 0 ) ;
 	
 	/* variable initial. */
 	mod.data = 0;
