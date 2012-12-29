@@ -102,6 +102,15 @@
 #include <assert.h>
 #include "encode.h"
 #include "decode.h"
+
+/*----------------------------------------------------------------------------
+ *        Macro
+ *----------------------------------------------------------------------------*/
+#define VER_MAJOR 0
+#define VER_MINOR 6
+#define VER_PATCH ' '
+
+
 /*----------------------------------------------------------------------------
  *        Local definitions
  *----------------------------------------------------------------------------*/
@@ -114,9 +123,6 @@
 /*----------------------------------------------------------------------------
  *        Local variables
  *----------------------------------------------------------------------------*/
-
-/** USART1 pin ENABLE */
-#define BOARD_PIN_PA18B_PCK2     {PIO_PA18B_PCK2, PIOA, ID_PIOA, PIO_PERIPH_B, PIO_DEFAULT}
 
 /**  Pins to configure for the application.*/
 const Pin pins[] = {
@@ -335,9 +341,15 @@ extern int main( void )
 	LED_Configure(0) ;
 	
     /* Output example information */
-    printf( "-- Phone Simulator V%s --\r\n", SOFTPACK_VERSION ) ;
+    printf( "-- Phone Simulator V%d.%02d%c --\r\n", VER_MAJOR, VER_MINOR, VER_PATCH ) ;
     printf( "-- Compiled: %s %s --\r\n", __DATE__, __TIME__ ) ;
-
+#if defined	sam3s4
+    printf( "-- Platform: sam3s-ek --\r\n" ) ;
+#endif
+#if defined	__SAM4S16C__
+    printf( "-- Platform: sam4s-xplained --\r\n" ) ;
+#endif
+	
     /* initialize amplitude and frequency */
     amplitude = MAX_DIGITAL / 2;
     frequency = 1000;
@@ -366,11 +378,19 @@ extern int main( void )
 	/* Initialize TC Capture. */
 	TcCaptureInitialize();
 	
+#if defined	sam3s4	
 	/* Configure TC interrupts for TC0 channel 2 only */
     NVIC_DisableIRQ( TC2_IRQn ) ;
     NVIC_ClearPendingIRQ( TC2_IRQn ) ;
     NVIC_SetPriority( TC2_IRQn, 0 ) ;
     NVIC_EnableIRQ( TC2_IRQn ) ;
+#else //SAM4S-XPLAINED
+	/* Configure TC interrupts for TC0 channel 1 only */
+    NVIC_DisableIRQ( TC1_IRQn ) ;
+    NVIC_ClearPendingIRQ( TC1_IRQn ) ;
+    NVIC_SetPriority( TC1_IRQn, 0 ) ;
+    NVIC_EnableIRQ( TC1_IRQn ) ;
+#endif
 	
     /*Enable  channel for potentiometer*/
     DACC_EnableChannel( DACC, DACC_channel_sine ) ;
@@ -400,7 +420,7 @@ extern int main( void )
 	 _ConfigureUsart();
 	
     /* main menu*/
-    _DisplayMenuChoices() ;
+    //_DisplayMenuChoices() ;
 
     while( 1 )
     {

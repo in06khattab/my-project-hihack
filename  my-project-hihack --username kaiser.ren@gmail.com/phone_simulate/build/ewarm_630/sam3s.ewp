@@ -1614,7 +1614,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>$PROJ_DIR$\sam3s4c\flash.icf</state>
+          <state>$PROJ_DIR$/../../resource/sam3s4c/flash.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
