@@ -2,7 +2,7 @@
 
 <workspace>
   <project>
-    <path>$WS_DIR$\phone_simulate_sam3s.ewp</path>
+    <path>$WS_DIR$\sam4s.ewp</path>
   </project>
   <batchBuild>
     <batchDefinition>

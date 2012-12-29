@@ -1,42 +1,40 @@
 ###############################################################################
 #                                                                             #
-# IAR ELF Linker V6.30.6.53336/W32 for ARM              29/Dec/2012  11:32:04 #
+# IAR ELF Linker V6.30.6.53336/W32 for ARM              29/Dec/2012  13:42:32 #
 # Copyright 2007-2012 IAR Systems AB.                                         #
 #                                                                             #
 #    Output file  =  D:\Firmware\my-project-hihack\trunk\ my-project-hihack   #
 #                    --username kaiser.ren@gmail.com\phone_simulate\build\ewa #
-#                    rm_630\phone_simulate_sam3s\Exe\phone_simulate_sam3s.out #
+#                    rm_630\sam3s\Exe\sam3s.out                               #
 #    Map file     =  D:\Firmware\my-project-hihack\trunk\ my-project-hihack   #
 #                    --username kaiser.ren@gmail.com\phone_simulate\build\ewa #
-#                    rm_630\phone_simulate_sam3s\List\phone_simulate_sam3s.ma #
-#                    p                                                        #
+#                    rm_630\sam3s\List\sam3s.map                              #
 #    Command line =  "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
 #                    --username kaiser.ren@gmail.com\phone_simulate\build\ewa #
-#                    rm_630\phone_simulate_sam3s\Obj\decode.o"                #
-#                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
-#                    --username kaiser.ren@gmail.com\phone_simulate\build\ewa #
-#                    rm_630\phone_simulate_sam3s\Obj\encode.o"                #
-#                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
-#                    --username kaiser.ren@gmail.com\phone_simulate\build\ewa #
-#                    rm_630\phone_simulate_sam3s\Obj\main.o"                  #
-#                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
-#                    --username kaiser.ren@gmail.com\phone_simulate\libboard_ #
-#                    sam3s-ek\lib\libboard_sam3s_ek_ewarm_dbg.a"              #
+#                    rm_630\sam3s\Obj\decode.o" "D:\Firmware\my-project-hihac #
+#                    k\trunk\ my-project-hihack --username                    #
+#                    kaiser.ren@gmail.com\phone_simulate\build\ewarm_630\sam3 #
+#                    s\Obj\encode.o" "D:\Firmware\my-project-hihack\trunk\    #
+#                    my-project-hihack --username                             #
+#                    kaiser.ren@gmail.com\phone_simulate\build\ewarm_630\sam3 #
+#                    s\Obj\main.o" "D:\Firmware\my-project-hihack\trunk\      #
+#                    my-project-hihack --username                             #
+#                    kaiser.ren@gmail.com\phone_simulate\libboard_sam3s-ek\li #
+#                    b\libboard_sam3s_ek_ewarm_dbg.a"                         #
 #                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
 #                    --username kaiser.ren@gmail.com\phone_simulate\libchip_s #
 #                    am3s\lib\libchip_sam3s4_ewarm_dbg.a" --redirect          #
 #                    _Printf=_PrintfSmall --redirect _Scanf=_ScanfSmall -o    #
 #                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
 #                    --username kaiser.ren@gmail.com\phone_simulate\build\ewa #
-#                    rm_630\phone_simulate_sam3s\Exe\phone_simulate_sam3s.out #
-#                    " --map "D:\Firmware\my-project-hihack\trunk\            #
-#                    my-project-hihack --username                             #
-#                    kaiser.ren@gmail.com\phone_simulate\build\ewarm_630\phon #
-#                    e_simulate_sam3s\List\phone_simulate_sam3s.map"          #
-#                    --config "D:\Firmware\my-project-hihack\trunk\           #
-#                    my-project-hihack --username                             #
-#                    kaiser.ren@gmail.com\phone_simulate\build\ewarm_630\sam3 #
-#                    s4c\flash.icf" --entry __iar_program_start --vfe         #
+#                    rm_630\sam3s\Exe\sam3s.out" --map                        #
+#                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
+#                    --username kaiser.ren@gmail.com\phone_simulate\build\ewa #
+#                    rm_630\sam3s\List\sam3s.map" --config                    #
+#                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
+#                    --username kaiser.ren@gmail.com\phone_simulate\build\ewa #
+#                    rm_630\sam3s4c\flash.icf" --entry __iar_program_start    #
+#                    --vfe                                                    #
 #                                                                             #
 #                                                                             #
 ###############################################################################
@@ -64,7 +62,7 @@ __SystemLibrary = DLib
     .vectors       const    0x00400000    0xd0  board_cstartup_iar.o [4]
                           - 0x004000d0    0xd0
 
-"P1":                                   0x1f84
+"P1":                                   0x1f90
   SOFTPACK         ro code  0x004000d0   0x564  encode.o [1]
   SAM3S4           ro code  0x00400634    0x78  usart.o [5]
   SAM3S4           ro code  0x004006ac    0xcc  dacc.o [5]
@@ -90,43 +88,43 @@ __SystemLibrary = DLib
   .rodata          const    0x00401b10    0xc8  main.o [1]
   .rodata          const    0x00401bd8    0x80  pmc.o [5]
   .rodata          const    0x00401c58    0x80  dacc.o [5]
-  .rodata          const    0x00401cd8    0x3c  main.o [1]
-  SAM3S-EK         ro code  0x00401d14    0x38  board_cstartup_iar.o [4]
-  .rodata          const    0x00401d4c    0x34  main.o [1]
-  .text            ro code  0x00401d80    0x2c  data_init3.o [6]
-  .rodata          const    0x00401dac    0x28  main.o [1]
-  .rodata          const    0x00401dd4    0x28  main.o [1]
-  .rodata          const    0x00401dfc    0x24  main.o [1]
-  .rodata          const    0x00401e20    0x24  main.o [1]
-  .rodata          const    0x00401e44    0x24  led.o [4]
-  .iar.init_table  const    0x00401e68    0x10  - Linker created -
-  .rodata          const    0x00401e78    0x20  main.o [1]
-  .rodata          const    0x00401e98    0x20  main.o [1]
-  .rodata          const    0x00401eb8    0x20  main.o [1]
-  .rodata          const    0x00401ed8    0x20  dacc.o [5]
-  .rodata          const    0x00401ef8    0x1c  main.o [1]
-  .rodata          const    0x00401f14    0x1c  main.o [1]
-  .rodata          const    0x00401f30    0x1c  main.o [1]
-  .rodata          const    0x00401f4c    0x18  main.o [1]
-  .rodata          const    0x00401f64    0x18  main.o [1]
-  .rodata          const    0x00401f7c    0x18  main.o [1]
-  .rodata          const    0x00401f94    0x18  main.o [1]
-  .text            ro code  0x00401fac    0x16  cmain.o [6]
-  .text            ro code  0x00401fc2     0x4  exit.o [3]
-  .text            ro code  0x00401fc8     0xa  cexit.o [6]
-  .text            ro code  0x00401fd2    0x16  xprout.o [3]
-  .rodata          const    0x00401fe8     0xc  decode.o [1]
-  .rodata          const    0x00401ff4     0xc  main.o [1]
+  .rodata          const    0x00401cd8    0x48  main.o [1]
+  SAM3S-EK         ro code  0x00401d20    0x38  board_cstartup_iar.o [4]
+  .rodata          const    0x00401d58    0x34  main.o [1]
+  .text            ro code  0x00401d8c    0x2c  data_init3.o [6]
+  .rodata          const    0x00401db8    0x28  main.o [1]
+  .rodata          const    0x00401de0    0x28  main.o [1]
+  .rodata          const    0x00401e08    0x24  main.o [1]
+  .rodata          const    0x00401e2c    0x24  main.o [1]
+  .rodata          const    0x00401e50    0x24  led.o [4]
+  .iar.init_table  const    0x00401e74    0x10  - Linker created -
+  .rodata          const    0x00401e84    0x20  main.o [1]
+  .rodata          const    0x00401ea4    0x20  main.o [1]
+  .rodata          const    0x00401ec4    0x20  main.o [1]
+  .rodata          const    0x00401ee4    0x20  dacc.o [5]
+  .rodata          const    0x00401f04    0x1c  main.o [1]
+  .rodata          const    0x00401f20    0x1c  main.o [1]
+  .rodata          const    0x00401f3c    0x1c  main.o [1]
+  .rodata          const    0x00401f58    0x18  main.o [1]
+  .rodata          const    0x00401f70    0x18  main.o [1]
+  .rodata          const    0x00401f88    0x18  main.o [1]
+  .rodata          const    0x00401fa0    0x18  main.o [1]
+  .text            ro code  0x00401fb8    0x16  cmain.o [6]
+  .text            ro code  0x00401fce     0x4  exit.o [3]
+  .text            ro code  0x00401fd4     0xa  cexit.o [6]
+  .text            ro code  0x00401fde    0x16  xprout.o [3]
+  .rodata          const    0x00401ff4     0xc  decode.o [1]
   .rodata          const    0x00402000     0xc  main.o [1]
   .rodata          const    0x0040200c     0xc  main.o [1]
   .rodata          const    0x00402018     0xc  main.o [1]
-  .rodata          const    0x00402024     0xc  pmc.o [5]
-  .rodata          const    0x00402030     0xc  uart_console.o [4]
-  .text            ro code  0x0040203c     0xc  cstartup_M.o [6]
-  .rodata          const    0x00402048     0x8  main.o [1]
-  .rodata          const    0x00402050     0x4  led.o [4]
-  .rodata          const    0x00402054     0x0  bwt_init3c.o [6]
-                          - 0x00402054  0x1f84
+  .rodata          const    0x00402024     0xc  main.o [1]
+  .rodata          const    0x00402030     0xc  pmc.o [5]
+  .rodata          const    0x0040203c     0xc  uart_console.o [4]
+  .text            ro code  0x00402048     0xc  cstartup_M.o [6]
+  .rodata          const    0x00402054     0x8  main.o [1]
+  .rodata          const    0x0040205c     0x4  led.o [4]
+  .rodata          const    0x00402060     0x0  bwt_init3c.o [6]
+                          - 0x00402060  0x1f90
 
 "P2", part 1 of 2:                        0x48
   .bss             zero     0x20000000    0x18  main.o [1]
@@ -170,12 +168,12 @@ Zero (__iar_zero_init3)
 
     Module                ro code  ro data  rw data
     ------                -------  -------  -------
-D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\phone_simulate\build\ewarm_630\phone_simulate_sam3s\Obj: [1]
+D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\phone_simulate\build\ewarm_630\sam3s\Obj: [1]
     decode.o                  848       12       29
     encode.o                1 380                 9
-    main.o                  1 156      796       31
+    main.o                  1 156      808       31
     -----------------------------------------------
-    Total:                  3 384      808       69
+    Total:                  3 384      820       69
 
 command line: [2]
     -----------------------------------------------
@@ -227,7 +225,7 @@ rt7M_tl.a: [6]
     Gaps                        8
     Linker created                      16   12 288
 ---------------------------------------------------
-    Grand Total:            6 892    1 384   12 358
+    Grand Total:            6 892    1 396   12 358
 
 
 *******************************************************************************
@@ -238,7 +236,7 @@ Entry                      Address   Size  Type      Object
 -----                      -------   ----  ----      ------
 .vectors$$Base          0x00400000          --   Gb  - Linker created -
 .vectors$$Limit         0x004000d0          --   Gb  - Linker created -
-?main                   0x00401fad         Code  Gb  cmain.o [6]
+?main                   0x00401fb9         Code  Gb  cmain.o [6]
 ACC_IrqHandler          0x00400825    0x2  Code  Wk  exceptions.o [5]
 ADC_IrqHandler          0x0040081f    0x2  Code  Wk  exceptions.o [5]
 BusFault_Handler        0x004007e7    0x2  Code  Wk  exceptions.o [5]
@@ -286,8 +284,8 @@ PendSV_Handler          0x004007ef    0x2  Code  Wk  exceptions.o [5]
 RSTC_IrqHandler         0x004007f3    0x2  Code  Wk  exceptions.o [5]
 RTC_IrqHandler          0x004007f5    0x2  Code  Wk  exceptions.o [5]
 RTT_IrqHandler          0x004007f7    0x2  Code  Wk  exceptions.o [5]
-Region$$Table$$Base     0x00401e68          --   Gb  - Linker created -
-Region$$Table$$Limit    0x00401e78          --   Gb  - Linker created -
+Region$$Table$$Base     0x00401e74          --   Gb  - Linker created -
+Region$$Table$$Limit    0x00401e84          --   Gb  - Linker created -
 SMC_IrqHandler          0x00400803    0x2  Code  Wk  exceptions.o [5]
 SPI_IrqHandler          0x00400813    0x2  Code  Wk  exceptions.o [5]
 SSC_IrqHandler          0x00400815    0x2  Code  Wk  exceptions.o [5]
@@ -326,23 +324,23 @@ _DisplayMenuChoices     0x004012d5   0x2e  Code  Lc  main.o [1]
 _GetInputValue          0x004011c5  0x110  Code  Lc  main.o [1]
 _LitobSmall             0x00400f99   0xd0  Code  Lc  xprintfsmall.o [3]
 _PrintfSmall            0x00400bcd  0x3cc  Code  Gb  xprintfsmall.o [3]
-_Prout                  0x00401fd3   0x16  Code  Gb  xprout.o [3]
+_Prout                  0x00401fdf   0x16  Code  Gb  xprout.o [3]
 __aeabi_assert          0x0040077b   0x64  Code  Gb  xassert.o [3]
-__cmain                 0x00401fad         Code  Gb  cmain.o [6]
+__cmain                 0x00401fb9         Code  Gb  cmain.o [6]
 __exit                  0x004009a5         Code  Gb  XXexit.o [6]
 __iar_EmptyStepPoint    0x00400779    0x2  Code  Gb  xassert.o [3]
 __iar_Memchr            0x004010c1         Code  Gb  memchr.o [6]
 __iar_ReportAssert      0x0040083f   0x50  Code  Gb  xreportassert.o [3]
-__iar_SB                0x00402054         Data  Gb  bwt_init3c.o [6]
+__iar_SB                0x00402060         Data  Gb  bwt_init3c.o [6]
 __iar_Strchr            0x00401071         Code  Gb  strchr.o [6]
-__iar_data_init3        0x00401d81   0x2c  Code  Gb  data_init3.o [6]
-__iar_program_start     0x0040203d         Code  Gb  cstartup_M.o [6]
+__iar_data_init3        0x00401d8d   0x2c  Code  Gb  data_init3.o [6]
+__iar_program_start     0x00402049         Code  Gb  cstartup_M.o [6]
 __iar_zero_init3        0x004008cf   0x22  Code  Gb  zero_init3.o [6]
-__low_level_init        0x00401d15   0x38  Code  Gb  board_cstartup_iar.o [4]
+__low_level_init        0x00401d21   0x38  Code  Gb  board_cstartup_iar.o [4]
 __vector_table          0x00400000   0xd0  Data  Gb  board_cstartup_iar.o [4]
-_call_main              0x00401fb9         Code  Gb  cmain.o [6]
-_exit                   0x00401fc9         Code  Gb  cexit.o [6]
-_main                   0x00401fbf         Code  Gb  cmain.o [6]
+_call_main              0x00401fc5         Code  Gb  cmain.o [6]
+_exit                   0x00401fd5         Code  Gb  cexit.o [6]
+_main                   0x00401fcb         Code  Gb  cmain.o [6]
 _ucIsConsoleInitialized
                         0x20000045    0x1  Data  Lc  uart_console.o [4]
 abort                   0x004008c9    0x6  Code  Gb  abort.o [3]
@@ -353,7 +351,7 @@ dec                     0x20000018    0xc  Data  Gb  decode.o [1]
 decode_machine          0x004017a1  0x1da  Code  Gb  decode.o [1]
 edge_occur              0x2000002c    0x4  Data  Gb  decode.o [1]
 encode_switch           0x004003a9  0x248  Code  Gb  encode.o [1]
-exit                    0x00401fc3    0x4  Code  Gb  exit.o [3]
+exit                    0x00401fcf    0x4  Code  Gb  exit.o [3]
 findParam               0x004002f3   0xb6  Code  Gb  encode.o [1]
 findPhase               0x0040171d   0x84  Code  Gb  decode.o [1]
 frequency               0x2000003c    0x2  Data  Gb  main.o [1]
@@ -362,13 +360,13 @@ inv                     0x20000038    0x4  Data  Lc  decode.o [1]
 main                    0x0040130f  0x1e0  Code  Gb  main.o [1]
 memchr                  0x004010c1         Code  Gb  memchr.o [6]
 mod                     0x20000024    0x8  Data  Gb  encode.o [1]
-numLeds                 0x00402050    0x4  Data  Lc  led.o [4]
+numLeds                 0x0040205c    0x4  Data  Lc  led.o [4]
 odd                     0x20000041    0x1  Data  Lc  encode.o [1]
 offset                  0x20000034    0x4  Data  Lc  decode.o [1]
 out                     0x00400829   0x16  Code  Lc  xreportassert.o [3]
-pTcPins                 0x00401fe8    0xc  Data  Lc  decode.o [1]
-pins                    0x00401cd8   0x3c  Data  Gb  main.o [1]
-pinsLeds                0x00401e44   0x24  Data  Lc  led.o [4]
+pTcPins                 0x00401ff4    0xc  Data  Lc  decode.o [1]
+pins                    0x00401cd8   0x48  Data  Gb  main.o [1]
+pinsLeds                0x00401e50   0x24  Data  Lc  led.o [4]
 printf                  0x0040159d   0x24  Code  Gb  printf.o [3]
 putchar                 0x00400995   0x10  Code  Wk  uart_console.o [4]
 sine_data               0x00401b10   0xc8  Data  Gb  main.o [1]
@@ -380,7 +378,7 @@ us1_get_char            0x004002a7   0x4c  Code  Gb  encode.o [1]
 us1_get_count           0x0040029f    0x8  Code  Gb  encode.o [1]
 
 
-[1] = D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\phone_simulate\build\ewarm_630\phone_simulate_sam3s\Obj
+[1] = D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\phone_simulate\build\ewarm_630\sam3s\Obj
 [2] = command line
 [3] = dl7M_tln.a
 [4] = libboard_sam3s_ek_ewarm_dbg.a
@@ -388,7 +386,7 @@ us1_get_count           0x0040029f    0x8  Code  Gb  encode.o [1]
 [6] = rt7M_tl.a
 
    6 892 bytes of readonly  code memory
-   1 384 bytes of readonly  data memory
+   1 396 bytes of readonly  data memory
   12 358 bytes of readwrite data memory
 
 Errors: none
