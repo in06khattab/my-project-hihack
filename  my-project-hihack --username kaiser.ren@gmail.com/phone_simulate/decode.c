@@ -77,17 +77,17 @@ void TC2_IrqHandler( void )
 
 	if ( (status & TC_SR_LDRAS) == TC_SR_LDRAS ){
 	 	cur_stamp = REG_TC0_RA2 ;
-		cur_stamp = cur_stamp/10 ;
+		//cur_stamp = cur_stamp/10 ;
 		edge_occur = 1;
 	  	if ( status & TC_SR_MTIOA ){
 		  	LED_Clear(0) ;	//PA19 output high
 			cur_edge = rising;
-			printf( "%u1 ", cur_stamp) ;
+			//printf( "%u1 ", cur_stamp) ;
 	  	}
 		else{
 			LED_Set(0) ;	//PA19 output low
 			cur_edge = falling;
-			printf( "%u0 ", cur_stamp) ;
+			//printf( "%u0 ", cur_stamp) ;
 		}
 	}
 }
