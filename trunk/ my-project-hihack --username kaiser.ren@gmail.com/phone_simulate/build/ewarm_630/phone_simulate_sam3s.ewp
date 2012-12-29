@@ -628,7 +628,7 @@
         </option>
         <option>
           <name>IlinkOutputFile</name>
-          <state>###Unitialized###</state>
+          <state>phone_simulate_sam3s.out</state>
         </option>
         <option>
           <name>IlinkDebugInfoEnable</name>
@@ -936,7 +936,7 @@
         <option>
           <name>Variant</name>
           <version>19</version>
-          <state>38</state>
+          <state>37</state>
         </option>
         <option>
           <name>ExePath</name>
@@ -1017,7 +1017,7 @@
         </option>
         <option>
           <name>OGChipSelectEditMenu</name>
-          <state>SAM4S16C	Atmel SAM4S16C</state>
+          <state>AT91SAM3S4	Atmel AT91SAM3S4</state>
         </option>
         <option>
           <name>GenLowLevelInterface</name>
@@ -1056,12 +1056,12 @@
         <option>
           <name>GFPUCoreSlave</name>
           <version>19</version>
-          <state>38</state>
+          <state>37</state>
         </option>
         <option>
           <name>GBECoreSlave</name>
           <version>19</version>
-          <state>38</state>
+          <state>37</state>
         </option>
         <option>
           <name>OGUseCmsis</name>
@@ -1082,7 +1082,7 @@
         <debug>1</debug>
         <option>
           <name>CCDefines</name>
-          <state>__SAM4S16C__</state>
+          <state>sam3s4</state>
           <state>flash</state>
           <state>TRACE_LEVEL=4</state>
         </option>
@@ -1145,7 +1145,7 @@
         <option>
           <name>CCAllowList</name>
           <version>1</version>
-          <state>1111111</state>
+          <state>0000000</state>
         </option>
         <option>
           <name>CCDebugInfo</name>
@@ -1213,14 +1213,13 @@
         </option>
         <option>
           <name>CCIncludePath2</name>
-          <state>$PROJ_DIR$/../../libboard_sam4s-ek</state>
-          <state>$PROJ_DIR$/../../libchip_sam4s</state>
-          <state>$PROJ_DIR$/../../libboard_sam4s-ek/include</state>
-          <state>$PROJ_DIR$/../../libboard_sam4s-ek/resource</state>
-          <state>$PROJ_DIR$/../../libchip_sam4s/cmsis</state>
-          <state>$PROJ_DIR$/../../libchip_sam4s/include</state>
-          <state>$PROJ_DIR$/../../libchip_sam4s/source</state>
-          <state>$PROJ_DIR$/../../libboard_sam4s-ek/source</state>
+          <state>$PROJ_DIR$/../../libboard_sam3s-ek</state>
+          <state>$PROJ_DIR$/../../libchip_sam3s</state>
+          <state>$PROJ_DIR$/../../libboard_sam3s-ek/include</state>
+          <state>$PROJ_DIR$/../../libboard_sam3s-ek/resource</state>
+          <state>$PROJ_DIR$/../../libchip_sam3s/include</state>
+          <state>$PROJ_DIR$/../../libchip_sam3s/source</state>
+          <state>$PROJ_DIR$/../../libboard_sam3s-ek/source</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1240,7 +1239,7 @@
         </option>
         <option>
           <name>CCOptLevel</name>
-          <state>3</state>
+          <state>0</state>
         </option>
         <option>
           <name>CCOptStrategy</name>
@@ -1249,7 +1248,7 @@
         </option>
         <option>
           <name>CCOptLevelSlave</name>
-          <state>3</state>
+          <state>0</state>
         </option>
         <option>
           <name>CompilerMisraRules98</name>
@@ -1555,7 +1554,7 @@
         </option>
         <option>
           <name>IlinkDebugInfoEnable</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>IlinkKeepSymbols</name>
@@ -1611,11 +1610,11 @@
         </option>
         <option>
           <name>IlinkIcfOverride</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>$TOOLKIT_DIR$\config\linker\Atmel\SAM4S\SAM4S-EK\sam4s16-flash.icf</state>
+          <state>$PROJ_DIR$\sam3s4c\flash.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -1846,19 +1845,10 @@
   <group>
     <name>libraries</name>
     <file>
-      <name>$PROJ_DIR$\..\..\libboard_sam4s-ek\lib\libboard_sam4s_ek_ewarm_dbg.a</name>
+      <name>$PROJ_DIR$\..\..\libboard_sam3s-ek\lib\libboard_sam3s_ek_ewarm_dbg.a</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\libchip_sam4s\lib\libchip_sam4s16_ewarm_dbg.a</name>
-    </file>
-  </group>
-  <group>
-    <name>resources</name>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\libraries\libboard_sam4s-ek\resources\ewarm\sam4s16\flash.icf</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\libraries\libboard_sam4s-ek\resources\ewarm\sam4s16\sram.icf</name>
+      <name>$PROJ_DIR$\..\..\libchip_sam3s\lib\libchip_sam3s4_ewarm_dbg.a</name>
     </file>
   </group>
   <file>
