@@ -44,8 +44,6 @@
 
 typedef struct decode_tag
 {
-  	uint32_t prev_stamp;
-	uint32_t step;
 	state_t state;
    uint8_t odd;
 	uint8_t data;

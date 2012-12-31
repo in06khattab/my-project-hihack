@@ -139,19 +139,6 @@ const Pin pins[] = {
 /** usart1 rx entity. **/
 us_rx_t us1 = {.count = 0, .head = 0, .tail = 0};
 
-/** channel 0 */
-uint8_t DACC_channel_sine = DACC_CHANNEL_0;
-
-/** current index_sample */
-uint8_t index_sample = 0;
-/** ticker counter. */
-uint8_t ticker = 0;
-
-/** frequency */
-uint16_t frequency = 0;
-/** amplitude */
-uint16_t amplitude = 0;
-
 /** amplitude is MAX_DIGITAL/2,SAMPLES is fixed at 100 */
 const int16_t sine_data[SAMPLES]=
 {
@@ -351,30 +338,8 @@ extern int main( void )
     printf( "-- Platform: sam4s-xplained --\r\n" ) ;
 #endif
 	
-    /* initialize amplitude and frequency */
-    amplitude = MAX_DIGITAL / 2;
-    frequency = 1000;
-
-    /*10 us timer*/
-    SysTick_Config( BOARD_MCK / (frequency * SAMPLES) ) ;
-	
-
-    /* Initialize DACC */
-    DACC_Initialize( DACC,
-                    ID_DACC,
-                    0, /* Hardware triggers are disabled */
-                    0, /* External trigger */
-                    0, /* Half-Word Transfer */
-                    0, /* Normal Mode (not sleep mode) */
-                    BOARD_MCK,
-                    8, /* refresh period */
-                    0, /* Channel 0 selection */
-                    0, /* Tag Selection Mode disabled */
-                    16 /*  value of the start up time */);
-
-	/* enable NVIC_DACC. */
-	NVIC_EnableIRQ( DACC_IRQn ) ;
-	NVIC_SetPriority(DACC_IRQn, 5);
+	/* Initialize DAC. */
+   DacInitialize();
 	
 	/* Initialize TC Capture. */
 	TcCaptureInitialize();
@@ -393,29 +358,13 @@ extern int main( void )
     NVIC_EnableIRQ( TC1_IRQn ) ;
 #endif
 	
-    /*Enable  channel for potentiometer*/
-    DACC_EnableChannel( DACC, DACC_channel_sine ) ;
-
-    /*initialize the DACC_CDR*/
-    DACC_SetConversionData( DACC,sine_data[90]*amplitude/(MAX_DIGITAL/2)+MAX_DIGITAL/2);
-	DACC->DACC_IER = DACC_IER_EOC;	//Enable DACC end-of-convertion interrupt
-	
 	/* Initial PMC_PCK2 PA18B as pck output
 	 * clock source is PLLB and no prescaler.
 	 */
 	//PMC->PMC_PCK[2] = PMC_PCK_CSS_PLLB_CLK ;
     //PMC->PMC_SCER = PMC_SCER_PCK2;
 	/* Wait for the PCKRDY1 bit to be set in the PMC_SR register */
-    //while ( (PMC->PMC_SR & PMC_SR_PCKRDY1) == 0 ) ;
-	
-	/* variable initial. */
-	mod.data = 0;
-	mod.state = Waiting;
-	mod.cur = SET;
-	mod.factor = Div1;
-	mod.reverse = 0;
-	ticker = 0;
-	index_sample = 0;
+   //while ( (PMC->PMC_SR & PMC_SR_PCKRDY1) == 0 ) ;
 	
 	 /* initial usart1. */
 	 _ConfigureUsart();

@@ -18,10 +18,26 @@
 /*----------------------------------------------------------------------------
  *        Variable
  *----------------------------------------------------------------------------*/
-modulate_t mod;
-static uint8_t odd;	//odd parity
+/** encode structure */
+static encode_t enc;
+/** store odd parity consequence */
+static uint8_t odd;	
+/** current index_sample */
+static uint8_t index_sample = 0;
+/** ticker counter. */
+static uint8_t ticker = 0;
 
-void findParam(uint8_t bit_msk);
+/** channel 0 */
+uint8_t DACC_channel_sine = DACC_CHANNEL_0;
+/** frequency */
+uint16_t frequency = 0;
+/** amplitude */
+uint16_t amplitude = 0;
+
+/*----------------------------------------------------------------------------
+ *        Static functions
+ *----------------------------------------------------------------------------*/
+void enc_parser(uint8_t bit_msk);
 
 /*----------------------------------------------------------------------------
  *        ISR Handler
@@ -40,18 +56,18 @@ void DAC_IrqHandler(void)
     /* if conversion is done*/
     if ( (status & DACC_IER_EOC) == DACC_IER_EOC ){
 		if ( index_sample >= SAMPLES ){
-		  	if(0 == mod.reverse)
-				encode_switch();
+		  	if(0 == enc.reverse)
+				encode_machine();
 			index_sample = 0;
 			ticker = 0;
 		}
-		else if( ( 50 == index_sample ) && (Div2 == mod.factor ) ){
-			encode_switch();
+		else if( ( 50 == index_sample ) && (Div2 == enc.factor ) ){
+			encode_machine();
 			ticker = 0;
 		}
-		else if( ( 50 == index_sample ) && ( 1 == mod.reverse ) ){
-		  	mod.reverse = 0;
-			encode_switch();
+		else if( ( 50 == index_sample ) && ( 1 == enc.reverse ) ){
+		  	enc.reverse = 0;
+			encode_machine();
 			ticker = 0;
 		}
 		DACC->DACC_IDR = DACC_IER_EOC;
@@ -101,8 +117,8 @@ void SysTick_Handler( void )
     /* if conversion is done*/
     //if ( (status & DACC_ISR_EOC) == DACC_ISR_EOC )
     {
-		if ( 0 == ( ticker%mod.factor) ){
-		  	//if( Waiting != mod.state){
+		if ( 0 == ( ticker%enc.factor) ){
+		  	//if( Waiting != enc.state){
 		  	 	value = sine_data[index_sample++] * amplitude / (MAX_DIGITAL/2) + MAX_DIGITAL/2;
         		DACC_SetConversionData(DACC, value ) ;
 				DACC->DACC_IER = DACC_IER_EOC;
@@ -115,6 +131,52 @@ void SysTick_Handler( void )
 		}
 		ticker++;
     }
+}
+
+/**
+ * \brief DAC initialization.
+ */
+void DacInitialize(void)
+{
+	/* initialize amplitude and frequency */
+    amplitude = MAX_DIGITAL / 2;
+    frequency = 1000;
+
+    /*10 us timer*/
+    SysTick_Config( BOARD_MCK / (frequency * SAMPLES) ) ;
+	
+    /* Initialize DACC */
+    DACC_Initialize( DACC,
+                    ID_DACC,
+                    0, /* Hardware triggers are disabled */
+                    0, /* External trigger */
+                    0, /* Half-Word Transfer */
+                    0, /* Normal Mode (not sleep mode) */
+                    BOARD_MCK,
+                    8, /* refresh period */
+                    0, /* Channel 0 selection */
+                    0, /* Tag Selection Mode disabled */
+                    16 /*  value of the start up time */);
+
+	/* enable NVIC_DACC. */
+	NVIC_EnableIRQ( DACC_IRQn ) ;
+	NVIC_SetPriority(DACC_IRQn, 5);
+	
+	/* variable initial. */
+	enc.data = 0;
+	enc.state = Waiting;
+	enc.cur = SET;
+	enc.factor = Div1;
+	enc.reverse = 0;
+	ticker = 0;
+	index_sample = 0;
+	
+	/*Enable  channel for potentiometer*/
+    DACC_EnableChannel( DACC, DACC_channel_sine ) ;
+
+    /*initialize the DACC_CDR*/
+    DACC_SetConversionData( DACC,sine_data[90]*amplitude/(MAX_DIGITAL/2)+MAX_DIGITAL/2);
+	 DACC->DACC_IER = DACC_IER_EOC;	//Enable DACC end-of-convertion interrupt
 }
 
 /*----------------------------------------------------------------------------
@@ -178,27 +240,27 @@ uint8_t us1_get_char(void)
  * Find proper factor depending on state and bit mask.
 */
 
-void findParam(uint8_t bit_msk)
+void enc_parser(uint8_t bit_msk)
 {
-  	if( ( mod.data & ( 1 << bit_msk) ) && (SET == mod.cur) ){
+  	if( ( enc.data & ( 1 << bit_msk) ) && (SET == enc.cur) ){
 	  	odd++;	//bit is one, odd cnt increacement
-  		mod.factor = Div1;
+  		enc.factor = Div1;
 		if( 50 == index_sample )
-		  	mod.reverse = 1;
+		  	enc.reverse = 1;
 	}
-	else if( ( mod.data & ( 1 << bit_msk) ) && (CLR == mod.cur) ){
+	else if( ( enc.data & ( 1 << bit_msk) ) && (CLR == enc.cur) ){
 	  	odd++;	//bit is one, odd cnt increacement
-		mod.factor = Div2;
-		mod.cur = SET;
+		enc.factor = Div2;
+		enc.cur = SET;
 	}
-	else if( !( mod.data & ( 1 << bit_msk) ) && (SET == mod.cur) ){
-		mod.factor = Div2;
-		mod.cur = CLR;
+	else if( !( enc.data & ( 1 << bit_msk) ) && (SET == enc.cur) ){
+		enc.factor = Div2;
+		enc.cur = CLR;
 	}
-	else if( !( mod.data & ( 1 << bit_msk) ) && (CLR == mod.cur) ){
-		mod.factor = Div1;
+	else if( !( enc.data & ( 1 << bit_msk) ) && (CLR == enc.cur) ){
+		enc.factor = Div1;
 		if( 50 == index_sample )
-		  	mod.reverse = 1;
+		  	enc.reverse = 1;
 	}
 }
 
@@ -207,126 +269,126 @@ void findParam(uint8_t bit_msk)
  * Achieve wave phase.
 */
 
-void encode_switch(void)
+void encode_machine(void)
 {
-  	state_t sta = mod.state;
+  	state_t sta = enc.state;
 	
 	switch(sta){
 		case Waiting:
 			if(us1_get_count() ){ 	//prepare for sta0
-				mod.state = Sta0; 	//next state is start bit
-				mod.factor = Div2;  //start bit is zero
-				mod.cur = CLR;
-				mod.data = us1_get_char();
+				enc.state = Sta0; 	//next state is start bit
+				enc.factor = Div2;  //start bit is zero
+				enc.cur = CLR;
+				enc.data = us1_get_char();
 				index_sample = 0;
 			}
 			break;
 			//
 		case Sta0: 	//prepare for bit0
 		  	odd = 0;	//clear odd cnt
-		  	findParam(BIT0);
-	  		mod.state = Bit0;
+		  	enc_parser(BIT0);
+	  		enc.state = Bit0;
 			break;
 			//
 		case Sta1:	//prepare for sta2
-		  	mod.state = Sta2;
+		  	enc.state = Sta2;
 			break;
 			//
 	  	case Sta2:	//prepare for sta3
-		  	mod.state = Sta3;
+		  	enc.state = Sta3;
 			break;
 			//
 		case Sta3:	//prepare for bit7, sta3 is SET
-		  	if( mod.data & (1 << BIT7) ){
-		  		mod.factor = Div1;
-				mod.cur = SET;
+		  	if( enc.data & (1 << BIT7) ){
+		  		enc.factor = Div1;
+				enc.cur = SET;
 				if( 50 == index_sample )
-		  			mod.reverse = 1;
+		  			enc.reverse = 1;
 		  	}
 			else{
-				mod.factor = Div2;
-				mod.cur = CLR;	
+				enc.factor = Div2;
+				enc.cur = CLR;	
 			}
-		  	mod.state = Bit7;
+		  	enc.state = Bit7;
 			break;
 			//	
 		case Bit0: 	//prepare for Bit1
-		  	findParam(BIT1);
-			mod.state = Bit1;
+		  	enc_parser(BIT1);
+			enc.state = Bit1;
 	    	break;
 			//
 		case Bit1: 	//prepare for Bit2
-		  	findParam(BIT2);
-			mod.state = Bit2;
+		  	enc_parser(BIT2);
+			enc.state = Bit2;
 	    	break;
 			//
 		case Bit2: 	//prepare for Bit3
-		  	findParam(BIT3);
-			mod.state = Bit3;
+		  	enc_parser(BIT3);
+			enc.state = Bit3;
 	    	break;
 			//
 		case Bit3: 	//prepare for Bit4
-		  	findParam(BIT4);
-			mod.state = Bit4;
+		  	enc_parser(BIT4);
+			enc.state = Bit4;
 	    	break;
 			//
 		case Bit4: 	//prepare for Bit5
-		  	findParam(BIT5);
-			mod.state = Bit5;
+		  	enc_parser(BIT5);
+			enc.state = Bit5;
 	    	break;
 			//
 		case Bit5: 	//prepare for Bit6
-		  	findParam(BIT6);
-			mod.state = Bit6;
+		  	enc_parser(BIT6);
+			enc.state = Bit6;
 	    	break;
 			//
 		case Bit6: 	//prepare for Bit7
-		  	findParam(BIT7);
-			mod.state = Bit7;
+		  	enc_parser(BIT7);
+			enc.state = Bit7;
 	    	break;
 			//
 		case Bit7: 	//prepare for Parity
-		  	if( ( 0 == ( odd % 2 ) ) && (SET == mod.cur) ){//there is even 1(s), output 1, cur is 1 	
-				mod.factor = Div1;
-				mod.cur = SET;
+		  	if( ( 0 == ( odd % 2 ) ) && (SET == enc.cur) ){//there is even 1(s), output 1, cur is 1 	
+				enc.factor = Div1;
+				enc.cur = SET;
 				if( 50 == index_sample )
-					mod.reverse = 1;
+					enc.reverse = 1;
 			}
-			else if( ( 0 == ( odd % 2 ) ) && (CLR == mod.cur) ){//there is even 1(s), output 1, cur is 0 	
-				mod.factor = Div2;
-				mod.cur = SET;
+			else if( ( 0 == ( odd % 2 ) ) && (CLR == enc.cur) ){//there is even 1(s), output 1, cur is 0 	
+				enc.factor = Div2;
+				enc.cur = SET;
 			}
-			else if( ( 1 == ( odd % 2 ) ) && (CLR == mod.cur) ){//there is odd 1(s), output 0, cur is 0 	
-				mod.factor = Div1;
-				mod.cur = CLR;
+			else if( ( 1 == ( odd % 2 ) ) && (CLR == enc.cur) ){//there is odd 1(s), output 0, cur is 0 	
+				enc.factor = Div1;
+				enc.cur = CLR;
 				if( 50 == index_sample )
-					mod.reverse = 1;
+					enc.reverse = 1;
 			}
-			else if( ( 1 == ( odd % 2 ) ) && (SET == mod.cur) ){//there is odd 1(s), output 0, cur is 1
-				mod.factor = Div2;
-				mod.cur = CLR;
+			else if( ( 1 == ( odd % 2 ) ) && (SET == enc.cur) ){//there is odd 1(s), output 0, cur is 1
+				enc.factor = Div2;
+				enc.cur = CLR;
 			}
-			mod.state = Parity;
+			enc.state = Parity;
 	    	break;
 			//
 		case Parity:	//prepare for stop bit
-		  	if(SET == mod.cur){
-		  		mod.factor = Div1;
-				mod.cur = SET;
+		  	if(SET == enc.cur){
+		  		enc.factor = Div1;
+				enc.cur = SET;
 				if( 50 == index_sample )
-					mod.reverse = 1;	
+					enc.reverse = 1;	
 			}
 			else{
-				mod.factor = Div2;
-				mod.cur = CLR;
+				enc.factor = Div2;
+				enc.cur = CLR;
 			}
-			mod.state = Sto0;
+			enc.state = Sto0;
 		  	break;
             //
 		case Sto0:     //prepare for Waiting
-			mod.state = Waiting;
-			mod.factor = Div1;
-			mod.cur = SET;
+			enc.state = Waiting;
+			enc.factor = Div1;
+			enc.cur = SET;
 			break;
 			//
 		default:
