@@ -209,7 +209,7 @@ void findParam(uint8_t bit_msk)
 
 void encode_switch(void)
 {
-  	mod_state_t sta = mod.state;
+  	state_t sta = mod.state;
 	
 	switch(sta){
 		case Waiting:
