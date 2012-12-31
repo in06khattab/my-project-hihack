@@ -45,7 +45,7 @@ typedef struct module_tag
 	next_bit_t  cur;
    factor_t	factor;
 	uint8_t		reverse;
-}modulate_t;
+}encode_t;
 
 typedef struct _usart_rx_tag
 {
@@ -70,19 +70,21 @@ typedef struct _usart_rx_tag
 /*----------------------------------------------------------------------------
  *        External Variable
  *----------------------------------------------------------------------------*/
-extern modulate_t mod;
-extern uint8_t index_sample;
-extern uint8_t ticker;
+//extern encode_t enc;
+//extern uint8_t index_sample;
+//extern uint8_t ticker;
 extern us_rx_t us1;
 extern const int16_t sine_data[SAMPLES];
 extern uint16_t amplitude ;
+extern uint16_t frequency ;
 
 /*----------------------------------------------------------------------------
  *        External Function
  *----------------------------------------------------------------------------*/
-void encode_switch(void);
+void encode_machine(void);
 uint8_t us1_get_count(void);
 uint8_t us1_get_char(void);
 void _ConfigureUsart( void );
+void DacInitialize(void);
 #endif /* ENCODE_H */
 //end of file
