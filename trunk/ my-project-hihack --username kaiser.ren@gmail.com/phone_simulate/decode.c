@@ -35,7 +35,7 @@ static const Pin pTcPins[] = {DEC_CAPTURE_INPUT};
  *----------------------------------------------------------------------------*/
 static uint32_t IsAbout500us(uint32_t cnt);
 static uint32_t IsAbout1000us(uint32_t cnt);
-void findPhase(uint8_t bit_msk, mod_state_t state);
+void findPhase(uint8_t bit_msk, state_t state);
 /*----------------------------------------------------------------------------
  *        ISR Handler
  *----------------------------------------------------------------------------*/
@@ -200,7 +200,7 @@ static uint32_t IsAbout1000us(uint32_t cnt)
  * Find phase remain or phase reversal.
 */
 
-void findPhase(uint8_t bit_msk, mod_state_t state)
+void findPhase(uint8_t bit_msk, state_t state)
 {
   	if ( IsAbout1000us(inv) ){ //it's time to determine
 		if( falling == cur_edge ){

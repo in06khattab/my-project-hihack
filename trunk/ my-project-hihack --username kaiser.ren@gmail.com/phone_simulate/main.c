@@ -100,6 +100,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <assert.h>
+#include "main.h"
 #include "encode.h"
 #include "decode.h"
 
