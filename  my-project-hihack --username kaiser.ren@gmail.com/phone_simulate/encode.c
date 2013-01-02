@@ -137,7 +137,7 @@ void DacInitialize(void)
 {
 	/* initialize amplitude and frequency */
     amplitude = MAX_DIGITAL / 2;
-    frequency = 1000;
+    frequency = HIJACK_CARRIER_FREQ_CONF;
 
     /*10 us timer*/
     SysTick_Config( BOARD_MCK / (frequency * SAMPLES) ) ;
