@@ -1818,6 +1818,9 @@
     <file>
       <name>$PROJ_DIR$\..\..\main.h</name>
     </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\xplained.h</name>
+    </file>
   </group>
   <group>
     <name>libraries</name>
@@ -1838,6 +1841,9 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\main.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\xplained.c</name>
     </file>
   </group>
 </project>
