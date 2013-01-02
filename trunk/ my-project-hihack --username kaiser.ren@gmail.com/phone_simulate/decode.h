@@ -45,7 +45,7 @@
 typedef struct decode_tag
 {
 	state_t state;
-   uint8_t odd;
+   	uint8_t odd;
 	uint8_t data;
 }decode_t;
 

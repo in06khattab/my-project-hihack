@@ -43,7 +43,7 @@ typedef struct module_tag
   	uint8_t 	data;
 	state_t state;
 	next_bit_t  cur;
-   factor_t	factor;
+    factor_t	factor;
 	uint8_t		reverse;
 }encode_t;
 

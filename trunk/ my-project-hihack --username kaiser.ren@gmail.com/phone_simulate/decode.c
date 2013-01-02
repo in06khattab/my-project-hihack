@@ -22,10 +22,9 @@
 decode_t dec;
 bool edge_occur = false;
 static uint32_t cur_stamp = 0 ;
-static volatile edge_t 	 cur_edge = none ;
+static edge_t 	cur_edge = none ;
 static uint32_t offset = 0;
 static uint32_t inv = 0;
-//static volatile uint32_t odd;	//odd parity
 
 /** PIOs for TC0 */
 static const Pin pTcPins[] = {DEC_CAPTURE_INPUT};
@@ -33,9 +32,9 @@ static const Pin pTcPins[] = {DEC_CAPTURE_INPUT};
 /*----------------------------------------------------------------------------
  *        Local function
  *----------------------------------------------------------------------------*/
-static uint32_t IsAbout500us(uint32_t cnt);
-static uint32_t IsAbout1000us(uint32_t cnt);
-void findPhase(uint8_t bit_msk, state_t state);
+static uint32_t IsAboutHalfCycle(uint32_t cnt);
+static uint32_t IsAboutFullCycle(uint32_t cnt);
+static void dec_parser(uint8_t bit_msk, state_t state);
 /*----------------------------------------------------------------------------
  *        ISR Handler
  *----------------------------------------------------------------------------*/
@@ -121,7 +120,7 @@ void TcCaptureInitialize(void)
     /*  Set channel 2 as capture mode.
 	 *  Clock source MCK/8, 8MHz.
 	 */
-    REG_TC0_CMR2 = (TC_CMR_TCCLKS_TIMER_CLOCK4    /* Clock Selection, PRE = 128 */
+    REG_TC0_CMR2 = (HIJACK_TMR_CLK_SRC_PRESCALER_REG    /* Clock Selection, PRE = 8 */
                    | TC_CMR_LDRA_EDGE           /* RA Loading Selection: rising edge of TIOA */
                    /*| TC_CMR_LDRB_FALLING*/          /* RB Loading Selection: falling edge of TIOA */
                    | TC_CMR_ABETRG                /* External Trigger Selection: TIOA */
@@ -144,7 +143,7 @@ void TcCaptureInitialize(void)
     /*  Set channel 2 as capture mode.
 	 *  Clock source MCK/8, 8MHz.
 	 */
-    REG_TC0_CMR1 = (TC_CMR_TCCLKS_TIMER_CLOCK4    /* Clock Selection, PRE = 128 */
+    REG_TC0_CMR1 = (HIJACK_TMR_CLK_SRC_PRESCALER_REG    /* Clock Selection, PRE = 8 */
                    | TC_CMR_LDRA_EDGE           /* RA Loading Selection: rising edge of TIOA */
                    /*| TC_CMR_LDRB_FALLING*/          /* RB Loading Selection: falling edge of TIOA */
                    | TC_CMR_ABETRG                /* External Trigger Selection: TIOA */
@@ -164,12 +163,14 @@ void TcCaptureInitialize(void)
  * 475us < cnt < 510us
  *
  */
-static uint32_t IsAbout500us(uint32_t cnt)
+static uint32_t IsAboutHalfCycle(uint32_t cnt)
 {
-  	uint32_t temp;
+  	uint32_t temp, min, max;
 	
-	temp = cnt * 2;
-	if( ( temp > 475 ) && ( temp < 550 ) ) {
+	min = HIJACK_NUM_TICKS_PER_HALF_CYCLE - HIJACK_NUM_TICKS_PER_5_PCNT;
+	max = HIJACK_NUM_TICKS_PER_HALF_CYCLE + HIJACK_NUM_TICKS_PER_5_PCNT;
+	temp = cnt;
+	if( ( temp > min ) && ( temp < max ) ) {
 		return true;
 	} 	
 	else{
@@ -183,12 +184,14 @@ static uint32_t IsAbout500us(uint32_t cnt)
  * 975us < cnt < 1010us
  *
  */
-static uint32_t IsAbout1000us(uint32_t cnt)
+static uint32_t IsAboutFullCycle(uint32_t cnt)
 {
-  	uint32_t temp;
+  	uint32_t temp, min, max;
 	
-	temp = cnt * 2;
-	if( ( temp > 975 ) && ( temp < 1050 ) ) {
+	min = HIJACK_NUM_TICKS_PER_FULL_CYCLE - HIJACK_NUM_TICKS_PER_5_PCNT;
+	max = HIJACK_NUM_TICKS_PER_FULL_CYCLE + HIJACK_NUM_TICKS_PER_5_PCNT;
+	temp = cnt;
+	if( ( temp > min ) && ( temp < max ) ) {
 		return true;
 	} 	
 	else{
@@ -200,9 +203,9 @@ static uint32_t IsAbout1000us(uint32_t cnt)
  * Find phase remain or phase reversal.
 */
 
-void findPhase(uint8_t bit_msk, state_t state)
+static void dec_parser(uint8_t bit_msk, state_t state)
 {
-  	if ( IsAbout1000us(inv) ){ //it's time to determine
+  	if ( IsAboutFullCycle(inv) ){ //it's time to determine
 		if( falling == cur_edge ){
 	  		dec.data &= ~(1 << bit_msk);
 		}
@@ -214,8 +217,8 @@ void findPhase(uint8_t bit_msk, state_t state)
 		inv = 0;
 		dec.state = state;   //state switch
 	}
-	else if ( IsAbout500us(inv) && (0 == offset) ){   //wait for edge detection time
-		offset = 250;  //update 500us
+	else if ( IsAboutHalfCycle(inv) && (0 == offset) ){   //wait for edge detection time
+		offset = HIJACK_NUM_TICKS_PER_HALF_CYCLE;  //update half cycle ticks
 	}
   	else {
       	dec.state = Waiting;
@@ -244,7 +247,7 @@ void decode_machine(void)
 			break;
 			//
 		case Sta0:
-         	if( IsAbout1000us(inv) && ( falling == cur_edge ) ){
+         	if( IsAboutFullCycle(inv) && ( falling == cur_edge ) ){
 				offset = 0; //start from edge field
 				inv = 0;
 				dec.data = 0;  //clear data field for store new potential data
@@ -259,39 +262,39 @@ void decode_machine(void)
 	   		break;
 			//
 		case Bit0:
-		  	findPhase(BIT0, Bit1);
+		  	dec_parser(BIT0, Bit1);
 	   		break;
 			//
 		case Bit1:
-		  	findPhase(BIT1, Bit2);
+		  	dec_parser(BIT1, Bit2);
 	   		break;
 			//
 		case Bit2:
-		  	findPhase(BIT2, Bit3);
+		  	dec_parser(BIT2, Bit3);
 	   		break;
 			//
 		case Bit3:
-		  	findPhase(BIT3, Bit4);
+		  	dec_parser(BIT3, Bit4);
 	   		break;
 			//
 		case Bit4:
-		  	findPhase(BIT4, Bit5);
+		  	dec_parser(BIT4, Bit5);
 	   		break;
 			//
 		case Bit5:
-		  	findPhase(BIT5, Bit6);
+		  	dec_parser(BIT5, Bit6);
 	   		break;
 			//
 		case Bit6:
-		  	findPhase(BIT6, Bit7);
+		  	dec_parser(BIT6, Bit7);
 	   		break;
 			//
 		case Bit7:
-		  	findPhase(BIT7, Parity);
+		  	dec_parser(BIT7, Parity);
 	   		break;
 			//
 		case Parity:
-			if ( IsAbout1000us(inv) ){ //it's time to determine
+			if ( IsAboutFullCycle(inv) ){ //it's time to determine
 				if( rising == cur_edge ){
 				   dec.odd++;
 				}
@@ -304,8 +307,8 @@ void decode_machine(void)
 				offset = 0;
 				inv = 0;
 			 }
-			 else if ( IsAbout500us(inv) && (0 == offset) ){   //wait for edge detection time
-				offset = 250;  //update 500us
+			 else if ( IsAboutHalfCycle(inv) && (0 == offset) ){   //wait for edge detection time
+				offset = HIJACK_NUM_TICKS_PER_HALF_CYCLE;  //update half cycle ticks
 			 }
 			 else {
 				dec.state = Waiting;
@@ -315,7 +318,7 @@ void decode_machine(void)
 			break;
 			//
       	case Sto0:
-         	if ( IsAbout1000us(inv) ){ //it's time to determine
+         	if ( IsAboutFullCycle(inv) ){ //it's time to determine
 				if( rising == cur_edge ){  //stop bit is rising edge
 				   UART_PutChar(dec.data);
 				}
@@ -323,8 +326,8 @@ void decode_machine(void)
 				offset = 0;
 				inv = 0;
          	}
-         	else if ( IsAbout500us(inv) && (0 == offset) ){   //wait for edge detection time
-            	offset = 250;  //update 500us
+         	else if ( IsAboutHalfCycle(inv) && (0 == offset) ){   //wait for edge detection time
+            	offset = HIJACK_NUM_TICKS_PER_HALF_CYCLE;  //update half cycle ticks
          	}
          	else {
 				dec.state = Waiting;
