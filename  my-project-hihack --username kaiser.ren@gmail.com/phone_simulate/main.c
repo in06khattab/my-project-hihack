@@ -103,6 +103,7 @@
 #include "main.h"
 #include "encode.h"
 #include "decode.h"
+#include "xplained.h"
 
 /*----------------------------------------------------------------------------
  *        Macro
@@ -324,9 +325,16 @@ extern int main( void )
 	
 	/* Configure pins*/
     PIO_Configure( pins, PIO_LISTSIZE( pins ) ) ;
-	
-	/* Configure led 0, blue one . */
+
+#if defined	sam3s4	
+	/* Configure leds . */
 	LED_Configure(0) ;
+	LED_Configure(1) ;
+#endif
+	
+#if defined	__SAM4S16C__
+    XplnLED_Configure();
+#endif
 	
     /* Output example information */
     printf( "-- Phone Simulator V%d.%02d%c --\r\n", VER_MAJOR, VER_MINOR, VER_PATCH ) ;
@@ -375,11 +383,27 @@ extern int main( void )
     while( 1 )
     {
 	  	if(edge_occur){
+#if defined	__SAM4S16C__
+    		XplnLED_Set(0);	//LED0 on
+#endif
+			
+#if defined	sam3s4	
+			LED_Set(0);	
+#endif
+			
 	  		edge_occur = false;
 			decode_machine();
+			
+#if defined	__SAM4S16C__
+    		XplnLED_Clear(0); 	//LED0 off
+#endif
+			
+#if defined	sam3s4	
+			LED_Clear(0);	
+#endif
 		}
+		
         //c = UART_GetChar() ;
-
         switch ( c )
         {
             case '0' :

@@ -49,14 +49,7 @@ void TC1_IrqHandler(void)
 
 	if ( (status & TC_SR_LDRAS) == TC_SR_LDRAS ){
 	 	cur_stamp = REG_TC0_RA1 ;
-#if defined	__SAM4S16C__
 		XplnLED_Toggle(1);	//LED1 toggle
-#endif
-		
-#if defined	sam3s4	
-		LED_Toggle(1);	
-#endif
-			
 		//cur_stamp = cur_stamp/10 ;        //420 falling, 351 rising
 		edge_occur = true;
 	  	if ( status & TC_SR_MTIOA ){
