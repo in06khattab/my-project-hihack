@@ -61,11 +61,11 @@ void DAC_IrqHandler(void)
 			index_sample = 0;
 			ticker = 0;
 		}
-		else if( ( 50 == index_sample ) && (Div2 == enc.factor ) ){
+		else if( ( (SAMPLES/2) == index_sample ) && (Div2 == enc.factor ) ){
 			encode_machine();
 			ticker = 0;
 		}
-		else if( ( 50 == index_sample ) && ( 1 == enc.reverse ) ){
+		else if( ( (SAMPLES/2) == index_sample ) && ( 1 == enc.reverse ) ){
 		  	enc.reverse = 0;
 			encode_machine();
 			ticker = 0;
@@ -76,29 +76,26 @@ void DAC_IrqHandler(void)
 }
 
 /**
- *  \brief Interrupt handler for USART.
+ *  \brief Interrupt handler for UART0.
  *
- * Increments the number of bytes received in the
- * current second and starts another transfer if the desired bps has not been
- * met yet.
  */
-void USART1_IrqHandler(void)
+void UART0_IrqHandler(void)
 {
     uint32_t status;
 
     /* Read USART status*/
-    status = BOARD_USART_BASE->US_CSR;
+    status = UART0->UART_SR;
 
     /* Receive byte is stored in buffer. */
-    if ((status & US_CSR_RXRDY) == US_CSR_RXRDY) {
+    if ((status & UART_SR_RXRDY) == UART_SR_RXRDY) {
 		if(us1.count < 20){
-	    	us1.buff[us1.head++] = USART_GetChar(BOARD_USART_BASE);
+	    	us1.buff[us1.head++] = UART_GetChar();
 			us1.count++;
 			if(us1.head >= 20)
 				us1.head = 0;
 	  	}
 		else{
-			us1.buff[us1.head] = USART_GetChar(BOARD_USART_BASE);
+			us1.buff[us1.head] = UART_GetChar();
 		}
     }
 }
@@ -183,34 +180,17 @@ void DacInitialize(void)
  *        Exported functions
  *----------------------------------------------------------------------------*/
 /**
- *  \brief USART hardware handshaking configuration
+ *  \brief UART0 hardware configuration
  *
- * Configures USART in hardware handshaking mode, asynchronous, 8 bits, 1 stop
+ * Configures UART0 in hardware handshaking mode, asynchronous, 8 bits, 1 stop
  * bit, no parity, 115200 bauds and enables its transmitter and receiver.
  */
-void _ConfigureUsart( void )
+void _ConfigureCom( void )
 {
-    uint32_t mode = US_MR_USART_MODE_NORMAL
-                        | US_MR_USCLKS_MCK
-                        | US_MR_CHRL_8_BIT
-                        | US_MR_PAR_NO
-                        | US_MR_NBSTOP_1_BIT
-                        | US_MR_CHMODE_NORMAL ;
-
-    /* Enable the peripheral clock in the PMC*/
-    PMC->PMC_PCER0 = 1 << BOARD_ID_USART ;
-
-    /* Configure the USART in the desired mode @115200 bauds*/
-    USART_Configure( BOARD_USART_BASE, mode, 115200, BOARD_MCK ) ;
-
-    /* Configure the RXBUFF interrupt*/
-    NVIC_EnableIRQ( USART1_IRQn ) ;
-
-    /* Enable receiver & transmitter*/
-    USART_SetTransmitterEnabled( BOARD_USART_BASE, 1 ) ;
-    USART_SetReceiverEnabled( BOARD_USART_BASE, 1 ) ;
-	
-	 BOARD_USART_BASE->US_IER = US_IER_RXRDY ;
+  	/* Enaboe UART0 interrupt*/
+    NVIC_EnableIRQ( UART0_IRQn ) ;
+	/* Enable UART0 RXREADY interrupt. */
+	UART0->UART_IER = UART_IER_RXRDY ;
 }
 /*
  * Get us1 buffer amount.

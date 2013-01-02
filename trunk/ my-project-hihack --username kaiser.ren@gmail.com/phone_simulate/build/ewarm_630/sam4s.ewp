@@ -611,7 +611,7 @@
       <name>ILINK</name>
       <archiveVersion>0</archiveVersion>
       <data>
-        <version>15</version>
+        <version>13</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
         <option>
@@ -628,7 +628,7 @@
         </option>
         <option>
           <name>IlinkOutputFile</name>
-          <state>sram.out</state>
+          <state>###Unitialized###</state>
         </option>
         <option>
           <name>IlinkDebugInfoEnable</name>
@@ -664,7 +664,7 @@
         </option>
         <option>
           <name>IlinkMapFile</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>IlinkLogFile</name>
@@ -688,11 +688,11 @@
         </option>
         <option>
           <name>IlinkIcfOverride</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>$PROJ_DIR$/../../../../libraries/libboard_sam4s-ek/resources/ewarm/sam4s16/sram.icf</state>
+          <state>lnk0t.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -700,7 +700,7 @@
         </option>
         <option>
           <name>IlinkEnableRemarks</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>IlinkSuppressDiags</name>
@@ -752,7 +752,7 @@
         </option>
         <option>
           <name>IlinkProgramEntryLabel</name>
-          <state>__iar_program_start</state>
+          <state></state>
         </option>
         <option>
           <name>DoFill</name>
@@ -777,6 +777,10 @@
         </option>
         <option>
           <name>CrcAlign</name>
+          <state>1</state>
+        </option>
+        <option>
+          <name>CrcAlgo</name>
           <state>1</state>
         </option>
         <option>
@@ -867,28 +871,6 @@
         </option>
         <option>
           <name>IlinkOptForceVfe</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>IlinkStackAnalysisEnable</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>IlinkStackControlFile</name>
-          <state></state>
-        </option>
-        <option>
-          <name>IlinkStackCallGraphFile</name>
-          <state></state>
-        </option>
-        <option>
-          <name>CrcAlgorithm</name>
-          <version>0</version>
-          <state>1</state>
-        </option>
-        <option>
-          <name>CrcUnitSize</name>
-          <version>0</version>
           <state>0</state>
         </option>
       </data>
@@ -1005,7 +987,7 @@
         </option>
         <option>
           <name>OGLastSavedByProductVersion</name>
-          <state>6.30.7.53437</state>
+          <state>6.21.1.52845</state>
         </option>
         <option>
           <name>GeneralEnableMisra</name>
@@ -1534,7 +1516,7 @@
       <name>ILINK</name>
       <archiveVersion>0</archiveVersion>
       <data>
-        <version>15</version>
+        <version>13</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
         <option>
@@ -1551,7 +1533,7 @@
         </option>
         <option>
           <name>IlinkOutputFile</name>
-          <state>$PROJ_FNAME$.out</state>
+          <state>sam4s.out</state>
         </option>
         <option>
           <name>IlinkDebugInfoEnable</name>
@@ -1587,7 +1569,7 @@
         </option>
         <option>
           <name>IlinkMapFile</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>IlinkLogFile</name>
@@ -1611,11 +1593,11 @@
         </option>
         <option>
           <name>IlinkIcfOverride</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>$PROJ_DIR$/../../resource/sam4s16/flash.icf</state>
+          <state>lnk0t.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -1623,7 +1605,7 @@
         </option>
         <option>
           <name>IlinkEnableRemarks</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>IlinkSuppressDiags</name>
@@ -1675,7 +1657,7 @@
         </option>
         <option>
           <name>IlinkProgramEntryLabel</name>
-          <state>__iar_program_start</state>
+          <state></state>
         </option>
         <option>
           <name>DoFill</name>
@@ -1700,6 +1682,10 @@
         </option>
         <option>
           <name>CrcAlign</name>
+          <state>1</state>
+        </option>
+        <option>
+          <name>CrcAlgo</name>
           <state>1</state>
         </option>
         <option>
@@ -1790,28 +1776,6 @@
         </option>
         <option>
           <name>IlinkOptForceVfe</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>IlinkStackAnalysisEnable</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>IlinkStackControlFile</name>
-          <state></state>
-        </option>
-        <option>
-          <name>IlinkStackCallGraphFile</name>
-          <state></state>
-        </option>
-        <option>
-          <name>CrcAlgorithm</name>
-          <version>0</version>
-          <state>1</state>
-        </option>
-        <option>
-          <name>CrcUnitSize</name>
-          <version>0</version>
           <state>0</state>
         </option>
       </data>

@@ -20,7 +20,7 @@
  *        Variable
  *----------------------------------------------------------------------------*/
 decode_t dec;
-uint32_t edge_occur = 0;
+bool edge_occur = false;
 static uint32_t cur_stamp = 0 ;
 static volatile edge_t 	 cur_edge = none ;
 static uint32_t offset = 0;
@@ -50,17 +50,17 @@ void TC1_IrqHandler(void)
 
 	if ( (status & TC_SR_LDRAS) == TC_SR_LDRAS ){
 	 	cur_stamp = REG_TC0_RA1 ;
-		cur_stamp = cur_stamp/10 ;        //420 falling, 351 rising
-		edge_occur = 1;
+		//cur_stamp = cur_stamp/10 ;        //420 falling, 351 rising
+		edge_occur = true;
 	  	if ( status & TC_SR_MTIOA ){
 		  	LED_Clear(0) ;	//PA19 output high
 			cur_edge = rising;
-			printf( "%u1 ", cur_stamp) ;
+			//printf( "%u1 ", cur_stamp) ;
 	  	}
 		else{
 			LED_Set(0) ;	//PA19 output low
 			cur_edge = falling;
-			printf( "%u0 ", cur_stamp) ;
+			//printf( "%u0 ", cur_stamp) ;
 		}
 	}
 }
@@ -78,7 +78,7 @@ void TC2_IrqHandler( void )
 	if ( (status & TC_SR_LDRAS) == TC_SR_LDRAS ){
 	 	cur_stamp = REG_TC0_RA2 ;
 		//cur_stamp = cur_stamp/10 ;
-		edge_occur = 1;
+		edge_occur = true;
 	  	if ( status & TC_SR_MTIOA ){
 		  	LED_Clear(0) ;	//PA19 output high
 			cur_edge = rising;
