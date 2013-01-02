@@ -84,7 +84,7 @@ extern uint16_t frequency ;
 void encode_machine(void);
 uint8_t us1_get_count(void);
 uint8_t us1_get_char(void);
-void _ConfigureUsart( void );
+void _ConfigureCom( void );
 void DacInitialize(void);
 #endif /* ENCODE_H */
 //end of file

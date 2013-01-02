@@ -339,7 +339,7 @@ extern int main( void )
 #endif
 	
 	/* Initialize DAC. */
-   DacInitialize();
+   	DacInitialize();
 	
 	/* Initialize TC Capture. */
 	TcCaptureInitialize();
@@ -364,10 +364,10 @@ extern int main( void )
 	//PMC->PMC_PCK[2] = PMC_PCK_CSS_PLLB_CLK ;
     //PMC->PMC_SCER = PMC_SCER_PCK2;
 	/* Wait for the PCKRDY1 bit to be set in the PMC_SR register */
-   //while ( (PMC->PMC_SR & PMC_SR_PCKRDY1) == 0 ) ;
+    //while ( (PMC->PMC_SR & PMC_SR_PCKRDY1) == 0 ) ;
 	
-	 /* initial usart1. */
-	 _ConfigureUsart();
+	 /* Initial Com port, uart0. */
+	 _ConfigureCom();
 	
     /* main menu*/
     //_DisplayMenuChoices() ;
@@ -375,7 +375,7 @@ extern int main( void )
     while( 1 )
     {
 	  	if(edge_occur){
-	  		edge_occur = 0;
+	  		edge_occur = false;
 			decode_machine();
 		}
         //c = UART_GetChar() ;
