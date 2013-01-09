@@ -39,7 +39,7 @@ uint16_t amplitude = 0;
  *        Static functions
  *----------------------------------------------------------------------------*/
 void enc_parser(uint8_t bit_msk);
-
+static void _ConfigureTc0( uint32_t freq );
 /*----------------------------------------------------------------------------
  *        ISR Handler
  *----------------------------------------------------------------------------*/
@@ -132,9 +132,24 @@ void SysTick_Handler( void )
 }
 
 /**
+ *  \brief Interrupt handler for TC0.
+ *
+ */
+void TC0_IrqHandler( void )
+{
+  	uint32_t status ;
+    status = REG_TC0_SR0 ;
+
+	if ( (status & TC_SR_CPCS) == TC_SR_CPCS ){
+		XplnLED_Toggle(1);	//LED1 toggle
+	}
+
+}
+
+/**
  * \brief DAC initialization.
  */
-void DacInitialize(void)
+void enc_init(void)
 {
 	/* initialize amplitude and frequency */
     amplitude = MAX_DIGITAL / 2;
@@ -142,6 +157,8 @@ void DacInitialize(void)
 
     /*10 us timer*/
     SysTick_Config( BOARD_MCK / (frequency * SAMPLES) ) ;
+	//_ConfigureTc0( HIJACK_CARRIER_FREQ_8KHZ );
+	//TC_Start( TC0, 0 ) ;
 	
     /* Initialize DACC */
     DACC_Initialize( DACC,
@@ -180,6 +197,36 @@ void DacInitialize(void)
 /*----------------------------------------------------------------------------
  *        Exported functions
  *----------------------------------------------------------------------------*/
+/**
+ *  \brief TC0 configuration
+ *
+ * Configures Timer Counter 0 (TC0) to generate an interrupt every second. This
+ * interrupt will be used to display the number of bytes received on the USART.
+ */
+
+static void _ConfigureTc0( uint32_t freq )
+{
+    /* Enable TC0 peripheral clock*/
+    PMC_EnablePeripheral( ID_TC0 ) ;
+
+    /*
+	 	CLK SRC: MCK/2, 64MHz/2 = 32MHz.
+	 	RC Compare trigger, RC Compare resets the counter and starts the counter clock.
+	 */
+    TC_Configure( TC0, 0, TC_CMR_TCCLKS_TIMER_CLOCK1 | TC_CMR_CPCTRG ) ;
+
+    TC0->TC_CHANNEL[0].TC_RC = 32*100 ;
+
+    /* Configure interrupt on RC compare*/
+    TC0->TC_CHANNEL[0].TC_IER = TC_SR_CPCS ;
+
+	NVIC_DisableIRQ( TC0_IRQn ) ;
+    NVIC_ClearPendingIRQ( TC0_IRQn ) ;
+    NVIC_SetPriority( TC0_IRQn, 0 ) ;
+    NVIC_EnableIRQ( TC0_IRQn ) ;
+
+}
+
 /**
  *  \brief UART0 hardware configuration
  *

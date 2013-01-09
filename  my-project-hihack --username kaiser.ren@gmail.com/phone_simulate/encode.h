@@ -85,6 +85,6 @@ void encode_machine(void);
 uint8_t us1_get_count(void);
 uint8_t us1_get_char(void);
 void _ConfigureCom( void );
-void DacInitialize(void);
+void enc_init(void);
 #endif /* ENCODE_H */
 //end of file
