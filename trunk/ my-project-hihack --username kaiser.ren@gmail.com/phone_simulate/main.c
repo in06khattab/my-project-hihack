@@ -267,47 +267,9 @@ static void _DisplayMenuChoices( void )
 	 printf( "-- c: output cosine wave.--\r\n" ) ;
 }
 
-/**
- *  \brief TC0 configuration
- *
- * Configures Timer Counter 0 (TC0) to generate an interrupt every second. This
- * interrupt will be used to display the number of bytes received on the USART.
- */
-
-static void _ConfigureTc0( uint32_t freq )
-{
-    /* Enable TC0 peripheral clock*/
-    PMC_EnablePeripheral( ID_TC0 ) ;
-
-    /*
-	 	CLK SRC: MCK/128, 64MHz/128 = 500KHz.
-	 	RC Compare trigger, RC Compare resets the counter and starts the counter clock.
-	 */
-    TC_Configure( TC0, 0, TC_CMR_TCCLKS_TIMER_CLOCK4 | TC_CMR_CPCTRG ) ;
-
-    TC0->TC_CHANNEL[0].TC_RC = BOARD_MCK/128/freq/SAMPLES ;
-
-    /* Configure interrupt on RC compare*/
-    TC0->TC_CHANNEL[0].TC_IER = TC_SR_CPCS ;
-
-    NVIC_EnableIRQ( TC0_IRQn ) ;
-
-}
-
 /*----------------------------------------------------------------------------
  *        Exported functions
  *----------------------------------------------------------------------------*/
-/**
- *  \brief Interrupt handler for TC0.
- *
- */
-void TC0_IrqHandler( void )
-{
-
-}
-
-
-
 /**
  *  \brief dac12_sinewave Application entry point.
  *
@@ -346,8 +308,8 @@ extern int main( void )
     printf( "-- Platform: sam4s-xplained --\r\n" ) ;
 #endif
 	
-	/* Initialize DAC. */
-   	DacInitialize();
+	/* Initialize encode function. */
+   	enc_init();
 	
 	/* Initialize TC Capture. */
 	TcCaptureInitialize();
