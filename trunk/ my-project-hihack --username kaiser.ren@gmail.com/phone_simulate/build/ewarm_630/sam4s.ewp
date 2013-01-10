@@ -1835,9 +1835,15 @@
     <name>src</name>
     <file>
       <name>$PROJ_DIR$\..\..\decode.c</name>
+      <excluded>
+        <configuration>flash</configuration>
+      </excluded>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\encode.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\hijack_decode.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\main.c</name>

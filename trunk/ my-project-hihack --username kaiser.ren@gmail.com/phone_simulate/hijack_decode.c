@@ -17,6 +17,21 @@
 #include "xplained.h"
 
 /*----------------------------------------------------------------------------
+ *        Macro
+ *----------------------------------------------------------------------------*/
+#define HIJACK_DEC_NUM_TICKS_MAX	(HIJACK_NUM_TICKS_PER_1US*1200ul)
+#define HIJACK_DEC_NUM_TICKS_MIN	(HIJACK_NUM_TICKS_PER_1US*700ul)
+
+/*----------------------------------------------------------------------------
+ *        Macro
+ *----------------------------------------------------------------------------*/
+typedef enum _tmr_tag_{
+	pass = 0,
+	suit,
+	error
+}chk_result_t;
+
+/*----------------------------------------------------------------------------
  *        Variable
  *----------------------------------------------------------------------------*/
 decode_t dec;
@@ -32,8 +47,7 @@ static const Pin pTcPins[] = {DEC_CAPTURE_INPUT};
 /*----------------------------------------------------------------------------
  *        Local function
  *----------------------------------------------------------------------------*/
-static uint32_t IsAboutHalfCycle(uint32_t cnt);
-static uint32_t IsAboutFullCycle(uint32_t cnt);
+static chk_result_t IsTime2Detect(uint32_t inv);
 static void dec_parser(uint8_t bit_msk, state_t state);
 /*----------------------------------------------------------------------------
  *        ISR Handler
@@ -46,21 +60,29 @@ void TC1_IrqHandler(void)
 {
 	uint32_t status ;
     status = REG_TC0_SR1 ;
+	
+#if defined	__SAM4S16C__
+		XplnLED_Toggle(1);	//LED1 toggle
+#endif
 
 	if ( (status & TC_SR_LDRAS) == TC_SR_LDRAS ){
 	 	cur_stamp = REG_TC0_RA1 ;
-		XplnLED_Toggle(1);	//LED1 toggle
+		
+#if defined	sam3s4	
+		LED_Toggle(1);	
+#endif
+			
 		//cur_stamp = cur_stamp/10 ;        //420 falling, 351 rising
 		edge_occur = true;
 	  	if ( status & TC_SR_MTIOA ){
 		  	LED_Clear(0) ;	//PA19 output high
 			cur_edge = rising;
-			printf( "%u ", cur_stamp) ;
+			//printf( "%u ", cur_stamp) ;
 	  	}
 		else{
 			LED_Set(0) ;	//PA19 output low
 			cur_edge = falling;
-			printf( "%u ", cur_stamp) ;
+			//printf( "%u ", cur_stamp) ;
 		}
 	}
 }
@@ -164,40 +186,25 @@ void TcCaptureInitialize(void)
  * 475us < cnt < 510us
  *
  */
-static uint32_t IsAboutHalfCycle(uint32_t cnt)
+static chk_result_t IsTime2Detect(uint32_t inv)
 {
-  	uint32_t temp, min, max;
+  	chk_result_t ret;
 	
-	min = HIJACK_NUM_TICKS_PER_HALF_CYCLE - HIJACK_NUM_TICKS_PER_5_PCNT;
-	max = HIJACK_NUM_TICKS_PER_HALF_CYCLE + HIJACK_NUM_TICKS_PER_5_PCNT;
-	temp = cnt;
-	if( ( temp > min ) && ( temp < max ) ) {
-		return true;
-	} 	
-	else{
-		return false;
+  	if( inv < HIJACK_DEC_NUM_TICKS_MIN){
+    	offset = inv;
+	    ret = pass;
+  	}
+	else if ( ( inv <= HIJACK_DEC_NUM_TICKS_MAX ) && ( inv >= HIJACK_DEC_NUM_TICKS_MIN ) ) {
+		offset = 0;
+		inv = 0;
+	  	ret = suit;
 	}
-}
-
-/**
- * @brief calculate whether cnt is in 1000us region
- * ticker = 64Mhz/128 = 2us
- * 975us < cnt < 1010us
- *
- */
-static uint32_t IsAboutFullCycle(uint32_t cnt)
-{
-  	uint32_t temp, min, max;
-	
-	min = HIJACK_NUM_TICKS_PER_FULL_CYCLE - HIJACK_NUM_TICKS_PER_5_PCNT;
-	max = HIJACK_NUM_TICKS_PER_FULL_CYCLE + HIJACK_NUM_TICKS_PER_5_PCNT;
-	temp = cnt;
-	if( ( temp > min ) && ( temp < max ) ) {
-		return true;
-	} 	
 	else{
-		return false;
+		offset = 0;
+		inv = 0;
+		ret = error;
 	}
+	return ret;
 }
 
 /*
@@ -206,7 +213,7 @@ static uint32_t IsAboutFullCycle(uint32_t cnt)
 
 static void dec_parser(uint8_t bit_msk, state_t state)
 {
-  	if ( IsAboutFullCycle(inv) ){ //it's time to determine
+  	if ( ( suit == IsTime2Detect(inv) ) ){ //it's time to determine
 		if( falling == cur_edge ){
 	  		dec.data &= ~(1 << bit_msk);
 		}
@@ -214,17 +221,10 @@ static void dec_parser(uint8_t bit_msk, state_t state)
 		   dec.data |= (1 << bit_msk);
 			dec.odd++;
 		}
-      	offset = 0;
-		inv = 0;
 		dec.state = state;   //state switch
 	}
-	else if ( IsAboutHalfCycle(inv) && (0 == offset) ){   //wait for edge detection time
-		offset = HIJACK_NUM_TICKS_PER_HALF_CYCLE;  //update half cycle ticks
-	}
-  	else {
-      	dec.state = Waiting;
-      	offset = 0;
-		inv = 0;
+	else if ( error == IsTime2Detect(inv) ){   //wait for edge detection time
+		dec.state = Waiting;   //state switch
 	}
 }
 
@@ -248,16 +248,12 @@ void decode_machine(void)
 			break;
 			//
 		case Sta0:
-         	if( IsAboutFullCycle(inv) && ( falling == cur_edge ) ){
-				offset = 0; //start from edge field
-				inv = 0;
+         	if( ( suit == IsTime2Detect(inv) ) && ( falling == cur_edge ) ){
 				dec.data = 0;  //clear data field for store new potential data
 				dec.odd = 0;   //clear odd field parity counter
 				dec.state = Bit0;
          	}
-         	else{
-				offset = 0; //start from edge field
-				inv = 0;
+         	else if( error == IsTime2Detect(inv) ){
 				dec.state = Waiting;
          	}
 	   		break;
@@ -295,7 +291,7 @@ void decode_machine(void)
 	   		break;
 			//
 		case Parity:
-			if ( IsAboutFullCycle(inv) ){ //it's time to determine
+			if ( ( suit == IsTime2Detect(inv) ) ){ //it's time to determine
 				if( rising == cur_edge ){
 				   dec.odd++;
 				}
@@ -305,36 +301,22 @@ void decode_machine(void)
 				else{ //parity failed
 				   dec.state = Waiting;
 				}
-				offset = 0;
-				inv = 0;
 			 }
-			 else if ( IsAboutHalfCycle(inv) && (0 == offset) ){   //wait for edge detection time
-				offset = HIJACK_NUM_TICKS_PER_HALF_CYCLE;  //update half cycle ticks
-			 }
-			 else {
+			 else if ( error == IsTime2Detect(inv) ){   //wait for edge detection time
 				dec.state = Waiting;
-				offset = 0;
-				inv = 0;
 			 }
 			break;
 			//
       	case Sto0:
-         	if ( IsAboutFullCycle(inv) ){ //it's time to determine
+         	if ( ( suit == IsTime2Detect(inv) ) ){ //it's time to determine
 				if( rising == cur_edge ){  //stop bit is rising edge
 				   UART_PutChar(dec.data);
 				}
 				dec.state = Waiting;
-				offset = 0;
-				inv = 0;
          	}
-         	else if ( IsAboutHalfCycle(inv) && (0 == offset) ){   //wait for edge detection time
-            	offset = HIJACK_NUM_TICKS_PER_HALF_CYCLE;  //update half cycle ticks
-         	}
-         	else {
+         	else if ( error == IsTime2Detect(inv) ){   //wait for edge detection time
 				dec.state = Waiting;
-				offset = 0;
-				inv = 0;
-         	}
+			}
          	break;
          	//
 		default:
