@@ -107,25 +107,13 @@ void UART0_IrqHandler(void)
  */
 void SysTick_Handler( void )
 {
-    //uint32_t status ;
 	uint16_t value;
 
-    //status = DACC_GetStatus( DACC ) ;
-
-    /* if conversion is done*/
-    //if ( (status & DACC_ISR_EOC) == DACC_ISR_EOC )
     {
 		if ( 0 == ( ticker%enc.factor) ){
-		  	//if( Waiting != enc.state){
-		  	 	value = sine_data[index_sample++] * amplitude / (MAX_DIGITAL/2) + MAX_DIGITAL/2;
-        		DACC_SetConversionData(DACC, value ) ;
-				DACC->DACC_IER = DACC_IER_EOC;
-			//}
-			//else{
-			//	index_sample++;
-			//	DACC_SetConversionData( DACC,sine_data[90]*amplitude/(MAX_DIGITAL/2)+MAX_DIGITAL/2);
-			//	DACC->DACC_IER = DACC_IER_EOC;
-			//}
+			value = sine_data[index_sample++] * amplitude / (MAX_DIGITAL/2) + MAX_DIGITAL/2;
+        	DACC_SetConversionData(DACC, value ) ;
+			DACC->DACC_IER = DACC_IER_EOC;
 		}
 		ticker++;
     }
