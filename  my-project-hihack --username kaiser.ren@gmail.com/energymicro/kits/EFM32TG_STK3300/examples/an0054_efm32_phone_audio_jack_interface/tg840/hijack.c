@@ -8,11 +8,11 @@
  *
  * Copyright (c) 2010 The Regents of the University of Michigan, Energy Micro 2012
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  * - Redistributions of source code must retain the above copyright
  *  notice, this list of conditions and the following disclaimer.
  * - Redistributions in binary form must reproduce the above copyright
@@ -22,7 +22,7 @@
  * - Neither the name of the copyright holder nor the names of
  *  its contributors may be used to endorse or promote products derived
  *  from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
@@ -61,7 +61,7 @@
 #define HIJACK_RX_LONGINTERVAL      (150)
 #define HIJACK_TX_INTERVAL          (45)
 
-#define HIJACK_TIMER_RESOLUTION     timerPrescale256
+#define HIJACK_TIMER_RESOLUTION     timerPrescale256//8MHz/256, 32us per tick
 
 
 #define HIJACK_TX_TIMER             TIMER1
@@ -164,8 +164,8 @@ void HIJACK_Init(HIJACK_TxDoneFuncPtr_t pTxDone)
 
   /* Enable peripheral clocks. */
   CMU_ClockEnable(cmuClock_HFPER, true);
-  CMU_ClockEnable(HIJACK_RX_TIMERCLK, true); 
-  CMU_ClockEnable(HIJACK_TX_TIMERCLK, true); 
+  CMU_ClockEnable(HIJACK_RX_TIMERCLK, true);
+  CMU_ClockEnable(HIJACK_TX_TIMERCLK, true);
 
   /* Configure Rx timer. */
   TIMER_Init(HIJACK_RX_TIMER, &rxTimerInit);
@@ -184,12 +184,12 @@ void HIJACK_Init(HIJACK_TxDoneFuncPtr_t pTxDone)
   HIJACK_TX_TIMER->ROUTE = TIMER_ROUTE_LOCATION_LOC4 | TIMER_ROUTE_CC0PEN;
 
   /* Rx: Configure the corresponding GPIO pin (PortD, Ch1) as an input. */
-  GPIO_PinModeSet(HIJACK_RX_GPIO_PORT, HIJACK_RX_GPIO_PIN, gpioModeInput, 0);  
+  GPIO_PinModeSet(HIJACK_RX_GPIO_PORT, HIJACK_RX_GPIO_PIN, gpioModeInput, 0);
   /* Tx: Configure the corresponding GPIO pin (PortD, Ch6) as an input. */
-  GPIO_PinModeSet(HIJACK_TX_GPIO_PORT, HIJACK_TX_GPIO_PIN, gpioModePushPull, 0);  
+  GPIO_PinModeSet(HIJACK_TX_GPIO_PORT, HIJACK_TX_GPIO_PIN, gpioModePushPull, 0);
 
 
-  
+
   /* Enable Rx timer CC0 interrupt. */
   NVIC_EnableIRQ(TIMER0_IRQn);
   TIMER_IntEnable(HIJACK_RX_TIMER, TIMER_IF_CC0);
@@ -261,7 +261,7 @@ static void HIJACK_ManchesterDecoder(uint32_t time)
     state = STARTBIT_FALL;
     break;
 
-  case STARTBIT_FALL:    
+  case STARTBIT_FALL:
     if ((HIJACK_RX_SHORTINTERVAL < diff) && (diff < HIJACK_RX_LONGINTERVAL))
     {
       if (ones < 3)
@@ -302,7 +302,7 @@ static void HIJACK_ManchesterDecoder(uint32_t time)
       {
         /* We got the whole byte, output stop bit and search for startbit. */
         HIJACK_CaptureConfig(hijackEdgeModeRising);
-                
+
         /* Pass the byte to the Rx function. Note: queue shall be added later! */
         HIJACK_ByteRx(&uartByteRx);
 
@@ -435,7 +435,7 @@ static void HIJACK_CompareConfig(HIJACK_OutputMode_t outputMode)
  *   Timer0 IRQHandler.
  ******************************************************************************/
 void TIMER0_IRQHandler(void)
-{  
+{
   uint32_t irqFlags;
 
   irqFlags = TIMER_IntGet(HIJACK_RX_TIMER);
@@ -525,7 +525,7 @@ void TIMER1_IRQHandler(void)
       break;
 
     case STOPBIT:
-      /* This is where an application can be signaled that transmit is done. */ 
+      /* This is where an application can be signaled that transmit is done. */
       if (pTxDoneFunc != NULL)
       {
         pTxDoneFunc();
