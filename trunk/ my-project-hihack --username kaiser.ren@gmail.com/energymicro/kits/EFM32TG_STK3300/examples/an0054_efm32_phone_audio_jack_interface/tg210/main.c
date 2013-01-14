@@ -8,11 +8,11 @@
  *
  * Copyright (c) 2010 The Regents of the University of Michigan, Energy Micro 2012
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  * - Redistributions of source code must retain the above copyright
  *  notice, this list of conditions and the following disclaimer.
  * - Redistributions in binary form must reproduce the above copyright
@@ -22,7 +22,7 @@
  * - Neither the name of the copyright holder nor the names of
  *  its contributors may be used to endorse or promote products derived
  *  from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
@@ -39,7 +39,7 @@
  * Author: Thomas Schmid
  * Modified by Energy Micro (2012).
  *****************************************************************************/
- 
+
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -135,7 +135,7 @@ void gpioSetup(void)
 {
   /* Enable GPIO in CMU */
   CMU_ClockEnable(cmuClock_GPIO, true);
-  
+
   /* Configure PD8 and PB11 as input */
   GPIO_PinModeSet(gpioPortD, 8, gpioModeInput, 0);
   GPIO_PinModeSet(gpioPortB, 11, gpioModeInput, 0);
@@ -166,40 +166,40 @@ void Delay(uint32_t delayVal)
 int main(void)
 {
   uint32_t j;
-  
+
   /* Chip errata */
   CHIP_Init();
 
-  /* Select clock source for HF clock. */
-  CMU_ClockSelectSet(cmuClock_HF, cmuSelect_HFXO);
-  
-  /* Prescale the core clock -> HF/4 = 32/4 = 8Mhz */
+  /* Select clock source for HFRC0 clock, 14MHz. */
+  CMU_ClockSelectSet(cmuClock_HF, cmuSelect_HFRCO);
+
+  /* Prescale the core clock -> HFRCO/4 = 14/4 = 3.4Mhz */
   CMU_ClockDivSet(cmuClock_CORE, cmuClkDiv_4);
 
   /* Configure push button interrupts. */
   gpioSetup();
-  
+
   /* configure SWO output for debugging. */
   setupSWO();
-  
+
   /* Init Segment LCD without boost. */
-  SegmentLCD_Init(false);
+  //SegmentLCD_Init(false);
 
   /* Turn on relevant symbols on the LCD. */
-  SegmentLCD_Symbol(LCD_SYMBOL_GECKO, true);
+  //SegmentLCD_Symbol(LCD_SYMBOL_GECKO, true);
 
   /* Print welcome text on the LCD. */
-  SegmentLCD_Write("HiJack");
+  //SegmentLCD_Write("HiJack");
 
   /* Init the HiJack interface. */
   HIJACK_Init(NULL);
-  
+
   /* While loop sending a range of values upon wakeup.  */
-  while(1){    
+  while(1){
     for(j = 0;j<254;j++){
       HIJACK_ByteTx(j);
       Delay(10000);
     }
-    
-  }   
+
+  }
 }
