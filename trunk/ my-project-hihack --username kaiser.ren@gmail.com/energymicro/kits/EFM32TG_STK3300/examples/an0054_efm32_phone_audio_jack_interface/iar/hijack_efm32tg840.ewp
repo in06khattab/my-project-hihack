@@ -1900,10 +1900,13 @@
   <group>
     <name>Source</name>
     <file>
-      <name>$PROJ_DIR$\..\hijack.c</name>
+      <name>$PROJ_DIR$\..\tg840\hijack.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\main.c</name>
+      <name>$PROJ_DIR$\..\tg840\hijack.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\tg840\main.c</name>
     </file>
   </group>
 </project>
