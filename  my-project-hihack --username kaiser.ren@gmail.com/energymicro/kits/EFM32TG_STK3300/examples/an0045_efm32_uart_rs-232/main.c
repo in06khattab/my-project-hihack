@@ -143,8 +143,8 @@ void uartSetup(void)
   /* Enable clock for GPIO module (required for pin configuration) */
   CMU_ClockEnable(cmuClock_GPIO, true);
   /* Configure GPIO pins */
-  GPIO_PinModeSet(gpioPortB, 9, gpioModePushPull, 1);
-  GPIO_PinModeSet(gpioPortB, 10, gpioModeInput, 0);
+  GPIO_PinModeSet(gpioPortD, 0, gpioModePushPull, 1);
+  GPIO_PinModeSet(gpioPortD, 1, gpioModeInput, 0);
 
 
   /* Prepare struct for initializing UART in asynchronous mode*/
@@ -170,7 +170,7 @@ void uartSetup(void)
   NVIC_EnableIRQ(USART1_RX_IRQn);
   NVIC_EnableIRQ(USART1_TX_IRQn);
 
-  /* Enable I/O pins at UART1 location #2 */
+  /* Enable I/O pins at USART1 location #1 */
   uart->ROUTE = USART_ROUTE_RXPEN | USART_ROUTE_TXPEN | USART_ROUTE_LOCATION_LOC1;
 
   /* Enable UART */
@@ -329,14 +329,14 @@ void cmuSetup(void)
 
 
 /**************************************************************************//**
- * @brief UART1 RX IRQ Handler
+ * @brief USART1 RX IRQ Handler
  *
  * Set up the interrupt prior to use
  *
  * Note that this function handles overflows in a very simple way.
  *
  *****************************************************************************/
-void UART1_RX_IRQHandler(void)
+void USART1_RX_IRQHandler(void)
 {
   /* Check for RX data valid interrupt */
   if (uart->STATUS & USART_STATUS_RXDATAV)
@@ -359,12 +359,12 @@ void UART1_RX_IRQHandler(void)
 }
 
 /**************************************************************************//**
- * @brief UART1 TX IRQ Handler
+ * @brief USART1 TX IRQ Handler
  *
  * Set up the interrupt prior to use
  *
  *****************************************************************************/
-void UART1_TX_IRQHandler(void)
+void USART1_TX_IRQHandler(void)
 {
   /* Clear interrupt flags by reading them. */
   USART_IntGet(USART1);
