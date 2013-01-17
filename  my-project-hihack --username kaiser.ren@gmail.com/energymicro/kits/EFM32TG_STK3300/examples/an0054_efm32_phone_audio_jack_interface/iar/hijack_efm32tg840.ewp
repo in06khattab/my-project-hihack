@@ -1894,11 +1894,20 @@
       <name>$PROJ_DIR$\..\..\..\..\..\emlib\src\em_timer.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\..\..\..\..\emlib\src\em_usart.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\..\..\..\emlib\src\em_vcmp.c</name>
     </file>
   </group>
   <group>
     <name>Source</name>
+    <file>
+      <name>$PROJ_DIR$\..\tg840\com.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\tg840\com.h</name>
+    </file>
     <file>
       <name>$PROJ_DIR$\..\tg840\hijack.c</name>
     </file>

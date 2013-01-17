@@ -46,7 +46,7 @@ uint8_t uartGetChar(void);
 
 /* Declare some strings */
 const char     welcomeString[]  = "Energy Micro RS-232 - Please press a key\n";
-const char     overflowString[] = "\n---RX OVERFLOW---\n";
+const char     overflowString[] = "\r\n---RX OVERFLOW---\r\n";
 const uint32_t welLen           = sizeof(welcomeString) - 1;
 const uint32_t ofsLen           = sizeof(overflowString) - 1;
 
@@ -70,8 +70,52 @@ volatile struct circularBuffer
 static USART_TypeDef           * uart   = USART1;
 static USART_InitAsync_TypeDef uartInit = USART_INITASYNC_DEFAULT;
 
+/******************************************************************************
+ * @brief  Prepare for energyProfiler.
+ *
+ *****************************************************************************/
+void setupSWO(void)
+{
+  uint32_t *dwt_ctrl = (uint32_t *) 0xE0001000;
+  uint32_t *tpiu_prescaler = (uint32_t *) 0xE0040010;
+  uint32_t *tpiu_protocol = (uint32_t *) 0xE00400F0;
 
+  CMU->HFPERCLKEN0 |= CMU_HFPERCLKEN0_GPIO;
+  /* Enable Serial wire output pin */
+  GPIO->ROUTE |= GPIO_ROUTE_SWOPEN;
+#if defined(_EFM32_GIANT_FAMILY)
+  /* Set location 0 */
+  GPIO->ROUTE = (GPIO->ROUTE & ~(_GPIO_ROUTE_SWLOCATION_MASK)) | GPIO_ROUTE_SWLOCATION_LOC0;
 
+  /* Enable output on pin - GPIO Port F, Pin 2 */
+  GPIO->P[5].MODEL &= ~(_GPIO_P_MODEL_MODE2_MASK);
+  GPIO->P[5].MODEL |= GPIO_P_MODEL_MODE2_PUSHPULL;
+#else
+  /* Set location 1 */
+  GPIO->ROUTE = (GPIO->ROUTE & ~(_GPIO_ROUTE_SWLOCATION_MASK)) | GPIO_ROUTE_SWLOCATION_LOC1;
+  /* Enable output on pin */
+  GPIO->P[2].MODEH &= ~(_GPIO_P_MODEH_MODE15_MASK);
+  GPIO->P[2].MODEH |= GPIO_P_MODEH_MODE15_PUSHPULL;
+#endif
+  /* Enable debug clock AUXHFRCO */
+  CMU->OSCENCMD = CMU_OSCENCMD_AUXHFRCOEN;
+
+  while(!(CMU->STATUS & CMU_STATUS_AUXHFRCORDY));
+
+  /* Enable trace in core debug */
+  CoreDebug->DHCSR |= 1;
+  CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+
+  /* Enable PC and IRQ sampling output */
+  *dwt_ctrl = 0x400113FF;
+  /* Set TPIU prescaler to 16. */
+  *tpiu_prescaler = 0xf;
+  /* Set protocol to NRZ */
+  *tpiu_protocol = 2;
+  /* Unlock ITM and output data */
+  ITM->LAR = 0xC5ACCE55;
+  ITM->TCR = 0x10009;
+}
 
 /******************************************************************************
  * @brief  Main function
@@ -84,6 +128,9 @@ int main(void)
 
   /* Initialize clocks and oscillators */
   cmuSetup( );
+  
+  /* configure SWO output for debugging. */
+  setupSWO();
 
   /* Initialize UART peripheral */
   uartSetup( );
@@ -150,7 +197,7 @@ void uartSetup(void)
   /* Prepare struct for initializing UART in asynchronous mode*/
   uartInit.enable       = usartDisable;   /* Don't enable UART upon intialization */
   uartInit.refFreq      = 0;              /* Provide information on reference frequency. When set to 0, the reference frequency is */
-  uartInit.baudrate     = 115200;         /* Baud rate */
+  uartInit.baudrate     = 38400;         /* Baud rate */
   uartInit.oversampling = usartOVS16;     /* Oversampling. Range is 4x, 6x, 8x or 16x */
   uartInit.databits     = usartDatabits8; /* Number of data bits. Range is 4 to 10 */
   uartInit.parity       = usartNoParity;  /* Parity mode */
