@@ -1,77 +1,76 @@
 ###############################################################################
 #                                                                             #
-# IAR ELF Linker V6.30.6.53336/W32 for ARM              17/Jan/2013  20:12:25 #
+# IAR ELF Linker V6.30.6.53336/W32 for ARM              18/Jan/2013  15:21:52 #
 # Copyright 2007-2012 IAR Systems AB.                                         #
 #                                                                             #
-#    Output file  =  F:\ Firmware\my-project-hihack\trunk\ my-project-hihack  #
+#    Output file  =  D:\Firmware\my-project-hihack\trunk\ my-project-hihack   #
 #                    --username kaiser.ren@gmail.com\energymicro\kits\EFM32TG #
 #                    _STK3300\examples\an0045_efm32_uart_rs-232\iar\uart_rs-2 #
 #                    32\Debug\Exe\uart_rs-232.out                             #
-#    Map file     =  F:\ Firmware\my-project-hihack\trunk\ my-project-hihack  #
+#    Map file     =  D:\Firmware\my-project-hihack\trunk\ my-project-hihack   #
 #                    --username kaiser.ren@gmail.com\energymicro\kits\EFM32TG #
 #                    _STK3300\examples\an0045_efm32_uart_rs-232\iar\uart_rs-2 #
 #                    32\Debug\List\uart_rs-232.map                            #
-#    Command line =  "F:\ Firmware\my-project-hihack\trunk\                   #
+#    Command line =  "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
+#                    --username kaiser.ren@gmail.com\energymicro\kits\EFM32TG #
+#                    _STK3300\examples\an0045_efm32_uart_rs-232\iar\uart_rs-2 #
+#                    32\Debug\Obj\bsp_stk.o" "D:\Firmware\my-project-hihack\t #
+#                    runk\ my-project-hihack --username                       #
+#                    kaiser.ren@gmail.com\energymicro\kits\EFM32TG_STK3300\ex #
+#                    amples\an0045_efm32_uart_rs-232\iar\uart_rs-232\Debug\Ob #
+#                    j\bsp_stk_leds.o" "D:\Firmware\my-project-hihack\trunk\  #
 #                    my-project-hihack --username                             #
 #                    kaiser.ren@gmail.com\energymicro\kits\EFM32TG_STK3300\ex #
 #                    amples\an0045_efm32_uart_rs-232\iar\uart_rs-232\Debug\Ob #
-#                    j\bsp_stk.o" "F:\ Firmware\my-project-hihack\trunk\      #
+#                    j\bsp_trace.o" "D:\Firmware\my-project-hihack\trunk\     #
 #                    my-project-hihack --username                             #
 #                    kaiser.ren@gmail.com\energymicro\kits\EFM32TG_STK3300\ex #
 #                    amples\an0045_efm32_uart_rs-232\iar\uart_rs-232\Debug\Ob #
-#                    j\bsp_stk_leds.o" "F:\ Firmware\my-project-hihack\trunk\ #
-#                     my-project-hihack --username                            #
-#                    kaiser.ren@gmail.com\energymicro\kits\EFM32TG_STK3300\ex #
-#                    amples\an0045_efm32_uart_rs-232\iar\uart_rs-232\Debug\Ob #
-#                    j\bsp_trace.o" "F:\ Firmware\my-project-hihack\trunk\    #
+#                    j\em_cmu.o" "D:\Firmware\my-project-hihack\trunk\        #
 #                    my-project-hihack --username                             #
 #                    kaiser.ren@gmail.com\energymicro\kits\EFM32TG_STK3300\ex #
 #                    amples\an0045_efm32_uart_rs-232\iar\uart_rs-232\Debug\Ob #
-#                    j\em_cmu.o" "F:\ Firmware\my-project-hihack\trunk\       #
+#                    j\em_ebi.o" "D:\Firmware\my-project-hihack\trunk\        #
 #                    my-project-hihack --username                             #
 #                    kaiser.ren@gmail.com\energymicro\kits\EFM32TG_STK3300\ex #
 #                    amples\an0045_efm32_uart_rs-232\iar\uart_rs-232\Debug\Ob #
-#                    j\em_ebi.o" "F:\ Firmware\my-project-hihack\trunk\       #
+#                    j\em_emu.o" "D:\Firmware\my-project-hihack\trunk\        #
 #                    my-project-hihack --username                             #
 #                    kaiser.ren@gmail.com\energymicro\kits\EFM32TG_STK3300\ex #
 #                    amples\an0045_efm32_uart_rs-232\iar\uart_rs-232\Debug\Ob #
-#                    j\em_emu.o" "F:\ Firmware\my-project-hihack\trunk\       #
+#                    j\em_gpio.o" "D:\Firmware\my-project-hihack\trunk\       #
 #                    my-project-hihack --username                             #
 #                    kaiser.ren@gmail.com\energymicro\kits\EFM32TG_STK3300\ex #
 #                    amples\an0045_efm32_uart_rs-232\iar\uart_rs-232\Debug\Ob #
-#                    j\em_gpio.o" "F:\ Firmware\my-project-hihack\trunk\      #
+#                    j\em_system.o" "D:\Firmware\my-project-hihack\trunk\     #
 #                    my-project-hihack --username                             #
 #                    kaiser.ren@gmail.com\energymicro\kits\EFM32TG_STK3300\ex #
 #                    amples\an0045_efm32_uart_rs-232\iar\uart_rs-232\Debug\Ob #
-#                    j\em_system.o" "F:\ Firmware\my-project-hihack\trunk\    #
+#                    j\em_usart.o" "D:\Firmware\my-project-hihack\trunk\      #
 #                    my-project-hihack --username                             #
 #                    kaiser.ren@gmail.com\energymicro\kits\EFM32TG_STK3300\ex #
 #                    amples\an0045_efm32_uart_rs-232\iar\uart_rs-232\Debug\Ob #
-#                    j\em_usart.o" "F:\ Firmware\my-project-hihack\trunk\     #
+#                    j\main.o" "D:\Firmware\my-project-hihack\trunk\          #
 #                    my-project-hihack --username                             #
 #                    kaiser.ren@gmail.com\energymicro\kits\EFM32TG_STK3300\ex #
 #                    amples\an0045_efm32_uart_rs-232\iar\uart_rs-232\Debug\Ob #
-#                    j\main.o" "F:\ Firmware\my-project-hihack\trunk\         #
-#                    my-project-hihack --username                             #
-#                    kaiser.ren@gmail.com\energymicro\kits\EFM32TG_STK3300\ex #
-#                    amples\an0045_efm32_uart_rs-232\iar\uart_rs-232\Debug\Ob #
-#                    j\startup_efm32tg.o" "F:\ Firmware\my-project-hihack\tru #
-#                    nk\ my-project-hihack --username                         #
+#                    j\startup_efm32tg.o" "D:\Firmware\my-project-hihack\trun #
+#                    k\ my-project-hihack --username                          #
 #                    kaiser.ren@gmail.com\energymicro\kits\EFM32TG_STK3300\ex #
 #                    amples\an0045_efm32_uart_rs-232\iar\uart_rs-232\Debug\Ob #
 #                    j\system_efm32tg.o" --redirect _Printf=_PrintfFull       #
-#                    --redirect _Scanf=_ScanfFull -o "F:\                     #
-#                    Firmware\my-project-hihack\trunk\ my-project-hihack      #
+#                    --redirect _Scanf=_ScanfFull -o                          #
+#                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
 #                    --username kaiser.ren@gmail.com\energymicro\kits\EFM32TG #
 #                    _STK3300\examples\an0045_efm32_uart_rs-232\iar\uart_rs-2 #
-#                    32\Debug\Exe\uart_rs-232.out" --map "F:\                 #
-#                    Firmware\my-project-hihack\trunk\ my-project-hihack      #
+#                    32\Debug\Exe\uart_rs-232.out" --map                      #
+#                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
 #                    --username kaiser.ren@gmail.com\energymicro\kits\EFM32TG #
 #                    _STK3300\examples\an0045_efm32_uart_rs-232\iar\uart_rs-2 #
-#                    32\Debug\List\uart_rs-232.map" --config "C:\Program      #
+#                    32\Debug\List\uart_rs-232.map" --config "D:\Program      #
 #                    Files\IAR Systems\Embedded Workbench                     #
-#                    6.0\arm\config\linker\EnergyMicro\EFM32GG990F1024.icf"   #
-#                    --entry __iar_program_start --vfe                        #
+#                    6.0_3\arm\config\linker\EnergyMicro\EFM32GG990F1024.icf" #
+#                     --entry __iar_program_start --vfe                       #
 #                                                                             #
 #                                                                             #
 ###############################################################################
@@ -201,7 +200,7 @@ Copy (__iar_copy_init3)
 
     Module             ro code  ro data  rw data
     ------             -------  -------  -------
-F:\ Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\energymicro\kits\EFM32TG_STK3300\examples\an0045_efm32_uart_rs-232\iar\uart_rs-232\Debug\Obj: [1]
+D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\energymicro\kits\EFM32TG_STK3300\examples\an0045_efm32_uart_rs-232\iar\uart_rs-232\Debug\Obj: [1]
     bsp_stk.o              120       24       24
     em_cmu.o             1 096
     em_gpio.o              212
@@ -354,7 +353,7 @@ welLen                  0x00000e6c    0x4  Data  Gb  main.o [1]
 welcomeString           0x00000d84   0x2c  Data  Gb  main.o [1]
 
 
-[1] = F:\ Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\energymicro\kits\EFM32TG_STK3300\examples\an0045_efm32_uart_rs-232\iar\uart_rs-232\Debug\Obj
+[1] = D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\energymicro\kits\EFM32TG_STK3300\examples\an0045_efm32_uart_rs-232\iar\uart_rs-232\Debug\Obj
 [2] = command line
 [3] = dl7M_tln.a
 [4] = rt7M_tl.a
