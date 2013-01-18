@@ -37,6 +37,7 @@
 #include "em_device.h"
 #include "em_chip.h"
 #include "em_cmu.h"
+#include "em_gpio.h"
 #include "bsp.h"
 #include "bsp_trace.h"
 
@@ -81,6 +82,13 @@ int main(void)
 
   /* Initialize LED driver */
   BSP_LedsInit();
+
+  /* Set divider */
+  /* Configure GPIO pins */
+  GPIO_PinModeSet(gpioPortC, 12, gpioModePushPull, 0);
+  CMU->ROUTE = CMU_ROUTE_CLKOUT0PEN | CMU_ROUTE_LOCATION_LOC1;
+  CMU->CTRL = (CMU->CTRL & ~_CMU_CTRL_CLKOUTSEL0_MASK) |
+      ((_CMU_CTRL_CLKOUTSEL0_HFRCO) << _CMU_CTRL_CLKOUTSEL0_SHIFT);
 
   /* Infinite blink loop */
   while (1)
