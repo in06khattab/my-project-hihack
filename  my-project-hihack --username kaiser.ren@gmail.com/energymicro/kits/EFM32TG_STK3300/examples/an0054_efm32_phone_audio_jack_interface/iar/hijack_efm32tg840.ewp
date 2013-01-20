@@ -1903,19 +1903,28 @@
   <group>
     <name>Source</name>
     <file>
-      <name>$PROJ_DIR$\..\tg840\com.c</name>
+      <name>$PROJ_DIR$\..\tg840\decode.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\tg840\com.h</name>
+      <name>$PROJ_DIR$\..\tg840\decode.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\tg840\hijack.c</name>
+      <name>$PROJ_DIR$\..\tg840\encode.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\tg840\hijack.h</name>
+      <name>$PROJ_DIR$\..\tg840\encode.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\tg840\hijack_decode.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\tg840\hijack_decode.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\tg840\main.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\tg840\main.h</name>
     </file>
   </group>
 </project>
