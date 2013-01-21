@@ -26,7 +26,12 @@
 /*----------------------------------------------------------------------------
  *        Macro
  *----------------------------------------------------------------------------*/
-#define BOARD_MCK 14000000ul
+#define VER_MAJOR 0
+#define VER_MINOR 1
+#define VER_PATCH ' '
+
+
+#define BOARD_MCK 7000000ul
 
 /* several carrier frequency definition. */
 #define HIJACK_CARRIER_FREQ_1KHZ	1000ul

@@ -23,6 +23,7 @@
 #include "segmentlcd.h"
 #include "main.h"
 #include "hijack_decode.h"
+#include "com.h"
 
 /*----------------------------------------------------------------------------
  *        Macro
@@ -40,7 +41,8 @@
  *----------------------------------------------------------------------------*/
 decode_t dec;
 bool edge_occur = false;
-static uint32_t cur_stamp = 0 ;
+uint32_t cur_stamp = 0 ;
+uint32_t prv_stamp = 0 ;
 static edge_t 	cur_edge = none ;
 static uint32_t offset = 0;
 static uint32_t inv = 0;
@@ -66,7 +68,10 @@ void TIMER0_IRQHandler(void)
 
   if (TIMER_IF_CC1 & irqFlags)
   {
-    __NOP();
+	prv_stamp = cur_stamp;
+	cur_stamp = TIMER_CaptureGet(HIJACK_RX_TIMER, 1);
+    //Debug_Print( "%d\r\n", TIMER_CaptureGet	(HIJACK_RX_TIMER, 1) ) ;
+	edge_occur = true;
   }
 }
 
@@ -138,45 +143,27 @@ void dec_init(void)
   /* Ensure core frequency has been updated */
   SystemCoreClockUpdate();
 
-  /* Enable peripheral clocks. */
-  CMU_ClockEnable(cmuClock_HFPER, true);
+  /* Enable RX_TIMER clock . */
   CMU_ClockEnable(HIJACK_RX_TIMERCLK, true);
-  //CMU_ClockEnable(HIJACK_TX_TIMERCLK, true);
 
   /* Configure Rx timer. */
   TIMER_Init(HIJACK_RX_TIMER, &rxTimerInit);
-  /* Configure Rx timer. */
-  //TIMER_Init(HIJACK_TX_TIMER, &txTimerInit);
 
   /* Configure Rx timer input capture channel 0. */
-  HIJACK_CaptureConfig(hijackEdgeModeRising);
-  /* Configure Tx timer output compare channel 0. */
-  //HIJACK_CompareConfig(hijackOutputModeSet);
-  //TIMER_CompareSet(HIJACK_TX_TIMER, 0, HIJACK_TX_INTERVAL);
+  HIJACK_CaptureConfig(hijackEdgeModeBoth);
 
-  /* Route the capture channels to the correct pins, enable CC0. */
+  /* Route the capture channels to the correct pins, enable CC1. */
   HIJACK_RX_TIMER->ROUTE = TIMER_ROUTE_LOCATION_LOC3 | TIMER_ROUTE_CC1PEN;
-  /* Route the capture channels to the correct pins, enable CC0. */
-  //HIJACK_TX_TIMER->ROUTE = TIMER_ROUTE_LOCATION_LOC4 | TIMER_ROUTE_CC0PEN;
 
   /* Rx: Configure the corresponding GPIO pin (PortD, Ch2) as an input. */
   GPIO_PinModeSet(HIJACK_RX_GPIO_PORT, HIJACK_RX_GPIO_PIN, gpioModeInput, 0);
-  /* Tx: Configure the corresponding GPIO pin (PortD, Ch6) as an input. */
-  //GPIO_PinModeSet(HIJACK_TX_GPIO_PORT, HIJACK_TX_GPIO_PIN, gpioModePushPull, 0);
 
-
-
-  /* Enable Rx timer CC0 interrupt. */
+  /* Enable Rx timer CC1 interrupt. */
   NVIC_EnableIRQ(TIMER0_IRQn);
   TIMER_IntEnable(HIJACK_RX_TIMER, TIMER_IF_CC1);
 
-  /* Enable Tx timer CC0 interrupt. */
-  //NVIC_EnableIRQ(TIMER1_IRQn);
-  //TIMER_IntEnable(HIJACK_TX_TIMER, TIMER_IF_CC0);
-
   /* Enable the timer. */
   TIMER_Enable(HIJACK_RX_TIMER, true);
-  //TIMER_Enable(HIJACK_TX_TIMER, true);
 }
 
 /**

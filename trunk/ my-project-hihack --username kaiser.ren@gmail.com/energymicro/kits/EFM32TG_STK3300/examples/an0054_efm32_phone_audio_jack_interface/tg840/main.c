@@ -49,12 +49,13 @@
 #include "em_cmu.h"
 #include "em_gpio.h"
 #include "em_emu.h"
+#include "em_timer.h"
 
 /* Driver header file(s). */
 #include "segmentlcd.h"
 
 /* HiJack header file. */
-//#include "hijack.h"
+#include "com.h"
 #include "hijack_decode.h"
 
 /* Local prototypes */
@@ -178,28 +179,38 @@ void CMU_Clkout(void)
  *****************************************************************************/
 int main(void)
 {
-  uint32_t j;
-
   /* Chip errata */
   CHIP_Init();
 
+  /* configure SWO output for debugging. */
+  setupSWO();
+
+  /* configure HFRCO @ 7MHz. */
+  CMU_HFRCOBandSet(	cmuHFRCOBand_7MHz ) 	;
+
   /* Select clock source for HF clock. */
-  CMU_ClockSelectSet(cmuClock_HF, cmuSelect_HFXO);
+  CMU_ClockSelectSet(cmuClock_HF, cmuSelect_HFRCO);
 
   /* Prescale the core clock -> HF/4 = 32/4 = 8Mhz */
   CMU_ClockDivSet(cmuClock_CORE, cmuClkDiv_4);
+  /* Enable peripheral clocks. */
+  CMU_ClockEnable(cmuClock_HFPER, true);
 
   /* Configure push button interrupts. */
-  gpioSetup();
+  //gpioSetup();
 
-  /* configure SWO output for debugging. */
-  setupSWO();
+  /* Configure COM port, USART1. */
+  COM_Init();
+
+  /* Configure clk_out0 for debug. */
+  CMU_Clkout();
 
   /* Init Segment LCD without boost. */
   SegmentLCD_Init(false);
 
   /* Turn on relevant symbols on the LCD. */
   SegmentLCD_Symbol(LCD_SYMBOL_GECKO, true);
+  SegmentLCD_Symbol(LCD_SYMBOL_ANT, true);
 
   /* Print welcome text on the LCD. */
   SegmentLCD_Write("HiJack");
@@ -207,15 +218,18 @@ int main(void)
   /* dec part initial. */
   dec_init();
 
-  CMU_Clkout();
+  /* print startup. */
+  /* Output example information */
+    Debug_Print( "-- HiJack V%d.%02d%c --\r\n", VER_MAJOR, VER_MINOR, VER_PATCH ) ;
+    Debug_Print( "-- Compiled: %s %s --\r\n", __DATE__, __TIME__ ) ;
+    Debug_Print( "-- Platform: EFM32-TGECKO --\r\n" ) ;
 
   /* While loop sending a range of values upon wakeup.  */
   while(1){
+	if(edge_occur){
+		edge_occur = false;
+		Debug_Print( "%u\r\n", (cur_stamp - prv_stamp) ) ;
+	}
 	EMU_EnterEM1();
-    for(j = 0;j<254;j++){
-      //HIJACK_ByteTx(j);
-      //Delay(10000);
-    }
-
   }
 }

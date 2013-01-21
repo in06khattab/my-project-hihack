@@ -7,7 +7,10 @@
 #ifndef __HIJACK_H
 #define __HIJACK_H
 
+#include <stdio.h>
 #include <stdint.h>
+#include <stdarg.h>
+#include "xstdio.h"
 #include "em_device.h"
 #include "em_chip.h"
 #include "em_emu.h"
@@ -46,7 +49,7 @@ extern "C" {
  ****************************   CONFIGURATION   ********************************
  ******************************************************************************/
 
-  
+
 /*******************************************************************************
  ******************************   TYPEDEFS   ***********************************
  ******************************************************************************/
@@ -61,7 +64,7 @@ uint8_t uartGetChar( );
 void uartPutChar(uint8_t ch);
 void uartPutData(uint8_t * dataPtr, uint32_t dataLen);
 uint32_t uartGetData(uint8_t * dataPtr, uint32_t dataLen);
-
+void Debug_Print(const char *format, ...);
 
 /** @} (end addtogroup HiJack) */
 /** @} (end addtogroup App_Notes) */
