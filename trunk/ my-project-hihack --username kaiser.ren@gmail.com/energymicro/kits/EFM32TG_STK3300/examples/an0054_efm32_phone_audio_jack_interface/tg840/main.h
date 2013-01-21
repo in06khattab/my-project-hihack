@@ -21,11 +21,13 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <assert.h>
-#include "board.h"
+//#include "board.h"
 
 /*----------------------------------------------------------------------------
  *        Macro
  *----------------------------------------------------------------------------*/
+#define BOARD_MCK 14000000ul
+
 /* several carrier frequency definition. */
 #define HIJACK_CARRIER_FREQ_1KHZ	1000ul
 #define HIJACK_CARRIER_FREQ_2KHZ	2000ul

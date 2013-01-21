@@ -20,27 +20,27 @@
 #include <stdio.h>
 #include <assert.h>
 #include "main.h"
-#include "encode.h"
-#include "board.h"
+
 
 /*----------------------------------------------------------------------------
  *        Macro
  *----------------------------------------------------------------------------*/
-#define PIN_TC0_TIOA1    {PIO_PA15, PIOA, ID_PIOA, PIO_INPUT, PIO_DEFAULT}
-#define PIN_TC0_TIOA2    {PIO_PA26, PIOA, ID_PIOA, PIO_INPUT, PIO_DEFAULT}
-#if defined	sam3s4
-	#define DEC_CAPTURE_INPUT	PIN_TC0_TIOA2
-#else
-	#define DEC_CAPTURE_INPUT	PIN_TC0_TIOA1
-#endif
-
-/* use which timer as decode machine timer stamp generator. */
-#define DECODE_USED_TMR_ID  2
+#define HIJACK_RX_TIMER             TIMER0
+#define HIJACK_RX_TIMERCLK          cmuClock_TIMER0
+#define HIJACK_RX_GPIO_PORT         gpioPortD
+#define HIJACK_RX_GPIO_PIN          2
+#define HIJACK_TIMER_RESOLUTION     timerPrescale256//8MHz/256, 32us per tick
 
 
 /*----------------------------------------------------------------------------
  *        Typedef
  *----------------------------------------------------------------------------*/
+
+typedef enum _tmr_tag_{
+	pass = 0,
+	suit,
+	error
+}chk_result_t;
 
 typedef struct decode_tag
 {
@@ -56,6 +56,13 @@ typedef enum _edge_tag_
 	rising
 }edge_t;
 
+typedef enum
+{
+  hijackEdgeModeRising = 0,
+  hijackEdgeModeFalling = 1,
+  hijackEdgeModeBoth = 2
+} HIJACK_EdgeMode_t;
+
 /*----------------------------------------------------------------------------
  *        Macros
  *----------------------------------------------------------------------------*/
@@ -69,7 +76,7 @@ extern bool	edge_occur;
 /*----------------------------------------------------------------------------
  *        External Function
  *----------------------------------------------------------------------------*/
-void TcCaptureInitialize(void);
+void dec_init(void);
 void decode_machine(void);
 
 #endif 	//_DECODE_H_

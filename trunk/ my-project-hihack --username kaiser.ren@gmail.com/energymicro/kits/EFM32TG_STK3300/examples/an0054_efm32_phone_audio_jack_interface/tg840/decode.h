@@ -21,7 +21,7 @@
 #include <assert.h>
 #include "main.h"
 #include "encode.h"
-#include "board.h"
+//#include "board.h"
 
 /*----------------------------------------------------------------------------
  *        Macro

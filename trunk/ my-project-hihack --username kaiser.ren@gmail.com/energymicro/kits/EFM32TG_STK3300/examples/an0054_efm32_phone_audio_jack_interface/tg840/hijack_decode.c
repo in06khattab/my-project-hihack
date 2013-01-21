@@ -13,8 +13,16 @@
 /*----------------------------------------------------------------------------
  *        Headers
  *----------------------------------------------------------------------------*/
-#include "decode.h"
-#include "xplained.h"
+#include <stdio.h>
+/* Chip specific header file(s). */
+#include "em_cmu.h"
+#include "em_gpio.h"
+#include "em_timer.h"
+#include "em_int.h"
+/* Driver header file(s). */
+#include "segmentlcd.h"
+#include "main.h"
+#include "hijack_decode.h"
 
 /*----------------------------------------------------------------------------
  *        Macro
@@ -25,11 +33,7 @@
 /*----------------------------------------------------------------------------
  *        Macro
  *----------------------------------------------------------------------------*/
-typedef enum _tmr_tag_{
-	pass = 0,
-	suit,
-	error
-}chk_result_t;
+
 
 /*----------------------------------------------------------------------------
  *        Variable
@@ -41,9 +45,6 @@ static edge_t 	cur_edge = none ;
 static uint32_t offset = 0;
 static uint32_t inv = 0;
 
-/** PIOs for TC0 */
-static const Pin pTcPins[] = {DEC_CAPTURE_INPUT};
-
 /*----------------------------------------------------------------------------
  *        Local function
  *----------------------------------------------------------------------------*/
@@ -52,132 +53,130 @@ static void dec_parser(uint8_t bit_msk, state_t state);
 /*----------------------------------------------------------------------------
  *        ISR Handler
  *----------------------------------------------------------------------------*/
-#if defined	__SAM4S16C__
-/**
- * \brief Interrupt handler for the TC0 channel 2.
- */
-void TC1_IrqHandler(void)
+/***************************************************************************//**
+ * @brief
+ *   RxTimer, Timer0 IRQHandler.
+ ******************************************************************************/
+void TIMER0_IRQHandler(void)
 {
-	uint32_t status ;
-    status = REG_TC0_SR1 ;
-	
-#if defined	__SAM4S16C__
-		XplnLED_Toggle(1);	//LED1 toggle
-#endif
+  uint32_t irqFlags;
 
-	if ( (status & TC_SR_LDRAS) == TC_SR_LDRAS ){
-	 	cur_stamp = REG_TC0_RA1 ;
-		
-#if defined	sam3s4	
-		LED_Toggle(1);	
-#endif
-			
-		//cur_stamp = cur_stamp/10 ;        //420 falling, 351 rising
-		edge_occur = true;
-	  	if ( status & TC_SR_MTIOA ){
-		  	LED_Clear(0) ;	//PA19 output high
-			cur_edge = rising;
-			//printf( "%u ", cur_stamp) ;
-	  	}
-		else{
-			LED_Set(0) ;	//PA19 output low
-			cur_edge = falling;
-			//printf( "%u ", cur_stamp) ;
-		}
-	}
+  irqFlags = TIMER_IntGet(HIJACK_RX_TIMER);
+  TIMER_IntClear(HIJACK_RX_TIMER, irqFlags);
+
+  if (TIMER_IF_CC1 & irqFlags)
+  {
+    __NOP();
+  }
 }
-#endif
-
-#if defined	sam3s4
-/**
- * \brief Interrupt handler for the TC0 channel 2.
- */
-void TC2_IrqHandler( void )
-{
-    uint32_t status ;
-    status = REG_TC0_SR2 ;
-
-	if ( (status & TC_SR_LDRAS) == TC_SR_LDRAS ){
-	 	cur_stamp = REG_TC0_RA2 ;
-		//cur_stamp = cur_stamp/10 ;
-		edge_occur = true;
-	  	if ( status & TC_SR_MTIOA ){
-		  	LED_Clear(0) ;	//PA19 output high
-			cur_edge = rising;
-			//printf( "%u1 ", cur_stamp) ;
-	  	}
-		else{
-			LED_Set(0) ;	//PA19 output low
-			cur_edge = falling;
-			//printf( "%u0 ", cur_stamp) ;
-		}
-	}
-}
-#endif
 
 /*----------------------------------------------------------------------------
  *        Exported functions
  *----------------------------------------------------------------------------*/
-/**
- * \brief Configure TC0 channel 2 as capture operating mode.
- */
-void TcCaptureInitialize(void)
+/***************************************************************************//**
+ * @brief
+ *   Configure the capture channel for the HiJack.
+ ******************************************************************************/
+static void HIJACK_CaptureConfig(HIJACK_EdgeMode_t edgeMode)
 {
-    volatile uint32_t dummy;
-	
-	/* Clear structure. */
-	//memset(&dec, 0, sizeof(decode_t) );
-	
-	/* Configure PIO Pins for TC0 */
-    PIO_Configure( pTcPins, PIO_LISTSIZE( pTcPins ) ) ;
-	
-#if defined	sam3s4	
-    /* Configure the PMC to enable the Timer Counter clock TC0 channel 2.*/
-    PMC_EnablePeripheral(ID_TC2);
-    /*  Disable TC clock */
-    REG_TC0_CCR2 = TC_CCR_CLKDIS;
-    /*  Disable interrupts */
-    REG_TC0_IDR2 = 0xFFFFFFFF;
-    /*  Clear status register */
-    dummy = REG_TC0_SR2;
-    /*  Set channel 2 as capture mode.
-	 *  Clock source MCK/8, 8MHz.
-	 */
-    REG_TC0_CMR2 = (HIJACK_TMR_CLK_SRC_PRESCALER_REG    /* Clock Selection, PRE = 8 */
-                   | TC_CMR_LDRA_EDGE           /* RA Loading Selection: rising edge of TIOA */
-                   /*| TC_CMR_LDRB_FALLING*/          /* RB Loading Selection: falling edge of TIOA */
-                   | TC_CMR_ABETRG                /* External Trigger Selection: TIOA */
-                   | TC_CMR_ETRGEDG_EDGE );    /* External Trigger Edge Selection: Falling edge */
-	
-	/* Ext edge trigger, overflow .*/
-	REG_TC0_IER2 =  TC_IER_LDRAS /*| TC_IER_LDRBS*/ ;	
-	
-    /* Reset and enable the tiimer counter for TC0 channel 2 */
-    REG_TC0_CCR2 =  TC_CCR_CLKEN | TC_CCR_SWTRG;
-#else //SAM4S-XPLAINED
-	/* Configure the PMC to enable the Timer Counter clock TC0 channel 1.*/
-    PMC_EnablePeripheral(ID_TC1);
-    /*  Disable TC clock */
-    REG_TC0_CCR1 = TC_CCR_CLKDIS;
-    /*  Disable interrupts */
-    REG_TC0_IDR1 = 0xFFFFFFFF;
-    /*  Clear status register */
-    dummy = REG_TC0_SR1;
-    /*  Set channel 2 as capture mode.
-	 *  Clock source MCK/8, 8MHz.
-	 */
-    REG_TC0_CMR1 = (HIJACK_TMR_CLK_SRC_PRESCALER_REG    /* Clock Selection, PRE = 8 */
-                   | TC_CMR_LDRA_EDGE           /* RA Loading Selection: rising edge of TIOA */
-                   /*| TC_CMR_LDRB_FALLING*/          /* RB Loading Selection: falling edge of TIOA */
-                   | TC_CMR_ABETRG                /* External Trigger Selection: TIOA */
-                   | TC_CMR_ETRGEDG_EDGE );    /* External Trigger Edge Selection: Falling edge */
-	
-	/* Ext edge trigger, overflow .*/
-	REG_TC0_IER1 =  TC_IER_LDRAS /*| TC_IER_LDRBS*/ ;	
-	
-    /* Reset and enable the tiimer counter for TC0 channel 2 */
-    REG_TC0_CCR1 =  TC_CCR_CLKEN | TC_CCR_SWTRG;
-#endif
+  TIMER_InitCC_TypeDef rxTimerCapComChConf =
+  { timerEventEveryEdge,      /* Event on every capture. */
+    timerEdgeRising,          /* Input capture edge on rising edge. */
+    timerPRSSELCh0,           /* Not used by default, select PRS channel 0. */
+    timerOutputActionNone,    /* No action on underflow. */
+    timerOutputActionNone,    /* No action on overflow. */
+    timerOutputActionNone,    /* No action on match. */
+    timerCCModeCapture,       /* Configure capture channel. */
+    false,                    /* Disable filter. */
+    false,                    /* Select TIMERnCCx input. */
+    false,                    /* Clear output when counter disabled. */
+    false                     /* Do not invert output. */
+  };
+
+
+  if (hijackEdgeModeRising == edgeMode)
+  {
+    rxTimerCapComChConf.edge = timerEdgeRising;
+  }
+  else if (hijackEdgeModeFalling == edgeMode)
+  {
+    rxTimerCapComChConf.edge = timerEdgeFalling;
+  }
+  else if (hijackEdgeModeBoth == edgeMode)
+  {
+    rxTimerCapComChConf.edge = timerEdgeBoth;
+  }
+  else
+  {
+    /* Config error. */
+    rxTimerCapComChConf.edge = timerEdgeNone;
+  }
+
+  TIMER_InitCC(HIJACK_RX_TIMER, 1, &rxTimerCapComChConf);
+}
+
+/**
+ * \brief decode initial.
+ */
+void dec_init(void)
+{
+   static const TIMER_Init_TypeDef rxTimerInit =
+  { false,                  /* Don't enable timer when init complete. */
+    false,                  /* Stop counter during debug halt. */
+    HIJACK_TIMER_RESOLUTION,/* ... */
+    timerClkSelHFPerClk,    /* Select HFPER clock. */
+    false,                  /* Not 2x count mode. */
+    false,                  /* No ATI. */
+    timerInputActionNone,   /* No action on falling input edge. */
+    timerInputActionNone,   /* No action on rising input edge. */
+    timerModeUp,            /* Up-counting. */
+    false,                  /* Do not clear DMA requests when DMA channel is active. */
+    false,                  /* Select X2 quadrature decode mode (if used). */
+    false,                  /* Disable one shot. */
+    false                   /* Not started/stopped/reloaded by other timers. */
+  };
+  /* Ensure core frequency has been updated */
+  SystemCoreClockUpdate();
+
+  /* Enable peripheral clocks. */
+  CMU_ClockEnable(cmuClock_HFPER, true);
+  CMU_ClockEnable(HIJACK_RX_TIMERCLK, true);
+  //CMU_ClockEnable(HIJACK_TX_TIMERCLK, true);
+
+  /* Configure Rx timer. */
+  TIMER_Init(HIJACK_RX_TIMER, &rxTimerInit);
+  /* Configure Rx timer. */
+  //TIMER_Init(HIJACK_TX_TIMER, &txTimerInit);
+
+  /* Configure Rx timer input capture channel 0. */
+  HIJACK_CaptureConfig(hijackEdgeModeRising);
+  /* Configure Tx timer output compare channel 0. */
+  //HIJACK_CompareConfig(hijackOutputModeSet);
+  //TIMER_CompareSet(HIJACK_TX_TIMER, 0, HIJACK_TX_INTERVAL);
+
+  /* Route the capture channels to the correct pins, enable CC0. */
+  HIJACK_RX_TIMER->ROUTE = TIMER_ROUTE_LOCATION_LOC3 | TIMER_ROUTE_CC1PEN;
+  /* Route the capture channels to the correct pins, enable CC0. */
+  //HIJACK_TX_TIMER->ROUTE = TIMER_ROUTE_LOCATION_LOC4 | TIMER_ROUTE_CC0PEN;
+
+  /* Rx: Configure the corresponding GPIO pin (PortD, Ch2) as an input. */
+  GPIO_PinModeSet(HIJACK_RX_GPIO_PORT, HIJACK_RX_GPIO_PIN, gpioModeInput, 0);
+  /* Tx: Configure the corresponding GPIO pin (PortD, Ch6) as an input. */
+  //GPIO_PinModeSet(HIJACK_TX_GPIO_PORT, HIJACK_TX_GPIO_PIN, gpioModePushPull, 0);
+
+
+
+  /* Enable Rx timer CC0 interrupt. */
+  NVIC_EnableIRQ(TIMER0_IRQn);
+  TIMER_IntEnable(HIJACK_RX_TIMER, TIMER_IF_CC1);
+
+  /* Enable Tx timer CC0 interrupt. */
+  //NVIC_EnableIRQ(TIMER1_IRQn);
+  //TIMER_IntEnable(HIJACK_TX_TIMER, TIMER_IF_CC0);
+
+  /* Enable the timer. */
+  TIMER_Enable(HIJACK_RX_TIMER, true);
+  //TIMER_Enable(HIJACK_TX_TIMER, true);
 }
 
 /**
@@ -310,7 +309,7 @@ void decode_machine(void)
       	case Sto0:
          	if ( ( suit == IsTime2Detect(inv) ) ){ //it's time to determine
 				if( rising == cur_edge ){  //stop bit is rising edge
-				   UART_PutChar(dec.data);
+				   //UART_PutChar(dec.data);
 				}
 				dec.state = Waiting;
          	}
