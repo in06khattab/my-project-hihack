@@ -182,6 +182,9 @@ int main(void)
   /* Chip errata */
   CHIP_Init();
 
+  /* If first word of user data page is non-zero, enable eA Profiler trace */
+  BSP_TraceProfilerSetup();
+
   /* configure SWO output for debugging. */
   setupSWO();
 
@@ -204,6 +207,9 @@ int main(void)
 
   /* Configure clk_out0 for debug. */
   CMU_Clkout();
+
+  /* Initialize LED driver */
+  BSP_LedsInit();
 
   /* Init Segment LCD without boost. */
   SegmentLCD_Init(false);
@@ -228,7 +234,12 @@ int main(void)
   while(1){
 	if(edge_occur){
 		edge_occur = false;
-		Debug_Print( "%u\r\n", (cur_stamp - prv_stamp) ) ;
+		Debug_Print( "%u ", (cur_stamp - prv_stamp) ) ;
+		if(rising == cur_edge)
+			Debug_Print( "r\r\n" ) ;
+		else
+		  	Debug_Print( "f\r\n" ) ;
+		decode_machine();
 	}
 	EMU_EnterEM1();
   }
