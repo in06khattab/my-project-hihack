@@ -43,7 +43,7 @@ decode_t dec;
 bool edge_occur = false;
 uint32_t cur_stamp = 0 ;
 uint32_t prv_stamp = 0 ;
-static edge_t 	cur_edge = none ;
+edge_t 	cur_edge = none ;
 static uint32_t offset = 0;
 static uint32_t inv = 0;
 
@@ -72,6 +72,16 @@ void TIMER0_IRQHandler(void)
 	cur_stamp = TIMER_CaptureGet(HIJACK_RX_TIMER, 1);
     //Debug_Print( "%d\r\n", TIMER_CaptureGet	(HIJACK_RX_TIMER, 1) ) ;
 	edge_occur = true;
+	BSP_LedToggle(0);
+	/* Check what transition it was. */
+      if (GPIO_PinInGet(HIJACK_RX_GPIO_PORT, HIJACK_RX_GPIO_PIN))
+      {
+        cur_edge = rising;
+      }
+      else
+      {
+        cur_edge = falling;
+      }
   }
 }
 
