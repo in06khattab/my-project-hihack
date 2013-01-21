@@ -72,6 +72,8 @@ typedef enum
  *        External Variable
  *----------------------------------------------------------------------------*/
 extern bool	edge_occur;
+extern uint32_t cur_stamp ;
+extern uint32_t prv_stamp ;
 
 /*----------------------------------------------------------------------------
  *        External Function

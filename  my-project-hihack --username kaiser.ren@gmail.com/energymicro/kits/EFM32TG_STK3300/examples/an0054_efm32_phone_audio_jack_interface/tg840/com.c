@@ -11,22 +11,6 @@
  *******************************   MACROS   ************************************
  ******************************************************************************/
 
-#define HIJACK_RX_SHORTINTERVAL     (56)
-#define HIJACK_RX_LONGINTERVAL      (150)
-#define HIJACK_TX_INTERVAL          (45)
-
-#define HIJACK_TIMER_RESOLUTION     timerPrescale256//8MHz/256, 32us per tick
-
-
-#define HIJACK_TX_TIMER             TIMER1
-#define HIJACK_TX_TIMERCLK          cmuClock_TIMER1
-#define HIJACK_TX_GPIO_PORT         gpioPortD
-#define HIJACK_TX_GPIO_PIN          6
-
-#define HIJACK_RX_TIMER             TIMER0
-#define HIJACK_RX_TIMERCLK          cmuClock_TIMER0
-#define HIJACK_RX_GPIO_PORT         gpioPortD
-#define HIJACK_RX_GPIO_PIN          1
 
 /* Define termination character */
 #define TERMINATION_CHAR    '.'
@@ -58,7 +42,7 @@ const char     welcomeString[]  = "Energy Micro RS-232 - Please press a key\n";
 const char     overflowString[] = "\r\n---RX OVERFLOW---\r\n";
 const uint32_t welLen           = sizeof(welcomeString) - 1;
 const uint32_t ofsLen           = sizeof(overflowString) - 1;
-
+uint8_t 		appPrintBuf[50];
 /*******************************************************************************
  *******************************   STATICS   ***********************************
  ******************************************************************************/
@@ -77,26 +61,6 @@ static USART_InitAsync_TypeDef uartInit = USART_INITASYNC_DEFAULT;
  ***************************   GLOBAL FUNCTIONS   ******************************
  ******************************************************************************/
 
-/***************************************************************************//**
- * @brief Set up Clock Management Unit
- ******************************************************************************/
-void cmuSetup(void)
-{
-  /* Start HFXO and wait until it is stable */
-  /* CMU_OscillatorEnable( cmuOsc_HFXO, true, true); */
-
-  /* Select HFXO as clock source for HFCLK */
-  /* CMU_ClockSelectSet(cmuClock_HF, cmuSelect_HFXO ); */
-
-  /* Disable HFRCO */
-  /* CMU_OscillatorEnable( cmuOsc_HFRCO, false, false ); */
-
-  /* Enable clock for HF peripherals */
-  CMU_ClockEnable(cmuClock_HFPER, true);
-
-  /* Enable clock for USART module */
-  CMU_ClockEnable(cmuClock_USART1, true);
-}
 
 /***************************************************************************//**
  * @brief
@@ -104,6 +68,9 @@ void cmuSetup(void)
  ******************************************************************************/
 void COM_Init(void)
 {
+  /* Enable clock for USART module */
+  CMU_ClockEnable(cmuClock_USART1, true);
+
   /* Enable clock for GPIO module (required for pin configuration) */
   CMU_ClockEnable(cmuClock_GPIO, true);
   /* Configure GPIO pins */
@@ -319,6 +286,30 @@ void USART1_TX_IRQHandler(void)
     {
       USART_IntDisable(uart, USART_IF_TXBL);
     }
+  }
+}
+
+void Debug_Print(const char *format, ...)
+{
+  char *s = (char *)appPrintBuf;
+  char nr_of_chars;
+  int ans;
+  va_list ap;
+  _SProutInfo x;
+
+  va_start(ap, format);
+
+  x.s = s;
+
+  ans = _Printf(&_SProut, &x, format, &ap);
+        *x.s = '\0';
+  va_end(ap);
+	
+  nr_of_chars = (ans < 0 ? ans : (x.s - s));
+
+  if (nr_of_chars > 0) {
+	for(uint8_t i = 0; i < nr_of_chars; i++)
+    	uartPutChar(appPrintBuf[i] );
   }
 }
 
