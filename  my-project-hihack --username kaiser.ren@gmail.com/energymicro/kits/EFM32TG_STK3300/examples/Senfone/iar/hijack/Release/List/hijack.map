@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR ELF Linker V6.30.6.53336/W32 for ARM              22/Jan/2013  13:58:26 #
+# IAR ELF Linker V6.30.6.53336/W32 for ARM              22/Jan/2013  15:22:04 #
 # Copyright 2007-2012 IAR Systems AB.                                         #
 #                                                                             #
 #    Output file  =  D:\Firmware\my-project-hihack\trunk\ my-project-hihack   #
@@ -27,43 +27,43 @@
 #                    amples\Senfone\iar\hijack\Release\Obj\com.o"             #
 #                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
 #                    --username kaiser.ren@gmail.com\energymicro\kits\EFM32TG #
-#                    _STK3300\examples\Senfone\iar\hijack\Release\Obj\em_asse #
-#                    rt.o" "D:\Firmware\my-project-hihack\trunk\              #
-#                    my-project-hihack --username                             #
-#                    kaiser.ren@gmail.com\energymicro\kits\EFM32TG_STK3300\ex #
-#                    amples\Senfone\iar\hijack\Release\Obj\em_cmu.o"          #
-#                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
-#                    --username kaiser.ren@gmail.com\energymicro\kits\EFM32TG #
-#                    _STK3300\examples\Senfone\iar\hijack\Release\Obj\em_emu. #
+#                    _STK3300\examples\Senfone\iar\hijack\Release\Obj\decode. #
 #                    o" "D:\Firmware\my-project-hihack\trunk\                 #
 #                    my-project-hihack --username                             #
 #                    kaiser.ren@gmail.com\energymicro\kits\EFM32TG_STK3300\ex #
-#                    amples\Senfone\iar\hijack\Release\Obj\em_gpio.o"         #
+#                    amples\Senfone\iar\hijack\Release\Obj\em_assert.o"       #
 #                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
 #                    --username kaiser.ren@gmail.com\energymicro\kits\EFM32TG #
-#                    _STK3300\examples\Senfone\iar\hijack\Release\Obj\em_int. #
+#                    _STK3300\examples\Senfone\iar\hijack\Release\Obj\em_cmu. #
 #                    o" "D:\Firmware\my-project-hihack\trunk\                 #
 #                    my-project-hihack --username                             #
 #                    kaiser.ren@gmail.com\energymicro\kits\EFM32TG_STK3300\ex #
-#                    amples\Senfone\iar\hijack\Release\Obj\em_lcd.o"          #
+#                    amples\Senfone\iar\hijack\Release\Obj\em_emu.o"          #
 #                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
 #                    --username kaiser.ren@gmail.com\energymicro\kits\EFM32TG #
-#                    _STK3300\examples\Senfone\iar\hijack\Release\Obj\em_syst #
-#                    em.o" "D:\Firmware\my-project-hihack\trunk\              #
+#                    _STK3300\examples\Senfone\iar\hijack\Release\Obj\em_gpio #
+#                    .o" "D:\Firmware\my-project-hihack\trunk\                #
 #                    my-project-hihack --username                             #
 #                    kaiser.ren@gmail.com\energymicro\kits\EFM32TG_STK3300\ex #
-#                    amples\Senfone\iar\hijack\Release\Obj\em_timer.o"        #
+#                    amples\Senfone\iar\hijack\Release\Obj\em_int.o"          #
 #                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
 #                    --username kaiser.ren@gmail.com\energymicro\kits\EFM32TG #
-#                    _STK3300\examples\Senfone\iar\hijack\Release\Obj\em_usar #
-#                    t.o" "D:\Firmware\my-project-hihack\trunk\               #
+#                    _STK3300\examples\Senfone\iar\hijack\Release\Obj\em_lcd. #
+#                    o" "D:\Firmware\my-project-hihack\trunk\                 #
 #                    my-project-hihack --username                             #
 #                    kaiser.ren@gmail.com\energymicro\kits\EFM32TG_STK3300\ex #
-#                    amples\Senfone\iar\hijack\Release\Obj\em_vcmp.o"         #
+#                    amples\Senfone\iar\hijack\Release\Obj\em_system.o"       #
 #                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
 #                    --username kaiser.ren@gmail.com\energymicro\kits\EFM32TG #
-#                    _STK3300\examples\Senfone\iar\hijack\Release\Obj\hijack_ #
-#                    decode.o" "D:\Firmware\my-project-hihack\trunk\          #
+#                    _STK3300\examples\Senfone\iar\hijack\Release\Obj\em_time #
+#                    r.o" "D:\Firmware\my-project-hihack\trunk\               #
+#                    my-project-hihack --username                             #
+#                    kaiser.ren@gmail.com\energymicro\kits\EFM32TG_STK3300\ex #
+#                    amples\Senfone\iar\hijack\Release\Obj\em_usart.o"        #
+#                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
+#                    --username kaiser.ren@gmail.com\energymicro\kits\EFM32TG #
+#                    _STK3300\examples\Senfone\iar\hijack\Release\Obj\em_vcmp #
+#                    .o" "D:\Firmware\my-project-hihack\trunk\                #
 #                    my-project-hihack --username                             #
 #                    kaiser.ren@gmail.com\energymicro\kits\EFM32TG_STK3300\ex #
 #                    amples\Senfone\iar\hijack\Release\Obj\main.o"            #
@@ -147,7 +147,7 @@ __SystemLibrary = DLib
   .text              ro code  0x000022f4   0x428  segmentlcd.o [1]
   .text              ro code  0x0000271c   0x240  em_lcd.o [1]
   .text              ro code  0x0000295c   0x260  em_usart.o [1]
-  .text              ro code  0x00002bbc   0x214  hijack_decode.o [1]
+  .text              ro code  0x00002bbc   0x214  decode.o [1]
   .text              ro code  0x00002dd0    0x50  bsp_stk_leds.o [1]
   .text              ro code  0x00002e20   0x1dc  em_timer.o [1]
   .text              ro code  0x00002ffc    0xf0  em_gpio.o [1]
@@ -207,7 +207,7 @@ __SystemLibrary = DLib
   .bss               zero     0x20000020   0x110  com.o [1]
   .bss               zero     0x20000130   0x110  com.o [1]
   .bss               zero     0x20000240    0x34  com.o [1]
-  .bss               zero     0x20000274    0x14  hijack_decode.o [1]
+  .bss               zero     0x20000274    0x14  decode.o [1]
   .bss               zero     0x20000288     0x4  system_efm32tg.o [1]
   .bss               zero     0x2000028c     0x2  em_emu.o [1]
                             - 0x2000028e   0x26e
@@ -245,6 +245,7 @@ Copy (__iar_copy_init3)
 D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\energymicro\kits\EFM32TG_STK3300\examples\Senfone\iar\hijack\Release\Obj: [1]
     bsp_stk_leds.o          80
     com.o                  440       24      620
+    decode.o               532                20
     em_assert.o              2
     em_cmu.o             2 364
     em_emu.o                20                 2
@@ -252,7 +253,6 @@ D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gma
     em_lcd.o               576
     em_timer.o             476
     em_usart.o             608
-    hijack_decode.o        532                20
     main.o                 488
     segmentlcd.o         1 064
     startup_efm32tg.o      300
@@ -353,7 +353,7 @@ GPIO_ODD_IRQHandler     0x00003313    0xa  Code  Gb  main.o [1]
 GPIO_PinModeSet         0x00002ffd   0x76  Code  Gb  em_gpio.o [1]
 HardFault_Handler       0x00003531         Code  Wk  startup_efm32tg.o [1]
 I2C0_IRQHandler         0x00003571         Code  Wk  startup_efm32tg.o [1]
-IsTime2Detect           0x00002c53   0x28  Code  Lc  hijack_decode.o [1]
+IsTime2Detect           0x00002c53   0x28  Code  Lc  decode.o [1]
 LCD_IRQHandler          0x000035a1         Code  Wk  startup_efm32tg.o [1]
 LCD_Init                0x0000271d   0x44  Code  Gb  em_lcd.o [1]
 LCD_SegmentRangeEnable  0x00002777   0x12  Code  Gb  em_lcd.o [1]
@@ -390,7 +390,7 @@ SystemLFRCOClockGet     0x00002295    0x2  Code  Gb  system_efm32tg.o [1]
 SystemLFXOClock         0x2000001c    0x4  Data  Lc  system_efm32tg.o [1]
 SystemLFXOClockGet      0x000022a3    0x2  Code  Gb  system_efm32tg.o [1]
 SystemULFRCOClockGet    0x0000229d    0x6  Code  Gb  system_efm32tg.o [1]
-TIMER0_IRQHandler       0x00002bbd   0x36  Code  Gb  hijack_decode.o [1]
+TIMER0_IRQHandler       0x00002bbd   0x36  Code  Gb  decode.o [1]
 TIMER1_IRQHandler       0x00003579         Code  Wk  startup_efm32tg.o [1]
 TIMER_Enable            0x00002e21   0x28  Code  Gb  em_timer.o [1]
 TIMER_Init              0x00002e49   0xa8  Code  Gb  em_timer.o [1]
@@ -454,20 +454,20 @@ _main                   0x000034ef         Code  Gb  cmain.o [5]
 appPrintBuf             0x20000240   0x34  Data  Gb  com.o [1]
 assertEFM               0x000021f5    0x2  Code  Gb  em_assert.o [1]
 cmuStatus               0x2000028c    0x2  Data  Lc  em_emu.o [1]
-cur_edge                0x20000279    0x1  Data  Gb  hijack_decode.o [1]
-cur_stamp               0x2000027c    0x4  Data  Gb  hijack_decode.o [1]
-dec                     0x20000274    0x4  Data  Gb  hijack_decode.o [1]
-dec_init                0x00002bf3   0x60  Code  Gb  hijack_decode.o [1]
-dec_parser              0x00002c7b   0x46  Code  Lc  hijack_decode.o [1]
-decode_machine          0x00002cc1   0xca  Code  Gb  hijack_decode.o [1]
+cur_edge                0x20000279    0x1  Data  Gb  decode.o [1]
+cur_stamp               0x2000027c    0x4  Data  Gb  decode.o [1]
+dec                     0x20000274    0x4  Data  Gb  decode.o [1]
+dec_init                0x00002bf3   0x60  Code  Gb  decode.o [1]
+dec_parser              0x00002c7b   0x46  Code  Lc  decode.o [1]
+decode_machine          0x00002cc1   0xca  Code  Gb  decode.o [1]
 div                     0x000017d3    0xe  Code  Gb  div.o [3]
-edge_occur              0x20000278    0x1  Data  Gb  hijack_decode.o [1]
+edge_occur              0x20000278    0x1  Data  Gb  decode.o [1]
 exit                    0x000034f3    0x4  Code  Gb  exit.o [3]
-inv                     0x20000284    0x4  Data  Lc  hijack_decode.o [1]
+inv                     0x20000284    0x4  Data  Lc  decode.o [1]
 lcdInit                 0x00002708   0x14  Data  Lc  segmentlcd.o [1]
 main                    0x00003347   0x8c  Code  Gb  main.o [1]
 memchr                  0x00000e61         Code  Gb  memchr.o [5]
-offset                  0x20000280    0x4  Data  Lc  hijack_decode.o [1]
+offset                  0x20000280    0x4  Data  Lc  decode.o [1]
 rxBuf                   0x20000020  0x110  Data  Gb  com.o [1]
 setupSWO                0x000032a5   0x6e  Code  Gb  main.o [1]
 strchr                  0x00000de9         Code  Gb  strchr.o [5]
