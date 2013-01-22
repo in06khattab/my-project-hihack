@@ -29,7 +29,7 @@
  *        Macro
  *----------------------------------------------------------------------------*/
 #define HIJACK_DEC_NUM_TICKS_MAX	(HIJACK_NUM_TICKS_PER_1US*1200ul)
-#define HIJACK_DEC_NUM_TICKS_MIN	(HIJACK_NUM_TICKS_PER_1US*700ul)
+#define HIJACK_DEC_NUM_TICKS_MIN	(HIJACK_NUM_TICKS_PER_1US*900ul)
 
 /*----------------------------------------------------------------------------
  *        Macro
@@ -41,16 +41,16 @@
  *----------------------------------------------------------------------------*/
 decode_t dec;
 bool edge_occur = false;
-uint32_t cur_stamp = 0 ;
-uint32_t prv_stamp = 0 ;
+uint16_t cur_stamp = 0 ;
+uint16_t prv_stamp = 0 ;
 edge_t 	cur_edge = none ;
-static uint32_t offset = 0;
-static uint32_t inv = 0;
+//static uint32_t offset = 0;
+//static uint32_t inv = 0;
 
 /*----------------------------------------------------------------------------
  *        Local function
  *----------------------------------------------------------------------------*/
-static chk_result_t IsTime2Detect(uint32_t inv);
+static chk_result_t IsTime2Detect(void);
 static void dec_parser(uint8_t bit_msk, state_t state);
 /*----------------------------------------------------------------------------
  *        ISR Handler
@@ -68,20 +68,19 @@ void TIMER0_IRQHandler(void)
 
   if (TIMER_IF_CC1 & irqFlags)
   {
-	prv_stamp = cur_stamp;
 	cur_stamp = TIMER_CaptureGet(HIJACK_RX_TIMER, 1);
-    //Debug_Print( "%d\r\n", TIMER_CaptureGet	(HIJACK_RX_TIMER, 1) ) ;
 	edge_occur = true;
-	BSP_LedToggle(0);
 	/* Check what transition it was. */
-      if (GPIO_PinInGet(HIJACK_RX_GPIO_PORT, HIJACK_RX_GPIO_PIN))
-      {
-        cur_edge = rising;
-      }
-      else
-      {
-        cur_edge = falling;
-      }
+    if (GPIO_PinInGet(HIJACK_RX_GPIO_PORT, HIJACK_RX_GPIO_PIN))
+    {
+       	cur_edge = rising;
+		BSP_LedSet( 0 );
+    }
+    else
+    {
+      	cur_edge = falling;
+	 	BSP_LedClear( 0 );
+    }
   }
 }
 
@@ -182,22 +181,21 @@ void dec_init(void)
  * 475us < cnt < 510us
  *
  */
-static chk_result_t IsTime2Detect(uint32_t inv)
+static chk_result_t IsTime2Detect(void)
 {
   	chk_result_t ret;
+	uint16_t cnt;
 	
-  	if( inv < HIJACK_DEC_NUM_TICKS_MIN){
-    	offset = inv;
+	cnt = cur_stamp - prv_stamp;
+  	if( cnt < HIJACK_DEC_NUM_TICKS_MIN){
 	    ret = pass;
   	}
-	else if ( ( inv <= HIJACK_DEC_NUM_TICKS_MAX ) && ( inv >= HIJACK_DEC_NUM_TICKS_MIN ) ) {
-		offset = 0;
-		inv = 0;
+	else if ( ( cnt <= HIJACK_DEC_NUM_TICKS_MAX ) && ( cnt >= HIJACK_DEC_NUM_TICKS_MIN ) ) {
+		prv_stamp = cur_stamp;
 	  	ret = suit;
 	}
 	else{
-		offset = 0;
-		inv = 0;
+		prv_stamp = cur_stamp;
 		ret = error;
 	}
 	return ret;
@@ -209,7 +207,7 @@ static chk_result_t IsTime2Detect(uint32_t inv)
 
 static void dec_parser(uint8_t bit_msk, state_t state)
 {
-  	if ( ( suit == IsTime2Detect(inv) ) ){ //it's time to determine
+  	if ( ( suit == IsTime2Detect() ) ){ //it's time to determine
 		if( falling == cur_edge ){
 	  		dec.data &= ~(1 << bit_msk);
 		}
@@ -219,7 +217,7 @@ static void dec_parser(uint8_t bit_msk, state_t state)
 		}
 		dec.state = state;   //state switch
 	}
-	else if ( error == IsTime2Detect(inv) ){   //wait for edge detection time
+	else if ( error == IsTime2Detect() ){   //wait for edge detection time
 		dec.state = Waiting;   //state switch
 	}
 }
@@ -231,25 +229,21 @@ static void dec_parser(uint8_t bit_msk, state_t state)
  */
 void decode_machine(void)
 {
-   	inv = offset + cur_stamp;  //update offset
-
 	switch (dec.state){
 		case Waiting:
          	/* go to start bit if rising edge exist. */
          	if (rising == cur_edge) {
             	dec.state = Sta0;
-            	offset = 0;
-				inv = 0;
          	}
 			break;
 			//
 		case Sta0:
-         	if( ( suit == IsTime2Detect(inv) ) && ( falling == cur_edge ) ){
+         	if( ( suit == IsTime2Detect() ) && ( falling == cur_edge ) ){
 				dec.data = 0;  //clear data field for store new potential data
 				dec.odd = 0;   //clear odd field parity counter
 				dec.state = Bit0;
          	}
-         	else if( error == IsTime2Detect(inv) ){
+         	else if( error == IsTime2Detect() ){
 				dec.state = Waiting;
          	}
 	   		break;
@@ -287,7 +281,7 @@ void decode_machine(void)
 	   		break;
 			//
 		case Parity:
-			if ( ( suit == IsTime2Detect(inv) ) ){ //it's time to determine
+			if ( ( suit == IsTime2Detect() ) ){ //it's time to determine
 				if( rising == cur_edge ){
 				   dec.odd++;
 				}
@@ -298,19 +292,19 @@ void decode_machine(void)
 				   dec.state = Waiting;
 				}
 			 }
-			 else if ( error == IsTime2Detect(inv) ){   //wait for edge detection time
+			 else if ( error == IsTime2Detect() ){   //wait for edge detection time
 				dec.state = Waiting;
 			 }
 			break;
 			//
       	case Sto0:
-         	if ( ( suit == IsTime2Detect(inv) ) ){ //it's time to determine
+         	if ( ( suit == IsTime2Detect() ) ){ //it's time to determine
 				if( rising == cur_edge ){  //stop bit is rising edge
-				   //UART_PutChar(dec.data);
+				   uartPutChar(dec.data);
 				}
 				dec.state = Waiting;
          	}
-         	else if ( error == IsTime2Detect(inv) ){   //wait for edge detection time
+         	else if ( error == IsTime2Detect() ){   //wait for edge detection time
 				dec.state = Waiting;
 			}
          	break;

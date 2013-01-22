@@ -1248,7 +1248,7 @@
         <option>
           <name>CCOptStrategy</name>
           <version>0</version>
-          <state>2</state>
+          <state>0</state>
         </option>
         <option>
           <name>CCOptLevelSlave</name>
@@ -1924,6 +1924,7 @@
       <name>$PROJ_DIR$\..\tg840\decode.c</name>
       <excluded>
         <configuration>Debug</configuration>
+        <configuration>Release</configuration>
       </excluded>
     </file>
     <file>
@@ -1936,6 +1937,7 @@
       <name>$PROJ_DIR$\..\tg840\encode.c</name>
       <excluded>
         <configuration>Debug</configuration>
+        <configuration>Release</configuration>
       </excluded>
     </file>
     <file>

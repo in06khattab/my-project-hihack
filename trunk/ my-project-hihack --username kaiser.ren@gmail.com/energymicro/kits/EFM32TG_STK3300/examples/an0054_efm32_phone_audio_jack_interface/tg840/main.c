@@ -183,7 +183,7 @@ int main(void)
   CHIP_Init();
 
   /* If first word of user data page is non-zero, enable eA Profiler trace */
-  BSP_TraceProfilerSetup();
+  //BSP_TraceProfilerSetup();
 
   /* configure SWO output for debugging. */
   setupSWO();
@@ -195,7 +195,7 @@ int main(void)
   CMU_ClockSelectSet(cmuClock_HF, cmuSelect_HFRCO);
 
   /* Prescale the core clock -> HF/4 = 32/4 = 8Mhz */
-  CMU_ClockDivSet(cmuClock_CORE, cmuClkDiv_4);
+  //CMU_ClockDivSet(cmuClock_CORE, cmuClkDiv_4);
   /* Enable peripheral clocks. */
   CMU_ClockEnable(cmuClock_HFPER, true);
 
@@ -226,21 +226,21 @@ int main(void)
 
   /* print startup. */
   /* Output example information */
-    Debug_Print( "-- HiJack V%d.%02d%c --\r\n", VER_MAJOR, VER_MINOR, VER_PATCH ) ;
-    Debug_Print( "-- Compiled: %s %s --\r\n", __DATE__, __TIME__ ) ;
-    Debug_Print( "-- Platform: EFM32-TGECKO --\r\n" ) ;
+  Debug_Print( "-- HiJack V%d.%02d%c --\r\n", VER_MAJOR, VER_MINOR, VER_PATCH ) ;
+  Debug_Print( "-- Compiled: %s %s --\r\n", __DATE__, __TIME__ ) ;
+  Debug_Print( "-- Platform: EFM32-TGECKO %uHz --\r\n", CMU_ClockFreqGet(cmuClock_HFPER) ) ;
 
   /* While loop sending a range of values upon wakeup.  */
   while(1){
 	if(edge_occur){
 		edge_occur = false;
-		Debug_Print( "%u ", (cur_stamp - prv_stamp) ) ;
-		if(rising == cur_edge)
-			Debug_Print( "r\r\n" ) ;
-		else
-		  	Debug_Print( "f\r\n" ) ;
+		//Debug_Print( "%u ", (cur_stamp - prv_stamp) ) ;
+		//if(rising == cur_edge)
+		//	Debug_Print( "r " ) ;
+		//else
+		//  	Debug_Print( "f " ) ;
 		decode_machine();
 	}
-	EMU_EnterEM1();
+	//EMU_EnterEM1();
   }
 }
