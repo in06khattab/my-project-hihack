@@ -29,7 +29,6 @@
 #define HIJACK_RX_TIMERCLK          cmuClock_TIMER0
 #define HIJACK_RX_GPIO_PORT         gpioPortD
 #define HIJACK_RX_GPIO_PIN          2
-#define HIJACK_TIMER_RESOLUTION     timerPrescale128//8MHz/256, 32us per tick
 
 
 /*----------------------------------------------------------------------------
@@ -72,8 +71,8 @@ typedef enum
  *        External Variable
  *----------------------------------------------------------------------------*/
 extern bool	edge_occur;
-extern uint32_t cur_stamp ;
-extern uint32_t prv_stamp ;
+extern uint16_t cur_stamp ;
+extern uint16_t prv_stamp ;
 extern edge_t 	cur_edge;
 
 /*----------------------------------------------------------------------------
