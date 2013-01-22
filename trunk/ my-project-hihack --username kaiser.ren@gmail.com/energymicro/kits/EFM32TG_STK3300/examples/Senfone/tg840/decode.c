@@ -22,7 +22,7 @@
 /* Driver header file(s). */
 #include "segmentlcd.h"
 #include "main.h"
-#include "hijack_decode.h"
+#include "decode.h"
 #include "com.h"
 
 /*----------------------------------------------------------------------------

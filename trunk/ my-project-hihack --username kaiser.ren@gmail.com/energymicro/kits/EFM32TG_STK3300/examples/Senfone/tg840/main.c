@@ -56,7 +56,7 @@
 
 /* HiJack header file. */
 #include "com.h"
-#include "hijack_decode.h"
+#include "decode.h"
 
 /* Local prototypes */
 void gpioSetup(void);
