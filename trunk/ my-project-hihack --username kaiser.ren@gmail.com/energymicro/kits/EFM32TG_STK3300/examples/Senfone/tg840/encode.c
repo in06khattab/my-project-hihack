@@ -14,7 +14,6 @@
  *        Headers
  *----------------------------------------------------------------------------*/
 #include "encode.h"
-#include "xplained.h"
 
 /*----------------------------------------------------------------------------
  *        Variable
@@ -28,230 +27,210 @@ static uint8_t index_sample = 0;
 /** ticker counter. */
 static uint8_t ticker = 0;
 
-/** channel 0 */
-uint8_t DACC_channel_sine = DACC_CHANNEL_0;
-/** frequency */
-uint16_t frequency = 0;
-/** amplitude */
-uint16_t amplitude = 0;
+/*----------------------------------------------------------------------------
+ *        local functions
+ *----------------------------------------------------------------------------*/
+static void HIJACK_CompareConfig(HIJACK_OutputMode_t outputMode);
 
 /*----------------------------------------------------------------------------
- *        Static functions
+ *        global functions
  *----------------------------------------------------------------------------*/
 void enc_parser(uint8_t bit_msk);
-static void _ConfigureTc0( uint32_t freq );
+
 /*----------------------------------------------------------------------------
  *        ISR Handler
  *----------------------------------------------------------------------------*/
-/**
- *  \brief Interrupt handler for DACC.
- *
- * Server routine when DACC complete the convertion.
- */
-void DAC_IrqHandler(void)
+/***************************************************************************//**
+ * @brief
+ *   Timer1 IRQHandler.
+ ******************************************************************************/
+void TIMER1_IRQHandler(void)
 {
-	uint32_t status ;
+  static volatile uint8_t currentPin = 1;
+  static volatile uint8_t currentSym = 1;
+  static volatile uint8_t txParity = 0;
+  uint8_t tmp;
+  uint32_t irqFlags;
 
-    status = DACC_GetStatus( DACC ) ;
+  /* Clear all pending IRQ flags. */
+  irqFlags = TIMER_IntGet(HIJACK_TX_TIMER);
+  TIMER_IntClear(HIJACK_TX_TIMER, irqFlags);
 
-    /* if conversion is done*/
-    if ( (status & DACC_IER_EOC) == DACC_IER_EOC ){
-		if ( index_sample >= SAMPLES ){
-		  	if(0 == enc.reverse)
-				encode_machine();
-			index_sample = 0;
-			ticker = 0;
-		}
-		else if( ( (SAMPLES/2) == index_sample ) && (Div2 == enc.factor ) ){
-			encode_machine();
-			ticker = 0;
-		}
-		else if( ( (SAMPLES/2) == index_sample ) && ( 1 == enc.reverse ) ){
-		  	enc.reverse = 0;
-			encode_machine();
-			ticker = 0;
-		}
-		DACC->DACC_IDR = DACC_IER_EOC;
-	}
+  /* Reset the counter and the compare value. */
+  TIMER_CounterSet(HIJACK_TX_TIMER, 0);
+  TIMER_CompareSet(HIJACK_TX_TIMER, 0, HIJACK_NUM_TICKS_PER_1US*500);
 
-}
-
-/**
- *  \brief Interrupt handler for UART0.
- *
- */
-void UART0_IrqHandler(void)
-{
-    uint32_t status;
-
-    /* Read USART status*/
-    status = UART0->UART_SR;
-
-    /* Receive byte is stored in buffer. */
-    if ((status & UART_SR_RXRDY) == UART_SR_RXRDY) {
-		if(us1.count < 20){
-	    	us1.buff[us1.head++] = UART_GetChar();
-			us1.count++;
-			if(us1.head >= 20)
-				us1.head = 0;
-	  	}
-		else{
-			us1.buff[us1.head] = UART_GetChar();
-		}
-    }
-}
-
-/**
- *  \brief Interrupt handler for SysTick.
- *
- */
-void SysTick_Handler( void )
-{
-	uint16_t value;
-
+  if (currentPin == 1)
+  {
+    /* First iteration check for symbol. */
+    if( currentSym == 0 )
     {
-		if ( 0 == ( ticker%enc.factor) ){
-			value = sine_data[index_sample++] * amplitude / (MAX_DIGITAL/2) + MAX_DIGITAL/2;
-        	DACC_SetConversionData(DACC, value ) ;
-			DACC->DACC_IER = DACC_IER_EOC;
-		}
-		ticker++;
+      /* Have to set the output pin */
+      HIJACK_CompareConfig(hijackOutputModeSet);
+      currentPin = 2;
     }
+    else
+    {
+      /* Have to reset the pin */
+      HIJACK_CompareConfig(hijackOutputModeClear);
+      currentPin = 2;
+    }
+  }
+  else
+  {
+    /* Second time, just toggle the pin */
+    HIJACK_CompareConfig(hijackOutputModeToggle);
+
+
+    currentPin = 1;
+#if 0
+    switch(txState)
+    {
+    case STARTBIT:
+      currentSym = 0;
+      txState = BYTE;
+      txBit = 0;
+      txParity = 0;
+      break;
+
+    case BYTE:
+
+      if (txBit < 8)
+      {
+        uint8_t tempsendingByteTx = sendingByteTx;
+        currentSym = (tempsendingByteTx >> txBit) & 0x01;
+        txBit++;
+        tmp = txParity;
+        txParity = tmp + currentSym;
+      }
+      else if (txBit == 8)
+      {
+        currentSym = txParity & 0x01;
+        txBit++;
+      }
+      else if (txBit > 8)
+      {
+        /* Next bit is the stop bit. */
+        currentSym = 1;
+        txState = STOPBIT;
+      }
+      break;
+
+    case STOPBIT:
+      /* This is where an application can be signaled that transmit is done. */ 
+      if (pTxDoneFunc != NULL)
+      {
+        pTxDoneFunc();
+      }
+    case IDLE:
+      currentSym = 1;
+      txState = IDLE;
+      break;
+
+    /* These states are not used in TX and default is to do nothing. */
+    case STARTBIT_FALL:
+    case DECODE:
+    default:
+      break;
+    }
+#endif
+  }
 }
 
-/**
- *  \brief Interrupt handler for TC0.
- *
- */
-void TC0_IrqHandler( void )
+/***************************************************************************//**
+ * @brief
+ *   Configure the compare channel for the HiJack.
+ ******************************************************************************/
+static void HIJACK_CompareConfig(HIJACK_OutputMode_t outputMode)
 {
-  	uint32_t status ;
-    status = REG_TC0_SR0 ;
+  TIMER_InitCC_TypeDef txTimerCapComChConf =
+  { timerEventEveryEdge,      /* Event on every capture. */
+    timerEdgeRising,          /* Input capture edge on rising edge. */
+    timerPRSSELCh0,           /* Not used by default, select PRS channel 0. */
+    timerOutputActionNone,    /* No action on underflow. */
+    timerOutputActionNone,    /* No action on overflow. */
+    timerOutputActionSet,     /* No action on match. */
+    timerCCModeCompare,       /* Configure capture channel. */
+    false,                    /* Disable filter. */
+    false,                    /* Select TIMERnCCx input. */
+    true,                     /* Output high when counter disabled. */
+    false                     /* Do not invert output. */
+  };
 
-	if ( (status & TC_SR_CPCS) == TC_SR_CPCS ){
-		XplnLED_Toggle(1);	//LED1 toggle
-	}
 
+  if (hijackOutputModeSet == outputMode)
+  {
+    txTimerCapComChConf.cmoa = timerOutputActionSet;
+  }
+  else if (hijackOutputModeClear == outputMode)
+  {
+    txTimerCapComChConf.cmoa = timerOutputActionClear;
+  }
+  else if (hijackOutputModeToggle == outputMode)
+  {
+    txTimerCapComChConf.cmoa = timerOutputActionToggle;
+  }
+  else
+  {
+    /* Config error. */
+    txTimerCapComChConf.cmoa = timerOutputActionNone;
+  }
+
+  TIMER_InitCC(HIJACK_TX_TIMER, 0, &txTimerCapComChConf);
 }
 
+
 /**
- * \brief DAC initialization.
+ * \brief encode part initial.
  */
 void enc_init(void)
 {
-	/* initialize amplitude and frequency */
-    amplitude = MAX_DIGITAL / 2;
-    frequency = HIJACK_CARRIER_FREQ_CONF;
+  static const TIMER_Init_TypeDef txTimerInit =
+  { false,                  /* Don't enable timer when init complete. */
+    false,                  /* Stop counter during debug halt. */
+    HIJACK_TIMER_RESOLUTION,/* ... */
+    timerClkSelHFPerClk,    /* Select HFPER clock. */
+    false,                  /* Not 2x count mode. */
+    false,                  /* No ATI. */
+    timerInputActionNone,   /* No action on falling input edge. */
+    timerInputActionNone,   /* No action on rising input edge. */
+    timerModeUp,            /* Up-counting. */
+    false,                  /* Do not clear DMA requests when DMA channel is active. */
+    false,                  /* Select X2 quadrature decode mode (if used). */
+    false,                  /* Disable one shot. */
+    false                   /* Not started/stopped/reloaded by other timers. */
+  };
 
-    /*10 us timer*/
-    SysTick_Config( BOARD_MCK / (frequency * SAMPLES) ) ;
-	//_ConfigureTc0( HIJACK_CARRIER_FREQ_8KHZ );
-	//TC_Start( TC0, 0 ) ;
-	
-    /* Initialize DACC */
-    DACC_Initialize( DACC,
-                    ID_DACC,
-                    0, /* Hardware triggers are disabled */
-                    0, /* External trigger */
-                    0, /* Half-Word Transfer */
-                    0, /* Normal Mode (not sleep mode) */
-                    BOARD_MCK,
-                    8, /* refresh period */
-                    0, /* Channel 0 selection */
-                    0, /* Tag Selection Mode disabled */
-                    16 /*  value of the start up time */);
+  /* Ensure core frequency has been updated */
+  SystemCoreClockUpdate();
 
-	/* enable NVIC_DACC. */
-	NVIC_EnableIRQ( DACC_IRQn ) ;
-	NVIC_SetPriority(DACC_IRQn, 5);
-	
-	/* variable initial. */
-	enc.data = 0;
-	enc.state = Waiting;
-	enc.cur = SET;
-	enc.factor = Div1;
-	enc.reverse = 0;
-	ticker = 0;
-	index_sample = 0;
-	
-	/*Enable  channel for potentiometer*/
-    DACC_EnableChannel( DACC, DACC_channel_sine ) ;
+  /* Enable peripheral clocks. */
+  CMU_ClockEnable(cmuClock_HFPER, true);
+  CMU_ClockEnable(HIJACK_TX_TIMERCLK, true); 
 
-    /*initialize the DACC_CDR*/
-    DACC_SetConversionData( DACC,sine_data[90]*amplitude/(MAX_DIGITAL/2)+MAX_DIGITAL/2);
-	 DACC->DACC_IER = DACC_IER_EOC;	//Enable DACC end-of-convertion interrupt
+  /* Configure Rx timer. */
+  TIMER_Init(HIJACK_TX_TIMER, &txTimerInit);
+
+  /* Configure Tx timer output compare channel 0. */
+  HIJACK_CompareConfig(hijackOutputModeToggle);
+  TIMER_CompareSet(HIJACK_TX_TIMER, 0, HIJACK_NUM_TICKS_PER_1US*500);
+
+  /* Route the capture channels to the correct pins, enable CC0. */
+  HIJACK_TX_TIMER->ROUTE = TIMER_ROUTE_LOCATION_LOC4 | TIMER_ROUTE_CC0PEN;
+ 
+  /* Tx: Configure the corresponding GPIO pin (PortD, Ch6) as an input. */
+  GPIO_PinModeSet(HIJACK_TX_GPIO_PORT, HIJACK_TX_GPIO_PIN, gpioModePushPull, 0);  
+
+  /* Enable Tx timer CC0 interrupt. */
+  NVIC_EnableIRQ(TIMER1_IRQn);
+  TIMER_IntEnable(HIJACK_TX_TIMER, TIMER_IF_CC0);
+
+  /* Enable the timer. */
+  TIMER_Enable(HIJACK_TX_TIMER, true);
 }
 
-/*----------------------------------------------------------------------------
- *        Exported functions
- *----------------------------------------------------------------------------*/
-/**
- *  \brief TC0 configuration
- *
- * Configures Timer Counter 0 (TC0) to generate an interrupt every second. This
- * interrupt will be used to display the number of bytes received on the USART.
- */
 
-static void _ConfigureTc0( uint32_t freq )
-{
-    /* Enable TC0 peripheral clock*/
-    PMC_EnablePeripheral( ID_TC0 ) ;
 
-    /*
-	 	CLK SRC: MCK/2, 64MHz/2 = 32MHz.
-	 	RC Compare trigger, RC Compare resets the counter and starts the counter clock.
-	 */
-    TC_Configure( TC0, 0, TC_CMR_TCCLKS_TIMER_CLOCK1 | TC_CMR_CPCTRG ) ;
-
-    TC0->TC_CHANNEL[0].TC_RC = 32*100 ;
-
-    /* Configure interrupt on RC compare*/
-    TC0->TC_CHANNEL[0].TC_IER = TC_SR_CPCS ;
-
-	NVIC_DisableIRQ( TC0_IRQn ) ;
-    NVIC_ClearPendingIRQ( TC0_IRQn ) ;
-    NVIC_SetPriority( TC0_IRQn, 0 ) ;
-    NVIC_EnableIRQ( TC0_IRQn ) ;
-
-}
-
-/**
- *  \brief UART0 hardware configuration
- *
- * Configures UART0 in hardware handshaking mode, asynchronous, 8 bits, 1 stop
- * bit, no parity, 115200 bauds and enables its transmitter and receiver.
- */
-void _ConfigureCom( void )
-{
-  	/* Enaboe UART0 interrupt*/
-    NVIC_EnableIRQ( UART0_IRQn ) ;
-	/* Enable UART0 RXREADY interrupt. */
-	UART0->UART_IER = UART_IER_RXRDY ;
-}
-/*
- * Get us1 buffer amount.
-*/
-uint8_t us1_get_count(void)
-{
-  	return (us1.count);
-}
-
-/*
- * Get a charactors.
-*/
-uint8_t us1_get_char(void)
-{
-  	uint8_t temp;
-	
-	if(us1.count){
-    	temp = us1.buff[us1.tail++];
-		us1.count--;
-		if(us1.tail >= 20){
-			us1.tail = 0;
-		}
-  	}
-    return temp;
-}
 /*
  * Find proper factor depending on state and bit mask.
 */

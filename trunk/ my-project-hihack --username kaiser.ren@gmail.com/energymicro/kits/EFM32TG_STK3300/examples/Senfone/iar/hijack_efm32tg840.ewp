@@ -1924,16 +1924,17 @@
       <name>$PROJ_DIR$\..\tg840\decode.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\tg840\decode.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\tg840\encode.c</name>
       <excluded>
-        <configuration>Debug</configuration>
         <configuration>Release</configuration>
       </excluded>
     </file>
     <file>
       <name>$PROJ_DIR$\..\tg840\encode.h</name>
       <excluded>
-        <configuration>Debug</configuration>
         <configuration>Release</configuration>
       </excluded>
     </file>
