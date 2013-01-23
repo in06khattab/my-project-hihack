@@ -120,9 +120,9 @@ uint8_t uartGetChar( )
   uint8_t ch;
 
   /* Check if there is a byte that is ready to be fetched. If no byte is ready, wait for incoming data */
-  if (rxBuf.pendingBytes < 1)
+  //if (rxBuf.pendingBytes < 1)
   {
-    while (rxBuf.pendingBytes < 1) ;
+    //while (rxBuf.pendingBytes < 1) ;
   }
 
   /* Copy data from buffer */
@@ -196,6 +196,14 @@ void uartPutData(uint8_t * dataPtr, uint32_t dataLen)
   USART_IntEnable(uart, USART_IF_TXBL);
 }
 
+/******************************************************************************
+ * @brief  uartGetAmount function
+ *
+ *****************************************************************************/
+uint32_t uartGetAmount(void)
+{
+	return(rxBuf.pendingBytes);
+}
 /******************************************************************************
  * @brief  uartGetData function
  *

@@ -28,8 +28,8 @@
 /*----------------------------------------------------------------------------
  *        Macro
  *----------------------------------------------------------------------------*/
-#define HIJACK_DEC_NUM_TICKS_MAX	(HIJACK_NUM_TICKS_PER_1US*1200ul)
-#define HIJACK_DEC_NUM_TICKS_MIN	(HIJACK_NUM_TICKS_PER_1US*700ul)
+#define HIJACK_DEC_NUM_TICKS_MAX	(HIJACK_NUM_TICKS_PER_1US*(HIJACK_DEC_CARRIER_FREQ_CONF + HIJACK_DEC_CARRIER_FREQ_CONF/5))
+#define HIJACK_DEC_NUM_TICKS_MIN	(HIJACK_NUM_TICKS_PER_1US*(HIJACK_DEC_CARRIER_FREQ_CONF - HIJACK_DEC_CARRIER_FREQ_CONF/5))
 
 /*----------------------------------------------------------------------------
  *        Macro

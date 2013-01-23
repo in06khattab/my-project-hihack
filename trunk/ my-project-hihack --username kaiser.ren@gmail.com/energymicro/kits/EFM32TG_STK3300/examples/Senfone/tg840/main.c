@@ -159,8 +159,6 @@ int main(void)
   /* Select clock source for HF clock. */
   CMU_ClockSelectSet(cmuClock_HF, cmuSelect_HFRCO);
 
-  /* Prescale the core clock -> HF/4 = 32/4 = 8Mhz */
-  //CMU_ClockDivSet(cmuClock_CORE, cmuClkDiv_4);
   /* Enable peripheral clocks. */
   CMU_ClockEnable(cmuClock_HFPER, true);
 
