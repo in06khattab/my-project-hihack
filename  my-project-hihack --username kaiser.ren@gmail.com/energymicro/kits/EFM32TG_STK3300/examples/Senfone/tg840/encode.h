@@ -21,11 +21,33 @@
 #include <stdio.h>
 #include <assert.h>
 #include "main.h"
-//#include "board.h"
+/* Chip specific header file(s). */
+#include "em_cmu.h"
+#include "em_gpio.h"
+#include "em_timer.h"
+#include "em_int.h"
 
 /*----------------------------------------------------------------------------
  *        Typedef
  *----------------------------------------------------------------------------*/
+/* HiJack states. */
+typedef enum
+{
+  STARTBIT = 0U,
+  STARTBIT_FALL,
+  DECODE,
+  STOPBIT,
+  BYTE,
+  IDLE,
+} HIJACK_State_t;
+
+typedef enum
+{
+  hijackOutputModeSet = 0,
+  hijackOutputModeClear,
+  hijackOutputModeToggle
+} HIJACK_OutputMode_t;
+
 typedef enum next_bit_tag
 {
 	CLR = 0,
@@ -47,25 +69,14 @@ typedef struct module_tag
 	uint8_t		reverse;
 }encode_t;
 
-typedef struct _usart_rx_tag
-{
-  	uint8_t count;
-	uint8_t head;
-	uint8_t tail;
-	uint8_t buff[20];
-}us_rx_t;
-
 /*----------------------------------------------------------------------------
  *        Macros
  *----------------------------------------------------------------------------*/
-/** Reference voltage for DACC,in mv*/
-#define VOLT_REF   (3300)
-
-/** The maximal digital value*/
-#define MAX_DIGITAL (4095)
-
-/** SAMPLES per cycle*/
-#define SAMPLES (100)
+#define HIJACK_TX_TIMER             TIMER1
+#define HIJACK_TX_TIMERCLK          cmuClock_TIMER1
+#define HIJACK_TX_GPIO_PORT         gpioPortD
+#define HIJACK_TX_GPIO_PIN          6
+#define HIJACK_TX_INTERVAL          (45)
 
 /*----------------------------------------------------------------------------
  *        External Variable
@@ -73,10 +84,6 @@ typedef struct _usart_rx_tag
 //extern encode_t enc;
 //extern uint8_t index_sample;
 //extern uint8_t ticker;
-extern us_rx_t us1;
-extern const int16_t sine_data[SAMPLES];
-extern uint16_t amplitude ;
-extern uint16_t frequency ;
 
 /*----------------------------------------------------------------------------
  *        External Function
