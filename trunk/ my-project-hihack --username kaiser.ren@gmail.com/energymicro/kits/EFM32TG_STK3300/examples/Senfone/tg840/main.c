@@ -198,13 +198,8 @@ int main(void)
   while(1){
 	if(edge_occur){
 		edge_occur = false;
-		//Debug_Print( "%u ", cur_stamp ) ;
-		//if(rising == cur_edge)
-		//	Debug_Print( "r " ) ;
-		//else
-		//  	Debug_Print( "f " ) ;
 		decode_machine();
 	}
-	//EMU_EnterEM1();
+	EMU_EnterEM1();
   }
 }

@@ -129,7 +129,9 @@ void TC0_IrqHandler( void )
     status = REG_TC0_SR0 ;
 
 	if ( (status & TC_SR_CPCS) == TC_SR_CPCS ){
+#if defined	__SAM4S16C__
 		XplnLED_Toggle(1);	//LED1 toggle
+#endif
 	}
 
 }

@@ -75,12 +75,12 @@ void TIMER0_IRQHandler(void)
     if (GPIO_PinInGet(HIJACK_RX_GPIO_PORT, HIJACK_RX_GPIO_PIN))
     {
        	cur_edge = rising;
-		BSP_LedSet( 0 );
+		//BSP_LedSet( 0 );
     }
     else
     {
       	cur_edge = falling;
-	 	BSP_LedClear( 0 );
+	 	//BSP_LedClear( 0 );
     }
   }
 }
