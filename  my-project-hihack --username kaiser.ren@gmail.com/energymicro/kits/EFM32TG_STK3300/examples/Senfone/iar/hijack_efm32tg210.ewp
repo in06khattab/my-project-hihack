@@ -1928,15 +1928,9 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\tg210\encode.c</name>
-      <excluded>
-        <configuration>Debug</configuration>
-      </excluded>
     </file>
     <file>
       <name>$PROJ_DIR$\..\tg210\encode.h</name>
-      <excluded>
-        <configuration>Debug</configuration>
-      </excluded>
     </file>
     <file>
       <name>$PROJ_DIR$\..\tg210\main.c</name>

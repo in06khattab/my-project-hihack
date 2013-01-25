@@ -65,6 +65,7 @@ void uartPutChar(uint8_t ch);
 void uartPutData(uint8_t * dataPtr, uint32_t dataLen);
 uint32_t uartGetData(uint8_t * dataPtr, uint32_t dataLen);
 void Debug_Print(const char *format, ...);
+uint32_t uartGetAmount(void);
 
 /** @} (end addtogroup HiJack) */
 /** @} (end addtogroup App_Notes) */

@@ -21,51 +21,55 @@
 #include <stdio.h>
 #include <assert.h>
 #include "main.h"
-//#include "board.h"
+#include "decode.h"
+/* Chip specific header file(s). */
+#include "em_cmu.h"
+#include "em_gpio.h"
+#include "em_timer.h"
+#include "em_int.h"
 
+/*----------------------------------------------------------------------------
+ *        Macros
+ *----------------------------------------------------------------------------*/
+#define HIJACK_TX_TIMER             TIMER1
+#define HIJACK_TX_TIMERCLK          cmuClock_TIMER1
+#define HIJACK_TX_GPIO_PORT         gpioPortD
+#define HIJACK_TX_GPIO_PIN          6
+
+
+/* several carrier frequency definition. */
+#define HIJACK_ENC_CARRIER_FREQ_1KHZ	1000ul
+#define HIJACK_ENC_CARRIER_FREQ_2KHZ	2000ul
+#define HIJACK_ENC_CARRIER_FREQ_4KHZ	4000ul
+#define HIJACK_ENC_CARRIER_FREQ_8KHZ	8000ul
+
+/* current carrier frequency definition. */
+#define HIJACK_ENC_CARRIER_FREQ_CONF HIJACK_ENC_CARRIER_FREQ_1KHZ
 /*----------------------------------------------------------------------------
  *        Typedef
  *----------------------------------------------------------------------------*/
+
+typedef enum
+{
+  hijackOutputModeSet = 0,
+  hijackOutputModeClear,
+  hijackOutputModeToggle
+} HIJACK_OutputMode_t;
+
 typedef enum next_bit_tag
 {
 	CLR = 0,
 	SET = 1
 }next_bit_t;
 
-typedef enum factor_tag
-{
-	Div1 = 1,
-	Div2 = 2  	
-}factor_t;
-
 typedef struct module_tag
 {
   	uint8_t 	data;
 	state_t state;
-	next_bit_t  cur;
-    factor_t	factor;
-	uint8_t		reverse;
+	uint8_t port;
+	uint8_t byte_rev;
+	edge_t edge;
 }encode_t;
-
-typedef struct _usart_rx_tag
-{
-  	uint8_t count;
-	uint8_t head;
-	uint8_t tail;
-	uint8_t buff[20];
-}us_rx_t;
-
-/*----------------------------------------------------------------------------
- *        Macros
- *----------------------------------------------------------------------------*/
-/** Reference voltage for DACC,in mv*/
-#define VOLT_REF   (3300)
-
-/** The maximal digital value*/
-#define MAX_DIGITAL (4095)
-
-/** SAMPLES per cycle*/
-#define SAMPLES (100)
 
 /*----------------------------------------------------------------------------
  *        External Variable
@@ -73,10 +77,6 @@ typedef struct _usart_rx_tag
 //extern encode_t enc;
 //extern uint8_t index_sample;
 //extern uint8_t ticker;
-extern us_rx_t us1;
-extern const int16_t sine_data[SAMPLES];
-extern uint16_t amplitude ;
-extern uint16_t frequency ;
 
 /*----------------------------------------------------------------------------
  *        External Function

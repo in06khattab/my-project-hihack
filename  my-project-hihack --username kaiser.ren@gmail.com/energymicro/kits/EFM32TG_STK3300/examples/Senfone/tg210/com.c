@@ -47,8 +47,8 @@ uint8_t 		appPrintBuf[50];
  *******************************   STATICS   ***********************************
  ******************************************************************************/
 
-/* Setup USART1 in async mode for RS232*/
-static USART_TypeDef           * uart   = USART1;
+/* Setup USART0 in async mode for RS232*/
+static USART_TypeDef           * uart   = USART0;
 static USART_InitAsync_TypeDef uartInit = USART_INITASYNC_DEFAULT;
 
 
@@ -64,18 +64,18 @@ static USART_InitAsync_TypeDef uartInit = USART_INITASYNC_DEFAULT;
 
 /***************************************************************************//**
  * @brief
- *   Initialize com port USART1.
+ *   Initialize com port USART0.
  ******************************************************************************/
 void COM_Init(void)
 {
   /* Enable clock for USART module */
-  CMU_ClockEnable(cmuClock_USART1, true);
+  CMU_ClockEnable(cmuClock_USART0, true);
 
   /* Enable clock for GPIO module (required for pin configuration) */
   CMU_ClockEnable(cmuClock_GPIO, true);
   /* Configure GPIO pins */
-  GPIO_PinModeSet(gpioPortD, 0, gpioModePushPull, 1);
-  GPIO_PinModeSet(gpioPortD, 1, gpioModeInput, 0);
+  GPIO_PinModeSet(gpioPortE, 10, gpioModePushPull, 1);
+  GPIO_PinModeSet(gpioPortE, 11, gpioModeInput, 0);
 
 
   /* Prepare struct for initializing UART in asynchronous mode*/
@@ -96,13 +96,13 @@ void COM_Init(void)
   /* Prepare UART Rx and Tx interrupts */
   USART_IntClear(uart, _USART_IF_MASK);
   USART_IntEnable(uart, USART_IF_RXDATAV);
-  NVIC_ClearPendingIRQ(USART1_RX_IRQn);
-  NVIC_ClearPendingIRQ(USART1_TX_IRQn);
-  NVIC_EnableIRQ(USART1_RX_IRQn);
-  NVIC_EnableIRQ(USART1_TX_IRQn);
+  NVIC_ClearPendingIRQ(USART0_RX_IRQn);
+  NVIC_ClearPendingIRQ(USART0_TX_IRQn);
+  NVIC_EnableIRQ(USART0_RX_IRQn);
+  NVIC_EnableIRQ(USART0_TX_IRQn);
 
-  /* Enable I/O pins at USART1 location #1 */
-  uart->ROUTE = USART_ROUTE_RXPEN | USART_ROUTE_TXPEN | USART_ROUTE_LOCATION_LOC1;
+  /* Enable I/O pins at USART0 location #1 */
+  uart->ROUTE = USART_ROUTE_RXPEN | USART_ROUTE_TXPEN | USART_ROUTE_LOCATION_LOC0;
 
   /* Enable UART */
   USART_Enable(uart, usartEnable);
@@ -120,9 +120,9 @@ uint8_t uartGetChar( )
   uint8_t ch;
 
   /* Check if there is a byte that is ready to be fetched. If no byte is ready, wait for incoming data */
-  if (rxBuf.pendingBytes < 1)
+  //if (rxBuf.pendingBytes < 1)
   {
-    while (rxBuf.pendingBytes < 1) ;
+    //while (rxBuf.pendingBytes < 1) ;
   }
 
   /* Copy data from buffer */
@@ -197,6 +197,14 @@ void uartPutData(uint8_t * dataPtr, uint32_t dataLen)
 }
 
 /******************************************************************************
+ * @brief  uartGetAmount function
+ *
+ *****************************************************************************/
+uint32_t uartGetAmount(void)
+{
+	return(rxBuf.pendingBytes);
+}
+/******************************************************************************
  * @brief  uartGetData function
  *
  *****************************************************************************/
@@ -230,14 +238,14 @@ uint32_t uartGetData(uint8_t * dataPtr, uint32_t dataLen)
 }
 
 /**************************************************************************//**
- * @brief USART1 RX IRQ Handler
+ * @brief USART0 RX IRQ Handler
  *
  * Set up the interrupt prior to use
  *
  * Note that this function handles overflows in a very simple way.
  *
  *****************************************************************************/
-void USART1_RX_IRQHandler(void)
+void USART0_RX_IRQHandler(void)
 {
   /* Check for RX data valid interrupt */
   if (uart->STATUS & USART_STATUS_RXDATAV)
@@ -255,20 +263,20 @@ void USART1_RX_IRQHandler(void)
     }
 
     /* Clear RXDATAV interrupt */
-    USART_IntClear(USART1, USART_IF_RXDATAV);
+    USART_IntClear(USART0, USART_IF_RXDATAV);
   }
 }
 
 /**************************************************************************//**
- * @brief USART1 TX IRQ Handler
+ * @brief USART0 TX IRQ Handler
  *
  * Set up the interrupt prior to use
  *
  *****************************************************************************/
-void USART1_TX_IRQHandler(void)
+void USART0_TX_IRQHandler(void)
 {
   /* Clear interrupt flags by reading them. */
-  USART_IntGet(USART1);
+  USART_IntGet(USART0);
 
   /* Check TX buffer level status */
   if (uart->STATUS & USART_STATUS_TXBL)
