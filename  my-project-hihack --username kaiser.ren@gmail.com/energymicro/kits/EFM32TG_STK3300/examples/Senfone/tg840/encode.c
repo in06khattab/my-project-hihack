@@ -28,7 +28,7 @@ static uint8_t dbg_led = 0 ;
 /*----------------------------------------------------------------------------
  *        global variable
  *----------------------------------------------------------------------------*/
-uint8_t ticker = 0 ;
+uint32_t ticker = 0 ;
 
 /*----------------------------------------------------------------------------
  *        local functions
@@ -58,9 +58,12 @@ void TIMER1_IRQHandler(void)
   irqFlags = TIMER_IntGet(HIJACK_TX_TIMER);
   TIMER_IntClear(HIJACK_TX_TIMER, irqFlags);
 
+  ticker++;
+
   /* Reset the counter and the compare value. */
   TIMER_CounterSet(HIJACK_TX_TIMER, 0);
   TIMER_CompareSet(HIJACK_TX_TIMER, 0, 500ul*HIJACK_NUM_TICKS_PER_1US*HIJACK_ENC_CARRIER_FREQ_1KHZ/HIJACK_ENC_CARRIER_FREQ_CONF);
+  //BSP_LedToggle(0);
 
   encode_machine();
 }
@@ -134,7 +137,7 @@ void enc_init(void)
 
   /* Enable peripheral clocks. */
   CMU_ClockEnable(cmuClock_HFPER, true);
-  CMU_ClockEnable(HIJACK_TX_TIMERCLK, true); 
+  CMU_ClockEnable(HIJACK_TX_TIMERCLK, true);
 
   /* Configure Rx timer. */
   TIMER_Init(HIJACK_TX_TIMER, &txTimerInit);
@@ -145,9 +148,9 @@ void enc_init(void)
 
   /* Route the capture channels to the correct pins, enable CC0. */
   HIJACK_TX_TIMER->ROUTE = TIMER_ROUTE_LOCATION_LOC4 | TIMER_ROUTE_CC0PEN;
- 
+
   /* Tx: Configure the corresponding GPIO pin (PortD, Ch6) as an input. */
-  GPIO_PinModeSet(HIJACK_TX_GPIO_PORT, HIJACK_TX_GPIO_PIN, gpioModePushPull, 0);  
+  GPIO_PinModeSet(HIJACK_TX_GPIO_PORT, HIJACK_TX_GPIO_PIN, gpioModePushPull, 0);
 
   /* Enable Tx timer CC0 interrupt. */
   NVIC_EnableIRQ(TIMER1_IRQn);
