@@ -155,7 +155,7 @@ void waitForBootOrUSART(void)
      *             to enter bootloader mode.
      */
     /* Check input pins */
-    SWDpins = GPIO->P[5].DIN & 0x1;
+    SWDpins = GPIO->P[5].DIN | 0x1;
 
 #ifndef NDEBUG
     if (oldPins != SWDpins)
@@ -405,10 +405,10 @@ int main(void)
 
   /* Change to 28MHz internal osciallator to increase speed of
    * bootloader */
-  tuning = (DEVINFO->HFRCOCAL1 & _DEVINFO_HFRCOCAL1_BAND28_MASK)
-           >> _DEVINFO_HFRCOCAL1_BAND28_SHIFT;
+  //tuning = (DEVINFO->HFRCOCAL1 & _DEVINFO_HFRCOCAL1_BAND28_MASK)
+  //         >> _DEVINFO_HFRCOCAL1_BAND28_SHIFT;
 
-  CMU->HFRCOCTRL = CMU_HFRCOCTRL_BAND_28MHZ | tuning;
+  //CMU->HFRCOCTRL = CMU_HFRCOCTRL_BAND_28MHZ | tuning;
   /* Wait for the HFRCO to stabilize. This ensures that the period
    * we measure in the autobaud sequence is accurate and not affected
    * by the bootloader being inaccurate. */
@@ -416,14 +416,15 @@ int main(void)
 
 #ifndef NDEBUG
   /* Calculate new clock division based on the 28Mhz clock */
-  DEBUG_USART->CLKDIV = 3634;
+  DEBUG_USART->CLKDIV = 5573;
 #endif
 
   /* Setup pins for USART */
   CONFIG_UsartGpioSetup();
 
   /* AUTOBAUD_sync() returns a value in 24.8 fixed point format */
-  periodTime24_8 = AUTOBAUD_sync();
+  //periodTime24_8 = AUTOBAUD_sync();
+  periodTime24_8 = 2000;
 #ifndef NDEBUG
   printf("Autobaud complete.\r\n");
   printf("Measured periodtime (24.8): %d.%d\r\n", periodTime24_8 >> 8, periodTime24_8 & 0xFF);
@@ -441,15 +442,15 @@ int main(void)
   /* To go from the period to the necessary clkdiv we need to use
    * Equation 16.2 in the reference manual. Note that
    * periodTime = HFperclk / baudrate */
-  clkdiv = (periodTime24_8 - (16 << 8)) >> 4;
+  //clkdiv = (periodTime24_8 - (16 << 8)) >> 4;
 
   /* Check if the clock division is too small, if it is, we change
    * to an oversampling rate of 4x and calculate a new clkdiv.
    */
-  if (clkdiv < 3000)
+  //if (clkdiv < 3000)
   {
-    clkdiv = (periodTime24_8 - (4 << 8)) >> 2;
-    BOOTLOADER_USART->CTRL |= USART_CTRL_OVS_X4;
+    clkdiv = 5705;
+    BOOTLOADER_USART->CTRL |= USART_CTRL_OVS_X16;
   }
 #endif
 #ifndef NDEBUG
@@ -461,6 +462,9 @@ int main(void)
 
   /* Print a message to show that we are in bootloader mode */
   USART_printString("\r\n\r\n" BOOTLOADER_VERSION_STRING  "ChipID: ");
+#ifndef NDEBUG
+  printf("\r\n\r\n 1.63\r\n  ");
+#endif
   /* Print the chip ID. This is useful for production tracking */
   USART_printHex(DEVINFO->UNIQUEH);
   USART_printHex(DEVINFO->UNIQUEL);

@@ -44,14 +44,14 @@ void DEBUG_init(void)
 
   /* Set clock division. We need 115200 bps, while the core is running
    * at 14 MHz. Using equation 16.2 the CLKDIV must be set to 1688 */
-  DEBUG_USART->CLKDIV = 1688;
+  DEBUG_USART->CLKDIV = 5573;
 
   /* Use default location 0: TX - pin C0, RX - pin C1 */
   DEBUG_USART->ROUTE = USART_ROUTE_RXPEN | USART_ROUTE_TXPEN
                   | DEBUG_USART_LOCATION;
 
   CONFIG_DebugGpioSetup();
-  
+
   /* Clear RX/TX buffers */
   DEBUG_USART->CMD = USART_CMD_CLEARRX | USART_CMD_CLEARTX;
   /* Enable RX/TX */

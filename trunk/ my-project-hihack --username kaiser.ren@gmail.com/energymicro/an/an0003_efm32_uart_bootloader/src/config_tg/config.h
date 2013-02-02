@@ -61,15 +61,15 @@
 /** USART used for debugging. */
 #define DEBUG_USART                USART1
 #define DEBUG_USART_CLOCK          CMU_HFPERCLKEN0_USART1
-#define DEBUG_USART_LOCATION       USART_ROUTE_LOCATION_LOC0
+#define DEBUG_USART_LOCATION       USART_ROUTE_LOCATION_LOC1
 
 
 /** This function sets up the GPIO setting for the debug output. */
 static __INLINE void CONFIG_DebugGpioSetup(void)
 {
   /* Avoid false start by setting output as high */
-  GPIO->P[2].DOUT  = (1 << 0);
-  GPIO->P[2].MODEL = GPIO_P_MODEL_MODE0_PUSHPULL | GPIO_P_MODEL_MODE1_INPUT;
+  GPIO->P[3].DOUT  = (1 << 0);
+  GPIO->P[3].MODEL = GPIO_P_MODEL_MODE0_PUSHPULL | GPIO_P_MODEL_MODE1_INPUT;
 }
 
 /** This function sets up GPIO for the USART used in the bootloader. */
