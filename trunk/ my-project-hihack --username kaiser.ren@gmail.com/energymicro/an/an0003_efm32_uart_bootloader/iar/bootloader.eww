@@ -1,18 +1,13 @@
-<?xml version ="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <workspace>
-  <project>
-    <path>$WS_DIR$\bootloader-gecko.ewp</path>
-  </project>
   <project>
     <path>$WS_DIR$\bootloader-tg.ewp</path>
   </project>
   <project>
     <path>$WS_DIR$\bootloader-tg-small.ewp</path>
   </project>
-  <project>
-    <path>$WS_DIR$\bootloader-giant.ewp</path>
-  </project>
-
   <batchBuild/>
 </workspace>
+
+

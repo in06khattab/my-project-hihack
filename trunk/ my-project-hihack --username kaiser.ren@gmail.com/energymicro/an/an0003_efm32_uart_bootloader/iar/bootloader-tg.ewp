@@ -1485,7 +1485,7 @@
         <option>
           <name>OOCOutputFormat</name>
           <version>2</version>
-          <state>2</state>
+          <state>1</state>
         </option>
         <option>
           <name>OCOutputOverride</name>
@@ -1493,7 +1493,7 @@
         </option>
         <option>
           <name>OOCOutputFile</name>
-          <state>bootloader-tg.bin</state>
+          <state>bootloader-tg.hex</state>
         </option>
         <option>
           <name>OOCCommandLineProducer</name>
@@ -1878,6 +1878,9 @@
       <name>$PROJ_DIR$\..\src\xmodem.c</name>
     </file>
   </group>
+  <file>
+    <name>$PROJ_DIR$\..\iar_linker_files\EFM32TG840F32.icf</name>
+  </file>
 </project>
 
 
