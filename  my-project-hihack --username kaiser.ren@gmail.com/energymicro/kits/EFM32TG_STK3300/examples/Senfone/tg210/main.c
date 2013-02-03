@@ -1,43 +1,7 @@
 /**************************************************************************//**
  * @file main.c
- * @brief Hijack demo for EFM32TG_STK3300
- * @version 1.01
- ******************************************************************************
- * @section License
- ******************************************************************************
- *
- * Copyright (c) 2010 The Regents of the University of Michigan, Energy Micro 2012
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- * - Redistributions of source code must retain the above copyright
- *  notice, this list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright
- *  notice, this list of conditions and the following disclaimer in the
- *  documentation and/or other materials provided with the
- *  distribution.
- * - Neither the name of the copyright holder nor the names of
- *  its contributors may be used to endorse or promote products derived
- *  from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
- * FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL
- * THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
- * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
- * OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * Author: Thomas Schmid
- * Modified by Energy Micro (2012).
+ * @brief sensorfone
+ * Author: kaiser ren
  *****************************************************************************/
 
 #include <stdint.h>
@@ -57,6 +21,7 @@
 /* HiJack header file. */
 #include "com.h"
 #include "decode.h"
+#include "encode.h"
 
 /* Local prototypes */
 void gpioSetup(void);
@@ -194,8 +159,6 @@ int main(void)
   /* Select clock source for HF clock. */
   CMU_ClockSelectSet(cmuClock_HF, cmuSelect_HFRCO);
 
-  /* Prescale the core clock -> HF/4 = 32/4 = 8Mhz */
-  //CMU_ClockDivSet(cmuClock_CORE, cmuClkDiv_4);
   /* Enable peripheral clocks. */
   CMU_ClockEnable(cmuClock_HFPER, true);
 
@@ -211,22 +174,13 @@ int main(void)
   /* Initialize LED driver */
   BSP_LedsInit();
 
-  /* Init Segment LCD without boost. */
-  SegmentLCD_Init(false);
-
-  /* Turn on relevant symbols on the LCD. */
-  SegmentLCD_Symbol(LCD_SYMBOL_GECKO, true);
-  SegmentLCD_Symbol(LCD_SYMBOL_ANT, true);
-
-  /* Print welcome text on the LCD. */
-  SegmentLCD_Write("HiJack");
-
   /* dec part initial. */
   dec_init();
+  enc_init();
 
   /* print startup. */
   /* Output example information */
-  Debug_Print( "-- HiJack V%d.%02d%c --\r\n", VER_MAJOR, VER_MINOR, VER_PATCH ) ;
+  Debug_Print( "-- senfone V%d.%02d%c --\r\n", VER_MAJOR, VER_MINOR, VER_PATCH ) ;
   Debug_Print( "-- Compiled: %s %s --\r\n", __DATE__, __TIME__ ) ;
   Debug_Print( "-- Platform: EFM32-TGECKO %uHz --\r\n", CMU_ClockFreqGet(cmuClock_HFPER) ) ;
 
@@ -234,13 +188,8 @@ int main(void)
   while(1){
 	if(edge_occur){
 		edge_occur = false;
-		//Debug_Print( "%u ", cur_stamp ) ;
-		//if(rising == cur_edge)
-		//	Debug_Print( "r " ) ;
-		//else
-		//  	Debug_Print( "f " ) ;
 		decode_machine();
 	}
-	//EMU_EnterEM1();
+	EMU_EnterEM1();
   }
 }

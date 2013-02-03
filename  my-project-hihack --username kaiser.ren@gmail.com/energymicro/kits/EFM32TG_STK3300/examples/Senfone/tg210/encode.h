@@ -33,8 +33,8 @@
  *----------------------------------------------------------------------------*/
 #define HIJACK_TX_TIMER             TIMER1
 #define HIJACK_TX_TIMERCLK          cmuClock_TIMER1
-#define HIJACK_TX_GPIO_PORT         gpioPortD
-#define HIJACK_TX_GPIO_PIN          6
+#define HIJACK_TX_GPIO_PORT         gpioPortB
+#define HIJACK_TX_GPIO_PIN          7
 
 
 /* several carrier frequency definition. */

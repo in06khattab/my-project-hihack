@@ -146,10 +146,10 @@ void enc_init(void)
   HIJACK_CompareConfig(hijackOutputModeToggle);
   TIMER_CompareSet(HIJACK_TX_TIMER, 0, 500ul*HIJACK_NUM_TICKS_PER_1US*HIJACK_ENC_CARRIER_FREQ_1KHZ/HIJACK_ENC_CARRIER_FREQ_CONF);
 
-  /* Route the capture channels to the correct pins, enable CC0. */
-  HIJACK_TX_TIMER->ROUTE = TIMER_ROUTE_LOCATION_LOC4 | TIMER_ROUTE_CC0PEN;
+  /* Route the capture channels to the correct pins, enable CC3. */
+  HIJACK_TX_TIMER->ROUTE = TIMER_ROUTE_LOCATION_LOC3 | TIMER_ROUTE_CC0PEN;
 
-  /* Tx: Configure the corresponding GPIO pin (PortD, Ch6) as an input. */
+  /* Tx: Configure the corresponding GPIO pin (PortB, Ch7) as an input. */
   GPIO_PinModeSet(HIJACK_TX_GPIO_PORT, HIJACK_TX_GPIO_PIN, gpioModePushPull, 0);
 
   /* Enable Tx timer CC0 interrupt. */
