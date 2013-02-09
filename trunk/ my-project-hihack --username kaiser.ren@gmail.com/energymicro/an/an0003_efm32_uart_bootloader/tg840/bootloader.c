@@ -463,9 +463,6 @@ int main(void)
 
   /* Print a message to show that we are in bootloader mode */
   USART_printString("\r\n\r\n" BOOTLOADER_VERSION_STRING  "ChipID: ");
-#ifndef NDEBUG
-  printf("\r\n\r\n 1.63\r\n  ");
-#endif
   /* Print the chip ID. This is useful for production tracking */
   USART_printHex(DEVINFO->UNIQUEH);
   USART_printHex(DEVINFO->UNIQUEL);
