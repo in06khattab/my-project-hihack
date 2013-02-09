@@ -164,7 +164,7 @@
         <debug>1</debug>
         <option>
           <name>CCDefines</name>
-          <state>EFM32TG210F8</state>
+          <state>EFM32TG840F32</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -295,8 +295,8 @@
           <name>CCIncludePath2</name>
           <state>$PROJ_DIR$\..\..\..\CMSIS\Include</state>
           <state>$PROJ_DIR$\..\..\..\Device\EnergyMicro\EFM32TG\Include</state>
-          <state>$PROJ_DIR$\..\src</state>
-          <state>$PROJ_DIR$\..\src\config_tg</state>
+          <state>$PROJ_DIR$\..\tg840</state>
+          <state>$PROJ_DIR$\..\tg840\config_tg</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1611,7 +1611,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>$PROJ_DIR$\..\src\bootloader.icf</state>
+          <state>$PROJ_DIR$\..\iar_linker_files\EFM32TG840F32.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -1845,37 +1845,37 @@
   <group>
     <name>Source</name>
     <file>
-      <name>$PROJ_DIR$\..\src\autobaud.c</name>
+      <name>$PROJ_DIR$\..\tg840\autobaud.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\src\boot.c</name>
+      <name>$PROJ_DIR$\..\tg840\boot.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\src\bootloader.c</name>
+      <name>$PROJ_DIR$\..\tg840\bootloader.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\src\crc.c</name>
+      <name>$PROJ_DIR$\..\tg840\crc.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\src\debug.c</name>
+      <name>$PROJ_DIR$\..\tg840\debug.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\src\debuglock.c</name>
+      <name>$PROJ_DIR$\..\tg840\debuglock.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\src\flash.c</name>
+      <name>$PROJ_DIR$\..\tg840\flash.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\src\iarwrite.c</name>
+      <name>$PROJ_DIR$\..\tg840\iarwrite.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\src\startup_efm32.s</name>
+      <name>$PROJ_DIR$\..\tg840\startup_efm32.s</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\src\usart.c</name>
+      <name>$PROJ_DIR$\..\tg840\usart.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\src\xmodem.c</name>
+      <name>$PROJ_DIR$\..\tg840\xmodem.c</name>
     </file>
   </group>
   <file>
