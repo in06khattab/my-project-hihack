@@ -328,6 +328,7 @@ __ramfunc void commandlineLoop(void)
     /* Unknown command */
     case 0:
       /* Timeout waiting for RX - avoid printing the unknown string. */
+      USART_printString("None.\r\n");
       break;
     default:
       USART_printString(unknownString);
@@ -412,11 +413,11 @@ int main(void)
   /* Wait for the HFRCO to stabilize. This ensures that the period
    * we measure in the autobaud sequence is accurate and not affected
    * by the bootloader being inaccurate. */
-  while (!(CMU->STATUS & CMU_STATUS_HFRCORDY)) ;
+  //while (!(CMU->STATUS & CMU_STATUS_HFRCORDY)) ;
 
 #ifndef NDEBUG
   /* Calculate new clock division based on the 28Mhz clock */
-  DEBUG_USART->CLKDIV = 5573;
+  //DEBUG_USART->CLKDIV = 5573;
 #endif
 
   /* Setup pins for USART */
