@@ -17,15 +17,15 @@
         <debug>1</debug>
         <option>
           <name>ExePath</name>
-          <state>hijack\Debug\Exe</state>
+          <state>$PROJ_FNAME$\Debug\Exe</state>
         </option>
         <option>
           <name>ObjPath</name>
-          <state>hijack\Debug\Obj</state>
+          <state>$PROJ_FNAME$\Debug\Obj</state>
         </option>
         <option>
           <name>ListPath</name>
-          <state>hijack\Debug\List</state>
+          <state>$PROJ_FNAME$\Debug\List</state>
         </option>
         <option>
           <name>Variant</name>
@@ -571,7 +571,7 @@
         <option>
           <name>OOCOutputFormat</name>
           <version>2</version>
-          <state>1</state>
+          <state>2</state>
         </option>
         <option>
           <name>OCOutputOverride</name>
@@ -579,7 +579,7 @@
         </option>
         <option>
           <name>OOCOutputFile</name>
-          <state>hijack.hex</state>
+          <state>$PROJ_FNAME$.bin</state>
         </option>
         <option>
           <name>OOCCommandLineProducer</name>
@@ -633,7 +633,7 @@
         </option>
         <option>
           <name>IlinkOutputFile</name>
-          <state>hijack.out</state>
+          <state>$PROJ_FNAME$.out</state>
         </option>
         <option>
           <name>IlinkDebugInfoEnable</name>
@@ -733,7 +733,7 @@
         </option>
         <option>
           <name>IlinkExtraOptions</name>
-          <state></state>
+          <state>ielftool my_input.out my_output.out --fill 0xFF;0&#x2013;0xFF           --checksum __checksum:4,crc32;0&#x2013;0xFF</state>
         </option>
         <option>
           <name>IlinkLowLevelInterfaceSlave</name>
@@ -940,15 +940,15 @@
         <debug>0</debug>
         <option>
           <name>ExePath</name>
-          <state>hijack\Release\Exe</state>
+          <state>$PROJ_FNAME$\Release\Exe</state>
         </option>
         <option>
           <name>ObjPath</name>
-          <state>hijack\Release\Obj</state>
+          <state>$PROJ_FNAME$\Release\Obj</state>
         </option>
         <option>
           <name>ListPath</name>
-          <state>hijack\Release\List</state>
+          <state>$PROJ_FNAME$\Release\List</state>
         </option>
         <option>
           <name>Variant</name>
@@ -1495,7 +1495,7 @@
         <option>
           <name>OOCOutputFormat</name>
           <version>2</version>
-          <state>1</state>
+          <state>2</state>
         </option>
         <option>
           <name>OCOutputOverride</name>
@@ -1503,7 +1503,7 @@
         </option>
         <option>
           <name>OOCOutputFile</name>
-          <state>hijack.hex</state>
+          <state>$PROJ_FNAME$.bin</state>
         </option>
         <option>
           <name>OOCCommandLineProducer</name>
@@ -1557,7 +1557,7 @@
         </option>
         <option>
           <name>IlinkOutputFile</name>
-          <state>hijack.out</state>
+          <state>$PROJ_FNAME$.out</state>
         </option>
         <option>
           <name>IlinkDebugInfoEnable</name>
@@ -1928,15 +1928,9 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\tg840\encode.c</name>
-      <excluded>
-        <configuration>Release</configuration>
-      </excluded>
     </file>
     <file>
       <name>$PROJ_DIR$\..\tg840\encode.h</name>
-      <excluded>
-        <configuration>Release</configuration>
-      </excluded>
     </file>
     <file>
       <name>$PROJ_DIR$\..\tg840\main.c</name>
