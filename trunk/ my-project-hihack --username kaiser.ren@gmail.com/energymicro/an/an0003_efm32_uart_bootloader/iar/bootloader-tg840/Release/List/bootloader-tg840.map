@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR ELF Linker V6.30.6.53336/W32 for ARM              18/Feb/2013  11:10:34 #
+# IAR ELF Linker V6.30.6.53336/W32 for ARM              18/Feb/2013  11:21:13 #
 # Copyright 2007-2012 IAR Systems AB.                                         #
 #                                                                             #
 #    Output file  =  D:\Firmware\my-project-hihack\trunk\ my-project-hihack   #
@@ -89,25 +89,25 @@ __SystemLibrary = DLib
   .intvec            ro code  0x00000000    0x8  startup_efm32.o [1]
                             - 0x00000008    0x8
 
-"P1":                                     0x6f8
+"P1":                                     0x6f4
   Veneer             ro code  0x00000008    0x8  - Linker created -
   Veneer             ro code  0x00000010    0x8  - Linker created -
   Veneer             ro code  0x00000018    0x8  - Linker created -
   Veneer             ro code  0x00000020    0x8  - Linker created -
   Veneer             ro code  0x00000028    0x8  - Linker created -
-  .text              ro code  0x00000030  0x1b8  autobaud.o [1]
-  .text              ro code  0x000001e8   0x2e  copy_init3.o [4]
-  .text              ro code  0x00000216   0x22  zero_init3.o [4]
-  .text              ro code  0x00000238   0x2c  data_init3.o [4]
-  .iar.init_table    const    0x00000264   0x24  - Linker created -
-  .text              ro code  0x00000288   0x16  cmain.o [4]
-  .text              ro code  0x0000029e    0x4  exit.o [3]
-  .text              ro code  0x000002a4    0xa  cexit.o [4]
-  .text              ro code  0x000002b0    0xc  XXexit.o [4]
-  .text              ro code  0x000002bc    0xc  cstartup_M.o [4]
-  .rodata            const    0x000002c8    0x0  bwt_init3c.o [4]
-  Initializer bytes  ro data  0x000002c8  0x438  <for P2 s0>
-                            - 0x00000700  0x6f8
+  .text              ro code  0x00000030  0x1b4  autobaud.o [1]
+  .text              ro code  0x000001e4   0x2e  copy_init3.o [4]
+  .text              ro code  0x00000212   0x22  zero_init3.o [4]
+  .text              ro code  0x00000234   0x2c  data_init3.o [4]
+  .iar.init_table    const    0x00000260   0x24  - Linker created -
+  .text              ro code  0x00000284   0x16  cmain.o [4]
+  .text              ro code  0x0000029a    0x4  exit.o [3]
+  .text              ro code  0x000002a0    0xa  cexit.o [4]
+  .text              ro code  0x000002ac    0xc  XXexit.o [4]
+  .text              ro code  0x000002b8    0xc  cstartup_M.o [4]
+  .rodata            const    0x000002c4    0x0  bwt_init3c.o [4]
+  Initializer bytes  ro data  0x000002c4  0x438  <for P2 s0>
+                            - 0x000006fc  0x6f4
 
 Absolute sections, part 1 of 2:            0xbe
   .noinit            uninit   0x20000000   0xbc  autobaud.o [1]
@@ -149,7 +149,7 @@ Zero (__iar_zero_init3)
 
 Copy (__iar_copy_init3)
     1 source range, total size 0x438:
-          0x000002c8  0x438
+          0x000002c4  0x438
     1 destination range, total size 0x438:
           0x20000110  0x438
 
@@ -163,10 +163,10 @@ Copy (__iar_copy_init3)
                                                           (abs)
     ------           -------  -------  -------  -------  -------
 D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Release\Obj: [1]
-    autobaud.o           440    1 004    1 080      380      206
+    autobaud.o           436    1 004    1 080      380      206
     startup_efm32.o        8
     ------------------------------------------------------------
-    Total:               448    1 004    1 080      380      206
+    Total:               444    1 004    1 080      380      206
 
 command line: [2]
     ------------------------------------------------------------
@@ -192,7 +192,7 @@ rt7M_tl.a: [4]
     Gaps                   4
     Linker created        40                36    1 024
 ----------------------------------------------------------------
-    Grand Total:         676    1 004    1 116    1 404      206
+    Grand Total:         672    1 004    1 116    1 404      206
 
 
 *******************************************************************************
@@ -201,7 +201,7 @@ rt7M_tl.a: [4]
 
 Entry                      Address   Size  Type      Object
 -----                      -------   ----  ----      ------
-?main                   0x00000289         Code  Gb  cmain.o [4]
+?main                   0x00000285         Code  Gb  cmain.o [4]
 BOOT_boot               0x2000011d   0x4c  Code  Gb  autobaud.o [1]
 BOOT_jump               0x20000111    0xc  Code  Gb  autobaud.o [1]
 CRC_calc                0x20000297   0x30  Code  Gb  autobaud.o [1]
@@ -210,8 +210,8 @@ CSTACK$$Limit           0x20000a78          --   Gb  - Linker created -
 DEBUGLOCK_startDebugInterface
                         0x200002c7   0x48  Code  Gb  autobaud.o [1]
 RTC_IRQHandler          0x00000051   0x14  Code  Gb  autobaud.o [1]
-Region$$Table$$Base     0x00000264          --   Gb  - Linker created -
-Region$$Table$$Limit    0x00000288          --   Gb  - Linker created -
+Region$$Table$$Base     0x00000260          --   Gb  - Linker created -
+Region$$Table$$Limit    0x00000284          --   Gb  - Linker created -
 TIMER_IRQHandler        0x00000031   0x20  Code  Gb  autobaud.o [1]
 USART_printHex          0x2000030f   0x24  Code  Gb  autobaud.o [1]
 USART_printString       0x2000035b   0x16  Code  Gb  autobaud.o [1]
@@ -222,26 +222,26 @@ _DEBUGLOCK_swData       0x20000524   0x18  Data  Gb  autobaud.o [1]
 __Vectors               0x00000000          --   Gb  startup_efm32.o [1]
 __Vectors_End           0x00000008         Data  Gb  startup_efm32.o [1]
 __Vectors_Size {Abs}    0x00000008          --   Gb  startup_efm32.o [1]
-__cmain                 0x00000289         Code  Gb  cmain.o [4]
-__exit                  0x000002b1         Code  Gb  XXexit.o [4]
-__iar_SB                0x000002c8         Data  Gb  bwt_init3c.o [4]
-__iar_copy_init3        0x000001e9   0x2e  Code  Gb  copy_init3.o [4]
-__iar_data_init3        0x00000239   0x2c  Code  Gb  data_init3.o [4]
-__iar_program_start     0x000002bd         Code  Gb  cstartup_M.o [4]
-__iar_zero_init3        0x00000217   0x22  Code  Gb  zero_init3.o [4]
+__cmain                 0x00000285         Code  Gb  cmain.o [4]
+__exit                  0x000002ad         Code  Gb  XXexit.o [4]
+__iar_SB                0x000002c4         Data  Gb  bwt_init3c.o [4]
+__iar_copy_init3        0x000001e5   0x2e  Code  Gb  copy_init3.o [4]
+__iar_data_init3        0x00000235   0x2c  Code  Gb  data_init3.o [4]
+__iar_program_start     0x000002b9         Code  Gb  cstartup_M.o [4]
+__iar_zero_init3        0x00000213   0x22  Code  Gb  zero_init3.o [4]
 __vector_table          0x00000000         Data  Gb  startup_efm32.o [1]
-_call_main              0x00000295         Code  Gb  cmain.o [4]
-_exit                   0x000002a5         Code  Gb  cexit.o [4]
-_main                   0x0000029b         Code  Gb  cmain.o [4]
+_call_main              0x00000291         Code  Gb  cmain.o [4]
+_exit                   0x000002a1         Code  Gb  cexit.o [4]
+_main                   0x00000297         Code  Gb  cmain.o [4]
 bootloaderCRC           0x200000bc    0x2  Data  Gb  autobaud.o [1]
 commandlineLoop         0x2000018d  0x106  Code  Gb  autobaud.o [1]
 crcString               0x2000053c    0x8  Data  Gb  autobaud.o [1]
 currentSample           0x20000660    0x4  Data  Gb  autobaud.o [1]
 descr                   0x20000100   0x10  Data  Gb  autobaud.o [1]
-exit                    0x0000029f    0x4  Code  Gb  exit.o [3]
+exit                    0x0000029b    0x4  Code  Gb  exit.o [3]
 failString              0x20000510    0xc  Data  Gb  autobaud.o [1]
 flashPageSize           0x2000054c    0x4  Data  Gb  autobaud.o [1]
-main                    0x00000065  0x11a  Code  Gb  autobaud.o [1]
+main                    0x00000065  0x116  Code  Gb  autobaud.o [1]
 newLineString           0x20000544    0x4  Data  Gb  autobaud.o [1]
 okString                0x20000508    0x8  Data  Gb  autobaud.o [1]
 rawPacket               0x20000550  0x110  Data  Gb  autobaud.o [1]
@@ -258,7 +258,7 @@ verify                  0x20000169   0x24  Code  Gb  autobaud.o [1]
 [3] = dl7M_tln.a
 [4] = rt7M_tl.a
 
-    676 bytes of readonly  code memory
+    672 bytes of readonly  code memory
   1 004 bytes of readwrite code memory
   1 116 bytes of readonly  data memory
   1 404 bytes of readwrite data memory (+ 206 absolute)

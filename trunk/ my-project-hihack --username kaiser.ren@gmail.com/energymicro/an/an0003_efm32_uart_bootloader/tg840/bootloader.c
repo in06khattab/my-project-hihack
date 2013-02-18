@@ -155,13 +155,14 @@ void waitForBootOrUSART(void)
      *             to enter bootloader mode.
      */
     /* Check input pins */
-    SWDpins = GPIO->P[5].DIN | 0x1;
-
+    SWDpins = GPIO->P[5].DIN;
+    SWDpins &= 0x01;
+	
 #ifndef NDEBUG
-    if (oldPins != SWDpins)
+    //if (oldPins != SWDpins)
     {
       oldPins = SWDpins;
-      printf("New pin: %x \r\n", SWDpins);
+      printf("New pin: 0x%02X \r\n", SWDpins);
     }
 #endif
 
@@ -390,7 +391,8 @@ int main(void)
 
 #ifndef NDEBUG
   DEBUG_init();
-  printf("\r\n\r\n *** Debug output enabled. ***\r\n\r\n");
+  printf("\r\n-- Debug output enabled --\r\n");
+  printf("-- Compiled: %s %s --\r\n", __DATE__, __TIME__ ) ;
 #endif
 
   /* Figure out correct flash page size */
@@ -404,22 +406,6 @@ int main(void)
   CMU->LFBCLKEN0 = BOOTLOADER_LEUART_CLOCK;
 #endif
 
-  /* Change to 28MHz internal osciallator to increase speed of
-   * bootloader */
-  //tuning = (DEVINFO->HFRCOCAL1 & _DEVINFO_HFRCOCAL1_BAND28_MASK)
-  //         >> _DEVINFO_HFRCOCAL1_BAND28_SHIFT;
-
-  //CMU->HFRCOCTRL = CMU_HFRCOCTRL_BAND_28MHZ | tuning;
-  /* Wait for the HFRCO to stabilize. This ensures that the period
-   * we measure in the autobaud sequence is accurate and not affected
-   * by the bootloader being inaccurate. */
-  //while (!(CMU->STATUS & CMU_STATUS_HFRCORDY)) ;
-
-#ifndef NDEBUG
-  /* Calculate new clock division based on the 28Mhz clock */
-  //DEBUG_USART->CLKDIV = 5573;
-#endif
-
   /* Setup pins for USART */
   CONFIG_UsartGpioSetup();
 
@@ -428,7 +414,7 @@ int main(void)
   periodTime24_8 = 2000;
 #ifndef NDEBUG
   printf("Autobaud complete.\r\n");
-  printf("Measured periodtime (24.8): %d.%d\r\n", periodTime24_8 >> 8, periodTime24_8 & 0xFF);
+  //printf("Measured periodtime (24.8): %d.%d\r\n", periodTime24_8 >> 8, periodTime24_8 & 0xFF);
 #endif
 
   /* When autobaud has completed, we can be fairly certain that
@@ -440,10 +426,6 @@ int main(void)
   clkdiv = ((periodTime24_8 >> 1) - 256);
   GPIO->ROUTE = 0;
 #else
-  /* To go from the period to the necessary clkdiv we need to use
-   * Equation 16.2 in the reference manual. Note that
-   * periodTime = HFperclk / baudrate */
-  //clkdiv = (periodTime24_8 - (16 << 8)) >> 4;
 
   /* Check if the clock division is too small, if it is, we change
    * to an oversampling rate of 4x and calculate a new clkdiv.
@@ -455,7 +437,7 @@ int main(void)
   }
 #endif
 #ifndef NDEBUG
-  printf("BOOTLOADER_USART clkdiv = %d\r\n", clkdiv);
+  //printf("BOOTLOADER_USART clkdiv = %d\r\n", clkdiv);
 #endif
 
   /* Initialize the UART */

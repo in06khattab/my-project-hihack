@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR ELF Linker V6.30.6.53336/W32 for ARM              18/Feb/2013  10:50:35 #
+# IAR ELF Linker V6.30.6.53336/W32 for ARM              18/Feb/2013  12:54:54 #
 # Copyright 2007-2012 IAR Systems AB.                                         #
 #                                                                             #
 #    Output file  =  D:\Firmware\my-project-hihack\trunk\ my-project-hihack   #
@@ -89,7 +89,7 @@ __SystemLibrary = DLib
   .intvec            ro code  0x00000000     0x8  startup_efm32.o [1]
                             - 0x00000008     0x8
 
-"P1":                                     0x2594
+"P1":                                     0x2574
   .text              ro code  0x00000008   0xd1e  xprintffull.o [3]
   .text              ro code  0x00000d26    0x2e  copy_init3.o [5]
   .text              ro code  0x00000d54    0x16  strchr.o [5]
@@ -115,43 +115,44 @@ __SystemLibrary = DLib
   Veneer             ro code  0x0000182c     0x8  - Linker created -
   Veneer             ro code  0x00001834     0x8  - Linker created -
   Veneer             ro code  0x0000183c     0x8  - Linker created -
-  .text              ro code  0x00001844   0x254  bootloader.o [1]
-  .text              ro code  0x00001a98    0x24  printf.o [3]
-  .text              ro code  0x00001abc    0x38  boot.o [1]
-  .text              ro code  0x00001af4    0x92  debug.o [1]
-  .text              ro code  0x00001b88    0x84  flash.o [1]
-  .text              ro code  0x00001c0c    0x28  usart.o [1]
-  .rodata            const    0x00001c34    0x44  bootloader.o [1]
-  .text              ro code  0x00001c78    0x3c  autobaud.o [1]
-  .text              ro code  0x00001cb4    0x38  iarwrite.o [1]
-  .text              ro code  0x00001cec    0x2c  data_init3.o [5]
-  .rodata            const    0x00001d18    0x28  bootloader.o [1]
-  .rodata            const    0x00001d40    0x28  bootloader.o [1]
-  .text              ro code  0x00001d68    0x28  putchar.o [3]
-  .rodata            const    0x00001d90    0x24  boot.o [1]
-  .rodata            const    0x00001db4    0x24  bootloader.o [1]
-  .iar.init_table    const    0x00001dd8    0x24  - Linker created -
-  .rodata            const    0x00001dfc    0x20  bootloader.o [1]
-  .rodata            const    0x00001e1c    0x20  bootloader.o [1]
-  .rodata            const    0x00001e3c    0x20  bootloader.o [1]
-  .rodata            const    0x00001e5c    0x20  flash.o [1]
-  .rodata            const    0x00001e7c    0x1c  bootloader.o [1]
-  .rodata            const    0x00001e98    0x18  bootloader.o [1]
-  .rodata            const    0x00001eb0    0x18  bootloader.o [1]
-  .text              ro code  0x00001ec8    0x16  cmain.o [5]
-  .text              ro code  0x00001ede     0x4  low_level_init.o [3]
-  .text              ro code  0x00001ee2     0x4  exit.o [3]
-  .text              ro code  0x00001ee8     0xa  cexit.o [5]
-  .text              ro code  0x00001ef4     0xc  XXexit.o [5]
-  .text              ro code  0x00001f00    0x16  xprout.o [3]
-  .rodata            const    0x00001f18    0x14  bootloader.o [1]
-  .rodata            const    0x00001f2c    0x10  bootloader.o [1]
-  .rodata            const    0x00001f3c    0x10  bootloader.o [1]
-  .text              ro code  0x00001f4c     0xc  cstartup_M.o [5]
-  .rodata            const    0x00001f58     0x8  bootloader.o [1]
-  .rodata            const    0x00001f60     0x0  bwt_init3c.o [5]
-  Initializer bytes  ro data  0x00001f60   0x63c  <for P2 s0>
-                            - 0x0000259c  0x2594
+  .text              ro code  0x00001844   0x24c  bootloader.o [1]
+  .text              ro code  0x00001a90    0x24  printf.o [3]
+  .text              ro code  0x00001ab4    0x38  boot.o [1]
+  .text              ro code  0x00001aec    0x92  debug.o [1]
+  .text              ro code  0x00001b80    0x84  flash.o [1]
+  .text              ro code  0x00001c04    0x28  usart.o [1]
+  .rodata            const    0x00001c2c    0x44  bootloader.o [1]
+  .text              ro code  0x00001c70    0x3c  autobaud.o [1]
+  .text              ro code  0x00001cac    0x38  iarwrite.o [1]
+  .text              ro code  0x00001ce4    0x2c  data_init3.o [5]
+  .rodata            const    0x00001d10    0x28  bootloader.o [1]
+  .text              ro code  0x00001d38    0x28  putchar.o [3]
+  .rodata            const    0x00001d60    0x24  boot.o [1]
+  .iar.init_table    const    0x00001d84    0x24  - Linker created -
+  .rodata            const    0x00001da8    0x20  bootloader.o [1]
+  .rodata            const    0x00001dc8    0x20  bootloader.o [1]
+  .rodata            const    0x00001de8    0x20  bootloader.o [1]
+  .rodata            const    0x00001e08    0x20  flash.o [1]
+  .rodata            const    0x00001e28    0x1c  bootloader.o [1]
+  .rodata            const    0x00001e44    0x18  bootloader.o [1]
+  .rodata            const    0x00001e5c    0x18  bootloader.o [1]
+  .rodata            const    0x00001e74    0x18  bootloader.o [1]
+  .text              ro code  0x00001e8c    0x16  cmain.o [5]
+  .text              ro code  0x00001ea2     0x4  low_level_init.o [3]
+  .text              ro code  0x00001ea6     0x4  exit.o [3]
+  .text              ro code  0x00001eac     0xa  cexit.o [5]
+  .text              ro code  0x00001eb8     0xc  XXexit.o [5]
+  .text              ro code  0x00001ec4    0x16  xprout.o [3]
+  .rodata            const    0x00001edc    0x14  bootloader.o [1]
+  .rodata            const    0x00001ef0    0x14  bootloader.o [1]
+  .rodata            const    0x00001f04    0x10  bootloader.o [1]
+  .rodata            const    0x00001f14     0xc  bootloader.o [1]
+  .rodata            const    0x00001f20     0xc  bootloader.o [1]
+  .text              ro code  0x00001f2c     0xc  cstartup_M.o [5]
+  .rodata            const    0x00001f38     0x8  bootloader.o [1]
+  .rodata            const    0x00001f40     0x0  bwt_init3c.o [5]
+  Initializer bytes  ro data  0x00001f40   0x63c  <for P2 s0>
+                            - 0x0000257c  0x2574
 
 Absolute sections, part 1 of 2:             0xbe
   .noinit            uninit   0x20000000    0xbc  bootloader.o [1]
@@ -210,7 +211,7 @@ Zero (__iar_zero_init3)
 
 Copy (__iar_copy_init3)
     1 source range, total size 0x63c:
-          0x00001f60  0x63c
+          0x00001f40  0x63c
     1 destination range, total size 0x63c:
           0x20000110  0x63c
 
@@ -226,7 +227,7 @@ Copy (__iar_copy_init3)
 D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Debug\Obj: [1]
     autobaud.o             60                         24
     boot.o                 56      180      216        1
-    bootloader.o          596      408      876       53      190
+    bootloader.o          588      408      852       53      190
     crc.o                           50       50
     debug.o               146
     debuglock.o                    192      216       24
@@ -236,7 +237,7 @@ D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gma
     usart.o                40      150      150
     xmodem.o                       312      312      272
     -------------------------------------------------------------
-    Total:              1 094    1 512    2 072      378      206
+    Total:              1 086    1 512    2 048      378      206
 
 command line: [2]
     -------------------------------------------------------------
@@ -288,7 +289,7 @@ rt7M_tl.a: [5]
     Gaps                   22                 2
     Linker created         40        8       44    1 024
 -----------------------------------------------------------------
-    Grand Total:        7 510    1 520    2 118    1 402      206
+    Grand Total:        7 502    1 520    2 094    1 402      206
 
 
 *******************************************************************************
@@ -297,12 +298,12 @@ rt7M_tl.a: [5]
 
 Entry                      Address   Size  Type      Object
 -----                      -------   ----  ----      ------
-?main                   0x00001ec9         Code  Gb  cmain.o [5]
+?main                   0x00001e8d         Code  Gb  cmain.o [5]
 BOOT_boot               0x200004c5   0x72  Code  Gb  boot.o [1]
 BOOT_checkFirmwareIsValid
-                        0x00001abd   0x38  Code  Gb  boot.o [1]
+                        0x00001ab5   0x38  Code  Gb  boot.o [1]
 BOOT_jump               0x200004b9    0xc  Code  Gb  boot.o [1]
-CONFIG_DebugGpioSetup   0x00001af5    0xe  Code  Lc  debug.o [1]
+CONFIG_DebugGpioSetup   0x00001aed    0xe  Code  Lc  debug.o [1]
 CONFIG_UsartGpioSetup   0x00001875   0x12  Code  Lc  bootloader.o [1]
 CRC_calc                0x20000347   0x32  Code  Gb  crc.o [1]
 CSTACK$$Base            0x20000880          --   Gb  - Linker created -
@@ -310,21 +311,21 @@ CSTACK$$Limit           0x20000c80          --   Gb  - Linker created -
 DEBUGLOCK_lock          0x2000048b   0x1e  Code  Gb  debuglock.o [1]
 DEBUGLOCK_startDebugInterface
                         0x20000455   0x36  Code  Gb  debuglock.o [1]
-DEBUG_TxBuf             0x00001b69   0x1e  Code  Gb  debug.o [1]
-DEBUG_TxByte            0x00001b35   0x12  Code  Gb  debug.o [1]
-DEBUG_init              0x00001b03   0x32  Code  Gb  debug.o [1]
-FLASH_CalcPageSize      0x00001b89   0x40  Code  Gb  flash.o [1]
+DEBUG_TxBuf             0x00001b61   0x1e  Code  Gb  debug.o [1]
+DEBUG_TxByte            0x00001b2d   0x12  Code  Gb  debug.o [1]
+DEBUG_init              0x00001afb   0x32  Code  Gb  debug.o [1]
+FLASH_CalcPageSize      0x00001b81   0x40  Code  Gb  flash.o [1]
 FLASH_eraseOneBlock     0x200005eb   0x3c  Code  Gb  flash.o [1]
-FLASH_init              0x00001bc9   0x22  Code  Gb  flash.o [1]
+FLASH_init              0x00001bc1   0x22  Code  Gb  flash.o [1]
 FLASH_writeBlock        0x20000593   0x58  Code  Gb  flash.o [1]
 FLASH_writeWord         0x2000056d   0x26  Code  Gb  flash.o [1]
 NVIC_DisableIRQ         0x0000185d   0x18  Code  Lc  bootloader.o [1]
 NVIC_EnableIRQ          0x00001845   0x18  Code  Lc  bootloader.o [1]
 RTC_IRQHandler          0x00001887   0x1e  Code  Gb  bootloader.o [1]
-Region$$Table$$Base     0x00001dd8          --   Gb  - Linker created -
-Region$$Table$$Limit    0x00001dfc          --   Gb  - Linker created -
-TIMER_IRQHandler        0x00001c79   0x2a  Code  Gb  autobaud.o [1]
-USART_init              0x00001c0d   0x28  Code  Gb  usart.o [1]
+Region$$Table$$Base     0x00001d84          --   Gb  - Linker created -
+Region$$Table$$Limit    0x00001da8          --   Gb  - Linker created -
+TIMER_IRQHandler        0x00001c71   0x2a  Code  Gb  autobaud.o [1]
+USART_init              0x00001c05   0x28  Code  Gb  usart.o [1]
 USART_printHex          0x200002b1   0x3c  Code  Gb  usart.o [1]
 USART_printString       0x20000331   0x16  Code  Gb  usart.o [1]
 USART_rxByte            0x200002ed   0x20  Code  Gb  usart.o [1]
@@ -338,7 +339,7 @@ _GenldFull              0x00000a6d  0x270  Code  Lc  xprintffull.o [3]
 _LdtobFull              0x0000065d  0x400  Code  Lc  xprintffull.o [3]
 _LitobFull              0x00000537  0x126  Code  Lc  xprintffull.o [3]
 _PrintfFull             0x00000009  0x52e  Code  Gb  xprintffull.o [3]
-_Prout                  0x00001f01   0x16  Code  Gb  xprout.o [3]
+_Prout                  0x00001ec5   0x16  Code  Gb  xprout.o [3]
 _PutcharsFull           0x00000cdd   0x2e  Code  Lc  xprintffull.o [3]
 __Vectors               0x00000000          --   Gb  startup_efm32.o [1]
 __Vectors_End           0x00000008         Data  Gb  startup_efm32.o [1]
@@ -357,45 +358,45 @@ __aeabi_memcpy4         0x00000f2d         Code  Gb  ABImemcpy.o [5]
 __aeabi_memcpy8         0x00000f2d         Code  Gb  ABImemcpy.o [5]
 __aeabi_ui2d            0x000011b1         Code  Gb  I32ToDbl.o [4]
 __aeabi_uldivmod        0x00000e1d         Code  Gb  I64DivMod.o [5]
-__cmain                 0x00001ec9         Code  Gb  cmain.o [5]
-__exit                  0x00001ef5         Code  Gb  XXexit.o [5]
+__cmain                 0x00001e8d         Code  Gb  cmain.o [5]
+__exit                  0x00001eb9         Code  Gb  XXexit.o [5]
 __iar_Dnorm             0x00000f83   0x44  Code  Gb  xdnorm.o [4]
 __iar_Dscale            0x00001029  0x106  Code  Gb  xdscale.o [4]
 __iar_Memchr            0x00000dc5         Code  Gb  memchr.o [5]
-__iar_SB                0x00001f60         Data  Gb  bwt_init3c.o [5]
+__iar_SB                0x00001f40         Data  Gb  bwt_init3c.o [5]
 __iar_Strchr            0x00000d55         Code  Gb  strchr.o [5]
 __iar_copy_init3        0x00000d27   0x2e  Code  Gb  copy_init3.o [5]
 __iar_d2uiz             0x0000117d         Code  Gb  DblToI32.o [4]
 __iar_dadd              0x00001749         Code  Gb  DblAdd.o [4]
-__iar_data_init3        0x00001ced   0x2c  Code  Gb  data_init3.o [5]
+__iar_data_init3        0x00001ce5   0x2c  Code  Gb  data_init3.o [5]
 __iar_dsub              0x000011e1         Code  Gb  DblSub.o [4]
 __iar_dsubStart         0x000011f3         Code  Gb  DblSub.o [4]
-__iar_program_start     0x00001f4d         Code  Gb  cstartup_M.o [5]
+__iar_program_start     0x00001f2d         Code  Gb  cstartup_M.o [5]
 __iar_ui2d              0x000011b5         Code  Gb  I32ToDbl.o [4]
 __iar_zero_init3        0x00000d6b   0x22  Code  Gb  zero_init3.o [5]
-__low_level_init        0x00001edf    0x4  Code  Gb  low_level_init.o [3]
+__low_level_init        0x00001ea3    0x4  Code  Gb  low_level_init.o [3]
 __vector_table          0x00000000         Data  Gb  startup_efm32.o [1]
-__write                 0x00001cb5   0x38  Code  Gb  iarwrite.o [1]
-_call_main              0x00001ed5         Code  Gb  cmain.o [5]
-_exit                   0x00001ee9         Code  Gb  cexit.o [5]
-_main                   0x00001edb         Code  Gb  cmain.o [5]
+__write                 0x00001cad   0x38  Code  Gb  iarwrite.o [1]
+_call_main              0x00001e99         Code  Gb  cmain.o [5]
+_exit                   0x00001ead         Code  Gb  cexit.o [5]
+_main                   0x00001e9f         Code  Gb  cmain.o [5]
 bootloaderCRC           0x200000bc    0x2  Data  Gb  bootloader.o [1]
 commandlineLoop         0x2000013b  0x128  Code  Gb  bootloader.o [1]
 crcString               0x20000730    0x8  Data  Gb  bootloader.o [1]
 currentSample           0x20000870    0x4  Data  Gb  autobaud.o [1]
 descr                   0x20000100   0x10  Data  Gb  flash.o [1]
 div                     0x00001737    0xe  Code  Gb  div.o [3]
-exit                    0x00001ee3    0x4  Code  Gb  exit.o [3]
+exit                    0x00001ea7    0x4  Code  Gb  exit.o [3]
 failString              0x20000724    0xc  Data  Gb  bootloader.o [1]
 flashPageSize           0x20000874    0x4  Data  Gb  flash.o [1]
-generateVectorTable     0x00001923   0x1c  Code  Gb  bootloader.o [1]
-main                    0x0000193f   0xc2  Code  Gb  bootloader.o [1]
+generateVectorTable     0x0000191f   0x1c  Code  Gb  bootloader.o [1]
+main                    0x0000193b   0xba  Code  Gb  bootloader.o [1]
 memchr                  0x00000dc5         Code  Gb  memchr.o [5]
 newLineString           0x20000748    0x4  Data  Gb  bootloader.o [1]
 okString                0x20000738    0x8  Data  Gb  bootloader.o [1]
 printedPC               0x20000878    0x1  Data  Gb  boot.o [1]
-printf                  0x00001a99   0x24  Code  Gb  printf.o [3]
-putchar                 0x00001d69   0x28  Code  Gb  putchar.o [3]
+printf                  0x00001a91   0x24  Code  Gb  printf.o [3]
+putchar                 0x00001d39   0x28  Code  Gb  putchar.o [3]
 rawPacket               0x2000074c  0x110  Data  Gb  xmodem.o [1]
 readyString             0x20000718    0xc  Data  Gb  bootloader.o [1]
 resetEFM32onRTCTimeout  0x20000879    0x1  Data  Gb  bootloader.o [1]
@@ -405,7 +406,7 @@ strlen                  0x00000d8d         Code  Gb  strlen.o [5]
 unknownString           0x20000740    0x8  Data  Gb  bootloader.o [1]
 vectorTable             0x20000000   0xbc  Data  Gb  bootloader.o [1]
 verify                  0x20000119   0x22  Code  Gb  bootloader.o [1]
-waitForBootOrUSART      0x000018a5   0x7e  Code  Gb  bootloader.o [1]
+waitForBootOrUSART      0x000018a5   0x7a  Code  Gb  bootloader.o [1]
 
 
 [1] = D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Debug\Obj
@@ -414,9 +415,9 @@ waitForBootOrUSART      0x000018a5   0x7e  Code  Gb  bootloader.o [1]
 [4] = m7M_tl.a
 [5] = rt7M_tl.a
 
-  7 510 bytes of readonly  code memory
+  7 502 bytes of readonly  code memory
   1 520 bytes of readwrite code memory
-  2 118 bytes of readonly  data memory
+  2 094 bytes of readonly  data memory
   1 402 bytes of readwrite data memory (+ 206 absolute)
 
 Errors: none
