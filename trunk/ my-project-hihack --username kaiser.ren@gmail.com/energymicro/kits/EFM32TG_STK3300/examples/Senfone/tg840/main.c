@@ -165,9 +165,6 @@ int main(void)
   /* Configure push button interrupts. */
   //gpioSetup();
 
-  /* Configure COM port, USART1. */
-  COM_Init();
-
   /* Configure clk_out0 for debug. */
   CMU_Clkout();
 
@@ -187,6 +184,9 @@ int main(void)
   /* dec part initial. */
   dec_init();
   enc_init();
+
+  /* Configure COM port, USART1. */
+  COM_Init();
 
   /* print startup. */
   /* Output example information */
