@@ -165,24 +165,34 @@ int main(void)
   /* Configure push button interrupts. */
   //gpioSetup();
 
-  /* Configure COM port, USART1. */
-  COM_Init();
-
   /* Configure clk_out0 for debug. */
   CMU_Clkout();
 
   /* Initialize LED driver */
   BSP_LedsInit();
 
+  /* Init Segment LCD without boost. */
+  //SegmentLCD_Init(false);
+
+  /* Turn on relevant symbols on the LCD. */
+  //SegmentLCD_Symbol(LCD_SYMBOL_GECKO, true);
+  //SegmentLCD_Symbol(LCD_SYMBOL_ANT, true);
+
+  /* Print welcome text on the LCD. */
+  //SegmentLCD_Write("senfone");
+
   /* dec part initial. */
   dec_init();
   enc_init();
+
+  /* Configure COM port, USART1. */
+  COM_Init();
 
   /* print startup. */
   /* Output example information */
   Debug_Print( "-- senfone V%d.%02d%c --\r\n", VER_MAJOR, VER_MINOR, VER_PATCH ) ;
   Debug_Print( "-- Compiled: %s %s --\r\n", __DATE__, __TIME__ ) ;
-  Debug_Print( "-- Platform: EFM32-TGECKO %uHz --\r\n", CMU_ClockFreqGet(cmuClock_HFPER) ) ;
+  Debug_Print( "-- Platform: EFM32 %s %uHz --\r\n", DEV, CMU_ClockFreqGet(cmuClock_HFPER) ) ;
 
   /* While loop sending a range of values upon wakeup.  */
   while(1){

@@ -164,8 +164,9 @@
         <debug>1</debug>
         <option>
           <name>CCDefines</name>
-          <state>EFM32TG840F32</state>
+          <state>EFM32TG210F32</state>
           <state>DEBUG_EFM</state>
+          <state>DEV="TG210F32"</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -697,7 +698,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>$TOOLKIT_DIR$\config\linker\EnergyMicro\EFM32TG210F32.icf</state>
+          <state>$PROJ_DIR$\..\TG840\EFM32TG840F32.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -1088,8 +1089,9 @@
         <option>
           <name>CCDefines</name>
           <state>NDEBUG</state>
-          <state>EFM32TG840F32</state>
+          <state>EFM32TG210F32</state>
           <state>DEBUG_EFM</state>
+          <state>DEV="TG210F32"</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -1621,7 +1623,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>$TOOLKIT_DIR$\config\linker\EnergyMicro\EFM32TG210F32.icf</state>
+          <state>$PROJ_DIR$\..\TG840\EFM32TG840F32.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -1874,6 +1876,10 @@
     <name>Drivers</name>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\common\drivers\segmentlcd.c</name>
+      <excluded>
+        <configuration>Debug</configuration>
+        <configuration>Release</configuration>
+      </excluded>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\common\drivers\vddcheck.c</name>

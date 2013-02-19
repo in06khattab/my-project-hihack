@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR ELF Linker V6.30.6.53336/W32 for ARM              18/Feb/2013  10:38:14 #
+# IAR ELF Linker V6.30.6.53336/W32 for ARM              19/Feb/2013  11:00:46 #
 # Copyright 2007-2012 IAR Systems AB.                                         #
 #                                                                             #
 #    Output file  =  D:\Firmware\my-project-hihack\trunk\ my-project-hihack   #
@@ -392,13 +392,13 @@ CMU_LCDClkFDIVSet       0x0000521d   0x2e  Code  Gb  em_cmu.o [1]
 CMU_LFClkGet            0x00004a1d   0x7a  Code  Lc  em_cmu.o [1]
 CMU_OscillatorEnable    0x00005259   0xa6  Code  Gb  em_cmu.o [1]
 CMU_Sync                0x00004a97   0x16  Code  Lc  em_cmu.o [1]
-COM_Init                0x00005b39   0xc6  Code  Gb  com.o [1]
+COM_Init                0x00005b39   0xc4  Code  Gb  com.o [1]
 CSTACK$$Base            0x200002a0          --   Gb  - Linker created -
 CSTACK$$Limit           0x200006a0          --   Gb  - Linker created -
 DAC0_IRQHandler         0x0000726d         Code  Wk  startup_efm32tg.o [1]
 DMA_IRQHandler          0x00007251         Code  Wk  startup_efm32tg.o [1]
 DebugMon_Handler        0x00007245         Code  Wk  startup_efm32tg.o [1]
-Debug_Print             0x00005d6f   0x62  Code  Gb  com.o [1]
+Debug_Print             0x00005d6d   0x62  Code  Gb  com.o [1]
 EFM_Alphabet            0x00006cfc   0xb8  Data  Lc  segmentlcd.o [1]
 EFM_Display             0x00006bdc  0x120  Data  Lc  segmentlcd.o [1]
 EMU_EnterEM1            0x000069c9   0x10  Code  Lc  main.o [1]
@@ -475,10 +475,10 @@ TIMER_IntEnable         0x00005505    0x8  Code  Lc  decode.o [1]
 TIMER_IntEnable         0x0000603f    0x8  Code  Lc  encode.o [1]
 TIMER_IntGet            0x0000550d    0x4  Code  Lc  decode.o [1]
 TIMER_IntGet            0x00006047    0x4  Code  Lc  encode.o [1]
-USART0_RX_IRQHandler    0x0000725d         Code  Wk  startup_efm32tg.o [1]
-USART0_TX_IRQHandler    0x00007261         Code  Wk  startup_efm32tg.o [1]
-USART1_RX_IRQHandler    0x00005c9d   0x66  Code  Gb  com.o [1]
-USART1_TX_IRQHandler    0x00005d03   0x6c  Code  Gb  com.o [1]
+USART0_RX_IRQHandler    0x00005c9b   0x66  Code  Gb  com.o [1]
+USART0_TX_IRQHandler    0x00005d01   0x6c  Code  Gb  com.o [1]
+USART1_RX_IRQHandler    0x0000727d         Code  Wk  startup_efm32tg.o [1]
+USART1_TX_IRQHandler    0x00007281         Code  Wk  startup_efm32tg.o [1]
 USART_BaudrateAsyncSet  0x00005dfd   0xf6  Code  Gb  em_usart.o [1]
 USART_Enable            0x00005ef3   0x30  Code  Gb  em_usart.o [1]
 USART_InitAsync         0x00005f23   0x60  Code  Gb  em_usart.o [1]
@@ -567,10 +567,10 @@ strlen                  0x00003e21         Code  Gb  strlen.o [5]
 ticker                  0x20000290    0x4  Data  Gb  encode.o [1]
 txBuf                   0x20000134  0x110  Data  Gb  com.o [1]
 uart                    0x20000018    0x4  Data  Lc  com.o [1]
-uartGetAmount           0x00005c95    0x8  Code  Gb  com.o [1]
-uartGetChar             0x00005bff   0x38  Code  Gb  com.o [1]
+uartGetAmount           0x00005c93    0x8  Code  Gb  com.o [1]
+uartGetChar             0x00005bfd   0x38  Code  Gb  com.o [1]
 uartInit                0x20000000   0x18  Data  Lc  com.o [1]
-uartPutChar             0x00005c37   0x5e  Code  Gb  com.o [1]
+uartPutChar             0x00005c35   0x5e  Code  Gb  com.o [1]
 
 
 [1] = D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\energymicro\kits\EFM32TG_STK3300\examples\Senfone\iar\hijack_efm32tg840\Debug\Obj
