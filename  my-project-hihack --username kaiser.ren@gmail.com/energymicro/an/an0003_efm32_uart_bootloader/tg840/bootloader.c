@@ -394,7 +394,23 @@ int main(void)
   printf("\r\n-- Debug output enabled --\r\n");
   printf("-- Compiled: %s %s --\r\n", __DATE__, __TIME__ ) ;
 #endif
-
+  /* Check if the clock division is too small, if it is, we change
+   * to an oversampling rate of 4x and calculate a new clkdiv.
+   */
+  //if (clkdiv < 3000)
+  {
+    clkdiv = 5705;
+    BOOTLOADER_USART->CTRL |= USART_CTRL_OVS_X16;
+  }
+  
+  /* Setup pins for USART */
+  CONFIG_UsartGpioSetup();
+  
+  /* Initialize the UART */
+  USART_init(clkdiv);
+  
+   USART_printString("\r\nwelcome to bootloader\r\n");
+   
   /* Figure out correct flash page size */
   FLASH_CalcPageSize();
 
@@ -405,9 +421,6 @@ int main(void)
   /* Enable LEUART */
   CMU->LFBCLKEN0 = BOOTLOADER_LEUART_CLOCK;
 #endif
-
-  /* Setup pins for USART */
-  CONFIG_UsartGpioSetup();
 
   /* AUTOBAUD_sync() returns a value in 24.8 fixed point format */
   //periodTime24_8 = AUTOBAUD_sync();
@@ -427,21 +440,10 @@ int main(void)
   GPIO->ROUTE = 0;
 #else
 
-  /* Check if the clock division is too small, if it is, we change
-   * to an oversampling rate of 4x and calculate a new clkdiv.
-   */
-  //if (clkdiv < 3000)
-  {
-    clkdiv = 5705;
-    BOOTLOADER_USART->CTRL |= USART_CTRL_OVS_X16;
-  }
 #endif
 #ifndef NDEBUG
   //printf("BOOTLOADER_USART clkdiv = %d\r\n", clkdiv);
 #endif
-
-  /* Initialize the UART */
-  USART_init(clkdiv);
 
   /* Print a message to show that we are in bootloader mode */
   USART_printString("\r\n\r\n" BOOTLOADER_VERSION_STRING  "ChipID: ");
