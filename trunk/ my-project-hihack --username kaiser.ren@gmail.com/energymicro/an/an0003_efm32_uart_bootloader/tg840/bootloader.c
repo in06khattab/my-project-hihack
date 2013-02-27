@@ -402,15 +402,15 @@ int main(void)
     clkdiv = 5705;
     BOOTLOADER_USART->CTRL |= USART_CTRL_OVS_X16;
   }
-  
+
   /* Setup pins for USART */
   CONFIG_UsartGpioSetup();
-  
+
   /* Initialize the UART */
   USART_init(clkdiv);
-  
-   USART_printString("\r\nwelcome to bootloader\r\n");
-   
+
+   USART_printString("\r\n\r\n\r\n-- welcome to bootloader --\r\n\r\n\r\n");
+
   /* Figure out correct flash page size */
   FLASH_CalcPageSize();
 
