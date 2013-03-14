@@ -45,11 +45,11 @@
         </option>
         <option>
           <name>MemFile</name>
-          <state>$TOOLKIT_DIR$\CONFIG\debugger\EnergyMicro\EFM32TG210F8.ddf</state>
+          <state>$TOOLKIT_DIR$\CONFIG\debugger\EnergyMicro\EFM32TG840F32.ddf</state>
         </option>
         <option>
           <name>RunToEnable</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>RunToName</name>
