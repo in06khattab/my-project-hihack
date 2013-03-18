@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<workspace>
+  <project>
+    <path>$WS_DIR$\prs_timer_adc_tg.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\prs_pulse_width_tg.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\prs_channel_scan_tg.ewp</path>
+  </project>
+  <batchBuild/>
+</workspace>
+
+
