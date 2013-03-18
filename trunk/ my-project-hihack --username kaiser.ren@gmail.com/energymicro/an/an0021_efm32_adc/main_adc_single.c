@@ -60,7 +60,7 @@ static void ADCConfig(void)
 
   /* Init for single conversion use, measure VDD/3 with 1.25 reference. */
   singleInit.reference  = adcRef1V25;
-  singleInit.input      = adcSingleInpVDDDiv3;
+  singleInit.input      = adcSingleInpCh0;
   singleInit.resolution = adcRes12Bit;
 
   /* The datasheet specifies a minimum aquisition time when sampling vdd/3 */
@@ -107,7 +107,7 @@ int main(void)
     voltage = (sample * 1250 * 3) / 4096;
 
     /* Write to LCD */
-    SegmentLCD_Number(voltage);
+    SegmentLCD_Number(sample);
 
     /* wait 100ms in EM2 before next conversion */
     RTCDRV_Trigger(100, NULL);
