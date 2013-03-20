@@ -327,7 +327,7 @@
         </option>
         <option>
           <name>CCOptLevelSlave</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>CompilerMisraRules98</name>
@@ -696,7 +696,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>$TOOLKIT_DIR$\config\linker\EnergyMicro\EFM32TG840F32.icf</state>
+          <state>$PROJ_DIR$\..\EFM32TG840F32.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -1619,7 +1619,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>$TOOLKIT_DIR$\config\linker\EnergyMicro\EFM32TG840F32.icf</state>
+          <state>$PROJ_DIR$\..\EFM32TG840F32.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
