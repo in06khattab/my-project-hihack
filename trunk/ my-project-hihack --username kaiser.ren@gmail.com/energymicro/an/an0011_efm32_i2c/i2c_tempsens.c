@@ -70,26 +70,26 @@ void I2C0_IRQHandler(void)
 void I2C_Tempsens_Init(void)
 {
   int i;
-  
+
   /* Initialize I2C driver for the tempsensor on the DK, using standard rate. */
   /* Devices on DK itself supports fast mode, */
   /* but in case some slower devices are added on */
   /* prototype board, we use standard mode. */
   I2C_Init_TypeDef i2cInit = I2C_INIT_DEFAULT;
-  
+
   /* Initialize DVK board register access */
-  BSP_Init(BSP_INIT_DEFAULT);
-  
-  BSP_PeripheralAccess(BSP_I2C, true);
+  //BSP_Init(BSP_INIT_DEFAULT);
+
+  //BSP_PeripheralAccess(BSP_I2C, true);
 
   CMU_ClockEnable(cmuClock_HFPER, true);
   CMU_ClockEnable(cmuClock_I2C0, true);
 
-  /* Use location 3: SDA - Pin D14, SCL - Pin D15 */
+  /* Use location 2: SDA - Pin D14, SCL - Pin D15 */
   /* Output value must be set to 1 to not drive lines low... We set */
   /* SCL first, to ensure it is high before changing SDA. */
-  GPIO_PinModeSet(gpioPortD, 15, gpioModeWiredAnd, 1);
-  GPIO_PinModeSet(gpioPortD, 14, gpioModeWiredAnd, 1);
+  GPIO_PinModeSet(gpioPortC, 7, gpioModeWiredAnd, 1);	//SCL
+  GPIO_PinModeSet(gpioPortC, 6, gpioModeWiredAnd, 1);   //SDA
 
   /* In some situations (after a reset during an I2C transfer), the slave */
   /* device may be left in an unknown state. Send 9 clock pulses just in case. */
@@ -101,17 +101,17 @@ void I2C_Tempsens_Init(void)
      * but DVK only has fast mode devices. Need however to add some time
      * measurement in order to not be dependable on frequency and code executed.
      */
-    GPIO_PinModeSet(gpioPortD, 15, gpioModeWiredAnd, 0);
-    GPIO_PinModeSet(gpioPortD, 15, gpioModeWiredAnd, 1);
+    GPIO_PinModeSet(gpioPortC, 7, gpioModeWiredAnd, 0);
+    GPIO_PinModeSet(gpioPortC, 7, gpioModeWiredAnd, 1);
   }
 
-  /* Enable pins at location 3 (which is used on the DVK) */
+  /* Enable pins at location 2 (which is used on the DVK) */
   I2C0->ROUTE = I2C_ROUTE_SDAPEN |
                 I2C_ROUTE_SCLPEN |
-                (3 << _I2C_ROUTE_LOCATION_SHIFT);
+                (2 << _I2C_ROUTE_LOCATION_SHIFT);
 
   I2C_Init(I2C0, &i2cInit);
-  
+
   /* Clear and enable interrupt from I2C module */
   NVIC_ClearPendingIRQ(I2C0_IRQn);
   NVIC_EnableIRQ(I2C0_IRQn);
@@ -204,7 +204,7 @@ int TEMPSENS_RegisterGet(I2C_TypeDef *i2c,
     EMU_EnterEM1();
     /* Could do a timeout function here. */
   }
-  
+
   if (I2C_Status != i2cTransferDone)
   {
     return((int)I2C_Status);
@@ -275,7 +275,7 @@ int TEMPSENS_RegisterSet(I2C_TypeDef *i2c,
     EMU_EnterEM1();
     /* Could do a timeout function here. */
   }
-  
+
   return(I2C_Status);
 }
 
