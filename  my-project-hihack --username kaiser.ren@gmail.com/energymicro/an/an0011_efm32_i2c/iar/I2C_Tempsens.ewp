@@ -570,7 +570,7 @@
         <option>
           <name>OOCOutputFormat</name>
           <version>2</version>
-          <state>2</state>
+          <state>1</state>
         </option>
         <option>
           <name>OCOutputOverride</name>
@@ -578,7 +578,7 @@
         </option>
         <option>
           <name>OOCOutputFile</name>
-          <state>I2C_Tempsens.bin</state>
+          <state>I2C_Tempsens.hex</state>
         </option>
         <option>
           <name>OOCCommandLineProducer</name>
@@ -696,7 +696,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>$TOOLKIT_DIR$\config\linker\EnergyMicro\EFM32G890F128.icf</state>
+          <state>$PROJ_DIR$\..\EFM32TG840F32.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
