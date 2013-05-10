@@ -2,10 +2,10 @@
  * @file
  * @brief Board support package API implementation STK's.
  * @author Energy Micro AS
- * @version 1.0.0
+ * @version 3.20.0
  *******************************************************************************
  * @section License
- * <b>(C) Copyright 2012 Energy Micro AS, http://www.energymicro.com</b>
+ * <b>(C) Copyright 2013 Energy Micro AS, http://www.energymicro.com</b>
  *******************************************************************************
  *
  * Permission is granted to anyone to use this software for any purpose,
@@ -36,7 +36,6 @@
 #include "em_device.h"
 #include "em_cmu.h"
 #include "em_gpio.h"
-#include "em_usart.h"
 #include "bsp.h"
 #if defined( BSP_STK_USE_EBI )
 #include "em_ebi.h"
@@ -44,14 +43,6 @@
 
 #if defined( BSP_STK )
 
-/** @cond DO_NOT_INCLUDE_WITH_DOXYGEN */
-
-static USART_InitAsync_TypeDef usartInit = USART_INITASYNC_DEFAULT;
-
-static bool PacketReceive(STK_Packet *pkt);
-static void PacketSend(STK_Packet *pkt);
-
-/** @endcond */
 
 /***************************************************************************//**
  * @addtogroup BSP
@@ -66,25 +57,23 @@ static void PacketSend(STK_Packet *pkt);
 /** @cond DO_NOT_INCLUDE_WITH_DOXYGEN */
 /**************************************************************************//**
  * @brief Deinitialize board support package functionality.
- *        Reverse actions performed by BSP_Init().
+ *        Reverse actions performed by @ref BSP_Init().
  *
- * @note This functions is currently a dummy.
- *
- * @return
- *   @ref BSP_STATUS_NOT_IMPLEMENTED
+ * @return @ref BSP_STATUS_OK.
  *****************************************************************************/
 int BSP_Disable(void)
 {
-  /* Disable according to what was originally enabled ? */
+  BSP_BccDeInit();
+  BSP_EbiDeInit();
 
-  return BSP_STATUS_NOT_IMPLEMENTED;
+  return BSP_STATUS_OK;
 }
 /** @endcond */
 
 /**************************************************************************//**
  * @brief Initialize the EBI interface for accessing the onboard nandflash.
  *
- * @note This function is only relevant for STK3700 and STK3600.
+ * @note This function is not relevant for Gxxx_STK's.
  *
  * @return
  *   @ref BSP_STATUS_OK or @ref BSP_STATUS_NOT_IMPLEMENTED
@@ -172,44 +161,39 @@ int BSP_EbiInit(void)
 #endif
 }
 
+/**************************************************************************//**
+ * @brief Deinitialize the EBI interface for accessing the onboard nandflash.
+ *
+ * @note This function is not relevant for Gxxx_STK's.
+ *       This function is provided for API completeness, it does not perform
+ *       an actual EBI deinitialization.
+ *
+ * @return
+ *   @ref BSP_STATUS_OK or @ref BSP_STATUS_NOT_IMPLEMENTED
+ *****************************************************************************/
+int BSP_EbiDeInit( void )
+{
+#if defined( BSP_STK_USE_EBI )
+  return BSP_STATUS_OK;
+#else
+  return BSP_STATUS_NOT_IMPLEMENTED;
+#endif
+}
+
 /** @cond DO_NOT_INCLUDE_WITH_DOXYGEN */
 /**************************************************************************//**
  * @brief Initialize board support package functionality.
  *
- * @param[in] flags Initialization mask, use 0 or @ref BSP_INIT_STK_BCUART.
+ * @param[in] flags Initialization mask, use 0 or @ref BSP_INIT_BCC.
  *
  * @return
  *   @ref BSP_STATUS_OK
  *****************************************************************************/
-int BSP_Init(uint32_t flags)
+int BSP_Init( uint32_t flags )
 {
-  if ( flags & BSP_INIT_STK_BCUART )
+  if ( flags & BSP_INIT_BCC )
   {
-    CMU_ClockEnable(cmuClock_HFPER, true);
-    CMU_ClockEnable(cmuClock_GPIO, true);
-
-    /* Configure GPIO pin for USART TX */
-    /* To avoid false start, configure output as high. */
-    GPIO_PinModeSet(BSP_BC_USART_TXPORT, BSP_BC_USART_TXPIN,
-                    gpioModePushPull, 1);
-
-    /* Configure GPIO pin for USART RX */
-    GPIO_PinModeSet(BSP_BC_USART_RXPORT, BSP_BC_USART_RXPIN,
-                    gpioModeInput, 1);
-
-    /* Enable switch U602A "VMCU switch" - to enable USART communication. */
-    /* See board schematics for details. */
-    GPIO_PinModeSet(BSP_BC_U602A_PORT, BSP_BC_U602A_PIN,
-                    gpioModePushPull, 1);
-
-    CMU_ClockEnable(BSP_BC_USART_CLK, true);
-
-    /* Initialize USART */
-    USART_InitAsync(BSP_BC_USART, &usartInit);
-
-    /* Enable correct USART location. */
-    BSP_BC_USART->ROUTE = USART_ROUTE_RXPEN | USART_ROUTE_TXPEN |
-                          BSP_BC_USART_LOCATION;
+    BSP_BccInit();
   }
 
   return BSP_STATUS_OK;
@@ -219,164 +203,68 @@ int BSP_Init(uint32_t flags)
 /**************************************************************************//**
  * @brief Request AEM (Advanced Energy Monitoring) current from board controller.
  *
- * @note Assumes that BSP_Init() has been called with @ref BSP_INIT_STK_BCUART
+ * @note Assumes that BSP_Init() has been called with @ref BSP_INIT_BCC
  *       bitmask.
  *
  * @return
  *   The current expressed in milliamperes. Returns 0.0 on board controller
  *   communication error.
  *****************************************************************************/
-float BSP_CurrentGet(void)
+float BSP_CurrentGet( void )
 {
-  STK_Packet pkt;
-  float      current;
+   BCP_Packet pkt;
+   float      *pcurrent;
 
-  pkt.type          = STK_PACKETTYPE_CURRENT_REQ;
-  pkt.payloadLength = 0;
+   pkt.type          = BSP_BCP_CURRENT_REQ;
+   pkt.payloadLength = 0;
 
-  /* Send Request/Get reply */
-  PacketSend(&pkt);
-  PacketReceive(&pkt);
+   /* Send Request/Get reply */
+   BSP_BccPacketSend( &pkt );
+   BSP_BccPacketReceive( &pkt );
 
-  /* Process reply */
-  if (pkt.type == STK_PACKETTYPE_CURRENT_REPLY)
-  {
-    memcpy(&current, pkt.data, sizeof(float));
-    return current;
-  }
-  else
-  {
-    return (float) 0.0;
-  }
+   /* Process reply */
+   pcurrent = (float *)pkt.data;
+   if ( pkt.type != BSP_BCP_CURRENT_REPLY )
+   {
+      *pcurrent = 0.0f;
+   }
+
+   return *pcurrent;
 }
 
 /**************************************************************************//**
  * @brief Request AEM (Advanced Energy Monitoring) voltage from board controller.
  *
- * @note Assumes that BSP_Init() has been called with @ref BSP_INIT_STK_BCUART
-  *      bitmask.
+ * @note Assumes that BSP_Init() has been called with @ref BSP_INIT_BCC
+ *       bitmask.
  *
  * @return
  *   The voltage. Returns 0.0 on board controller communication
  *   error.
  *****************************************************************************/
-float BSP_VoltageGet(void)
+float BSP_VoltageGet( void )
 {
-  STK_Packet pkt;
-  float      voltage;
+   BCP_Packet pkt;
+   float      *pvoltage;
 
-  pkt.type          = STK_PACKETTYPE_VOLTAGE_REQ;
-  pkt.payloadLength = 0;
+   pkt.type          = BSP_BCP_VOLTAGE_REQ;
+   pkt.payloadLength = 0;
 
-  /* Send Request/Get reply */
-  PacketSend(&pkt);
-  PacketReceive(&pkt);
+   /* Send Request/Get reply */
+   BSP_BccPacketSend( &pkt );
+   BSP_BccPacketReceive( &pkt );
 
-  /* Process reply */
-  if (pkt.type == STK_PACKETTYPE_VOLTAGE_REPLY)
-  {
-    memcpy(&voltage, pkt.data, sizeof(float));
-    return voltage;
-  }
-  else
-  {
-    return (float) 0.0;
-  }
+   /* Process reply */
+   pvoltage = (float *)pkt.data;
+   if ( pkt.type != BSP_BCP_VOLTAGE_REPLY )
+   {
+      *pvoltage = 0.0f;
+   }
+
+   return *pvoltage;
 }
 
-/** @cond DO_NOT_INCLUDE_WITH_DOXYGEN */
-
-static bool PacketReceive(STK_Packet *pkt)
-{
-  uint8_t *rxPtr = (uint8_t *) pkt;
-  int     length;
-
-  /* Receive packet magic */
-  while (!(BSP_BC_USART->STATUS & USART_STATUS_RXDATAV)) ;
-  *rxPtr++ = BSP_BC_USART->RXDATA;
-  if (pkt->magic != STK_MAGIC)
-  {
-    /* Invalid packet */
-    memset(pkt, 0x00, sizeof(STK_Packet));
-    return false;
-  }
-
-  /* Receive packet type */
-  while (!(BSP_BC_USART->STATUS & USART_STATUS_RXDATAV)) ;
-  *rxPtr++ = BSP_BC_USART->RXDATA;
-  if ((pkt->type < STK_PACKETTYPE_FIRST) || (pkt->type > STK_PACKETTYPE_LAST))
-  {
-    /* Invalid packet */
-    memset(pkt, 0x00, sizeof(STK_Packet));
-    return false;
-  }
-
-  /* Receive packet length */
-  while (!(BSP_BC_USART->STATUS & USART_STATUS_RXDATAV)) ;
-  *rxPtr++ = BSP_BC_USART->RXDATA;
-  if (pkt->payloadLength > STK_PACKET_SIZE)
-  {
-    /* Invalid packet */
-    memset(pkt, 0x00, sizeof(STK_Packet));
-    return false;
-  }
-
-#if ( BSP_STK_BCP_VERSION == 2 )
-  /* Receive reserved byte */
-  while (!(BSP_BC_USART->STATUS & USART_STATUS_RXDATAV)) ;
-  *rxPtr++ = BSP_BC_USART->RXDATA;
-#endif
-
-  /* Receive packet data */
-  length = pkt->payloadLength;
-  if (length > STK_PACKET_SIZE)
-  {
-    length = STK_PACKET_SIZE;
-  }
-  while (length)
-  {
-    while (!(BSP_BC_USART->STATUS & USART_STATUS_RXDATAV)) ;
-    *rxPtr++ = BSP_BC_USART->RXDATA;
-    length--;
-  }
-
-  return true;
-}
-
-__STATIC_INLINE void txByte(uint8_t data)
-{
-  /* Check that transmit buffer is empty */
-  while (!(BSP_BC_USART->STATUS & USART_STATUS_TXBL)) ;
-  BSP_BC_USART->TXDATA = (uint32_t) data;
-}
-
-static void PacketSend(STK_Packet *pkt)
-{
-  int i;
-
-  /* Apply magic */
-  pkt->magic = STK_MAGIC;
-
-  /* Transmit packet magic */
-  txByte(pkt->magic);
-  /* Transmit packet type */
-  txByte(pkt->type);
-  /* Transmit packet length */
-  txByte(pkt->payloadLength);
-
-#if ( BSP_STK_BCP_VERSION == 2 )
-  /* Transmit reserved byte */
-  txByte(pkt->reserved);
-#endif
-
-  /* Transmit packet payload */
-  for (i = 0; i < pkt->payloadLength; i++)
-  {
-    txByte(pkt->data[i]);
-  }
-}
-
-/** @endcond */
 /** @} (end group BSP_STK) */
 /** @} (end group BSP) */
+
 #endif /* BSP_STK */
