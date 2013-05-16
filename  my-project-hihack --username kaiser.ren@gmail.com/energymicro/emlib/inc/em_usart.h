@@ -296,7 +296,7 @@ typedef struct
 #define USART_INITASYNC_DEFAULT                                                              \
   { usartEnable,      /* Enable RX/TX when init completed. */                                \
     0,                /* Use current configured reference clock for configuring baudrate. */ \
-    115200,           /* 115200 bits/s. */                                                   \
+    38400,           /* 38400 bits/s. */                                                   \
     usartOVS16,       /* 16x oversampling. */                                                \
     usartDatabits8,   /* 8 databits. */                                                      \
     usartNoParity,    /* No parity. */                                                       \
