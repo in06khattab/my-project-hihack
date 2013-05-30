@@ -35,6 +35,7 @@
 #include "crc.h"
 #include "config.h"
 #include "flash.h"
+#include "em_cmu.h"
 
 #ifndef NDEBUG
 #include "debug.h"
@@ -363,6 +364,7 @@ int main(void)
   /* Handle potential chip errata */
   /* Uncomment the next line to enable chip erratas for engineering samples */
   /* CHIP_init(); */
+  CMU_HFRCOBandSet(cmuHFRCOBand_7MHz);
 
   /* Generate a new vector table and place it in RAM */
   generateVectorTable();
@@ -399,7 +401,7 @@ int main(void)
    */
   //if (clkdiv < 3000)
   {
-    clkdiv = 5705;
+    clkdiv = 2660;
     BOOTLOADER_USART->CTRL |= USART_CTRL_OVS_X16;
   }
 
