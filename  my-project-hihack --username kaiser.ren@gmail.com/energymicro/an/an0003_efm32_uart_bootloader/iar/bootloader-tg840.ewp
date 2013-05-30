@@ -293,6 +293,7 @@
         </option>
         <option>
           <name>CCIncludePath2</name>
+          <state>$PROJ_DIR$\..\..\..\emlib\inc</state>
           <state>$PROJ_DIR$\..\..\..\CMSIS\Include</state>
           <state>$PROJ_DIR$\..\..\..\Device\EnergyMicro\EFM32TG\Include</state>
           <state>$PROJ_DIR$\..\tg840</state>
@@ -1842,6 +1843,18 @@
   <mfc_discard>
     <configuration>Release</configuration>
   </mfc_discard>
+  <group>
+    <name>CMSIS</name>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\Device\EnergyMicro\EFM32TG\Source\system_efm32tg.c</name>
+    </file>
+  </group>
+  <group>
+    <name>emlib</name>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\emlib\src\em_cmu.c</name>
+    </file>
+  </group>
   <group>
     <name>Source</name>
     <file>
