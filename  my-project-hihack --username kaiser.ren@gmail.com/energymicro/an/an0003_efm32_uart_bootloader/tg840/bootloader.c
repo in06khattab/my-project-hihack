@@ -401,7 +401,7 @@ int main(void)
    */
   //if (clkdiv < 3000)
   {
-    clkdiv = 2660;
+    clkdiv = 7000000*16/38400 - 256;
     BOOTLOADER_USART->CTRL |= USART_CTRL_OVS_X16;
   }
 

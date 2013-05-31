@@ -1213,6 +1213,7 @@
         </option>
         <option>
           <name>CCIncludePath2</name>
+          <state>$PROJ_DIR$\..\..\..\emlib\inc</state>
           <state>$PROJ_DIR$\..\..\..\CMSIS\Include</state>
           <state>$PROJ_DIR$\..\..\..\Device\EnergyMicro\EFM32TG\Include</state>
           <state>$PROJ_DIR$\..\tg840</state>

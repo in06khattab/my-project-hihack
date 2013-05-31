@@ -44,7 +44,7 @@ void DEBUG_init(void)
 
   /* Set clock division. We need 38400 bps, while the core is running
    * at 14 MHz. Using equation 16.2 the CLKDIV must be set to 5573 */
-  DEBUG_USART->CLKDIV = 5573;
+  DEBUG_USART->CLKDIV = 7000000*16/38400 - 256;;
 
   /* Use default location 0: TX - pin C0, RX - pin C1 */
   DEBUG_USART->ROUTE = USART_ROUTE_RXPEN | USART_ROUTE_TXPEN
