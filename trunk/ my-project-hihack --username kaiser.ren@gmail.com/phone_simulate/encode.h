@@ -24,6 +24,21 @@
 #include "board.h"
 
 /*----------------------------------------------------------------------------
+ *        Macros
+ *----------------------------------------------------------------------------*/
+/** Reference voltage for DACC,in mv*/
+#define VOLT_REF   (3300)
+
+/** The maximal digital value*/
+#define MAX_DIGITAL (4095)
+
+/** SAMPLES per cycle*/
+#define SAMPLES (100)
+
+/** uart buffer size*/
+#define US_BUFFER_SIZE (200)
+
+/*----------------------------------------------------------------------------
  *        Typedef
  *----------------------------------------------------------------------------*/
 typedef enum next_bit_tag
@@ -52,20 +67,8 @@ typedef struct _usart_rx_tag
   	uint8_t count;
 	uint8_t head;
 	uint8_t tail;
-	uint8_t buff[20];
+	uint8_t buff[US_BUFFER_SIZE];
 }us_rx_t;
-
-/*----------------------------------------------------------------------------
- *        Macros
- *----------------------------------------------------------------------------*/
-/** Reference voltage for DACC,in mv*/
-#define VOLT_REF   (3300)
-
-/** The maximal digital value*/
-#define MAX_DIGITAL (4095)
-
-/** SAMPLES per cycle*/
-#define SAMPLES (100)
 
 /*----------------------------------------------------------------------------
  *        External Variable
