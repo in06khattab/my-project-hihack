@@ -89,10 +89,10 @@ void UART0_IrqHandler(void)
 
     /* Receive byte is stored in buffer. */
     if ((status & UART_SR_RXRDY) == UART_SR_RXRDY) {
-		if(us1.count < 20){
+		if(us1.count < US_BUFFER_SIZE){
 	    	us1.buff[us1.head++] = UART_GetChar();
 			us1.count++;
-			if(us1.head >= 20)
+			if(us1.head >= US_BUFFER_SIZE)
 				us1.head = 0;
 	  	}
 		else{
@@ -248,7 +248,7 @@ uint8_t us1_get_char(void)
 	if(us1.count){
     	temp = us1.buff[us1.tail++];
 		us1.count--;
-		if(us1.tail >= 20){
+		if(us1.tail >= US_BUFFER_SIZE){
 			us1.tail = 0;
 		}
   	}

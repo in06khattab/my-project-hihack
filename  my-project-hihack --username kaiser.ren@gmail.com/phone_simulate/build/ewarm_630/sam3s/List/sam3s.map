@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR ELF Linker V6.30.6.53336/W32 for ARM              07/Mar/2013  15:05:48 #
+# IAR ELF Linker V6.30.6.53336/W32 for ARM              07/Jun/2013  09:41:50 #
 # Copyright 2007-2012 IAR Systems AB.                                         #
 #                                                                             #
 #    Output file  =  D:\Firmware\my-project-hihack\trunk\ my-project-hihack   #
@@ -125,28 +125,28 @@ __SystemLibrary = DLib
   .rodata          const    0x0040207c     0x0  bwt_init3c.o [6]
                           - 0x0040207c  0x1fac
 
-"P2", part 1 of 2:                        0x40
-  .bss             zero     0x20000000    0x18  main.o [1]
-  .bss             zero     0x20000018     0x8  encode.o [1]
-  .bss             zero     0x20000020     0x4  decode.o [1]
-  .bss             zero     0x20000024     0x4  decode.o [1]
-  .bss             zero     0x20000028     0x4  decode.o [1]
-  .bss             zero     0x2000002c     0x4  decode.o [1]
-  .bss             zero     0x20000030     0x2  encode.o [1]
-  .bss             zero     0x20000032     0x2  encode.o [1]
-  .bss             zero     0x20000034     0x1  decode.o [1]
-  .bss             zero     0x20000035     0x1  decode.o [1]
-  .bss             zero     0x20000036     0x1  encode.o [1]
-  .bss             zero     0x20000037     0x1  encode.o [1]
-  .bss             zero     0x20000038     0x1  encode.o [1]
-  .bss             zero     0x20000039     0x1  encode.o [1]
-  .bss             zero     0x2000003a     0x1  uart_console.o [4]
-                          - 0x2000003b    0x3b
+"P2", part 1 of 2:                        0xf0
+  .bss             zero     0x20000000    0xcc  main.o [1]
+  .bss             zero     0x200000cc     0x8  encode.o [1]
+  .bss             zero     0x200000d4     0x4  decode.o [1]
+  .bss             zero     0x200000d8     0x4  decode.o [1]
+  .bss             zero     0x200000dc     0x4  decode.o [1]
+  .bss             zero     0x200000e0     0x4  decode.o [1]
+  .bss             zero     0x200000e4     0x2  encode.o [1]
+  .bss             zero     0x200000e6     0x2  encode.o [1]
+  .bss             zero     0x200000e8     0x1  decode.o [1]
+  .bss             zero     0x200000e9     0x1  decode.o [1]
+  .bss             zero     0x200000ea     0x1  encode.o [1]
+  .bss             zero     0x200000eb     0x1  encode.o [1]
+  .bss             zero     0x200000ec     0x1  encode.o [1]
+  .bss             zero     0x200000ed     0x1  encode.o [1]
+  .bss             zero     0x200000ee     0x1  uart_console.o [4]
+                          - 0x200000ef    0xef
 
 "P2", part 2 of 2:                      0x3000
-  CSTACK                    0x20000040  0x3000  <Block>
-    CSTACK         uninit   0x20000040  0x3000  <Block tail>
-                          - 0x20003040  0x3000
+  CSTACK                    0x200000f0  0x3000  <Block>
+    CSTACK         uninit   0x200000f0  0x3000  <Block tail>
+                          - 0x200030f0  0x3000
 
 
 *******************************************************************************
@@ -156,8 +156,8 @@ __SystemLibrary = DLib
           Address     Size
           -------     ----
 Zero (__iar_zero_init3)
-    1 destination range, total size 0x3b:
-          0x20000000  0x3b
+    1 destination range, total size 0xef:
+          0x20000000  0xef
 
 
 
@@ -170,9 +170,9 @@ Zero (__iar_zero_init3)
 D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\phone_simulate\build\ewarm_630\sam3s\Obj: [1]
     decode.o                  868       12       18
     encode.o                1 688                16
-    main.o                    952      836       24
+    main.o                    952      836      204
     -----------------------------------------------
-    Total:                  3 508      848       58
+    Total:                  3 508      848      238
 
 command line: [2]
     -----------------------------------------------
@@ -223,7 +223,7 @@ rt7M_tl.a: [6]
     Gaps                        4
     Linker created                      16   12 288
 ---------------------------------------------------
-    Grand Total:            6 892    1 424   12 347
+    Grand Total:            6 892    1 424   12 527
 
 
 *******************************************************************************
@@ -239,11 +239,11 @@ ACC_IrqHandler          0x00400c55    0x2  Code  Wk  exceptions.o [5]
 ADC_IrqHandler          0x00400c4f    0x2  Code  Wk  exceptions.o [5]
 BusFault_Handler        0x00400c17    0x2  Code  Wk  exceptions.o [5]
 CRCCU_IrqHandler        0x00400c53    0x2  Code  Wk  exceptions.o [5]
-CSTACK$$Base            0x20000040          --   Gb  - Linker created -
-CSTACK$$Limit           0x20003040          --   Gb  - Linker created -
+CSTACK$$Base            0x200000f0          --   Gb  - Linker created -
+CSTACK$$Limit           0x200030f0          --   Gb  - Linker created -
 DACC_Initialize         0x0040081d   0xae  Code  Gb  dacc.o [5]
 DACC_SetConversionData  0x004008d9   0x10  Code  Gb  dacc.o [5]
-DACC_channel_sine       0x20000039    0x1  Data  Gb  encode.o [1]
+DACC_channel_sine       0x200000ed    0x1  Data  Gb  encode.o [1]
 DAC_IrqHandler          0x00400149   0x8c  Code  Gb  encode.o [1]
 DebugMon_Handler        0x00400c1d    0x2  Code  Wk  exceptions.o [5]
 EEFC_IrqHandler         0x00400c2d    0x2  Code  Wk  exceptions.o [5]
@@ -336,28 +336,28 @@ _call_main              0x00401fe9         Code  Gb  cmain.o [6]
 _exit                   0x00401ff9         Code  Gb  cexit.o [6]
 _main                   0x00401fef         Code  Gb  cmain.o [6]
 _ucIsConsoleInitialized
-                        0x2000003a    0x1  Data  Lc  uart_console.o [4]
+                        0x200000ee    0x1  Data  Lc  uart_console.o [4]
 abort                   0x00400c09    0x6  Code  Gb  abort.o [3]
-amplitude               0x20000032    0x2  Data  Gb  encode.o [1]
-cur_edge                0x20000035    0x1  Data  Lc  decode.o [1]
-cur_stamp               0x20000024    0x4  Data  Lc  decode.o [1]
-dec                     0x20000020    0x4  Data  Gb  decode.o [1]
+amplitude               0x200000e6    0x2  Data  Gb  encode.o [1]
+cur_edge                0x200000e9    0x1  Data  Lc  decode.o [1]
+cur_stamp               0x200000d8    0x4  Data  Lc  decode.o [1]
+dec                     0x200000d4    0x4  Data  Gb  decode.o [1]
 dec_parser              0x00401719   0x86  Code  Lc  decode.o [1]
 decode_machine          0x0040179f  0x1de  Code  Gb  decode.o [1]
-edge_occur              0x20000034    0x1  Data  Gb  decode.o [1]
-enc                     0x20000018    0x8  Data  Lc  encode.o [1]
+edge_occur              0x200000e8    0x1  Data  Gb  decode.o [1]
+enc                     0x200000cc    0x8  Data  Lc  encode.o [1]
 enc_init                0x004002b9   0xe2  Code  Gb  encode.o [1]
 enc_parser              0x00400401   0xbe  Code  Gb  encode.o [1]
 encode_machine          0x004004bf  0x248  Code  Gb  encode.o [1]
 exit                    0x00401ff3    0x4  Code  Gb  exit.o [3]
-frequency               0x20000030    0x2  Data  Gb  encode.o [1]
-index_sample            0x20000037    0x1  Data  Lc  encode.o [1]
-inv                     0x2000002c    0x4  Data  Lc  decode.o [1]
+frequency               0x200000e4    0x2  Data  Gb  encode.o [1]
+index_sample            0x200000eb    0x1  Data  Lc  encode.o [1]
+inv                     0x200000e0    0x4  Data  Lc  decode.o [1]
 main                    0x004013b1  0x146  Code  Gb  main.o [1]
 memchr                  0x00401179         Code  Gb  memchr.o [6]
 numLeds                 0x00402078    0x4  Data  Lc  led.o [4]
-odd                     0x20000036    0x1  Data  Lc  encode.o [1]
-offset                  0x20000028    0x4  Data  Lc  decode.o [1]
+odd                     0x200000ea    0x1  Data  Lc  encode.o [1]
+offset                  0x200000dc    0x4  Data  Lc  decode.o [1]
 out                     0x00400b69   0x16  Code  Lc  xreportassert.o [3]
 pTcPins                 0x00402018    0xc  Data  Lc  decode.o [1]
 pins                    0x00401cd8   0x48  Data  Gb  main.o [1]
@@ -367,8 +367,8 @@ putchar                 0x0040080d   0x10  Code  Wk  uart_console.o [4]
 sine_data               0x00401b10   0xc8  Data  Gb  main.o [1]
 strchr                  0x00401109         Code  Gb  strchr.o [6]
 strlen                  0x00401141         Code  Gb  strlen.o [6]
-ticker                  0x20000038    0x1  Data  Lc  encode.o [1]
-us1                     0x20000000   0x18  Data  Gb  main.o [1]
+ticker                  0x200000ec    0x1  Data  Lc  encode.o [1]
+us1                     0x20000000   0xcc  Data  Gb  main.o [1]
 us1_get_char            0x004003b5   0x4c  Code  Gb  encode.o [1]
 us1_get_count           0x004003ad    0x8  Code  Gb  encode.o [1]
 
@@ -382,7 +382,7 @@ us1_get_count           0x004003ad    0x8  Code  Gb  encode.o [1]
 
    6 892 bytes of readonly  code memory
    1 424 bytes of readonly  data memory
-  12 347 bytes of readwrite data memory
+  12 527 bytes of readwrite data memory
 
 Errors: none
 Warnings: none
