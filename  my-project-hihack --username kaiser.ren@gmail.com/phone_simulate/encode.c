@@ -142,7 +142,7 @@ void TC0_IrqHandler( void )
 void enc_init(void)
 {
 	/* initialize amplitude and frequency */
-    amplitude = MAX_DIGITAL / 4;
+    amplitude = MAX_DIGITAL / 2;
     frequency = HIJACK_CARRIER_FREQ_CONF;
 
     /*10 us timer*/
