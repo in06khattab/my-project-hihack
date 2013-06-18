@@ -246,11 +246,17 @@ uint8_t us1_get_char(void)
   	uint8_t temp;
 	
 	if(us1.count){
+#if CRITICAL_PROTECTION==1
+		__disable_irq();
+#endif
     	temp = us1.buff[us1.tail++];
 		us1.count--;
 		if(us1.tail >= US_BUFFER_SIZE){
 			us1.tail = 0;
 		}
+#if CRITICAL_PROTECTION==1
+		__enable_irq();
+#endif
   	}
     return temp;
 }
