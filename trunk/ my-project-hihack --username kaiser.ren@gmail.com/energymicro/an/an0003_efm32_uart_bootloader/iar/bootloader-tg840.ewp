@@ -165,6 +165,8 @@
         <option>
           <name>CCDefines</name>
           <state>EFM32TG840F32</state>
+          <state>NDEBUG</state>
+          <state>SIZE_TAILOR=1</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -322,7 +324,7 @@
         <option>
           <name>CCOptStrategy</name>
           <version>0</version>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>CCOptLevelSlave</name>
@@ -1018,7 +1020,7 @@
         </option>
         <option>
           <name>OGChipSelectEditMenu</name>
-          <state>EFM32TG210F8	EnergyMicro EFM32TG210F8</state>
+          <state>EFM32TG840F32	EnergyMicro EFM32TG840F32</state>
         </option>
         <option>
           <name>GenLowLevelInterface</name>

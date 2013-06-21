@@ -93,6 +93,7 @@ uint8_t okString[]      = "\r\nOK\r\n";
 uint8_t failString[]    = "\r\nFail\r\n";
 uint8_t unknownString[] = "\r\n?\r\n";
 
+#if SIZE_TAILOR==0
 /**************************************************************************//**
  * @brief RTC IRQ Handler
  *   The RTC is used to keep the power consumption of the bootloader down while
@@ -114,6 +115,7 @@ void RTC_IRQHandler(void)
     SCB->AIRCR = 0x05FA0004;
   }
 }
+#endif//#if SIZE_TAILOR==0
 
 /**************************************************************************//**
  * @brief
@@ -136,6 +138,8 @@ void waitForBootOrUSART(void)
 #ifndef NDEBUG
   uint32_t oldPins = 0xf;
 #endif
+
+#if defined SIZE_TAILOR==0
   /* Initialize RTC */
   /* Clear interrupt flags */
   RTC->IFC = RTC_IFC_COMP1 | RTC_IFC_COMP0 | RTC_IFC_OF;
@@ -147,6 +151,7 @@ void waitForBootOrUSART(void)
   NVIC_EnableIRQ(RTC_IRQn);
   /* Enable RTC */
   RTC->CTRL = RTC_CTRL_COMP0TOP | RTC_CTRL_DEBUGRUN | RTC_CTRL_EN;
+#endif//SIZE_TAILOR==0
 
   while (1)
   {
@@ -181,11 +186,13 @@ void waitForBootOrUSART(void)
     /* Enter bootloader mode */
     if (SWDpins == 0x1)
     {
+#if defined SIZE_TAILOR==0
       /* Increase timeout to 30 seconds */
       RTC->COMP0 = AUTOBAUD_TIMEOUT * LFRCO_FREQ;
       /* If this timeout occurs the EFM32 is rebooted. */
       /* This is done so that the bootloader cannot get stuck in autobaud sequence */
       resetEFM32onRTCTimeout = true;
+#endif//SIZE_TAILOR==0
 #ifndef NDEBUG
       printf("Starting autobaud sequence\r\n");
 #endif
@@ -277,6 +284,7 @@ __ramfunc void commandlineLoop(void)
       BOOT_boot();
       break;
     /* Debug lock */
+#if defined SIZE_TAILOR==0
     case 'l':
 #ifndef NDEBUG
       /* We check if there is a debug session active in DHCSR. If there is we
@@ -321,6 +329,7 @@ __ramfunc void commandlineLoop(void)
     case 'm':
       verify(XMODEM_LOCK_PAGE_START, XMODEM_LOCK_PAGE_END);
       break;
+#endif//SIZE_TAILOR==0
     /* Reset command */
     case 'r':
       /* Write to the Application Interrupt/Reset Command Register to reset
@@ -344,8 +353,10 @@ __ramfunc void commandlineLoop(void)
  *****************************************************************************/
 void generateVectorTable(void)
 {
+#if SIZE_TAILOR==0
   vectorTable[AUTOBAUD_TIMER_IRQn + 16] = (uint32_t) TIMER_IRQHandler;
   vectorTable[RTC_IRQn + 16]            = (uint32_t) RTC_IRQHandler;
+#endif//SIZE_TAILOR==0
 #ifdef USART_OVERLAPS_WITH_BOOTLOADER
   vectorTable[GPIO_EVEN_IRQn + 16]      = (uint32_t) GPIO_IRQHandler;
 #endif
@@ -358,8 +369,8 @@ void generateVectorTable(void)
 int main(void)
 {
   uint32_t clkdiv;
-  uint32_t periodTime24_8;
-  uint32_t tuning;
+  //uint32_t periodTime24_8;
+  //uint32_t tuning;
 
   /* Handle potential chip errata */
   /* Uncomment the next line to enable chip erratas for engineering samples */
@@ -382,14 +393,15 @@ int main(void)
                      AUTOBAUD_TIMER_CLOCK ;
 
   /* Enable LE and DMA interface */
-  CMU->HFCORECLKEN0 = CMU_HFCORECLKEN0_LE | CMU_HFCORECLKEN0_DMA;
-
+  CMU->HFCORECLKEN0 = /*CMU_HFCORECLKEN0_LE |*/ CMU_HFCORECLKEN0_DMA;
+#if SIZE_TAILOR==0
   /* Enable LFRCO for RTC */
   CMU->OSCENCMD = CMU_OSCENCMD_LFRCOEN;
   /* Setup LFA to use LFRCRO */
   CMU->LFCLKSEL = CMU_LFCLKSEL_LFA_LFRCO | CMU_LFCLKSEL_LFB_HFCORECLKLEDIV2;
   /* Enable RTC */
   CMU->LFACLKEN0 = CMU_LFACLKEN0_RTC;
+#endif//#if SIZE_TAILOR==0
 
 #ifndef NDEBUG
   DEBUG_init();
@@ -411,7 +423,8 @@ int main(void)
   /* Initialize the UART */
   USART_init(clkdiv);
 
-   USART_printString("\r\n\r\n\r\n-- welcome to bootloader --\r\n\r\n\r\n");
+   USART_printString("\r\n\r\n\r\n-- welcome to bootloader --\r\n");
+   USART_printString("-- Build on:"__DATE__" "__TIME__" --\r\n\r\n\r\n");
 
   /* Figure out correct flash page size */
   FLASH_CalcPageSize();
@@ -426,7 +439,7 @@ int main(void)
 
   /* AUTOBAUD_sync() returns a value in 24.8 fixed point format */
   //periodTime24_8 = AUTOBAUD_sync();
-  periodTime24_8 = 2000;
+  //periodTime24_8 = 2000;
 #ifndef NDEBUG
   printf("Autobaud complete.\r\n");
   //printf("Measured periodtime (24.8): %d.%d\r\n", periodTime24_8 >> 8, periodTime24_8 & 0xFF);
