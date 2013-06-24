@@ -24,7 +24,7 @@
 /* Driver header file(s). */
 #include "board.h"
 //#include "segmentlcd.h"
-//#include "main.h"
+#include "main.h"
 #include "decode.h"
 #include "encode.h"
 //#include "com.h"
