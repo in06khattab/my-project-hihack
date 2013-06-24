@@ -298,8 +298,8 @@
           <state>$PROJ_DIR$\..\..\..\emlib\inc</state>
           <state>$PROJ_DIR$\..\..\..\CMSIS\Include</state>
           <state>$PROJ_DIR$\..\..\..\Device\EnergyMicro\EFM32TG\Include</state>
-          <state>$PROJ_DIR$\..\tg840</state>
-          <state>$PROJ_DIR$\..\tg840\config_tg</state>
+          <state>$PROJ_DIR$\..\common</state>
+          <state>$PROJ_DIR$\..\common\config_tg</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1859,39 +1859,39 @@
     </file>
   </group>
   <group>
-    <name>Source</name>
+    <name>Common</name>
     <file>
-      <name>$PROJ_DIR$\..\tg840\autobaud.c</name>
+      <name>$PROJ_DIR$\..\common\autobaud.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\tg840\boot.c</name>
+      <name>$PROJ_DIR$\..\common\boot.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\tg840\bootloader.c</name>
+      <name>$PROJ_DIR$\..\common\bootloader.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\tg840\crc.c</name>
+      <name>$PROJ_DIR$\..\common\crc.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\tg840\debug.c</name>
+      <name>$PROJ_DIR$\..\common\debug.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\tg840\debuglock.c</name>
+      <name>$PROJ_DIR$\..\common\debuglock.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\tg840\flash.c</name>
+      <name>$PROJ_DIR$\..\common\flash.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\tg840\iarwrite.c</name>
+      <name>$PROJ_DIR$\..\common\iarwrite.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\tg840\startup_efm32.s</name>
+      <name>$PROJ_DIR$\..\common\startup_efm32.s</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\tg840\usart.c</name>
+      <name>$PROJ_DIR$\..\common\usart.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\tg840\xmodem.c</name>
+      <name>$PROJ_DIR$\..\common\xmodem.c</name>
     </file>
   </group>
   <file>
