@@ -1220,7 +1220,8 @@
           <state>$PROJ_DIR$\..\..\..\CMSIS\Include</state>
           <state>$PROJ_DIR$\..\..\..\Device\EnergyMicro\EFM32TG\Include</state>
           <state>$PROJ_DIR$\..\tg840</state>
-          <state>$PROJ_DIR$\..\tg840\config_tg</state>
+          <state>$PROJ_DIR$\..\common</state>
+          <state>$PROJ_DIR$\..\common\config_tg</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1907,7 +1908,22 @@
   <group>
     <name>emlib</name>
     <file>
+      <name>$PROJ_DIR$\..\..\..\emlib\src\em_acmp.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\..\emlib\src\em_cmu.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\emlib\src\em_gpio.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\emlib\src\em_int.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\emlib\src\em_prs.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\emlib\src\em_timer.c</name>
     </file>
   </group>
   <file>

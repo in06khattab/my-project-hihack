@@ -17,10 +17,13 @@
 /*----------------------------------------------------------------------------
  *        Header
  *----------------------------------------------------------------------------*/
+#include <stdint.h>
+#include <stdarg.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <assert.h>
+#include "xstdio.h"
 #include "em_i2c.h"
 
 /*----------------------------------------------------------------------------
@@ -37,7 +40,7 @@
 #define ULTRAVIOLET
 
 /* PRESCALER: 64 */
-#define HIJACK_TIMER_RESOLUTION     timerPrescale64
+#define HIJACK_TIMER_RESOLUTION     timerPrescale16
 #define HIJACK_TMR_CLK_SRC_PRESCALER ( 0x01 << HIJACK_TIMER_RESOLUTION)
 
 /* how many ticker per us. */
@@ -51,6 +54,9 @@
 
 /* how manu ticks when precision is about 5%. */
 #define HIJACK_NUM_TICKS_PER_20_PCNT	(HIJACK_NUM_TICKS_PER_FULL_CYCLE / 10)
+
+/* Declare a circular buffer structure to use for Rx and Tx queues */
+#define BUFFERSIZE          200
 
 /*----------------------------------------------------------------------------
  *        Typedef
@@ -87,6 +93,16 @@ typedef enum modulation_state_tag
 	Sto1,
 	Parity
 }state_t;
+
+typedef struct _circularBuffer_
+{
+
+  uint32_t rdI;               /* read index */
+  uint32_t wrI;               /* write index */
+  uint32_t pendingBytes;      /* count of how many bytes are not yet handled */
+  bool     overflow;          /* buffer overflow indicator */
+  uint8_t  data[BUFFERSIZE];  /* data buffer */
+}buffer_t;
 
 extern uint32_t sys_tick;
 #endif//_MAIN_H_

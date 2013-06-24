@@ -36,6 +36,8 @@
 #include "config.h"
 #include "flash.h"
 #include "em_cmu.h"
+#include "decode.h"
+#include "encode.h"
 
 #ifndef NDEBUG
 #include "debug.h"
@@ -44,6 +46,9 @@
 
 /** Version string, used when the user connects */
 #define BOOTLOADER_VERSION_STRING "1.63 "
+
+/** Define USART baudrate. **/
+#define BOOTLOADER_BAUD_RATE 38400
 
 /* Vector table in RAM. We construct a new vector table to conserve space in
  * flash as it is sparsly populated. */
@@ -83,6 +88,8 @@ uint16_t bootloaderCRC __attribute__((at(0x200000bc)));
  */
 bool resetEFM32onRTCTimeout = false;
 
+/* Global variable . */
+uint32_t sys_tick = 0;
 /**************************************************************************//**
  * Strings.
  *****************************************************************************/
@@ -360,6 +367,9 @@ void generateVectorTable(void)
 #ifdef USART_OVERLAPS_WITH_BOOTLOADER
   vectorTable[GPIO_EVEN_IRQn + 16]      = (uint32_t) GPIO_IRQHandler;
 #endif
+
+  vectorTable[TIMER0_IRQn + 16]         = (uint32_t) TIMER0_IRQHandler;
+  vectorTable[TIMER1_IRQn + 16]         = (uint32_t) TIMER1_IRQHandler;
   SCB->VTOR                             = (uint32_t) vectorTable;
 }
 
@@ -369,8 +379,6 @@ void generateVectorTable(void)
 int main(void)
 {
   uint32_t clkdiv;
-  //uint32_t periodTime24_8;
-  //uint32_t tuning;
 
   /* Handle potential chip errata */
   /* Uncomment the next line to enable chip erratas for engineering samples */
@@ -403,6 +411,13 @@ int main(void)
   CMU->LFACLKEN0 = CMU_LFACLKEN0_RTC;
 #endif//#if SIZE_TAILOR==0
 
+  /* Initial hijack part. */
+  /* dec part initial. */
+  dec_init();
+  enc_init();
+  NVIC_SetPriority(TIMER0_IRQn, 5);
+  NVIC_SetPriority(TIMER1_IRQn, 10);
+
 #ifndef NDEBUG
   DEBUG_init();
   printf("\r\n-- Debug output enabled --\r\n");
@@ -411,11 +426,8 @@ int main(void)
   /* Check if the clock division is too small, if it is, we change
    * to an oversampling rate of 4x and calculate a new clkdiv.
    */
-  //if (clkdiv < 3000)
-  {
-    clkdiv = 7000000*16/38400 - 256;
-    BOOTLOADER_USART->CTRL |= USART_CTRL_OVS_X16;
-  }
+  clkdiv = 7000000*16/BOOTLOADER_BAUD_RATE - 256;
+  BOOTLOADER_USART->CTRL |= USART_CTRL_OVS_X16;
 
   /* Setup pins for USART */
   CONFIG_UsartGpioSetup();
@@ -437,14 +449,6 @@ int main(void)
   CMU->LFBCLKEN0 = BOOTLOADER_LEUART_CLOCK;
 #endif
 
-  /* AUTOBAUD_sync() returns a value in 24.8 fixed point format */
-  //periodTime24_8 = AUTOBAUD_sync();
-  //periodTime24_8 = 2000;
-#ifndef NDEBUG
-  printf("Autobaud complete.\r\n");
-  //printf("Measured periodtime (24.8): %d.%d\r\n", periodTime24_8 >> 8, periodTime24_8 & 0xFF);
-#endif
-
   /* When autobaud has completed, we can be fairly certain that
    * the entry into the bootloader is intentional so we can disable the timeout.
    */
@@ -453,12 +457,8 @@ int main(void)
 #ifdef BOOTLOADER_LEUART_CLOCK
   clkdiv = ((periodTime24_8 >> 1) - 256);
   GPIO->ROUTE = 0;
-#else
+#endif
 
-#endif
-#ifndef NDEBUG
-  //printf("BOOTLOADER_USART clkdiv = %d\r\n", clkdiv);
-#endif
 
   /* Print a message to show that we are in bootloader mode */
   USART_printString("\r\n\r\n" BOOTLOADER_VERSION_STRING  "ChipID: ");

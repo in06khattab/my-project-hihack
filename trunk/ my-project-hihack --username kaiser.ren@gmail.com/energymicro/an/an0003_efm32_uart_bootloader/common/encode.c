@@ -13,6 +13,7 @@
 /*----------------------------------------------------------------------------
  *        Headers
  *----------------------------------------------------------------------------*/
+#include "main.h"
 #include "encode.h"
 //#include "com.h"
 #include "board.h"
@@ -53,9 +54,6 @@ void TIMER1_IRQHandler(void)
   /* Clear all pending IRQ flags. */
   irqFlags = TIMER_IntGet(HIJACK_TX_TIMER);
   TIMER_IntClear(HIJACK_TX_TIMER, irqFlags);
-
-  //if (encTmr)
-  	//encTmr--;
 
   ticker++;
 
