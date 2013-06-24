@@ -298,6 +298,7 @@
           <state>$PROJ_DIR$\..\..\..\emlib\inc</state>
           <state>$PROJ_DIR$\..\..\..\CMSIS\Include</state>
           <state>$PROJ_DIR$\..\..\..\Device\EnergyMicro\EFM32TG\Include</state>
+          <state>$PROJ_DIR$\..\tg840</state>
           <state>$PROJ_DIR$\..\common</state>
           <state>$PROJ_DIR$\..\common\config_tg</state>
         </option>
@@ -1853,12 +1854,6 @@
     </file>
   </group>
   <group>
-    <name>emlib</name>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\emlib\src\em_cmu.c</name>
-    </file>
-  </group>
-  <group>
     <name>Common</name>
     <file>
       <name>$PROJ_DIR$\..\common\autobaud.c</name>
@@ -1892,6 +1887,27 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\common\xmodem.c</name>
+    </file>
+  </group>
+  <group>
+    <name>Driver</name>
+    <file>
+      <name>$PROJ_DIR$\..\common\decode.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\common\decode.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\common\encode.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\common\encode.h</name>
+    </file>
+  </group>
+  <group>
+    <name>emlib</name>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\emlib\src\em_cmu.c</name>
     </file>
   </group>
   <file>
