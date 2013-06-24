@@ -165,6 +165,8 @@
         <option>
           <name>CCDefines</name>
           <state>EFM32TG210F32</state>
+          <state>NDEBUG</state>
+          <state>SIZE_TAILOR=1</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -293,10 +295,11 @@
         </option>
         <option>
           <name>CCIncludePath2</name>
+          <state>$PROJ_DIR$\..\..\..\emlib\inc</state>
           <state>$PROJ_DIR$\..\..\..\CMSIS\Include</state>
           <state>$PROJ_DIR$\..\..\..\Device\EnergyMicro\EFM32TG\Include</state>
-          <state>$PROJ_DIR$\..\tg210</state>
-          <state>$PROJ_DIR$\..\tg210\config_tg</state>
+          <state>$PROJ_DIR$\..\common</state>
+          <state>$PROJ_DIR$\..\common\config_tg</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1843,44 +1846,53 @@
     <configuration>Release</configuration>
   </mfc_discard>
   <group>
-    <name>Source</name>
+    <name>CMSIS</name>
     <file>
-      <name>$PROJ_DIR$\..\tg210\autobaud.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\tg210\boot.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\tg210\bootloader.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\tg210\crc.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\tg210\debug.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\tg210\debuglock.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\tg210\flash.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\tg210\iarwrite.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\tg210\startup_efm32.s</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\tg210\usart.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\tg210\xmodem.c</name>
+      <name>$PROJ_DIR$\..\..\..\Device\EnergyMicro\EFM32TG\Source\system_efm32tg.c</name>
     </file>
   </group>
-  <file>
-    <name>$PROJ_DIR$\..\iar_linker_files\EFM32TG210F32.icf</name>
-  </file>
+  <group>
+    <name>Common</name>
+    <file>
+      <name>$PROJ_DIR$\..\common\autobaud.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\common\boot.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\common\bootloader.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\common\crc.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\common\debug.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\common\debuglock.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\common\flash.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\common\iarwrite.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\common\startup_efm32.s</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\common\usart.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\common\xmodem.c</name>
+    </file>
+  </group>
+  <group>
+    <name>emlib</name>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\emlib\src\em_cmu.c</name>
+    </file>
+  </group>
 </project>
 
 
