@@ -1,0 +1,425 @@
+###############################################################################
+#                                                                             #
+# IAR ELF Linker V6.30.6.53336/W32 for ARM              19/Feb/2013  19:08:29 #
+# Copyright 2007-2012 IAR Systems AB.                                         #
+#                                                                             #
+#    Output file  =  F:\ Firmware\my-project-hihack\trunk\ my-project-hihack  #
+#                    --username kaiser.ren@gmail.com\energymicro\an\an0003_ef #
+#                    m32_uart_bootloader\iar\bootloader-tg210\Debug\Exe\bootl #
+#                    oader-tg210.out                                          #
+#    Map file     =  F:\ Firmware\my-project-hihack\trunk\ my-project-hihack  #
+#                    --username kaiser.ren@gmail.com\energymicro\an\an0003_ef #
+#                    m32_uart_bootloader\iar\bootloader-tg210\Debug\List\boot #
+#                    loader-tg210.map                                         #
+#    Command line =  "F:\ Firmware\my-project-hihack\trunk\                   #
+#                    my-project-hihack --username                             #
+#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
+#                    otloader\iar\bootloader-tg210\Debug\Obj\autobaud.o"      #
+#                    "F:\ Firmware\my-project-hihack\trunk\                   #
+#                    my-project-hihack --username                             #
+#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
+#                    otloader\iar\bootloader-tg210\Debug\Obj\boot.o" "F:\     #
+#                    Firmware\my-project-hihack\trunk\ my-project-hihack      #
+#                    --username kaiser.ren@gmail.com\energymicro\an\an0003_ef #
+#                    m32_uart_bootloader\iar\bootloader-tg210\Debug\Obj\bootl #
+#                    oader.o" "F:\ Firmware\my-project-hihack\trunk\          #
+#                    my-project-hihack --username                             #
+#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
+#                    otloader\iar\bootloader-tg210\Debug\Obj\crc.o" "F:\      #
+#                    Firmware\my-project-hihack\trunk\ my-project-hihack      #
+#                    --username kaiser.ren@gmail.com\energymicro\an\an0003_ef #
+#                    m32_uart_bootloader\iar\bootloader-tg210\Debug\Obj\debug #
+#                    .o" "F:\ Firmware\my-project-hihack\trunk\               #
+#                    my-project-hihack --username                             #
+#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
+#                    otloader\iar\bootloader-tg210\Debug\Obj\debuglock.o"     #
+#                    "F:\ Firmware\my-project-hihack\trunk\                   #
+#                    my-project-hihack --username                             #
+#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
+#                    otloader\iar\bootloader-tg210\Debug\Obj\flash.o" "F:\    #
+#                    Firmware\my-project-hihack\trunk\ my-project-hihack      #
+#                    --username kaiser.ren@gmail.com\energymicro\an\an0003_ef #
+#                    m32_uart_bootloader\iar\bootloader-tg210\Debug\Obj\iarwr #
+#                    ite.o" "F:\ Firmware\my-project-hihack\trunk\            #
+#                    my-project-hihack --username                             #
+#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
+#                    otloader\iar\bootloader-tg210\Debug\Obj\startup_efm32.o" #
+#                     "F:\ Firmware\my-project-hihack\trunk\                  #
+#                    my-project-hihack --username                             #
+#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
+#                    otloader\iar\bootloader-tg210\Debug\Obj\usart.o" "F:\    #
+#                    Firmware\my-project-hihack\trunk\ my-project-hihack      #
+#                    --username kaiser.ren@gmail.com\energymicro\an\an0003_ef #
+#                    m32_uart_bootloader\iar\bootloader-tg210\Debug\Obj\xmode #
+#                    m.o" --redirect _Printf=_PrintfFull --redirect           #
+#                    _Scanf=_ScanfFull -o "F:\ Firmware\my-project-hihack\tru #
+#                    nk\ my-project-hihack --username                         #
+#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
+#                    otloader\iar\bootloader-tg210\Debug\Exe\bootloader-tg210 #
+#                    .out" --map "F:\ Firmware\my-project-hihack\trunk\       #
+#                    my-project-hihack --username                             #
+#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
+#                    otloader\iar\bootloader-tg210\Debug\List\bootloader-tg21 #
+#                    0.map" --config "F:\ Firmware\my-project-hihack\trunk\   #
+#                    my-project-hihack --username                             #
+#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
+#                    otloader\iar\..\iar_linker_files\EFM32TG210F32.icf"      #
+#                    --entry __iar_program_start --vfe                        #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+*******************************************************************************
+*** RUNTIME MODEL ATTRIBUTES
+***
+
+CppFlavor       = *
+__SystemLibrary = DLib
+
+
+*******************************************************************************
+*** PLACEMENT SUMMARY
+***
+
+"A1":  place at 0x00000800 { ro section .intvec };
+"P1":  place in [from 0x00000800 to 0x00007fff] { ro };
+"P2":  place in [from 0x20000000 to 0x20000fff] { rw, block CSTACK, block HEAP };
+
+  Section            Kind        Address    Size  Object
+  -------            ----        -------    ----  ------
+"A1":                                        0x8
+  .intvec            ro code  0x00000800     0x8  startup_efm32.o [1]
+                            - 0x00000808     0x8
+
+"P1":                                     0x2594
+  .text              ro code  0x00000808   0xd1e  xprintffull.o [3]
+  .text              ro code  0x00001526    0x2e  copy_init3.o [5]
+  .text              ro code  0x00001554    0x16  strchr.o [5]
+  .text              ro code  0x0000156a    0x22  zero_init3.o [5]
+  .text              ro code  0x0000158c    0x36  strlen.o [5]
+  .text              ro code  0x000015c4    0x58  memchr.o [5]
+  .text              ro code  0x0000161c    0xee  I64DivMod.o [5]
+  .text              ro code  0x0000170c    0x76  ABImemcpy.o [5]
+  .text              ro code  0x00001782    0x44  xdnorm.o [4]
+  .text              ro code  0x000017c8    0x2e  DblCmpLe.o [4]
+  .text              ro code  0x000017f8    0x2e  DblCmpGe.o [4]
+  .text              ro code  0x00001828   0x11a  xdscale.o [4]
+  .text              ro code  0x00001944    0x58  DblToI32.o [4]
+  .text              ro code  0x0000199c    0x30  I32ToDbl.o [4]
+  .text              ro code  0x000019cc   0x180  DblSub.o [4]
+  .text              ro code  0x00001b4c   0x1a2  DblMul.o [4]
+  .text              ro code  0x00001cf0   0x246  DblDiv.o [4]
+  .text              ro code  0x00001f36     0xe  div.o [3]
+  .text              ro code  0x00001f44     0x2  I64DivZer.o [5]
+  .text              ro code  0x00001f48    0xd4  DblAdd.o [4]
+  Veneer             ro code  0x0000201c     0x8  - Linker created -
+  Veneer             ro code  0x00002024     0x8  - Linker created -
+  Veneer             ro code  0x0000202c     0x8  - Linker created -
+  Veneer             ro code  0x00002034     0x8  - Linker created -
+  Veneer             ro code  0x0000203c     0x8  - Linker created -
+  .text              ro code  0x00002044   0x254  bootloader.o [1]
+  .text              ro code  0x00002298    0x24  printf.o [3]
+  .text              ro code  0x000022bc    0x38  boot.o [1]
+  .text              ro code  0x000022f4    0x92  debug.o [1]
+  .text              ro code  0x00002388    0x84  flash.o [1]
+  .text              ro code  0x0000240c    0x28  usart.o [1]
+  .rodata            const    0x00002434    0x44  bootloader.o [1]
+  .text              ro code  0x00002478    0x3c  autobaud.o [1]
+  .text              ro code  0x000024b4    0x38  iarwrite.o [1]
+  .text              ro code  0x000024ec    0x2c  data_init3.o [5]
+  .rodata            const    0x00002518    0x28  bootloader.o [1]
+  .rodata            const    0x00002540    0x28  bootloader.o [1]
+  .text              ro code  0x00002568    0x28  putchar.o [3]
+  .rodata            const    0x00002590    0x24  boot.o [1]
+  .rodata            const    0x000025b4    0x24  bootloader.o [1]
+  .iar.init_table    const    0x000025d8    0x24  - Linker created -
+  .rodata            const    0x000025fc    0x20  bootloader.o [1]
+  .rodata            const    0x0000261c    0x20  bootloader.o [1]
+  .rodata            const    0x0000263c    0x20  bootloader.o [1]
+  .rodata            const    0x0000265c    0x20  flash.o [1]
+  .rodata            const    0x0000267c    0x1c  bootloader.o [1]
+  .rodata            const    0x00002698    0x18  bootloader.o [1]
+  .rodata            const    0x000026b0    0x18  bootloader.o [1]
+  .text              ro code  0x000026c8    0x16  cmain.o [5]
+  .text              ro code  0x000026de     0x4  low_level_init.o [3]
+  .text              ro code  0x000026e2     0x4  exit.o [3]
+  .text              ro code  0x000026e8     0xa  cexit.o [5]
+  .text              ro code  0x000026f4     0xc  XXexit.o [5]
+  .text              ro code  0x00002700    0x16  xprout.o [3]
+  .rodata            const    0x00002718    0x14  bootloader.o [1]
+  .rodata            const    0x0000272c    0x10  bootloader.o [1]
+  .rodata            const    0x0000273c    0x10  bootloader.o [1]
+  .text              ro code  0x0000274c     0xc  cstartup_M.o [5]
+  .rodata            const    0x00002758     0x8  bootloader.o [1]
+  .rodata            const    0x00002760     0x0  bwt_init3c.o [5]
+  Initializer bytes  ro data  0x00002760   0x63c  <for P2 s0>
+                            - 0x00002d9c  0x2594
+
+Absolute sections, part 1 of 2:             0xbe
+  .noinit            uninit   0x20000000    0xbc  bootloader.o [1]
+  .noinit            uninit   0x200000bc     0x2  bootloader.o [1]
+                            - 0x200000be    0xbe
+
+Absolute sections, part 2 of 2:             0x10
+  .noinit            uninit   0x20000100    0x10  flash.o [1]
+                            - 0x20000110    0x10
+
+"P2", part 1 of 3:                         0x63c
+  P2 s0                       0x20000110   0x63c  <Init block>
+    Veneer           inited   0x20000110     0x8  - Linker created -
+    .textrw          inited   0x20000118   0x198  bootloader.o [1]
+    .textrw          inited   0x200002b0    0x96  usart.o [1]
+    .textrw          inited   0x20000346    0x32  crc.o [1]
+    .textrw          inited   0x20000378    0xdc  xmodem.o [1]
+    .textrw          inited   0x20000454    0x64  debuglock.o [1]
+    .textrw          inited   0x200004b8    0xb4  boot.o [1]
+    .textrw          inited   0x2000056c    0xdc  flash.o [1]
+    .textrw          inited   0x20000648    0x5c  xmodem.o [1]
+    .textrw          inited   0x200006a4    0x5c  debuglock.o [1]
+    .data            inited   0x20000700    0x18  debuglock.o [1]
+    .data            inited   0x20000718     0xc  bootloader.o [1]
+    .data            inited   0x20000724     0xc  bootloader.o [1]
+    .data            inited   0x20000730     0x8  bootloader.o [1]
+    .data            inited   0x20000738     0x8  bootloader.o [1]
+    .data            inited   0x20000740     0x8  bootloader.o [1]
+    .data            inited   0x20000748     0x4  bootloader.o [1]
+                            - 0x2000074c   0x63c
+
+"P2", part 2 of 3:                         0x134
+  .bss               zero     0x2000074c   0x110  xmodem.o [1]
+  .bss               zero     0x2000085c    0x14  autobaud.o [1]
+  .bss               zero     0x20000870     0x4  autobaud.o [1]
+  .bss               zero     0x20000874     0x4  flash.o [1]
+  .bss               zero     0x20000878     0x1  boot.o [1]
+  .bss               zero     0x20000879     0x1  bootloader.o [1]
+                            - 0x2000087a   0x12e
+
+"P2", part 3 of 3:                         0x400
+  CSTACK                      0x20000880   0x400  <Block>
+    CSTACK           uninit   0x20000880   0x400  <Block tail>
+                            - 0x20000c80   0x400
+
+
+*******************************************************************************
+*** INIT TABLE
+***
+
+          Address     Size
+          -------     ----
+Zero (__iar_zero_init3)
+    1 destination range, total size 0x12e:
+          0x2000074c  0x12e
+
+Copy (__iar_copy_init3)
+    1 source range, total size 0x63c:
+          0x00002760  0x63c
+    1 destination range, total size 0x63c:
+          0x20000110  0x63c
+
+
+
+*******************************************************************************
+*** MODULE SUMMARY
+***
+
+    Module            ro code  rw code  ro data  rw data  rw data
+                                                           (abs)
+    ------            -------  -------  -------  -------  -------
+F:\ Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bootloader\iar\bootloader-tg210\Debug\Obj: [1]
+    autobaud.o             60                         24
+    boot.o                 56      180      216        1
+    bootloader.o          596      408      876       53      190
+    crc.o                           50       50
+    debug.o               146
+    debuglock.o                    192      216       24
+    flash.o               132      220      252        4       16
+    iarwrite.o             56
+    startup_efm32.o         8
+    usart.o                40      150      150
+    xmodem.o                       312      312      272
+    -------------------------------------------------------------
+    Total:              1 094    1 512    2 072      378      206
+
+command line: [2]
+    -------------------------------------------------------------
+    Total:
+
+dl7M_tln.a: [3]
+    div.o                  14
+    exit.o                  4
+    low_level_init.o        4
+    printf.o               36
+    putchar.o              40
+    xprintffull.o       3 358
+    xprout.o               22
+    -------------------------------------------------------------
+    Total:              3 478
+
+m7M_tl.a: [4]
+    DblAdd.o              212
+    DblCmpGe.o             46
+    DblCmpLe.o             46
+    DblDiv.o              582
+    DblMul.o              418
+    DblSub.o              384
+    DblToI32.o             88
+    I32ToDbl.o             48
+    xdnorm.o               68
+    xdscale.o             282
+    -------------------------------------------------------------
+    Total:              2 174
+
+rt7M_tl.a: [5]
+    ABImemcpy.o           118
+    I64DivMod.o           238
+    I64DivZer.o             2
+    XXexit.o               12
+    bwt_init3c.o
+    cexit.o                10
+    cmain.o                22
+    copy_init3.o           46
+    cstartup_M.o           12
+    data_init3.o           44
+    memchr.o               88
+    strchr.o               22
+    strlen.o               54
+    zero_init3.o           34
+    -------------------------------------------------------------
+    Total:                702
+
+    Gaps                   22                 2
+    Linker created         40        8       44    1 024
+-----------------------------------------------------------------
+    Grand Total:        7 510    1 520    2 118    1 402      206
+
+
+*******************************************************************************
+*** ENTRY LIST
+***
+
+Entry                      Address   Size  Type      Object
+-----                      -------   ----  ----      ------
+?main                   0x000026c9         Code  Gb  cmain.o [5]
+BOOT_boot               0x200004c5   0x72  Code  Gb  boot.o [1]
+BOOT_checkFirmwareIsValid
+                        0x000022bd   0x38  Code  Gb  boot.o [1]
+BOOT_jump               0x200004b9    0xc  Code  Gb  boot.o [1]
+CONFIG_DebugGpioSetup   0x000022f5    0xe  Code  Lc  debug.o [1]
+CONFIG_UsartGpioSetup   0x00002075   0x12  Code  Lc  bootloader.o [1]
+CRC_calc                0x20000347   0x32  Code  Gb  crc.o [1]
+CSTACK$$Base            0x20000880          --   Gb  - Linker created -
+CSTACK$$Limit           0x20000c80          --   Gb  - Linker created -
+DEBUGLOCK_lock          0x2000048b   0x1e  Code  Gb  debuglock.o [1]
+DEBUGLOCK_startDebugInterface
+                        0x20000455   0x36  Code  Gb  debuglock.o [1]
+DEBUG_TxBuf             0x00002369   0x1e  Code  Gb  debug.o [1]
+DEBUG_TxByte            0x00002335   0x12  Code  Gb  debug.o [1]
+DEBUG_init              0x00002303   0x32  Code  Gb  debug.o [1]
+FLASH_CalcPageSize      0x00002389   0x40  Code  Gb  flash.o [1]
+FLASH_eraseOneBlock     0x200005eb   0x3c  Code  Gb  flash.o [1]
+FLASH_init              0x000023c9   0x22  Code  Gb  flash.o [1]
+FLASH_writeBlock        0x20000593   0x58  Code  Gb  flash.o [1]
+FLASH_writeWord         0x2000056d   0x26  Code  Gb  flash.o [1]
+NVIC_DisableIRQ         0x0000205d   0x18  Code  Lc  bootloader.o [1]
+NVIC_EnableIRQ          0x00002045   0x18  Code  Lc  bootloader.o [1]
+RTC_IRQHandler          0x00002087   0x1e  Code  Gb  bootloader.o [1]
+Region$$Table$$Base     0x000025d8          --   Gb  - Linker created -
+Region$$Table$$Limit    0x000025fc          --   Gb  - Linker created -
+TIMER_IRQHandler        0x00002479   0x2a  Code  Gb  autobaud.o [1]
+USART_init              0x0000240d   0x28  Code  Gb  usart.o [1]
+USART_printHex          0x200002b1   0x3c  Code  Gb  usart.o [1]
+USART_printString       0x20000331   0x16  Code  Gb  usart.o [1]
+USART_rxByte            0x200002ed   0x20  Code  Gb  usart.o [1]
+USART_txByte            0x2000030d   0x12  Code  Gb  usart.o [1]
+XMODEM_download         0x20000379   0xdc  Code  Gb  xmodem.o [1]
+XMODEM_verifyPacketChecksum
+                        0x20000649   0x5c  Code  Gb  xmodem.o [1]
+_DEBUGLOCK_driveBit     0x200006a5   0x5c  Code  Gb  debuglock.o [1]
+_DEBUGLOCK_swData       0x20000700   0x18  Data  Gb  debuglock.o [1]
+_GenldFull              0x0000126d  0x270  Code  Lc  xprintffull.o [3]
+_LdtobFull              0x00000e5d  0x400  Code  Lc  xprintffull.o [3]
+_LitobFull              0x00000d37  0x126  Code  Lc  xprintffull.o [3]
+_PrintfFull             0x00000809  0x52e  Code  Gb  xprintffull.o [3]
+_Prout                  0x00002701   0x16  Code  Gb  xprout.o [3]
+_PutcharsFull           0x000014dd   0x2e  Code  Lc  xprintffull.o [3]
+__Vectors               0x00000800          --   Gb  startup_efm32.o [1]
+__Vectors_End           0x00000808         Data  Gb  startup_efm32.o [1]
+__Vectors_Size {Abs}    0x00000008          --   Gb  startup_efm32.o [1]
+__aeabi_cdcmple         0x000017c9         Code  Gb  DblCmpLe.o [4]
+__aeabi_cdrcmple        0x000017f9         Code  Gb  DblCmpGe.o [4]
+__aeabi_d2iz            0x00001945         Code  Gb  DblToI32.o [4]
+__aeabi_d2uiz           0x00001971         Code  Gb  DblToI32.o [4]
+__aeabi_ddiv            0x00001cf1         Code  Gb  DblDiv.o [4]
+__aeabi_dmul            0x00001b4d         Code  Gb  DblMul.o [4]
+__aeabi_dsub            0x000019cd         Code  Gb  DblSub.o [4]
+__aeabi_i2d             0x0000199d         Code  Gb  I32ToDbl.o [4]
+__aeabi_ldiv0           0x00001f45         Code  Gb  I64DivZer.o [5]
+__aeabi_memcpy          0x0000170d         Code  Gb  ABImemcpy.o [5]
+__aeabi_memcpy4         0x0000172d         Code  Gb  ABImemcpy.o [5]
+__aeabi_memcpy8         0x0000172d         Code  Gb  ABImemcpy.o [5]
+__aeabi_ui2d            0x000019b1         Code  Gb  I32ToDbl.o [4]
+__aeabi_uldivmod        0x0000161d         Code  Gb  I64DivMod.o [5]
+__cmain                 0x000026c9         Code  Gb  cmain.o [5]
+__exit                  0x000026f5         Code  Gb  XXexit.o [5]
+__iar_Dnorm             0x00001783   0x44  Code  Gb  xdnorm.o [4]
+__iar_Dscale            0x00001829  0x106  Code  Gb  xdscale.o [4]
+__iar_Memchr            0x000015c5         Code  Gb  memchr.o [5]
+__iar_SB                0x00002760         Data  Gb  bwt_init3c.o [5]
+__iar_Strchr            0x00001555         Code  Gb  strchr.o [5]
+__iar_copy_init3        0x00001527   0x2e  Code  Gb  copy_init3.o [5]
+__iar_d2uiz             0x0000197d         Code  Gb  DblToI32.o [4]
+__iar_dadd              0x00001f49         Code  Gb  DblAdd.o [4]
+__iar_data_init3        0x000024ed   0x2c  Code  Gb  data_init3.o [5]
+__iar_dsub              0x000019e1         Code  Gb  DblSub.o [4]
+__iar_dsubStart         0x000019f3         Code  Gb  DblSub.o [4]
+__iar_program_start     0x0000274d         Code  Gb  cstartup_M.o [5]
+__iar_ui2d              0x000019b5         Code  Gb  I32ToDbl.o [4]
+__iar_zero_init3        0x0000156b   0x22  Code  Gb  zero_init3.o [5]
+__low_level_init        0x000026df    0x4  Code  Gb  low_level_init.o [3]
+__vector_table          0x00000800         Data  Gb  startup_efm32.o [1]
+__write                 0x000024b5   0x38  Code  Gb  iarwrite.o [1]
+_call_main              0x000026d5         Code  Gb  cmain.o [5]
+_exit                   0x000026e9         Code  Gb  cexit.o [5]
+_main                   0x000026db         Code  Gb  cmain.o [5]
+bootloaderCRC           0x200000bc    0x2  Data  Gb  bootloader.o [1]
+commandlineLoop         0x2000013b  0x128  Code  Gb  bootloader.o [1]
+crcString               0x20000730    0x8  Data  Gb  bootloader.o [1]
+currentSample           0x20000870    0x4  Data  Gb  autobaud.o [1]
+descr                   0x20000100   0x10  Data  Gb  flash.o [1]
+div                     0x00001f37    0xe  Code  Gb  div.o [3]
+exit                    0x000026e3    0x4  Code  Gb  exit.o [3]
+failString              0x20000724    0xc  Data  Gb  bootloader.o [1]
+flashPageSize           0x20000874    0x4  Data  Gb  flash.o [1]
+generateVectorTable     0x00002123   0x1c  Code  Gb  bootloader.o [1]
+main                    0x0000213f   0xc2  Code  Gb  bootloader.o [1]
+memchr                  0x000015c5         Code  Gb  memchr.o [5]
+newLineString           0x20000748    0x4  Data  Gb  bootloader.o [1]
+okString                0x20000738    0x8  Data  Gb  bootloader.o [1]
+printedPC               0x20000878    0x1  Data  Gb  boot.o [1]
+printf                  0x00002299   0x24  Code  Gb  printf.o [3]
+putchar                 0x00002569   0x28  Code  Gb  putchar.o [3]
+rawPacket               0x2000074c  0x110  Data  Gb  xmodem.o [1]
+readyString             0x20000718    0xc  Data  Gb  bootloader.o [1]
+resetEFM32onRTCTimeout  0x20000879    0x1  Data  Gb  bootloader.o [1]
+samples                 0x2000085c   0x14  Data  Gb  autobaud.o [1]
+strchr                  0x00001555         Code  Gb  strchr.o [5]
+strlen                  0x0000158d         Code  Gb  strlen.o [5]
+unknownString           0x20000740    0x8  Data  Gb  bootloader.o [1]
+vectorTable             0x20000000   0xbc  Data  Gb  bootloader.o [1]
+verify                  0x20000119   0x22  Code  Gb  bootloader.o [1]
+waitForBootOrUSART      0x000020a5   0x7e  Code  Gb  bootloader.o [1]
+
+
+[1] = F:\ Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bootloader\iar\bootloader-tg210\Debug\Obj
+[2] = command line
+[3] = dl7M_tln.a
+[4] = m7M_tl.a
+[5] = rt7M_tl.a
+
+  7 510 bytes of readonly  code memory
+  1 520 bytes of readwrite code memory
+  2 118 bytes of readonly  data memory
+  1 402 bytes of readwrite data memory (+ 206 absolute)
+
+Errors: none
+Warnings: none
