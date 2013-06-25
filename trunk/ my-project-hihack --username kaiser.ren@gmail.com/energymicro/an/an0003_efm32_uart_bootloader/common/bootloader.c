@@ -36,6 +36,7 @@
 #include "config.h"
 #include "flash.h"
 #include "em_cmu.h"
+#include "em_emu.h"
 #include "decode.h"
 #include "encode.h"
 
@@ -351,6 +352,9 @@ __ramfunc void commandlineLoop(void)
     default:
       USART_printString(unknownString);
     }
+	
+	/* Enter EM1 while waiting. */
+    EMU_EnterEM1();
   }
 }
 
@@ -442,7 +446,7 @@ int main(void)
   FLASH_CalcPageSize();
 
   /* Wait for a boot operation */
-  waitForBootOrUSART();
+  //waitForBootOrUSART();
 
 #ifdef BOOTLOADER_LEUART_CLOCK
   /* Enable LEUART */

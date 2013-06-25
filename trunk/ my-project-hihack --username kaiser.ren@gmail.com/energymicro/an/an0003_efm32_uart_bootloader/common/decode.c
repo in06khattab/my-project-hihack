@@ -424,7 +424,7 @@ void decode_machine(void)
 					uartPutChar( '_' ) ;
 				    uartPutChar( '+' ) ;
 #endif
-				   encPutData(&dec.data, sizeof(uint8_t));
+				    HIJACKPutData(&dec.data, &encBuf, sizeof(uint8_t));
 				   //encTmr = 100;
 				}
 				else{

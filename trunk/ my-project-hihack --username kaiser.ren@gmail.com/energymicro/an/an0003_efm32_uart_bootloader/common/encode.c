@@ -28,8 +28,7 @@ static uint8_t enc_odd ;
  *        global variable
  *----------------------------------------------------------------------------*/
 uint32_t ticker = 0 ;
-//uint8_t encTmr = 0 ;
-volatile buffer_t encBuf = { 0, 0, 0, false, NULL};
+buffer_t encBuf = { 0, 0, 0, false, NULL};
 /*----------------------------------------------------------------------------
  *        local functions
  *----------------------------------------------------------------------------*/
@@ -223,12 +222,13 @@ uint8_t encGetChar( )
 }
 
 /******************************************************************************
- * @brief  uartPutData function
+ * @brief  HIJACKPutData function
  *
  *****************************************************************************/
-void encPutData(uint8_t * dataPtr, uint32_t dataLen)
+void HIJACKPutData(uint8_t * dataPtr, buffer_t * dstBuf, uint32_t dataLen)
 {
   uint32_t i = 0;
+  buffer_t* ptr = dstBuf;
 
   /* Check if buffer is large enough for data */
   if (dataLen > BUFFERSIZE)
@@ -238,10 +238,10 @@ void encPutData(uint8_t * dataPtr, uint32_t dataLen)
   }
 
   /* Check if buffer has room for new data */
-  if ((encBuf.pendingBytes + dataLen) > BUFFERSIZE)
+  if ((ptr->pendingBytes + dataLen) > BUFFERSIZE)
   {
     /* Wait until room */
-    while ((encBuf.pendingBytes + dataLen) > BUFFERSIZE) ;
+    while ( (ptr->pendingBytes + dataLen) > BUFFERSIZE) ;
   }
 
   /* Fill dataPtr[0:dataLen-1] into txBuffer */
@@ -251,16 +251,19 @@ void encPutData(uint8_t * dataPtr, uint32_t dataLen)
 
   while (i < dataLen)
   {
-    encBuf.data[encBuf.wrI] = *(dataPtr + i);
-    encBuf.wrI             = (encBuf.wrI + 1) % BUFFERSIZE;
+    ptr->data[ptr->wrI] = *(dataPtr + i);
+    ptr->wrI             = (ptr->wrI + 1) % BUFFERSIZE;
     i++;
   }
+
+  /* Increment pending byte counter */
+  ptr->pendingBytes += dataLen;
+
 #if CRITICAL_PROTECTION==1
   INT_Enable();
 #endif
-  /* Increment pending byte counter */
-  encBuf.pendingBytes += dataLen;
 }
+
 /*
  * format print.
 */
@@ -284,7 +287,7 @@ void enc_print(const char *format, ...)
   nr_of_chars = (ans < 0 ? ans : (x.s - s));
 
   if (nr_of_chars > 0) {
-	encPutData(appPrintBuf, nr_of_chars);
+	HIJACKPutData(appPrintBuf, &encBuf, nr_of_chars);
   }
 }
 

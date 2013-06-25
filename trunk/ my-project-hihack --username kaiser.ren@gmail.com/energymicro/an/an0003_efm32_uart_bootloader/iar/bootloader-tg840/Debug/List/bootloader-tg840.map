@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR ELF Linker V6.30.6.53336/W32 for ARM              24/Jun/2013  14:58:53 #
+# IAR ELF Linker V6.30.6.53336/W32 for ARM              25/Jun/2013  14:27:13 #
 # Copyright 2007-2012 IAR Systems AB.                                         #
 #                                                                             #
 #    Output file  =  D:\Firmware\my-project-hihack\trunk\ my-project-hihack   #
@@ -45,32 +45,36 @@
 #                    u.o" "D:\Firmware\my-project-hihack\trunk\               #
 #                    my-project-hihack --username                             #
 #                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
-#                    otloader\iar\bootloader-tg840\Debug\Obj\em_gpio.o"       #
+#                    otloader\iar\bootloader-tg840\Debug\Obj\em_emu.o"        #
 #                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
 #                    --username kaiser.ren@gmail.com\energymicro\an\an0003_ef #
-#                    m32_uart_bootloader\iar\bootloader-tg840\Debug\Obj\em_in #
-#                    t.o" "D:\Firmware\my-project-hihack\trunk\               #
+#                    m32_uart_bootloader\iar\bootloader-tg840\Debug\Obj\em_gp #
+#                    io.o" "D:\Firmware\my-project-hihack\trunk\              #
 #                    my-project-hihack --username                             #
 #                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
-#                    otloader\iar\bootloader-tg840\Debug\Obj\em_prs.o"        #
+#                    otloader\iar\bootloader-tg840\Debug\Obj\em_int.o"        #
 #                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
 #                    --username kaiser.ren@gmail.com\energymicro\an\an0003_ef #
-#                    m32_uart_bootloader\iar\bootloader-tg840\Debug\Obj\em_ti #
-#                    mer.o" "D:\Firmware\my-project-hihack\trunk\             #
+#                    m32_uart_bootloader\iar\bootloader-tg840\Debug\Obj\em_pr #
+#                    s.o" "D:\Firmware\my-project-hihack\trunk\               #
 #                    my-project-hihack --username                             #
 #                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
-#                    otloader\iar\bootloader-tg840\Debug\Obj\encode.o"        #
+#                    otloader\iar\bootloader-tg840\Debug\Obj\em_timer.o"      #
 #                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
 #                    --username kaiser.ren@gmail.com\energymicro\an\an0003_ef #
-#                    m32_uart_bootloader\iar\bootloader-tg840\Debug\Obj\flash #
-#                    .o" "D:\Firmware\my-project-hihack\trunk\                #
+#                    m32_uart_bootloader\iar\bootloader-tg840\Debug\Obj\encod #
+#                    e.o" "D:\Firmware\my-project-hihack\trunk\               #
 #                    my-project-hihack --username                             #
 #                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
-#                    otloader\iar\bootloader-tg840\Debug\Obj\iarwrite.o"      #
+#                    otloader\iar\bootloader-tg840\Debug\Obj\flash.o"         #
 #                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
 #                    --username kaiser.ren@gmail.com\energymicro\an\an0003_ef #
-#                    m32_uart_bootloader\iar\bootloader-tg840\Debug\Obj\start #
-#                    up_efm32.o" "D:\Firmware\my-project-hihack\trunk\        #
+#                    m32_uart_bootloader\iar\bootloader-tg840\Debug\Obj\iarwr #
+#                    ite.o" "D:\Firmware\my-project-hihack\trunk\             #
+#                    my-project-hihack --username                             #
+#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
+#                    otloader\iar\bootloader-tg840\Debug\Obj\startup_efm32.o" #
+#                     "D:\Firmware\my-project-hihack\trunk\                   #
 #                    my-project-hihack --username                             #
 #                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
 #                    otloader\iar\bootloader-tg840\Debug\Obj\system_efm32tg.o #
@@ -121,47 +125,45 @@ __SystemLibrary = DLib
   .intvec            ro code  0x00000000     0x8  startup_efm32.o [1]
                             - 0x00000008     0x8
 
-"P1":                                     0x185c
-  .text              ro code  0x00000008   0x498  encode.o [1]
-  .text              ro code  0x000004a0   0x108  system_efm32tg.o [1]
-  .text              ro code  0x000005a8   0x14c  em_timer.o [1]
-  .text              ro code  0x000006f4   0x30c  em_cmu.o [1]
-  .text              ro code  0x00000a00    0xd4  em_gpio.o [1]
-  .text              ro code  0x00000ad4   0x374  decode.o [1]
-  .text              ro code  0x00000e48    0x56  ABImemcpy.o [5]
-  .text              ro code  0x00000e9e    0x2e  copy_init3.o [5]
-  .text              ro code  0x00000ecc    0x1c  em_prs.o [1]
-  .text              ro code  0x00000ee8    0x7a  em_acmp.o [1]
-  .text              ro code  0x00000f62    0x22  zero_init3.o [5]
-  Veneer             ro code  0x00000f84     0x8  - Linker created -
-  Veneer             ro code  0x00000f8c     0x8  - Linker created -
-  Veneer             ro code  0x00000f94     0x8  - Linker created -
-  Veneer             ro code  0x00000f9c     0x8  - Linker created -
-  Veneer             ro code  0x00000fa4     0x8  - Linker created -
-  .text              ro code  0x00000fac   0x1a8  bootloader.o [1]
-  .text              ro code  0x00001154    0x16  boot.o [1]
-  .text              ro code  0x0000116c    0x28  usart.o [1]
-  .text              ro code  0x00001194    0x74  flash.o [1]
-  .rodata            const    0x00001208    0x2c  bootloader.o [1]
-  .text              ro code  0x00001234    0x2c  data_init3.o [5]
-  .rodata            const    0x00001260    0x24  bootloader.o [1]
-  .iar.init_table    const    0x00001284    0x24  - Linker created -
-  .rodata            const    0x000012a8    0x18  decode.o [1]
-  .text              ro code  0x000012c0    0x16  cmain.o [5]
-  .text              ro code  0x000012d6     0x4  low_level_init.o [3]
-  .text              ro code  0x000012da     0x4  exit.o [3]
-  .text              ro code  0x000012e0     0xa  cexit.o [5]
-  .text              ro code  0x000012ec     0xc  XXexit.o [5]
-  .rodata            const    0x000012f8    0x14  bootloader.o [1]
-  .rodata            const    0x0000130c    0x10  decode.o [1]
-  .rodata            const    0x0000131c    0x10  encode.o [1]
-  .rodata            const    0x0000132c     0xc  decode.o [1]
-  .rodata            const    0x00001338     0xc  encode.o [1]
-  .text              ro code  0x00001344     0xc  cstartup_M.o [5]
-  .rodata            const    0x00001350     0x8  bootloader.o [1]
-  .rodata            const    0x00001358     0x0  bwt_init3c.o [5]
-  Initializer bytes  ro data  0x00001358   0x50c  <for P2 s0>
-                            - 0x00001864  0x185c
+"P1":                                     0x1834
+  .text              ro code  0x00000008   0x4a4  encode.o [1]
+  .text              ro code  0x000004ac   0x108  system_efm32tg.o [1]
+  .text              ro code  0x000005b4   0x14c  em_timer.o [1]
+  .text              ro code  0x00000700   0x30c  em_cmu.o [1]
+  .text              ro code  0x00000a0c    0xd4  em_gpio.o [1]
+  .text              ro code  0x00000ae0   0x37c  decode.o [1]
+  .text              ro code  0x00000e5c    0x56  ABImemcpy.o [5]
+  .text              ro code  0x00000eb2    0x2e  copy_init3.o [5]
+  .text              ro code  0x00000ee0    0x1c  em_prs.o [1]
+  .text              ro code  0x00000efc    0x7a  em_acmp.o [1]
+  .text              ro code  0x00000f76    0x22  zero_init3.o [5]
+  Veneer             ro code  0x00000f98     0x8  - Linker created -
+  Veneer             ro code  0x00000fa0     0x8  - Linker created -
+  Veneer             ro code  0x00000fa8     0x8  - Linker created -
+  Veneer             ro code  0x00000fb0     0x8  - Linker created -
+  .text              ro code  0x00000fb8   0x180  bootloader.o [1]
+  .text              ro code  0x00001138    0x28  usart.o [1]
+  .text              ro code  0x00001160    0x74  flash.o [1]
+  .rodata            const    0x000011d4    0x2c  bootloader.o [1]
+  .text              ro code  0x00001200    0x2c  data_init3.o [5]
+  .rodata            const    0x0000122c    0x24  bootloader.o [1]
+  .iar.init_table    const    0x00001250    0x24  - Linker created -
+  .rodata            const    0x00001274    0x18  decode.o [1]
+  .text              ro code  0x0000128c    0x16  cmain.o [5]
+  .text              ro code  0x000012a2     0x4  low_level_init.o [3]
+  .text              ro code  0x000012a6     0x4  exit.o [3]
+  .text              ro code  0x000012ac     0xa  cexit.o [5]
+  .text              ro code  0x000012b8     0xc  XXexit.o [5]
+  .rodata            const    0x000012c4    0x14  bootloader.o [1]
+  .rodata            const    0x000012d8    0x10  decode.o [1]
+  .rodata            const    0x000012e8    0x10  encode.o [1]
+  .rodata            const    0x000012f8     0xc  decode.o [1]
+  .rodata            const    0x00001304     0xc  encode.o [1]
+  .text              ro code  0x00001310     0xc  cstartup_M.o [5]
+  .rodata            const    0x0000131c     0x8  bootloader.o [1]
+  .rodata            const    0x00001324     0x0  bwt_init3c.o [5]
+  Initializer bytes  ro data  0x00001324   0x518  <for P2 s0>
+                            - 0x0000183c  0x1834
 
 Absolute sections, part 1 of 2:             0xbe
   .noinit            uninit   0x20000000    0xbc  bootloader.o [1]
@@ -172,45 +174,46 @@ Absolute sections, part 2 of 2:             0x10
   .noinit            uninit   0x20000100    0x10  flash.o [1]
                             - 0x20000110    0x10
 
-"P2", part 1 of 3:                         0x50c
-  P2 s0                       0x20000110   0x50c  <Init block>
+"P2", part 1 of 3:                         0x518
+  P2 s0                       0x20000110   0x518  <Init block>
     .textrw          inited   0x20000110    0xdc  xmodem.o [1]
     .textrw          inited   0x200001ec    0xb8  flash.o [1]
     .textrw          inited   0x200002a4    0x96  usart.o [1]
     .textrw          inited   0x2000033a    0x5c  xmodem.o [1]
     .textrw          inited   0x20000396    0x32  crc.o [1]
-    .textrw          inited   0x200003c8    0xcc  bootloader.o [1]
-    .textrw          inited   0x20000494    0x44  debuglock.o [1]
-    .textrw          inited   0x200004d8    0xb4  boot.o [1]
-    .textrw          inited   0x2000058c    0x5c  debuglock.o [1]
-    .data            inited   0x200005e8    0x18  debuglock.o [1]
-    .data            inited   0x20000600     0xc  bootloader.o [1]
-    .data            inited   0x2000060c     0x8  bootloader.o [1]
-    .data            inited   0x20000614     0x4  system_efm32tg.o [1]
-    .data            inited   0x20000618     0x4  system_efm32tg.o [1]
-                            - 0x2000061c   0x50c
+    Veneer           inited   0x200003c8     0x8  - Linker created -
+    .textrw          inited   0x200003d0    0xd0  bootloader.o [1]
+    .textrw          inited   0x200004a0    0x44  debuglock.o [1]
+    .textrw          inited   0x200004e4    0xb4  boot.o [1]
+    .textrw          inited   0x20000598    0x5c  debuglock.o [1]
+    .data            inited   0x200005f4    0x18  debuglock.o [1]
+    .data            inited   0x2000060c     0xc  bootloader.o [1]
+    .data            inited   0x20000618     0x8  bootloader.o [1]
+    .data            inited   0x20000620     0x4  system_efm32tg.o [1]
+    .data            inited   0x20000624     0x4  system_efm32tg.o [1]
+                            - 0x20000628   0x518
 
-"P2", part 2 of 3:                         0x21c
-  .bss               zero     0x2000061c   0x110  xmodem.o [1]
-  .bss               zero     0x2000072c    0xd8  encode.o [1]
-  .bss               zero     0x20000804     0x8  encode.o [1]
-  .bss               zero     0x2000080c     0x4  bootloader.o [1]
-  .bss               zero     0x20000810     0x4  decode.o [1]
-  .bss               zero     0x20000814     0x4  decode.o [1]
-  .bss               zero     0x20000818     0x4  decode.o [1]
+"P2", part 2 of 3:                         0x218
+  .bss               zero     0x20000628   0x110  xmodem.o [1]
+  .bss               zero     0x20000738    0xd8  encode.o [1]
+  .bss               zero     0x20000810     0x8  encode.o [1]
+  .bss               zero     0x20000818     0x4  bootloader.o [1]
   .bss               zero     0x2000081c     0x4  decode.o [1]
-  .bss               zero     0x20000820     0x4  em_int.o [1]
-  .bss               zero     0x20000824     0x4  encode.o [1]
-  .bss               zero     0x20000828     0x4  flash.o [1]
-  .bss               zero     0x2000082c     0x4  system_efm32tg.o [1]
-  .bss               zero     0x20000830     0x1  decode.o [1]
-  .bss               zero     0x20000831     0x1  encode.o [1]
-                            - 0x20000832   0x216
+  .bss               zero     0x20000820     0x4  decode.o [1]
+  .bss               zero     0x20000824     0x4  decode.o [1]
+  .bss               zero     0x20000828     0x4  decode.o [1]
+  .bss               zero     0x2000082c     0x4  em_int.o [1]
+  .bss               zero     0x20000830     0x4  encode.o [1]
+  .bss               zero     0x20000834     0x4  flash.o [1]
+  .bss               zero     0x20000838     0x4  system_efm32tg.o [1]
+  .bss               zero     0x2000083c     0x1  decode.o [1]
+  .bss               zero     0x2000083d     0x1  encode.o [1]
+                            - 0x2000083e   0x216
 
 "P2", part 3 of 3:                         0x400
-  CSTACK                      0x20000838   0x400  <Block>
-    CSTACK           uninit   0x20000838   0x400  <Block tail>
-                            - 0x20000c38   0x400
+  CSTACK                      0x20000840   0x400  <Block>
+    CSTACK           uninit   0x20000840   0x400  <Block tail>
+                            - 0x20000c40   0x400
 
 
 *******************************************************************************
@@ -221,13 +224,13 @@ Absolute sections, part 2 of 2:             0x10
           -------     ----
 Zero (__iar_zero_init3)
     1 destination range, total size 0x216:
-          0x2000061c  0x216
+          0x20000628  0x216
 
 Copy (__iar_copy_init3)
-    1 source range, total size 0x50c:
-          0x00001358  0x50c
-    1 destination range, total size 0x50c:
-          0x20000110  0x50c
+    1 source range, total size 0x518:
+          0x00001324  0x518
+    1 destination range, total size 0x518:
+          0x20000110  0x518
 
 
 
@@ -239,25 +242,25 @@ Copy (__iar_copy_init3)
                                                            (abs)
     ------            -------  -------  -------  -------  -------
 D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Debug\Obj: [1]
-    boot.o                 22      180      180
-    bootloader.o          424      204      332       24      190
+    boot.o                         180      180
+    bootloader.o          384      208      336       24      190
     crc.o                           50       50
     debuglock.o                    160      184       24
-    decode.o              884                52       17
+    decode.o              892                52       17
     em_acmp.o             122
     em_cmu.o              780
     em_gpio.o             212
     em_int.o                                           4
     em_prs.o               28
     em_timer.o            332
-    encode.o            1 176                28      229
+    encode.o            1 188                28      229
     flash.o               116      184      184        4       16
     startup_efm32.o         8
     system_efm32tg.o      264                 8       12
     usart.o                40      150      150
     xmodem.o                       312      312      272
     -------------------------------------------------------------
-    Total:              4 408    1 240    1 480      586      206
+    Total:              4 366    1 244    1 484      586      206
 
 command line: [2]
     -------------------------------------------------------------
@@ -286,10 +289,10 @@ rt7M_tl.a: [5]
     -------------------------------------------------------------
     Total:                266
 
-    Gaps                    6
-    Linker created         40                36    1 024
+    Gaps                    4
+    Linker created         32        8       44    1 024
 -----------------------------------------------------------------
-    Grand Total:        4 728    1 240    1 516    1 610      206
+    Grand Total:        4 676    1 252    1 528    1 610      206
 
 
 *******************************************************************************
@@ -298,70 +301,70 @@ rt7M_tl.a: [5]
 
 Entry                     Address   Size  Type      Object
 -----                     -------   ----  ----      ------
-?main                  0x000012c1         Code  Gb  cmain.o [5]
-ACMP_ChannelSet        0x00000f01   0x14  Code  Gb  em_acmp.o [1]
-ACMP_Enable            0x00000ef7    0xa  Code  Gb  em_acmp.o [1]
-ACMP_Init              0x00000f15   0x4e  Code  Gb  em_acmp.o [1]
-ACMP_setup             0x00000baf   0x46  Code  Lc  decode.o [1]
-BITBAND_Peripheral     0x00000ee9    0xe  Code  Lc  em_acmp.o [1]
-BITBAND_Peripheral     0x000006f5    0xe  Code  Lc  em_cmu.o [1]
-BOOT_boot              0x200004e5   0x72  Code  Gb  boot.o [1]
-BOOT_checkFirmwareIsValid
-                       0x00001155   0x16  Code  Gb  boot.o [1]
-BOOT_jump              0x200004d9    0xc  Code  Gb  boot.o [1]
-CMU_ClockEnable        0x000007a9   0x86  Code  Gb  em_cmu.o [1]
-CMU_ClockSelectGet     0x0000082f   0xf2  Code  Gb  em_cmu.o [1]
+?main                  0x0000128d         Code  Gb  cmain.o [5]
+ACMP_ChannelSet        0x00000f15   0x14  Code  Gb  em_acmp.o [1]
+ACMP_Enable            0x00000f0b    0xa  Code  Gb  em_acmp.o [1]
+ACMP_Init              0x00000f29   0x4e  Code  Gb  em_acmp.o [1]
+ACMP_setup             0x00000bbd   0x46  Code  Lc  decode.o [1]
+BITBAND_Peripheral     0x00000efd    0xe  Code  Lc  em_acmp.o [1]
+BITBAND_Peripheral     0x00000701    0xe  Code  Lc  em_cmu.o [1]
+BOOT_boot              0x200004f1   0x72  Code  Gb  boot.o [1]
+BOOT_jump              0x200004e5    0xc  Code  Gb  boot.o [1]
+CMU_ClockEnable        0x000007b5   0x86  Code  Gb  em_cmu.o [1]
+CMU_ClockSelectGet     0x0000083b   0xf2  Code  Gb  em_cmu.o [1]
 CMU_FlashWaitStateControl
-                       0x00000737   0x5c  Code  Lc  em_cmu.o [1]
-CMU_FlashWaitStateMax  0x00000703   0x34  Code  Lc  em_cmu.o [1]
-CMU_HFRCOBandSet       0x00000921   0x9a  Code  Gb  em_cmu.o [1]
-CMU_Sync               0x00000793   0x16  Code  Lc  em_cmu.o [1]
-CONFIG_UsartGpioSetup  0x00000fe7   0x12  Code  Lc  bootloader.o [1]
+                       0x00000743   0x5c  Code  Lc  em_cmu.o [1]
+CMU_FlashWaitStateMax  0x0000070f   0x34  Code  Lc  em_cmu.o [1]
+CMU_HFRCOBandSet       0x0000092d   0x9a  Code  Gb  em_cmu.o [1]
+CMU_Sync               0x0000079f   0x16  Code  Lc  em_cmu.o [1]
+CONFIG_UsartGpioSetup  0x00000ff3   0x12  Code  Lc  bootloader.o [1]
 CRC_calc               0x20000397   0x32  Code  Gb  crc.o [1]
-CSTACK$$Base           0x20000838          --   Gb  - Linker created -
-CSTACK$$Limit          0x20000c38          --   Gb  - Linker created -
+CSTACK$$Base           0x20000840          --   Gb  - Linker created -
+CSTACK$$Limit          0x20000c40          --   Gb  - Linker created -
 DEBUGLOCK_startDebugInterface
-                       0x20000495   0x36  Code  Gb  debuglock.o [1]
-FLASH_CalcPageSize     0x00001195   0x34  Code  Gb  flash.o [1]
+                       0x200004a1   0x36  Code  Gb  debuglock.o [1]
+EMU_EnterEM1           0x00001005   0x10  Code  Lc  bootloader.o [1]
+FLASH_CalcPageSize     0x00001161   0x34  Code  Gb  flash.o [1]
 FLASH_eraseOneBlock    0x20000245   0x3c  Code  Gb  flash.o [1]
-FLASH_init             0x000011c9   0x22  Code  Gb  flash.o [1]
+FLASH_init             0x00001195   0x22  Code  Gb  flash.o [1]
 FLASH_writeBlock       0x200001ed   0x58  Code  Gb  flash.o [1]
-GPIO_PinModeSet        0x00000a01   0xcc  Code  Gb  em_gpio.o [1]
-GetProdRev             0x000004a1    0xa  Code  Lc  system_efm32tg.o [1]
+GPIO_PinModeSet        0x00000a0d   0xcc  Code  Gb  em_gpio.o [1]
+GetProdRev             0x000004ad    0xa  Code  Lc  system_efm32tg.o [1]
+HIJACKPutData          0x00000241   0x64  Code  Gb  encode.o [1]
 HIJACK_CompareConfig   0x000000e7   0x50  Code  Lc  encode.o [1]
 INT_Disable            0x00000047   0x24  Code  Lc  encode.o [1]
 INT_Enable             0x0000006b   0x2e  Code  Lc  encode.o [1]
-INT_LockCnt            0x20000820    0x4  Data  Gb  em_int.o [1]
-IsTime2Detect          0x00000bf5   0x40  Code  Lc  decode.o [1]
-NVIC_DisableIRQ        0x00000fad   0x18  Code  Lc  bootloader.o [1]
-NVIC_EnableIRQ         0x00000ad5   0x1a  Code  Lc  decode.o [1]
+INT_LockCnt            0x2000082c    0x4  Data  Gb  em_int.o [1]
+IsTime2Detect          0x00000c03   0x40  Code  Lc  decode.o [1]
+NVIC_DisableIRQ        0x00000fb9   0x18  Code  Lc  bootloader.o [1]
+NVIC_EnableIRQ         0x00000ae1   0x1a  Code  Lc  decode.o [1]
 NVIC_EnableIRQ         0x00000009   0x1a  Code  Lc  encode.o [1]
-NVIC_SetPriority       0x00000fc5   0x22  Code  Lc  bootloader.o [1]
-PRS_SourceSignalSet    0x00000ecd   0x18  Code  Gb  em_prs.o [1]
-Region$$Table$$Base    0x00001284          --   Gb  - Linker created -
-Region$$Table$$Limit   0x000012a8          --   Gb  - Linker created -
-SystemCoreClock        0x2000082c    0x4  Data  Gb  system_efm32tg.o [1]
-SystemCoreClockGet     0x000004ab   0x1a  Code  Gb  system_efm32tg.o [1]
+NVIC_SetPriority       0x00000fd1   0x22  Code  Lc  bootloader.o [1]
+PRS_SourceSignalSet    0x00000ee1   0x18  Code  Gb  em_prs.o [1]
+Region$$Table$$Base    0x00001250          --   Gb  - Linker created -
+Region$$Table$$Limit   0x00001274          --   Gb  - Linker created -
+SystemCoreClock        0x20000838    0x4  Data  Gb  system_efm32tg.o [1]
+SystemCoreClockGet     0x000004b7   0x1a  Code  Gb  system_efm32tg.o [1]
 SystemCoreClockUpdate  0x00000023    0x8  Code  Lc  encode.o [1]
-SystemHFClockGet       0x000004c5   0xa6  Code  Gb  system_efm32tg.o [1]
-SystemHFXOClock        0x20000614    0x4  Data  Lc  system_efm32tg.o [1]
-SystemLFXOClock        0x20000618    0x4  Data  Lc  system_efm32tg.o [1]
-TIMER0_IRQHandler      0x00000b07   0x40  Code  Gb  decode.o [1]
+SystemHFClockGet       0x000004d1   0xa6  Code  Gb  system_efm32tg.o [1]
+SystemHFXOClock        0x20000620    0x4  Data  Lc  system_efm32tg.o [1]
+SystemLFXOClock        0x20000624    0x4  Data  Lc  system_efm32tg.o [1]
+TIMER0_IRQHandler      0x00000b13   0x42  Code  Gb  decode.o [1]
 TIMER1_IRQHandler      0x00000099   0x4e  Code  Gb  encode.o [1]
-TIMER_CaptureGet       0x00000aef    0x8  Code  Lc  decode.o [1]
+TIMER_CaptureGet       0x00000afb    0x8  Code  Lc  decode.o [1]
 TIMER_CompareSet       0x0000002b    0x8  Code  Lc  encode.o [1]
 TIMER_CounterSet       0x00000033    0x4  Code  Lc  encode.o [1]
-TIMER_Enable           0x000005a9   0x12  Code  Gb  em_timer.o [1]
-TIMER_Init             0x000005bb   0xbc  Code  Gb  em_timer.o [1]
-TIMER_InitCC           0x00000677   0x7e  Code  Gb  em_timer.o [1]
-TIMER_IntClear         0x00000af7    0x4  Code  Lc  decode.o [1]
+TIMER_Enable           0x000005b5   0x12  Code  Gb  em_timer.o [1]
+TIMER_Init             0x000005c7   0xbc  Code  Gb  em_timer.o [1]
+TIMER_InitCC           0x00000683   0x7e  Code  Gb  em_timer.o [1]
+TIMER_IntClear         0x00000b03    0x4  Code  Lc  decode.o [1]
 TIMER_IntClear         0x00000037    0x4  Code  Lc  encode.o [1]
-TIMER_IntEnable        0x00000afb    0x8  Code  Lc  decode.o [1]
+TIMER_IntEnable        0x00000b07    0x8  Code  Lc  decode.o [1]
 TIMER_IntEnable        0x0000003b    0x8  Code  Lc  encode.o [1]
-TIMER_IntGet           0x00000b03    0x4  Code  Lc  decode.o [1]
+TIMER_IntGet           0x00000b0f    0x4  Code  Lc  decode.o [1]
 TIMER_IntGet           0x00000043    0x4  Code  Lc  encode.o [1]
-TIMER_setup            0x00000b61   0x4e  Code  Lc  decode.o [1]
-USART_init             0x0000116d   0x28  Code  Gb  usart.o [1]
+TIMER_setup            0x00000b6f   0x4e  Code  Lc  decode.o [1]
+USART_init             0x00001139   0x28  Code  Gb  usart.o [1]
 USART_printHex         0x200002a5   0x3c  Code  Gb  usart.o [1]
 USART_printString      0x20000325   0x16  Code  Gb  usart.o [1]
 USART_rxByte           0x200002e1   0x20  Code  Gb  usart.o [1]
@@ -369,56 +372,54 @@ USART_txByte           0x20000301   0x12  Code  Gb  usart.o [1]
 XMODEM_download        0x20000111   0xdc  Code  Gb  xmodem.o [1]
 XMODEM_verifyPacketChecksum
                        0x2000033b   0x5c  Code  Gb  xmodem.o [1]
-_DEBUGLOCK_driveBit    0x2000058d   0x5c  Code  Gb  debuglock.o [1]
-_DEBUGLOCK_swData      0x200005e8   0x18  Data  Gb  debuglock.o [1]
+_DEBUGLOCK_driveBit    0x20000599   0x5c  Code  Gb  debuglock.o [1]
+_DEBUGLOCK_swData      0x200005f4   0x18  Data  Gb  debuglock.o [1]
 __Vectors              0x00000000          --   Gb  startup_efm32.o [1]
 __Vectors_End          0x00000008         Data  Gb  startup_efm32.o [1]
 __Vectors_Size {Abs}   0x00000008          --   Gb  startup_efm32.o [1]
-__aeabi_memcpy4        0x00000e49         Code  Gb  ABImemcpy.o [5]
-__aeabi_memcpy8        0x00000e49         Code  Gb  ABImemcpy.o [5]
-__cmain                0x000012c1         Code  Gb  cmain.o [5]
-__exit                 0x000012ed         Code  Gb  XXexit.o [5]
-__iar_SB               0x00001358         Data  Gb  bwt_init3c.o [5]
-__iar_copy_init3       0x00000e9f   0x2e  Code  Gb  copy_init3.o [5]
-__iar_data_init3       0x00001235   0x2c  Code  Gb  data_init3.o [5]
-__iar_program_start    0x00001345         Code  Gb  cstartup_M.o [5]
-__iar_zero_init3       0x00000f63   0x22  Code  Gb  zero_init3.o [5]
-__low_level_init       0x000012d7    0x4  Code  Gb  low_level_init.o [3]
+__aeabi_memcpy4        0x00000e5d         Code  Gb  ABImemcpy.o [5]
+__aeabi_memcpy8        0x00000e5d         Code  Gb  ABImemcpy.o [5]
+__cmain                0x0000128d         Code  Gb  cmain.o [5]
+__exit                 0x000012b9         Code  Gb  XXexit.o [5]
+__iar_SB               0x00001324         Data  Gb  bwt_init3c.o [5]
+__iar_copy_init3       0x00000eb3   0x2e  Code  Gb  copy_init3.o [5]
+__iar_data_init3       0x00001201   0x2c  Code  Gb  data_init3.o [5]
+__iar_program_start    0x00001311         Code  Gb  cstartup_M.o [5]
+__iar_zero_init3       0x00000f77   0x22  Code  Gb  zero_init3.o [5]
+__low_level_init       0x000012a3    0x4  Code  Gb  low_level_init.o [3]
 __vector_table         0x00000000         Data  Gb  startup_efm32.o [1]
-_call_main             0x000012cd         Code  Gb  cmain.o [5]
-_exit                  0x000012e1         Code  Gb  cexit.o [5]
-_main                  0x000012d3         Code  Gb  cmain.o [5]
+_call_main             0x00001299         Code  Gb  cmain.o [5]
+_exit                  0x000012ad         Code  Gb  cexit.o [5]
+_main                  0x0000129f         Code  Gb  cmain.o [5]
 bootloaderCRC          0x200000bc    0x2  Data  Gb  bootloader.o [1]
-commandlineLoop        0x200003c9   0xa6  Code  Gb  bootloader.o [1]
-cur_edge               0x20000830    0x1  Data  Gb  decode.o [1]
-cur_stamp              0x20000814    0x4  Data  Gb  decode.o [1]
-dec                    0x20000810    0x4  Data  Gb  decode.o [1]
-dec_init               0x00000b47   0x1a  Code  Gb  decode.o [1]
-dec_parser             0x00000c35   0x5c  Code  Lc  decode.o [1]
-decode_machine         0x00000c91  0x170  Code  Gb  decode.o [1]
+commandlineLoop        0x200003d1   0xaa  Code  Gb  bootloader.o [1]
+cur_edge               0x2000083c    0x1  Data  Gb  decode.o [1]
+cur_stamp              0x20000820    0x4  Data  Gb  decode.o [1]
+dec                    0x2000081c    0x4  Data  Gb  decode.o [1]
+dec_init               0x00000b55   0x1a  Code  Gb  decode.o [1]
+dec_parser             0x00000c43   0x5c  Code  Lc  decode.o [1]
+decode_machine         0x00000c9f  0x172  Code  Gb  decode.o [1]
 descr                  0x20000100   0x10  Data  Gb  flash.o [1]
-enc                    0x20000804    0x8  Data  Lc  encode.o [1]
-encBuf                 0x2000072c   0xd8  Data  Gb  encode.o [1]
+enc                    0x20000810    0x8  Data  Lc  encode.o [1]
+encBuf                 0x20000738   0xd8  Data  Gb  encode.o [1]
 encGetAmount           0x00000201    0x6  Code  Gb  encode.o [1]
 encGetChar             0x00000207   0x3a  Code  Gb  encode.o [1]
-encPutData             0x00000241   0x5c  Code  Gb  encode.o [1]
 enc_init               0x00000137   0x68  Code  Gb  encode.o [1]
-enc_machine            0x0000029d  0x1d0  Code  Gb  encode.o [1]
-enc_odd                0x20000831    0x1  Data  Lc  encode.o [1]
-exit                   0x000012db    0x4  Code  Gb  exit.o [3]
+enc_machine            0x000002a5  0x1d0  Code  Gb  encode.o [1]
+enc_odd                0x2000083d    0x1  Data  Lc  encode.o [1]
+exit                   0x000012a7    0x4  Code  Gb  exit.o [3]
 findParam              0x0000019f   0x62  Code  Gb  encode.o [1]
-flashPageSize          0x20000828    0x4  Data  Gb  flash.o [1]
-generateVectorTable    0x0000102b   0x1a  Code  Gb  bootloader.o [1]
-inv                    0x2000081c    0x4  Data  Lc  decode.o [1]
-main                   0x00001045   0xb2  Code  Gb  bootloader.o [1]
-offset                 0x20000818    0x4  Data  Lc  decode.o [1]
-rawPacket              0x2000061c  0x110  Data  Gb  xmodem.o [1]
-readyString            0x20000600    0xc  Data  Gb  bootloader.o [1]
-sys_tick               0x2000080c    0x4  Data  Gb  bootloader.o [1]
-ticker                 0x20000824    0x4  Data  Gb  encode.o [1]
-unknownString          0x2000060c    0x8  Data  Gb  bootloader.o [1]
+flashPageSize          0x20000834    0x4  Data  Gb  flash.o [1]
+generateVectorTable    0x00001015   0x1a  Code  Gb  bootloader.o [1]
+inv                    0x20000828    0x4  Data  Lc  decode.o [1]
+main                   0x0000102f   0xae  Code  Gb  bootloader.o [1]
+offset                 0x20000824    0x4  Data  Lc  decode.o [1]
+rawPacket              0x20000628  0x110  Data  Gb  xmodem.o [1]
+readyString            0x2000060c    0xc  Data  Gb  bootloader.o [1]
+sys_tick               0x20000818    0x4  Data  Gb  bootloader.o [1]
+ticker                 0x20000830    0x4  Data  Gb  encode.o [1]
+unknownString          0x20000618    0x8  Data  Gb  bootloader.o [1]
 vectorTable            0x20000000   0xbc  Data  Gb  bootloader.o [1]
-waitForBootOrUSART     0x00000ff9   0x32  Code  Gb  bootloader.o [1]
 
 
 [1] = D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Debug\Obj
@@ -427,9 +428,9 @@ waitForBootOrUSART     0x00000ff9   0x32  Code  Gb  bootloader.o [1]
 [4] = m7M_tl.a
 [5] = rt7M_tl.a
 
-  4 728 bytes of readonly  code memory
-  1 240 bytes of readwrite code memory
-  1 516 bytes of readonly  data memory
+  4 676 bytes of readonly  code memory
+  1 252 bytes of readwrite code memory
+  1 528 bytes of readonly  data memory
   1 610 bytes of readwrite data memory (+ 206 absolute)
 
 Errors: none
