@@ -75,7 +75,7 @@ typedef struct module_tag
 //extern uint8_t index_sample;
 //extern uint8_t ticker;
 //extern uint8_t encTmr;
-
+extern buffer_t encBuf;
 /*----------------------------------------------------------------------------
  *        External Function
  *----------------------------------------------------------------------------*/
@@ -88,7 +88,7 @@ void enc_init(void);
  * @brief  uartPutData function
  *
  *****************************************************************************/
-void encPutData(uint8_t * dataPtr, uint32_t dataLen);
+void HIJACKPutData(uint8_t * dataPtr, buffer_t * dstBuf, uint32_t dataLen);
 
 void enc_print(const char *format, ...);
 #endif /* ENCODE_H */
