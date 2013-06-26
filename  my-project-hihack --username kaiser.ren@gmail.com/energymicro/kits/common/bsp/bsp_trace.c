@@ -1,8 +1,8 @@
 /**************************************************************************//**
  * @file
- * @brief API for enabling SWO and ETM trace.
+ * @brief API for enabling SWO or ETM trace on DK3750 board
  * @author Energy Micro AS
- * @version 3.20.0
+ * @version 1.0.0
  ******************************************************************************
  * @section License
  * <b>(C) Copyright 2012 Energy Micro AS, http://www.energymicro.com</b>
@@ -41,8 +41,8 @@
 
 #if defined(BSP_ETM_TRACE) && defined( ETM_PRESENT )
 /**************************************************************************//**
- * @brief Configure EFM32 for ETM trace output.
- * @note You need to configure ETM trace on kit config menu as well!
+ * @brief Configure EFM32GG990F1024 for DK3750 ETM trace output
+ * @note You need to configure ETM trace on on kit config menu as well!
  *****************************************************************************/
 void BSP_TraceEtmSetup(void)
 {
@@ -72,12 +72,17 @@ void BSP_TraceEtmSetup(void)
 
 /**************************************************************************//**
  * @brief Configure trace output for energyAware Profiler
- * @note  Enabling trace will add 80uA current for the EFM32_Gxxx_STK.
+ * @note  Enabling trace will add a 80uA current for the EFM32_Gxxx_STK.
  *        DK's needs to be initialized with SPI-mode:
- * @verbatim BSP_Init(BSP_INIT_DK_SPI); @endverbatim
+ * @verbatim BSP_Init(BSP_Init_SPI); @endverbatim
  *****************************************************************************/
 void BSP_TraceSwoSetup(void)
 {
+  /* Debug logic registers */
+  volatile uint32_t *dwt_ctrl       = (uint32_t *) 0xE0001000;
+  volatile uint32_t *tpiu_prescaler = (uint32_t *) 0xE0040010;
+  volatile uint32_t *tpiu_protocol  = (uint32_t *) 0xE00400F0;
+
   /* Enable GPIO clock */
   CMU->HFPERCLKEN0 |= CMU_HFPERCLKEN0_GPIO;
 
@@ -100,13 +105,13 @@ void BSP_TraceSwoSetup(void)
   CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
 
   /* Enable PC and IRQ sampling output */
-  DWT->CTRL = 0x400113FF;
+  *dwt_ctrl = 0x400113FF;
 
   /* Set TPIU prescaler to 16. */
-  TPI->ACPR = 0xf;
+  *tpiu_prescaler = 0xf;
 
   /* Set protocol to NRZ */
-  TPI->SPPR = 2;
+  *tpiu_protocol = 2;
 
   /* Unlock ITM and output data */
   ITM->LAR = 0xC5ACCE55;

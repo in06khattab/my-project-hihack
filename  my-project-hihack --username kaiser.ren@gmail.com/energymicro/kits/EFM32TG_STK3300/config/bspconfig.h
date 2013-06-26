@@ -2,10 +2,10 @@
  * @file
  * @brief Provide BSP (board support package) configuration parameters.
  * @author Energy Micro AS
- * @version 3.20.0
+ * @version 3.0.3
  *******************************************************************************
  * @section License
- * <b>(C) Copyright 2013 Energy Micro AS, http://www.energymicro.com</b>
+ * <b>(C) Copyright 2012 Energy Micro AS, http://www.energymicro.com</b>
  *******************************************************************************
  *
  * Permission is granted to anyone to use this software for any purpose,
@@ -38,15 +38,15 @@
 #define BSP_STK
 #define BSP_STK_2100
 
-#define BSP_BCC_USART           USART1
-#define BSP_BCC_USART_CLK       cmuClock_USART1
-#define BSP_BCC_USART_LOCATION  USART_ROUTE_LOCATION_LOC2
-#define BSP_BCC_USART_TXPORT    gpioPortD
-#define BSP_BCC_USART_TXPIN     7
-#define BSP_BCC_USART_RXPORT    gpioPortD
-#define BSP_BCC_USART_RXPIN     6
-#define BSP_BCC_U602A_PORT      gpioPortC
-#define BSP_BCC_U602A_PIN       14
+#define BSP_BC_USART           USART1
+#define BSP_BC_USART_CLK       cmuClock_USART1
+#define BSP_BC_USART_LOCATION  USART_ROUTE_LOCATION_LOC2
+#define BSP_BC_USART_TXPORT    gpioPortD
+#define BSP_BC_USART_TXPIN     7
+#define BSP_BC_USART_RXPORT    gpioPortD
+#define BSP_BC_USART_RXPIN     6
+#define BSP_BC_U602A_PORT      gpioPortC
+#define BSP_BC_U602A_PIN       14
 
 #define BSP_GPIO_LEDS
 #define BSP_NO_OF_LEDS  1
@@ -54,7 +54,7 @@
 
 #define BSP_INIT_DEFAULT  0
 
-#define BSP_BCP_VERSION 1
-#include "bsp_bcp.h"
+#define BSP_STK_BCP_VERSION 1
+#include "bsp_dk_bcpacket.h"
 
 #endif
