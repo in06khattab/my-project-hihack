@@ -33,6 +33,8 @@
 #include "flash.h"
 #include "crc.h"
 #include "config.h"
+#include "encode.h"
+#include "decode.h"
 
 #define ALIGNMENT(base,align) (((base)+((align)-1))&(~((align)-1)))
 
@@ -98,6 +100,7 @@ __ramfunc int XMODEM_download(uint32_t baseAddress, uint32_t endAddress)
   uint32_t      addr;
   uint32_t      byte;
   uint32_t      sequenceNumber = 1;
+  uint8_t		ch;
 
   for (addr = baseAddress; addr < endAddress; addr += flashPageSize)
   {
@@ -109,12 +112,15 @@ __ramfunc int XMODEM_download(uint32_t baseAddress, uint32_t endAddress)
   while (1)
   {
     USART_txByte(XMODEM_NCG);
+	ch = XMODEM_NCG;
+	HIJACKPutData( &ch, &encBuf, 1);
     for (i = 0; i < 10000000; i++)
     {
 #ifdef BOOTLOADER_LEUART_CLOCK
       if (BOOTLOADER_USART->STATUS & LEUART_STATUS_RXDATAV)
 #else
-      if (BOOTLOADER_USART->STATUS & USART_STATUS_RXDATAV)
+      //if (BOOTLOADER_USART->STATUS & USART_STATUS_RXDATAV)
+	  if(decBuf.pendingBytes)
 #endif
       {
         goto xmodem_transfer;
@@ -129,13 +135,15 @@ __ramfunc int XMODEM_download(uint32_t baseAddress, uint32_t endAddress)
 
     /* Fetch the first byte of the packet explicitly, as it defines the
      * rest of the packet */
-    pkt->header = USART_rxByte();
+    pkt->header = dec_rxByte();
 
     /* Check for end of transfer */
     if (pkt->header == XMODEM_EOT)
     {
       /* Acknowledget End of transfer */
       USART_txByte(XMODEM_ACK);
+	  ch = XMODEM_ACK;
+	  HIJACKPutData( &ch, &encBuf, 1);
       break;
     }
 
@@ -150,13 +158,15 @@ __ramfunc int XMODEM_download(uint32_t baseAddress, uint32_t endAddress)
     /* Byte 0 is padding, byte 1 is header */
     for (byte = 2; byte < sizeof(XMODEM_packet); byte++)
     {
-      *(((uint8_t *) pkt) + byte) = USART_rxByte();
+      *(((uint8_t *) pkt) + byte) = dec_rxByte();
     }
 
     if (XMODEM_verifyPacketChecksum(pkt, sequenceNumber) != 0)
     {
       /* On a malformed packet, we send a NAK, and start over */
       USART_txByte(XMODEM_NAK);
+	  ch = XMODEM_NAK;
+	  HIJACKPutData( &ch, &encBuf, 1);
       continue;
     }
 
@@ -171,6 +181,8 @@ __ramfunc int XMODEM_download(uint32_t baseAddress, uint32_t endAddress)
     sequenceNumber++;
     /* Send ACK */
     USART_txByte(XMODEM_ACK);
+	ch = XMODEM_ACK;
+	HIJACKPutData( &ch, &encBuf, 1);
   }
   /* Wait for the last DMA transfer to finish. */
   while (DMA->CHENS & DMA_CHENS_CH0ENS) ;

@@ -49,7 +49,7 @@
 #define BOOTLOADER_VERSION_STRING "1.63 "
 
 /** Define USART baudrate. **/
-#define BOOTLOADER_BAUD_RATE 38400
+#define BOOTLOADER_BAUD_RATE 115200
 
 /* Vector table in RAM. We construct a new vector table to conserve space in
  * flash as it is sparsly populated. */
@@ -252,7 +252,7 @@ __ramfunc void commandlineLoop(void)
   while (1)
   {
     /* Retrieve new character */
-    c = USART_rxByte();
+    c = dec_rxByte();
     /* Echo */
     if (c != 0)
     {
@@ -347,10 +347,13 @@ __ramfunc void commandlineLoop(void)
     /* Unknown command */
     case 0:
       /* Timeout waiting for RX - avoid printing the unknown string. */
-      USART_printString("None.\r\n");
+      //USART_printString("None.\r\n");
+	  //enc_print("None.");
+	  //HIJACKPutData("\r\n", &encBuf, 2);
       break;
     default:
-      USART_printString(unknownString);
+      //USART_printString(unknownString);
+	  break;
     }
 	
 	/* Enter EM1 while waiting. */
