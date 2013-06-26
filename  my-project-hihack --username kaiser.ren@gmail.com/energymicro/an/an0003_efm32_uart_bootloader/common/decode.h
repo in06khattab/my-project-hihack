@@ -81,12 +81,17 @@ extern bool	edge_occur;
 extern uint32_t cur_stamp ;
 extern uint32_t prv_stamp ;
 extern edge_t 	cur_edge;
-
+extern buffer_t decBuf;
 /*----------------------------------------------------------------------------
  *        External Function
  *----------------------------------------------------------------------------*/
 void dec_init(void);
 void decode_machine(void);
+
+/**************************************************************************//**
+ * @brief Decode single byte to BOOTLOADER_Hijack
+ *****************************************************************************/
+__ramfunc uint8_t dec_rxByte(void);
 
 #endif 	//_DECODE_H_
 //end of file

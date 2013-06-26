@@ -28,6 +28,7 @@
 #include "decode.h"
 #include "encode.h"
 //#include "com.h"
+#include "usart.h"
 
 /*----------------------------------------------------------------------------
  *        Macro
@@ -45,7 +46,7 @@ uint32_t prv_stamp = 0 ;
 edge_t 	cur_edge = none ;
 static uint32_t offset = 0;
 static uint32_t inv = 0;
-
+buffer_t decBuf = { 0, 0, 0, false, NULL};
 /*----------------------------------------------------------------------------
  *        Local function
  *----------------------------------------------------------------------------*/
@@ -264,19 +265,6 @@ static void dec_parser(uint8_t bit_msk, state_t state)
 	}
 }
 
-void debug_info(void)
-{
-  	/*if ( cur_edge == rising ){
-    	//BSP_LedSet( 0 );
-	    uartPutChar( '-' ) ;
-  	}
-	else{
-	    //BSP_LedClear( 0 );
-	    uartPutChar( '_' ) ;
-	} */
-			
-}
-
 /**
  * @brief decode state machine.
  *
@@ -306,10 +294,6 @@ void decode_machine(void)
 				uartPutChar( '_' ) ;
 #endif
          	}
-         	//else if( pass == IsTime2Detect(inv) ){
-			//	dec.state = Sta0;
-			//	buff[dec.state] = inv;
-         	//}
 			else{
 				dec.state = Waiting;
 			}
@@ -318,7 +302,6 @@ void decode_machine(void)
 		case Bit0:
 #if DEC_DEBUG == 1
 			//uartPutChar( '0' ) ;
-		  	debug_info();
 #endif
 		  	dec_parser(BIT0, Bit1);
 	   		break;
@@ -326,7 +309,6 @@ void decode_machine(void)
 		case Bit1:
 #if DEC_DEBUG == 1
 			//uartPutChar( '1' ) ;
-			debug_info();
 #endif
 		  	dec_parser(BIT1, Bit2);
 	   		break;
@@ -334,7 +316,6 @@ void decode_machine(void)
 		case Bit2:
 #if DEC_DEBUG == 1
 			//uartPutChar( '2' ) ;
-		  	debug_info();
 #endif
 		  	dec_parser(BIT2, Bit3);
 	   		break;
@@ -342,7 +323,6 @@ void decode_machine(void)
 		case Bit3:
 #if DEC_DEBUG == 1
 			//uartPutChar( '3' ) ;
-		    debug_info();
 #endif
 		  	dec_parser(BIT3, Bit4);
 	   		break;
@@ -350,7 +330,6 @@ void decode_machine(void)
 		case Bit4:
 #if DEC_DEBUG == 1
 			//uartPutChar( '4' ) ;
-		  	debug_info();
 #endif
 		  	dec_parser(BIT4, Bit5);
 	   		break;
@@ -358,7 +337,6 @@ void decode_machine(void)
 		case Bit5:
 #if DEC_DEBUG == 1
 			//uartPutChar( '5' ) ;
-		  	debug_info();
 #endif
 		  	dec_parser(BIT5, Bit6);
 	   		break;
@@ -366,7 +344,6 @@ void decode_machine(void)
 		case Bit6:
 #if DEC_DEBUG == 1
 			//uartPutChar( '6' ) ;
-		  	debug_info();
 #endif
 		  	dec_parser(BIT6, Bit7);
 	   		break;
@@ -374,15 +351,11 @@ void decode_machine(void)
 		case Bit7:
 #if DEC_DEBUG == 1
 			//uartPutChar( '7' ) ;
-		  	debug_info();
 #endif
 		  	dec_parser(BIT7, Parity);
 	   		break;
 			//
-		case Parity:
-#if DEC_DEBUG == 1
-			debug_info();
-#endif		
+		case Parity:		
 			if ( ( suit == IsTime2Detect(inv) ) ){ //it's time to determine
 				if( rising == cur_edge ){
 				   dec.odd++;
@@ -412,19 +385,16 @@ void decode_machine(void)
 			 }
 			break;
 			//
-      	case Sto0:
-#if DEC_DEBUG == 1
-			debug_info();
-#endif	
+      	case Sto0:	
          	if ( ( suit == IsTime2Detect(inv) ) ){ //it's time to determine
 				if( rising == cur_edge ){  //stop bit is rising edge
-				   //uartPutChar(dec.data);
+				    USART_txByte(dec.data);
 #if DEC_DEBUG == 1
 					//uartPutChar( 'P' ) ;
 					uartPutChar( '_' ) ;
 				    uartPutChar( '+' ) ;
 #endif
-				    HIJACKPutData(&dec.data, &encBuf, sizeof(uint8_t));
+				    HIJACKPutData(&dec.data, &decBuf, sizeof(uint8_t));
 				   //encTmr = 100;
 				}
 				else{
@@ -448,5 +418,37 @@ void decode_machine(void)
 	  		break;
 			//
 	}
+}
+
+/**************************************************************************//**
+ * @brief Decode single byte to BOOTLOADER_Hijack
+ *****************************************************************************/
+__ramfunc uint8_t dec_rxByte(void)
+{
+  uint8_t ch;
+  uint32_t timer = 1000000;
+
+  while (!(decBuf.pendingBytes) && --timer ) ;
+  if (timer > 0)
+  {
+	 /* Copy data from buffer */
+#if CRITICAL_PROTECTION==1
+  INT_Disable();
+#endif
+  ch        = decBuf.data[decBuf.rdI];
+  decBuf.rdI = (decBuf.rdI + 1) % BUFFERSIZE;
+  /* Decrement pending byte counter */
+  decBuf.pendingBytes--;
+
+#if CRITICAL_PROTECTION==1
+  INT_Enable();
+#endif
+
+    return( ch );
+  }
+  else
+  {
+    return 0;
+  }
 }
 //end of file
