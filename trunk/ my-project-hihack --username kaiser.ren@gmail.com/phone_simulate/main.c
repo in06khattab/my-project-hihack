@@ -298,7 +298,7 @@ extern int main( void )
     XplnLED_Configure();
 #endif
 	
-	UART_Configure(115200, BOARD_MCK);
+	UART_Configure(1200, BOARD_MCK);
 	
     /* Output example information */
     printf( "-- Phone Simulator V%d.%02d%c --\r\n", VER_MAJOR, VER_MINOR, VER_PATCH ) ;
