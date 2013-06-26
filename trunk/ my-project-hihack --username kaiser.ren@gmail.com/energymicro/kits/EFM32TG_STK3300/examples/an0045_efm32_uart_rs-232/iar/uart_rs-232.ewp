@@ -298,6 +298,7 @@
           <state>$PROJ_DIR$\..\..\..\..\..\emlib\inc</state>
           <state>$PROJ_DIR$\..\..\..\..\common\bsp</state>
           <state>$PROJ_DIR$\..\..\..\config</state>
+          <state>$PROJ_DIR$\..\..\..\..\..\kits\common\drivers</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -695,7 +696,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>$TOOLKIT_DIR$\config\linker\EnergyMicro\EFM32GG990F1024.icf</state>
+          <state>$PROJ_DIR$\..\EFM32TG840F32.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -1020,7 +1021,7 @@
         </option>
         <option>
           <name>OGChipSelectEditMenu</name>
-          <state>EFM32GG990F1024	EnergyMicro EFM32GG990F1024</state>
+          <state>EFM32TG840F32	EnergyMicro EFM32TG840F32</state>
         </option>
         <option>
           <name>GenLowLevelInterface</name>
@@ -1086,7 +1087,7 @@
         <option>
           <name>CCDefines</name>
           <state>NDEBUG</state>
-          <state>EFM32GG990F1024</state>
+          <state>EFM32TG840F32</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -1215,12 +1216,12 @@
         </option>
         <option>
           <name>CCIncludePath2</name>
-          <state>$PROJ_DIR$\..\..\..\CMSIS\Include</state>
-          <state>$PROJ_DIR$\..\..\..\Device\EnergyMicro\EFM32GG\Include</state>
-          <state>$PROJ_DIR$\..\..\..\emlib\inc</state>
-          <state>$PROJ_DIR$\..\..\..\kits\common\bsp</state>
-          <state>$PROJ_DIR$\..\..\..\kits\common\drivers</state>
-          <state>$PROJ_DIR$\..\..\..\kits\EFM32GG_DK3750\config</state>
+          <state>$PROJ_DIR$\..\..\..\..\..\CMSIS\Include</state>
+          <state>$PROJ_DIR$\..\..\..\..\..\Device\EnergyMicro\EFM32TG\Include</state>
+          <state>$PROJ_DIR$\..\..\..\..\..\emlib\inc</state>
+          <state>$PROJ_DIR$\..\..\..\..\common\bsp</state>
+          <state>$PROJ_DIR$\..\..\..\config</state>
+          <state>$PROJ_DIR$\..\..\..\..\..\kits\common\drivers</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1618,7 +1619,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>$TOOLKIT_DIR$\config\linker\EnergyMicro\EFM32GG990F1024.icf</state>
+          <state>$PROJ_DIR$\..\EFM32TG840F32.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>

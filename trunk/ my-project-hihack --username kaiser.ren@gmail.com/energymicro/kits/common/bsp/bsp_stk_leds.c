@@ -2,7 +2,7 @@
  * @file
  * @brief Board support package API for GPIO leds on STK's.
  * @author Energy Micro AS
- * @version 3.20.0
+ * @version 1.0.0
  *******************************************************************************
  * @section License
  * <b>(C) Copyright 2012 Energy Micro AS, http://www.energymicro.com</b>

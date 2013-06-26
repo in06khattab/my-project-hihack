@@ -26,6 +26,7 @@
  *
  *****************************************************************************/
 #include <stdint.h>
+#include <string.h>
 #include "em_device.h"
 #include "em_chip.h"
 #include "em_emu.h"
@@ -45,7 +46,7 @@ uint8_t uartGetChar(void);
 
 
 /* Declare some strings */
-const char     welcomeString[]  = "Energy Micro RS-232 - Please press a key\n";
+const char     welcomeString[]  = "Energy Micro RS-232 - Please press a key\r\n";
 const char     overflowString[] = "\r\n---RX OVERFLOW---\r\n";
 const uint32_t welLen           = sizeof(welcomeString) - 1;
 const uint32_t ofsLen           = sizeof(overflowString) - 1;
@@ -67,7 +68,7 @@ volatile struct circularBuffer
 
 
 /* Setup USART1 in async mode for RS232*/
-static USART_TypeDef           * uart   = USART1;
+static USART_TypeDef           * uart   = USART0;
 static USART_InitAsync_TypeDef uartInit = USART_INITASYNC_DEFAULT;
 
 /******************************************************************************
@@ -128,25 +129,26 @@ int main(void)
 
   /* Initialize clocks and oscillators */
   cmuSetup( );
-  
+
   /* configure SWO output for debugging. */
-  setupSWO();
+  //setupSWO();
 
   /* Initialize UART peripheral */
   uartSetup( );
 
   /* Initialize Development Kit in EBI mode */
-  BSP_Init(BSP_INIT_DEFAULT);
+  //BSP_Init(BSP_INIT_DEFAULT);
 
   /* Enable RS-232 transceiver on Development Kit */
   //BSP_PeripheralAccess(BSP_RS232_UART, true);
 
   /* When DVK is configured, and no more DVK access is needed, the interface can safely be disabled to save current */
-  BSP_Disable();
+  //BSP_Disable();
 
 
   /* Write welcome message to UART */
   uartPutData((uint8_t*) welcomeString, welLen);
+  uartPutData(__TIME__, strlen(__TIME__));
 
   /*  Eternal while loop
    *  CPU will sleep during Rx and Tx. When a byte is transmitted, an interrupt
@@ -157,6 +159,7 @@ int main(void)
    *  data in rxBuf is copied to txBuf and echoed back on the UART */
   while (1)
   {
+#if 0
     /* Wait in EM1 while UART transmits */
     EMU_EnterEM1();
 
@@ -175,6 +178,7 @@ int main(void)
       int     len = uartGetData(tmpBuf, 0);
       uartPutData(tmpBuf, len);
     }
+#endif
   }
 }
 
@@ -190,8 +194,8 @@ void uartSetup(void)
   /* Enable clock for GPIO module (required for pin configuration) */
   CMU_ClockEnable(cmuClock_GPIO, true);
   /* Configure GPIO pins */
-  GPIO_PinModeSet(gpioPortD, 0, gpioModePushPull, 1);
-  GPIO_PinModeSet(gpioPortD, 1, gpioModeInput, 0);
+  GPIO_PinModeSet(gpioPortE, 10, gpioModePushPull, 1);
+  GPIO_PinModeSet(gpioPortE, 11, gpioModeInput, 0);
 
 
   /* Prepare struct for initializing UART in asynchronous mode*/
@@ -211,14 +215,14 @@ void uartSetup(void)
 
   /* Prepare UART Rx and Tx interrupts */
   USART_IntClear(uart, _USART_IF_MASK);
-  USART_IntEnable(uart, USART_IF_RXDATAV);
-  NVIC_ClearPendingIRQ(USART1_RX_IRQn);
-  NVIC_ClearPendingIRQ(USART1_TX_IRQn);
-  NVIC_EnableIRQ(USART1_RX_IRQn);
-  NVIC_EnableIRQ(USART1_TX_IRQn);
+  //USART_IntEnable(uart, USART_IF_RXDATAV);
+  //NVIC_ClearPendingIRQ(USART0_RX_IRQn);
+  NVIC_ClearPendingIRQ(USART0_TX_IRQn);
+  //NVIC_EnableIRQ(USART0_RX_IRQn);
+  NVIC_EnableIRQ(USART0_TX_IRQn);
 
   /* Enable I/O pins at USART1 location #1 */
-  uart->ROUTE = USART_ROUTE_RXPEN | USART_ROUTE_TXPEN | USART_ROUTE_LOCATION_LOC1;
+  uart->ROUTE = USART_ROUTE_RXPEN | USART_ROUTE_TXPEN | USART_ROUTE_LOCATION_LOC0;
 
   /* Enable UART */
   USART_Enable(uart, usartEnable);
@@ -371,10 +375,10 @@ void cmuSetup(void)
   CMU_ClockEnable(cmuClock_HFPER, true);
 
   /* Enable clock for USART module */
-  CMU_ClockEnable(cmuClock_USART1, true);
+  CMU_ClockEnable(cmuClock_USART0, true);
 }
 
-
+#if 1
 /**************************************************************************//**
  * @brief USART1 RX IRQ Handler
  *
@@ -383,7 +387,7 @@ void cmuSetup(void)
  * Note that this function handles overflows in a very simple way.
  *
  *****************************************************************************/
-void USART1_RX_IRQHandler(void)
+void USART0_RX_IRQHandler(void)
 {
   /* Check for RX data valid interrupt */
   if (uart->STATUS & USART_STATUS_RXDATAV)
@@ -401,7 +405,7 @@ void USART1_RX_IRQHandler(void)
     }
 
     /* Clear RXDATAV interrupt */
-    USART_IntClear(USART1, USART_IF_RXDATAV);
+    USART_IntClear(USART0, USART_IF_RXDATAV);
   }
 }
 
@@ -411,10 +415,10 @@ void USART1_RX_IRQHandler(void)
  * Set up the interrupt prior to use
  *
  *****************************************************************************/
-void USART1_TX_IRQHandler(void)
+void USART0_TX_IRQHandler(void)
 {
   /* Clear interrupt flags by reading them. */
-  USART_IntGet(USART1);
+  USART_IntGet(USART0);
 
   /* Check TX buffer level status */
   if (uart->STATUS & USART_STATUS_TXBL)
@@ -434,4 +438,4 @@ void USART1_TX_IRQHandler(void)
     }
   }
 }
-
+#endif

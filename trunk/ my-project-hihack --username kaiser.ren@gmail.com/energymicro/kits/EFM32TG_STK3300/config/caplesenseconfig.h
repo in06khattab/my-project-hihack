@@ -2,7 +2,7 @@
  * @file
  * @brief Low Energy Sensor (LESENSE) example configuration file.
  * @author Energy Micro AS
- * @version 3.20.0
+ * @version 3.0.3
  *******************************************************************************
  * @section License
  * <b>(C) Copyright 2012 Energy Micro AS, http://www.energymicro.com</b>
