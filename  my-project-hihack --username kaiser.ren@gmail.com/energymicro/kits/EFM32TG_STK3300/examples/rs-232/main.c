@@ -47,9 +47,9 @@ uint8_t uartGetChar(void);
 
 /* Declare some strings */
 const char     welcomeString[]  = "Energy Micro RS-232 - Please press a key\r\n";
-const char     overflowString[] = "\r\n---RX OVERFLOW---\r\n";
+//const char     overflowString[] = "\r\n---RX OVERFLOW---\r\n";
 const uint32_t welLen           = sizeof(welcomeString) - 1;
-const uint32_t ofsLen           = sizeof(overflowString) - 1;
+//const uint32_t ofsLen           = sizeof(overflowString) - 1;
 
 /* Define termination character */
 #define TERMINATION_CHAR    '.'
@@ -122,7 +122,7 @@ void setupSWO(void)
  * @brief  Main function
  *
  *****************************************************************************/
-int main(void)
+__ramfunc int main(void)
 {
   /* Initialize chip - handle erratas */
   CHIP_Init( );
@@ -147,7 +147,7 @@ int main(void)
 
 
   /* Write welcome message to UART */
-  uartPutData((uint8_t*) welcomeString, welLen);
+  //uartPutData((uint8_t*) welcomeString, welLen);
   uartPutData(__TIME__, strlen(__TIME__));
 
   /*  Eternal while loop
@@ -291,7 +291,7 @@ void uartPutChar(uint8_t ch)
  * @brief  uartPutData function
  *
  *****************************************************************************/
-void uartPutData(uint8_t * dataPtr, uint32_t dataLen)
+__ramfunc void uartPutData(uint8_t * dataPtr, uint32_t dataLen)
 {
   uint32_t i = 0;
 
