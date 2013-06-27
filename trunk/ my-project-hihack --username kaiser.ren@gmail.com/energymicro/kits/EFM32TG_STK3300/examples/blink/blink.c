@@ -51,20 +51,21 @@ void Delay(uint32_t dlyTicks);
  *****************************************************************************/
 void SysTick_Handler(void)
 {
-  msTicks++;       /* increment counter necessary in Delay()*/
+  BSP_LedToggle(0);
+  //msTicks++;       /* increment counter necessary in Delay()*/
 }
 
 /**************************************************************************//**
  * @brief Delays number of msTick Systicks (typically 1 ms)
  * @param dlyTicks Number of ticks to delay
  *****************************************************************************/
-void Delay(uint32_t dlyTicks)
-{
-  uint32_t curTicks;
+//void Delay(uint32_t dlyTicks)
+//{
+  //uint32_t curTicks;
 
-  curTicks = msTicks;
-  while ((msTicks - curTicks) < dlyTicks) ;
-}
+  //curTicks = msTicks;
+  //while ((msTicks - curTicks) < dlyTicks) ;
+//}
 
 /**************************************************************************//**
  * @brief  Main function
@@ -75,25 +76,25 @@ int main(void)
   CHIP_Init();
 
   /* If first word of user data page is non-zero, enable eA Profiler trace */
-  BSP_TraceProfilerSetup();
+  //BSP_TraceProfilerSetup();
 
   /* Setup SysTick Timer for 1 msec interrupts  */
-  if (SysTick_Config(CMU_ClockFreqGet(cmuClock_CORE) / 1000)) while (1) ;
+  if (SysTick_Config(CMU_ClockFreqGet(cmuClock_CORE) / 1)) while (1) ;
 
   /* Initialize LED driver */
   BSP_LedsInit();
 
   /* Set divider */
   /* Configure GPIO pins */
-  GPIO_PinModeSet(gpioPortC, 12, gpioModePushPull, 0);
-  CMU->ROUTE = CMU_ROUTE_CLKOUT0PEN | CMU_ROUTE_LOCATION_LOC1;
-  CMU->CTRL = (CMU->CTRL & ~_CMU_CTRL_CLKOUTSEL0_MASK) |
-      ((_CMU_CTRL_CLKOUTSEL0_HFRCO) << _CMU_CTRL_CLKOUTSEL0_SHIFT);
+  //GPIO_PinModeSet(gpioPortC, 12, gpioModePushPull, 0);
+  //CMU->ROUTE = CMU_ROUTE_CLKOUT0PEN | CMU_ROUTE_LOCATION_LOC1;
+  //CMU->CTRL = (CMU->CTRL & ~_CMU_CTRL_CLKOUTSEL0_MASK) |
+  //    ((_CMU_CTRL_CLKOUTSEL0_HFRCO) << _CMU_CTRL_CLKOUTSEL0_SHIFT);
 
   /* Infinite blink loop */
   while (1)
   {
-    BSP_LedToggle(0);
-    Delay(100);
+    //BSP_LedToggle(0);
+    //Delay(100);
   }
 }
