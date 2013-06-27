@@ -175,8 +175,8 @@ void waitForBootOrUSART(void)
 #ifndef NDEBUG
     //if (oldPins != SWDpins)
     {
-      oldPins = SWDpins;
-      printf("New pin: 0x%02X \r\n", SWDpins);
+      //oldPins = SWDpins;
+      //printf("New pin: 0x%02X \r\n", SWDpins);
     }
 #endif
 
@@ -185,7 +185,7 @@ void waitForBootOrUSART(void)
     {
       /* Boot application */
 #ifndef NDEBUG
-      printf("Booting application \r\n");
+      //printf("Booting application \r\n");
 #endif
       BOOT_boot();
     }
@@ -202,7 +202,7 @@ void waitForBootOrUSART(void)
       resetEFM32onRTCTimeout = true;
 #endif//SIZE_TAILOR==0
 #ifndef NDEBUG
-      printf("Starting autobaud sequence\r\n");
+      //printf("Starting autobaud sequence\r\n");
 #endif
       return;
     }
@@ -251,6 +251,10 @@ __ramfunc void commandlineLoop(void)
   /* The main command loop */
   while (1)
   {
+	
+#if 1
+    XMODEM_download(BOOTLOADER_SIZE, flashSize);	
+#else
     /* Retrieve new character */
     c = dec_rxByte();
     /* Echo */
@@ -355,6 +359,7 @@ __ramfunc void commandlineLoop(void)
       //USART_printString(unknownString);
 	  break;
     }
+#endif
 	
 	/* Enter EM1 while waiting. */
     EMU_EnterEM1();
@@ -408,7 +413,7 @@ int main(void)
                      AUTOBAUD_TIMER_CLOCK ;
 
   /* Enable LE and DMA interface */
-  CMU->HFCORECLKEN0 = /*CMU_HFCORECLKEN0_LE |*/ CMU_HFCORECLKEN0_DMA;
+  CMU->HFCORECLKEN0 = DEBUG_USART_CLOCK | CMU_HFCORECLKEN0_DMA;
 #if SIZE_TAILOR==0
   /* Enable LFRCO for RTC */
   CMU->OSCENCMD = CMU_OSCENCMD_LFRCOEN;
@@ -427,8 +432,8 @@ int main(void)
 
 #ifndef NDEBUG
   DEBUG_init();
-  printf("\r\n-- Debug output enabled --\r\n");
-  printf("-- Compiled: %s %s --\r\n", __DATE__, __TIME__ ) ;
+  //printf("\r\n-- Debug output enabled --\r\n");
+  //printf("-- Compiled: %s %s --\r\n", __DATE__, __TIME__ ) ;
 #endif
   /* Check if the clock division is too small, if it is, we change
    * to an oversampling rate of 4x and calculate a new clkdiv.
@@ -451,21 +456,10 @@ int main(void)
   /* Wait for a boot operation */
   //waitForBootOrUSART();
 
-#ifdef BOOTLOADER_LEUART_CLOCK
-  /* Enable LEUART */
-  CMU->LFBCLKEN0 = BOOTLOADER_LEUART_CLOCK;
-#endif
-
   /* When autobaud has completed, we can be fairly certain that
    * the entry into the bootloader is intentional so we can disable the timeout.
    */
   NVIC_DisableIRQ(RTC_IRQn);
-
-#ifdef BOOTLOADER_LEUART_CLOCK
-  clkdiv = ((periodTime24_8 >> 1) - 256);
-  GPIO->ROUTE = 0;
-#endif
-
 
   /* Print a message to show that we are in bootloader mode */
   USART_printString("\r\n\r\n" BOOTLOADER_VERSION_STRING  "ChipID: ");

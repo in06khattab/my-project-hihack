@@ -388,7 +388,7 @@ void decode_machine(void)
       	case Sto0:	
          	if ( ( suit == IsTime2Detect(inv) ) ){ //it's time to determine
 				if( rising == cur_edge ){  //stop bit is rising edge
-				    USART_txByte(dec.data);
+				    //USART_txByte(dec.data);
 #if DEC_DEBUG == 1
 					//uartPutChar( 'P' ) ;
 					uartPutChar( '_' ) ;
@@ -426,12 +426,9 @@ void decode_machine(void)
 __ramfunc uint8_t dec_rxByte(void)
 {
   uint8_t ch;
-  uint32_t timer = 1000000;
 
-  while (!(decBuf.pendingBytes) && --timer ) ;
-  if (timer > 0)
-  {
-	 /* Copy data from buffer */
+  while ( !decBuf.pendingBytes ) ;
+  /* Copy data from buffer */
 #if CRITICAL_PROTECTION==1
   INT_Disable();
 #endif
@@ -443,12 +440,7 @@ __ramfunc uint8_t dec_rxByte(void)
 #if CRITICAL_PROTECTION==1
   INT_Enable();
 #endif
-
-    return( ch );
-  }
-  else
-  {
-    return 0;
-  }
+  USART_txByte( ch ) ;
+  return( ch );
 }
 //end of file

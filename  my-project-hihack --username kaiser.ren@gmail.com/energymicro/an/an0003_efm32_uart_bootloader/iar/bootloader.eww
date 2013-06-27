@@ -2,9 +2,6 @@
 
 <workspace>
   <project>
-    <path>$WS_DIR$\bootloader-tg-small.ewp</path>
-  </project>
-  <project>
     <path>$WS_DIR$\bootloader-tg210.ewp</path>
   </project>
   <project>

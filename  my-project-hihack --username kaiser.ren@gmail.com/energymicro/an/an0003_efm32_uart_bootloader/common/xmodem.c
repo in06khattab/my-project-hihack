@@ -111,17 +111,12 @@ __ramfunc int XMODEM_download(uint32_t baseAddress, uint32_t endAddress)
    * Note: This is a fairly long delay between retransmissions(~6 s). */
   while (1)
   {
-    USART_txByte(XMODEM_NCG);
+    //USART_txByte(XMODEM_NCG);
 	ch = XMODEM_NCG;
 	HIJACKPutData( &ch, &encBuf, 1);
     for (i = 0; i < 10000000; i++)
     {
-#ifdef BOOTLOADER_LEUART_CLOCK
-      if (BOOTLOADER_USART->STATUS & LEUART_STATUS_RXDATAV)
-#else
-      //if (BOOTLOADER_USART->STATUS & USART_STATUS_RXDATAV)
 	  if(decBuf.pendingBytes)
-#endif
       {
         goto xmodem_transfer;
       }
@@ -141,9 +136,10 @@ __ramfunc int XMODEM_download(uint32_t baseAddress, uint32_t endAddress)
     if (pkt->header == XMODEM_EOT)
     {
       /* Acknowledget End of transfer */
-      USART_txByte(XMODEM_ACK);
+      printf("end: boot.\r\n");
 	  ch = XMODEM_ACK;
 	  HIJACKPutData( &ch, &encBuf, 1);
+	  BOOT_boot();
       break;
     }
 
@@ -151,7 +147,11 @@ __ramfunc int XMODEM_download(uint32_t baseAddress, uint32_t endAddress)
      * the transfer. */
     if (pkt->header != XMODEM_SOH)
     {
-      return -1;
+	  printf("err: head.\r\n");
+	  //ch = XMODEM_NAK;
+	  //HIJACKPutData( &ch, &encBuf, 1);
+	  continue;
+      //return -1;
     }
 
     /* Fill the remaining bytes packet */
@@ -164,9 +164,10 @@ __ramfunc int XMODEM_download(uint32_t baseAddress, uint32_t endAddress)
     if (XMODEM_verifyPacketChecksum(pkt, sequenceNumber) != 0)
     {
       /* On a malformed packet, we send a NAK, and start over */
-      USART_txByte(XMODEM_NAK);
+      printf("err: verify.\r\n");
 	  ch = XMODEM_NAK;
 	  HIJACKPutData( &ch, &encBuf, 1);
+	  //sequenceNumber++;
       continue;
     }
 
