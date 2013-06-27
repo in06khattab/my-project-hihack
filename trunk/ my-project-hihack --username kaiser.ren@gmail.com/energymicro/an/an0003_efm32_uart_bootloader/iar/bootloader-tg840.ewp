@@ -39,20 +39,20 @@
         <option>
           <name>Input variant</name>
           <version>3</version>
-          <state>1</state>
+          <state>6</state>
         </option>
         <option>
           <name>Input description</name>
-          <state>Full formatting.</state>
+          <state>No specifier n, no float nor long long, no scan set, no assignment suppressing.</state>
         </option>
         <option>
           <name>Output variant</name>
           <version>2</version>
-          <state>1</state>
+          <state>3</state>
         </option>
         <option>
           <name>Output description</name>
-          <state>Full formatting.</state>
+          <state>No specifier a, A.</state>
         </option>
         <option>
           <name>GOutputBinary</name>
@@ -165,8 +165,8 @@
         <option>
           <name>CCDefines</name>
           <state>EFM32TG840F32</state>
-          <state>NDEBUG</state>
           <state>SIZE_TAILOR=1</state>
+          <state>DEBUG</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
