@@ -37,6 +37,7 @@
 #include "flash.h"
 #include "em_cmu.h"
 #include "em_emu.h"
+#include "em_rmu.h"
 #include "decode.h"
 #include "encode.h"
 
@@ -143,23 +144,6 @@ void RTC_IRQHandler(void)
 void waitForBootOrUSART(void)
 {
   uint32_t SWDpins;
-#ifndef NDEBUG
-  uint32_t oldPins = 0xf;
-#endif
-
-#if defined SIZE_TAILOR==0
-  /* Initialize RTC */
-  /* Clear interrupt flags */
-  RTC->IFC = RTC_IFC_COMP1 | RTC_IFC_COMP0 | RTC_IFC_OF;
-  /* 250 ms wakeup time */
-  RTC->COMP0 = (PIN_LOOP_INTERVAL * LFRCO_FREQ) / 1000;
-  /* Enable Interrupts on COMP0 */
-  RTC->IEN = RTC_IEN_COMP0;
-  /* Enable RTC interrupts */
-  NVIC_EnableIRQ(RTC_IRQn);
-  /* Enable RTC */
-  RTC->CTRL = RTC_CTRL_COMP0TOP | RTC_CTRL_DEBUGRUN | RTC_CTRL_EN;
-#endif//SIZE_TAILOR==0
 
   while (1)
   {
@@ -171,22 +155,10 @@ void waitForBootOrUSART(void)
     /* Check input pins */
     SWDpins = GPIO->P[5].DIN;
     SWDpins &= 0x01;
-	
-#ifndef NDEBUG
-    //if (oldPins != SWDpins)
-    {
-      //oldPins = SWDpins;
-      //printf("New pin: 0x%02X \r\n", SWDpins);
-    }
-#endif
 
     /* Check if pins are not asserted AND firmware is valid */
     if ((SWDpins != 0x1) && (BOOT_checkFirmwareIsValid()))
     {
-      /* Boot application */
-#ifndef NDEBUG
-      //printf("Booting application \r\n");
-#endif
       BOOT_boot();
     }
 
@@ -240,8 +212,8 @@ __ramfunc void verify(uint32_t start, uint32_t end)
 __ramfunc void commandlineLoop(void)
 {
   uint32_t flashSize;
-  uint8_t  c;
-  uint8_t *returnString;
+  //uint8_t  c;
+  //uint8_t *returnString;
 
   /* Find the size of the flash. DEVINFO->MSIZE is the
    * size in KB so left shift by 10. */
@@ -295,53 +267,6 @@ __ramfunc void commandlineLoop(void)
     case 'b':
       BOOT_boot();
       break;
-    /* Debug lock */
-#if defined SIZE_TAILOR==0
-    case 'l':
-#ifndef NDEBUG
-      /* We check if there is a debug session active in DHCSR. If there is we
-       * abort the locking. This is because we wish to make sure that the debug
-       * lock functionality works without a debugger attatched. */
-      if ((CoreDebug->DHCSR & CoreDebug_DHCSR_C_DEBUGEN_Msk) != 0x0)
-      {
-        printf("\r\n\r\n **** WARNING: DEBUG SESSION ACTIVE. NOT LOCKING!  **** \r\n\r\n");
-        USART_printString("Debug active.\r\n");
-      }
-      else
-      {
-        printf("Starting debug lock sequence.\r\n");
-#endif
-      if (DEBUGLOCK_lock())
-      {
-        returnString = okString;
-      }
-      else
-      {
-        returnString = failString;
-      }
-      USART_printString(returnString);
-#ifndef NDEBUG
-        printf("Debug lock word: 0x%x \r\n", *((uint32_t *) DEBUG_LOCK_WORD));
-      }
-#endif
-      break;
-    /* Verify content by calculating CRC of entire flash */
-    case 'v':
-      verify(0, flashSize);
-      break;
-    /* Verify content by calculating CRC of application area */
-    case 'c':
-      verify(BOOTLOADER_SIZE, flashSize);
-      break;
-    /* Verify content by calculating CRC of user page.*/
-    case 'n':
-      verify(XMODEM_USER_PAGE_START, XMODEM_USER_PAGE_END);
-      break;
-    /* Verify content by calculating CRC of lock page */
-    case 'm':
-      verify(XMODEM_LOCK_PAGE_START, XMODEM_LOCK_PAGE_END);
-      break;
-#endif//SIZE_TAILOR==0
     /* Reset command */
     case 'r':
       /* Write to the Application Interrupt/Reset Command Register to reset
@@ -362,7 +287,7 @@ __ramfunc void commandlineLoop(void)
 #endif
 	
 	/* Enter EM1 while waiting. */
-    EMU_EnterEM1();
+    //EMU_EnterEM1();
   }
 }
 
@@ -414,14 +339,6 @@ int main(void)
 
   /* Enable LE and DMA interface */
   CMU->HFCORECLKEN0 = DEBUG_USART_CLOCK | CMU_HFCORECLKEN0_DMA;
-#if SIZE_TAILOR==0
-  /* Enable LFRCO for RTC */
-  CMU->OSCENCMD = CMU_OSCENCMD_LFRCOEN;
-  /* Setup LFA to use LFRCRO */
-  CMU->LFCLKSEL = CMU_LFCLKSEL_LFA_LFRCO | CMU_LFCLKSEL_LFB_HFCORECLKLEDIV2;
-  /* Enable RTC */
-  CMU->LFACLKEN0 = CMU_LFACLKEN0_RTC;
-#endif//#if SIZE_TAILOR==0
 
   /* Initial hijack part. */
   /* dec part initial. */
@@ -432,8 +349,6 @@ int main(void)
 
 #ifndef NDEBUG
   DEBUG_init();
-  //printf("\r\n-- Debug output enabled --\r\n");
-  //printf("-- Compiled: %s %s --\r\n", __DATE__, __TIME__ ) ;
 #endif
   /* Check if the clock division is too small, if it is, we change
    * to an oversampling rate of 4x and calculate a new clkdiv.
@@ -459,7 +374,7 @@ int main(void)
   /* When autobaud has completed, we can be fairly certain that
    * the entry into the bootloader is intentional so we can disable the timeout.
    */
-  NVIC_DisableIRQ(RTC_IRQn);
+  //NVIC_DisableIRQ(RTC_IRQn);
 
   /* Print a message to show that we are in bootloader mode */
   USART_printString("\r\n\r\n" BOOTLOADER_VERSION_STRING  "ChipID: ");
@@ -467,6 +382,13 @@ int main(void)
   USART_printHex(DEVINFO->UNIQUEH);
   USART_printHex(DEVINFO->UNIQUEL);
   USART_printString("\r\n");
+
+
+  USART_printHex( RMU_ResetCauseGet() );
+  USART_printString("\r\n");
+  /* Clear reset cause. */
+  RMU_ResetCauseClear();
+  //RMU_ResetControl(rmuResetLockUp, false);
 
   /* Initialize flash for writing */
   FLASH_init();
