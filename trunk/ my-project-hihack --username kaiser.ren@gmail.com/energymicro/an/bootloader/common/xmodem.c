@@ -125,6 +125,7 @@ __ramfunc int XMODEM_download(uint32_t baseAddress, uint32_t endAddress)
  xmodem_transfer:
   while (1)
   {
+	dec_rxByte();
     /* Swap buffer for packet buffer */
     pkt = (XMODEM_packet *) rawPacket[sequenceNumber & 1];
 
@@ -136,10 +137,12 @@ __ramfunc int XMODEM_download(uint32_t baseAddress, uint32_t endAddress)
     if (pkt->header == XMODEM_EOT)
     {
       /* Acknowledget End of transfer */
-      printf("end: boot.\r\n");
+#ifndef NDEBUG
+      printf("boot\r\n");
+#endif
 	  ch = XMODEM_ACK;
 	  HIJACKPutData( &ch, &encBuf, 1);
-	  BOOT_boot();
+	  //BOOT_boot();
       break;
     }
 
@@ -147,9 +150,10 @@ __ramfunc int XMODEM_download(uint32_t baseAddress, uint32_t endAddress)
      * the transfer. */
     if (pkt->header != XMODEM_SOH)
     {
-	  printf("err: head.\r\n");
-	  //ch = XMODEM_NAK;
-	  //HIJACKPutData( &ch, &encBuf, 1);
+	  //printf("h\r\n");
+	  //USART_txByte(XMODEM_NAK);
+	  ch = XMODEM_NAK;
+	  HIJACKPutData( &ch, &encBuf, 1);
 	  continue;
       //return -1;
     }
@@ -164,24 +168,25 @@ __ramfunc int XMODEM_download(uint32_t baseAddress, uint32_t endAddress)
     if (XMODEM_verifyPacketChecksum(pkt, sequenceNumber) != 0)
     {
       /* On a malformed packet, we send a NAK, and start over */
-      printf("err: verify.\r\n");
+#ifndef NDEBUG
+      printf("v\r\n");
+#endif
 	  ch = XMODEM_NAK;
 	  HIJACKPutData( &ch, &encBuf, 1);
-	  //sequenceNumber++;
       continue;
     }
 
     /* Write data to flash */
-    FLASH_writeBlock((void *) baseAddress,
+    /*FLASH_writeBlock((void *) baseAddress,
                      (sequenceNumber - 1) * XMODEM_DATA_SIZE,
                      XMODEM_DATA_SIZE,
-                     (uint8_t const *) pkt->data);
+                     (uint8_t const *) pkt->data); */
 
 
 
     sequenceNumber++;
     /* Send ACK */
-    USART_txByte(XMODEM_ACK);
+    //USART_txByte(XMODEM_ACK);
 	ch = XMODEM_ACK;
 	HIJACKPutData( &ch, &encBuf, 1);
   }

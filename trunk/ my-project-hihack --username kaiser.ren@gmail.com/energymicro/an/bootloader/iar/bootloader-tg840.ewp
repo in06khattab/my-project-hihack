@@ -48,11 +48,11 @@
         <option>
           <name>Output variant</name>
           <version>2</version>
-          <state>3</state>
+          <state>1</state>
         </option>
         <option>
           <name>Output description</name>
-          <state>No specifier a, A.</state>
+          <state>Full formatting.</state>
         </option>
         <option>
           <name>GOutputBinary</name>
@@ -166,7 +166,7 @@
           <name>CCDefines</name>
           <state>EFM32TG840F32</state>
           <state>SIZE_TAILOR=1</state>
-          <state>DEBUG</state>
+          <state>NDEBUG</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -1924,6 +1924,9 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\emlib\src\em_prs.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\emlib\src\em_rmu.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\emlib\src\em_timer.c</name>
