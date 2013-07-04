@@ -53,7 +53,7 @@
 #include "rtcdrv.h"
 #include "bsp_trace.h"
 
-#define USERPAGE    0x0FE00000 /**< Address of the user page */
+#define USERPAGE    (0x00003000 - 4) /**< Address of the user page */
 
 typedef struct
 {
