@@ -55,7 +55,7 @@
 #include "bsp_trace.h"
 #include "bsp.h"
 
-#define USERPAGE    (0x00003000 - 4) /**< Address of the user page */
+#define USERPAGE    (0x00003000) /**< Address of the user page */
 
 /* PRESCALER: 16 */
 #define HIJACK_TIMER_RESOLUTION     timerPrescale16
@@ -116,9 +116,10 @@ typedef struct
 {
   uint32_t number;           /**< Number to display and save to flash */
   uint32_t numWrites;        /**< Number of saves to flash */
+  uint8_t payload[256];
 } UserData_TypeDef;
 
-volatile UserData_TypeDef userData;                   /**< User data contents */
+UserData_TypeDef userData = {0, 0, NULL};                   /**< User data contents */
 
 volatile bool             rtcFlag;                    /**< Flag used by the RTC timing routines */
 volatile bool             recentlySaved;              /**< Flag to indicate successful write */
@@ -140,23 +141,27 @@ void GPIO_ODD_IRQHandler(void)
   MSC_Init();
 
   /* Erase the page */
-  ret = MSC_ErasePage((uint32_t *) USERPAGE);
+  //ret = MSC_ErasePage((uint32_t *) (USERPAGE + userData.numWrites * 256 ) );
 
   /* Check for errors. If there are errors, set the global error variable and
    * deinitialize the MSC */
-  if (ret != mscReturnOk)
+  /*if (ret != mscReturnOk)
   {
     currentError = ret;
     MSC_Deinit();
     return;
-  }
+  }*/
+
+
+
+  /* Write data to the userpage */
+  memset(userData.payload, userData.numWrites, 256);
+  ret = MSC_WriteWord((uint32_t *) (USERPAGE + userData.numWrites * 256 ),
+					  (void *) &userData.payload,
+                      sizeof(UserData_TypeDef));
 
   /* Increase the number of saves */
   userData.numWrites++;
-
-  /* Write data to the userpage */
-  ret = MSC_WriteWord((uint32_t *) USERPAGE, (void *) &userData,
-                      sizeof(UserData_TypeDef));
 
   /* Check for errors. If there are errors, set the global error variable and
    * deinitialize the MSC */
@@ -378,7 +383,7 @@ int main(void)
   SegmentLCD_AllOff();
 
   /* Copy contents of the userpage (flash) into the userData struct */
-  memcpy((void *) &userData, (void *) USERPAGE, sizeof(UserData_TypeDef));
+  //memcpy((void *) &userData, (void *) USERPAGE, sizeof(UserData_TypeDef));
 
   /* Special case for uninitialized data */
   if (userData.number > 10000)
