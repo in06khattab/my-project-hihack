@@ -1850,6 +1850,12 @@
   <group>
     <name>BSP</name>
     <file>
+      <name>$PROJ_DIR$\..\..\..\..\common\bsp\bsp_stk.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\common\bsp\bsp_stk_leds.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\..\..\common\bsp\bsp_trace.c</name>
     </file>
   </group>
@@ -1896,6 +1902,9 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\..\emlib\src\em_system.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\..\emlib\src\em_timer.c</name>
     </file>
   </group>
   <group>

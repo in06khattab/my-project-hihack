@@ -49,11 +49,68 @@
 #include "em_emu.h"
 #include "em_msc.h"
 #include "em_gpio.h"
+#include "em_timer.h"
 #include "segmentlcd.h"
 #include "rtcdrv.h"
 #include "bsp_trace.h"
+#include "bsp.h"
 
 #define USERPAGE    (0x00003000 - 4) /**< Address of the user page */
+
+/* PRESCALER: 16 */
+#define HIJACK_TIMER_RESOLUTION     timerPrescale16
+#define HIJACK_TMR_CLK_SRC_PRESCALER ( 0x01 << HIJACK_TIMER_RESOLUTION)
+
+/* tx timer definition. */
+#define HIJACK_TX_TIMER             (TIMER1)
+#define HIJACK_TX_TIMERCLK          (cmuClock_TIMER1)
+#define HIJACK_TX_GPIO_PORT         (gpioPortC)
+#define HIJACK_TX_GPIO_PIN          13
+#define HIJACK_TX_LOCATION			(TIMER_ROUTE_LOCATION_LOC0)
+
+/* several carrier frequency definition. */
+#define HIJACK_ENC_CARRIER_FREQ_1KHZ	1000ul
+#define HIJACK_ENC_CARRIER_FREQ_2KHZ	2000ul
+#define HIJACK_ENC_CARRIER_FREQ_4KHZ	4000ul
+#define HIJACK_ENC_CARRIER_FREQ_8KHZ	8000ul
+
+/* several carrier frequency definition. */
+#define HIJACK_DEC_CARRIER_FREQ_1KHZ	1000ul
+#define HIJACK_DEC_CARRIER_FREQ_2KHZ	2000ul
+#define HIJACK_DEC_CARRIER_FREQ_4KHZ	4000ul
+#define HIJACK_DEC_CARRIER_FREQ_8KHZ	8000ul
+#define HIJACK_DEC_CARRIER_FREQ_10KHZ   10000ul
+
+/* current carrier frequency definition. */
+#define HIJACK_DEC_CARRIER HIJACK_DEC_CARRIER_FREQ_1KHZ
+
+#define BOARD_MCK 14000000ul
+
+/* current carrier frequency definition. */
+#define HIJACK_ENC_CARRIER_FREQ_CONF HIJACK_ENC_CARRIER_FREQ_1KHZ
+
+/* how many ticker per us. */
+//#define HIJACK_NUM_TICKS_PER_1US (BOARD_MCK/HIJACK_TMR_CLK_SRC_PRESCALER/1000000ul)
+
+/* how many ticks per half cycle. */
+#define HIJACK_NUM_TICKS_PER_HALF_CYCLE (BOARD_MCK / HIJACK_TMR_CLK_SRC_PRESCALER / HIJACK_DEC_CARRIER / 2)
+
+/* how many ticks per full cycle . */
+#define HIJACK_NUM_TICKS_PER_FULL_CYCLE (BOARD_MCK / HIJACK_TMR_CLK_SRC_PRESCALER / HIJACK_DEC_CARRIER)
+
+/* how manu ticks when precision is about 5%. */
+#define HIJACK_NUM_TICKS_PER_20_PCNT	(HIJACK_NUM_TICKS_PER_FULL_CYCLE / 10)
+
+/*----------------------------------------------------------------------------
+ *        Typedef
+ *----------------------------------------------------------------------------*/
+
+typedef enum
+{
+  hijackOutputModeSet = 0,
+  hijackOutputModeClear,
+  hijackOutputModeToggle
+} HIJACK_OutputMode_t;
 
 typedef struct
 {
@@ -183,7 +240,7 @@ void EM2Sleep(uint32_t msec)
    * RTC_TimeOutHandler. This makes sure that the elapsed time is correct. */
   while (rtcFlag)
   {
-    EMU_EnterEM2(true);
+    EMU_EnterEM1();
   }
   NVIC_EnableIRQ(LCD_IRQn);
 }
@@ -207,6 +264,94 @@ void ScrollText(char *scrolltext)
   }
 }
 
+/***************************************************************************//**
+ * @brief
+ *   Configure the compare channel for the HiJack.
+ ******************************************************************************/
+static void HIJACK_CompareConfig(HIJACK_OutputMode_t outputMode)
+{
+  TIMER_InitCC_TypeDef txTimerCapComChConf =
+  { timerEventEveryEdge,      /* Event on every capture. */
+    timerEdgeRising,          /* Input capture edge on rising edge. */
+    timerPRSSELCh0,           /* Not used by default, select PRS channel 0. */
+    timerOutputActionNone,    /* No action on underflow. */
+    timerOutputActionNone,    /* No action on overflow. */
+    timerOutputActionSet,     /* No action on match. */
+    timerCCModeCompare,       /* Configure capture channel. */
+    false,                    /* Disable filter. */
+    false,                    /* Select TIMERnCCx input. */
+    true,                     /* Output high when counter disabled. */
+    false                     /* Do not invert output. */
+  };
+
+
+  if (hijackOutputModeSet == outputMode)
+  {
+    txTimerCapComChConf.cmoa = timerOutputActionSet;
+  }
+  else if (hijackOutputModeClear == outputMode)
+  {
+    txTimerCapComChConf.cmoa = timerOutputActionClear;
+  }
+  else if (hijackOutputModeToggle == outputMode)
+  {
+    txTimerCapComChConf.cmoa = timerOutputActionToggle;
+  }
+  else
+  {
+    /* Config error. */
+    txTimerCapComChConf.cmoa = timerOutputActionNone;
+  }
+
+  TIMER_InitCC(HIJACK_TX_TIMER, 0, &txTimerCapComChConf);
+}
+
+void enc_init(void)
+{
+  static const TIMER_Init_TypeDef txTimerInit =
+  { false,                  /* Don't enable timer when init complete. */
+    false,                  /* Stop counter during debug halt. */
+    HIJACK_TIMER_RESOLUTION,/* ... */
+    timerClkSelHFPerClk,    /* Select HFPER clock. */
+    false,                  /* Not 2x count mode. */
+    false,                  /* No ATI. */
+    timerInputActionNone,   /* No action on falling input edge. */
+    timerInputActionNone,   /* No action on rising input edge. */
+    timerModeUp,            /* Up-counting. */
+    false,                  /* Do not clear DMA requests when DMA channel is active. */
+    false,                  /* Select X2 quadrature decode mode (if used). */
+    false,                  /* Disable one shot. */
+    false                   /* Not started/stopped/reloaded by other timers. */
+  };
+
+  /* Ensure core frequency has been updated */
+  SystemCoreClockUpdate();
+
+  /* Enable peripheral clocks. */
+  CMU_ClockEnable(cmuClock_HFPER, true);
+  CMU_ClockEnable(HIJACK_TX_TIMERCLK, true);
+
+  /* Configure Rx timer. */
+  TIMER_Init(HIJACK_TX_TIMER, &txTimerInit);
+
+  /* Configure Tx timer output compare channel 0. */
+  HIJACK_CompareConfig(hijackOutputModeToggle);
+  TIMER_CompareSet(HIJACK_TX_TIMER, 0, HIJACK_NUM_TICKS_PER_HALF_CYCLE);
+
+  /* Route the capture channels to the correct pins, enable CC feature. */
+  HIJACK_TX_TIMER->ROUTE = HIJACK_TX_LOCATION | TIMER_ROUTE_CC0PEN;
+
+  /* Tx: Configure the corresponding GPIO pin as an input. */
+  GPIO_PinModeSet(HIJACK_TX_GPIO_PORT, HIJACK_TX_GPIO_PIN, gpioModePushPull, 0);
+
+  /* Enable Tx timer CC0 interrupt. */
+  NVIC_EnableIRQ(TIMER1_IRQn);
+  TIMER_IntEnable(HIJACK_TX_TIMER, TIMER_IF_CC0);
+
+  /* Enable the timer. */
+  TIMER_Enable(HIJACK_TX_TIMER, true);
+}
+
 /**************************************************************************//**
  * @brief  Main function
  *****************************************************************************/
@@ -217,6 +362,14 @@ int main(void)
 
   /* If first word of user data page is non-zero, enable eA Profiler trace */
   BSP_TraceProfilerSetup();
+
+  /* Initial BSP led driver .  **/
+  BSP_LedsInit();
+  BSP_LedSet(0);
+  BSP_LedClear(0);
+
+  /* timer1 intial to generate wave. */
+  enc_init();
 
   /* Initialize LCD controller without boost */
   SegmentLCD_Init(false);
@@ -246,6 +399,8 @@ int main(void)
    * the system */
   while (1)
   {
+	EM2Sleep(125);
+#if 0
     switch (currentError)
     {
     case mscReturnInvalidAddr:
@@ -273,5 +428,26 @@ int main(void)
       }
       break;
     }
+#endif
   }
 }
+
+
+/***************************************************************************//**
+ * @brief
+ *   Timer1 IRQHandler.
+ ******************************************************************************/
+void TIMER1_IRQHandler(void)
+{
+  uint32_t irqFlags;
+
+  /* Clear all pending IRQ flags. */
+  irqFlags = TIMER_IntGet(HIJACK_TX_TIMER);
+  TIMER_IntClear(HIJACK_TX_TIMER, irqFlags);
+
+  /* Reset the counter and the compare value. */
+  TIMER_CounterSet(HIJACK_TX_TIMER, 0);
+  TIMER_CompareSet(HIJACK_TX_TIMER, 0, HIJACK_NUM_TICKS_PER_HALF_CYCLE);
+
+}
+
