@@ -294,7 +294,6 @@ void decode_machine(void)
             	dec.state = Sta0;
             	offset = 0;
 				inv = 0;
-				//BSP_LedSet( 0 );
          	}
 			break;
 			//
@@ -303,31 +302,13 @@ void decode_machine(void)
 				dec.data = 0;  //clear data field for store new potential data
 				dec.odd = 0;   //clear odd field parity counter
 				dec.state = Bit0;
-				//BSP_LedClear( 0 );	
 #if DEC_DEBUG == 1
 			  	uartPutChar( 'S' ) ;
 				uartPutChar( '+' ) ;
 				uartPutChar( '_' ) ;
 #endif
          	}
-			else if(( suit == IsTime2Detect(inv) ) && ( rising == cur_edge ) ){
-				uartPutChar( 'r' ) ;
-				dec.state = Waiting;
-			}
-			else if( error == IsTime2Detect(inv) ){
-				uartPutChar( 'E' ) ;	
-				dec.state = Waiting;
-			}
-			else if( ( pass ==  IsTime2Detect(inv) ) && ( rising == cur_edge ) ){
-				uartPutChar( 'k' ) ;	
-				dec.state = Waiting;
-			}
-			else if( ( pass ==  IsTime2Detect(inv) ) && ( falling == cur_edge ) ){
-				//uartPutChar( 'f' ) ;	
-				dec.state = Waiting;
-			}
 			else{
-			  	//BSP_LedClear( 0 );
 				dec.state = Waiting;
 			}
 	   		break;
