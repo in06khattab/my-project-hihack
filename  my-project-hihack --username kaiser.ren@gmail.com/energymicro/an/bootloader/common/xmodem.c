@@ -61,22 +61,28 @@ __ramfunc __INLINE int XMODEM_verifyPacketChecksum(XMODEM_packet *pkt, int seque
   uint16_t packetCRC;
   uint16_t calculatedCRC;
 
+#if XMODEM==1
   USART_printString("\r\n");
   USART_printHex(pkt->packetNumber);
   USART_printString("  ");
   USART_printHex(sequenceNumber);
   USART_printString("  ");
+#endif
   /* Check the packet number integrity */
   if (pkt->packetNumber + pkt->packetNumberC != 255)
   {
+#if XMODEM==1
 	USART_printString("iErr.\r\n");
+#endif
     return -1;
   }
 
   /* Check that the packet number matches the excpected number */
   if (pkt->packetNumber != (sequenceNumber % 256))
   {
+#if XMODEM==1
 	USART_printString("pErr.\r\n");
+#endif
     return -1;
   }
 
@@ -86,7 +92,9 @@ __ramfunc __INLINE int XMODEM_verifyPacketChecksum(XMODEM_packet *pkt, int seque
   /* Check the CRC value */
   if (calculatedCRC != packetCRC)
   {
+#if XMODEM==1
 	USART_printString("cErr.\r\n");
+#endif
     return -1;
   }
   return 0;
@@ -152,15 +160,19 @@ __ramfunc int XMODEM_download(uint32_t baseAddress, uint32_t endAddress)
      * the transfer. */
     if (pkt->header != XMODEM_SOH)
     {
+#if XMODEM==1
 	  USART_printString("\r\nhErr\r\n");
+#endif
 	  ch = XMODEM_NAK;
 	  HIJACKPutData( &ch, &encBuf, 1);
 	  continue;
       //return -1;
     }
+#if XMODEM==1
 	else{
 	  USART_printString("\r\nhOk\r\n");
 	}
+#endif
 
     /* Fill the remaining bytes packet */
     /* Byte 0 is padding, byte 1 is header */
@@ -176,15 +188,18 @@ __ramfunc int XMODEM_download(uint32_t baseAddress, uint32_t endAddress)
 	  HIJACKPutData( &ch, &encBuf, 1);
       continue;
     }
+#if XMODEM==1
 	else{
 	  USART_printString("\r\nvOk.\r\n");
 	}
-
+#endif
+	
     /* Write data to flash */
-    /*FLASH_writeBlock((void *) baseAddress,
+	enc_delay_tmr_cnt = 200;	
+    FLASH_writeBlock((void *) baseAddress,
                      (sequenceNumber - 1) * XMODEM_DATA_SIZE,
                      XMODEM_DATA_SIZE,
-                     (uint8_t const *) pkt->data); */
+                     (uint8_t const *) pkt->data);
 
 
 

@@ -76,6 +76,10 @@ typedef struct module_tag
 //extern uint8_t ticker;
 //extern uint8_t encTmr;
 extern buffer_t encBuf;
+/*
+ * a delay counter, unit is 500ms, enc machine work only if counter is zero.
+ */
+extern uint32_t enc_delay_tmr_cnt;
 /*----------------------------------------------------------------------------
  *        External Function
  *----------------------------------------------------------------------------*/

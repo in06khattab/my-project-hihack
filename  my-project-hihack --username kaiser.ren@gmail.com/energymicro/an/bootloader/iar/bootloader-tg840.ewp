@@ -167,6 +167,7 @@
           <state>EFM32TG840F32</state>
           <state>SIZE_TAILOR=1</state>
           <state>NDEBUG</state>
+          <state>XMODEM=0</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -298,6 +299,8 @@
           <state>$PROJ_DIR$\..\..\..\emlib\inc</state>
           <state>$PROJ_DIR$\..\..\..\CMSIS\Include</state>
           <state>$PROJ_DIR$\..\..\..\Device\EnergyMicro\EFM32TG\Include</state>
+          <state>$PROJ_DIR$\..\..\..\kits\common\bsp</state>
+          <state>$PROJ_DIR$\..\..\..\kits\EFM32TG_STK3300\config</state>
           <state>$PROJ_DIR$\..\tg840</state>
           <state>$PROJ_DIR$\..\common</state>
           <state>$PROJ_DIR$\..\common\config_tg</state>
@@ -1849,6 +1852,18 @@
     <configuration>Release</configuration>
   </mfc_discard>
   <group>
+    <name>BSP</name>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\kits\common\bsp\bsp_stk.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\kits\common\bsp\bsp_stk_leds.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\kits\common\bsp\bsp_trace.c</name>
+    </file>
+  </group>
+  <group>
     <name>CMSIS</name>
     <file>
       <name>$PROJ_DIR$\..\..\..\Device\EnergyMicro\EFM32TG\Source\system_efm32tg.c</name>
@@ -1921,6 +1936,9 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\emlib\src\em_int.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\emlib\src\em_msc.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\emlib\src\em_prs.c</name>

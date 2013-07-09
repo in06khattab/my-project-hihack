@@ -38,8 +38,11 @@
 #include "em_cmu.h"
 #include "em_emu.h"
 #include "em_rmu.h"
+#include "em_msc.h"
+#include "em_chip.h"
 #include "decode.h"
 #include "encode.h"
+#include "board.h"
 
 #ifndef NDEBUG
 #include "debug.h"
@@ -47,7 +50,7 @@
 #endif
 
 /** Version string, used when the user connects */
-#define BOOTLOADER_VERSION_STRING "1.63 "
+#define BOOTLOADER_VERSION_STRING "0.02 "
 
 /** Define USART baudrate. **/
 #define BOOTLOADER_BAUD_RATE 115200
@@ -394,7 +397,8 @@ int main(void)
 
   /* Handle potential chip errata */
   /* Uncomment the next line to enable chip erratas for engineering samples */
-  /* CHIP_init(); */
+  CHIP_Init();
+
   CMU_HFRCOBandSet(cmuHFRCOBand_7MHz);
 
   /* Generate a new vector table and place it in RAM */
@@ -503,6 +507,10 @@ int main(void)
 
   /* Initialize flash for writing */
   FLASH_init();
+
+  /* Initialize bsp leds. **/
+  BSP_LedsInit();
+  GPIO_PinModeSet(gpioPortD, 5, gpioModePushPull, 0);
 
   /* Start executing command line */
   commandlineLoop();
