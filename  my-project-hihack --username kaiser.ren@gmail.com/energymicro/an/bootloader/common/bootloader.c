@@ -256,7 +256,7 @@ __ramfunc void commandlineLoop(void)
   while (1)
   {
 	
-#if 1
+#if 0
     XMODEM_download(BOOTLOADER_SIZE, flashSize);	
 #else
     /* Retrieve new character */
