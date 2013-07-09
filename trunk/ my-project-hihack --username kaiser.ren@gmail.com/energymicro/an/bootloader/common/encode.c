@@ -27,6 +27,10 @@ static uint8_t enc_odd ;
 /*----------------------------------------------------------------------------
  *        global variable
  *----------------------------------------------------------------------------*/
+/*
+ * a delay counter, unit is 500ms, enc machine work only if counter is zero.
+ */
+uint32_t enc_delay_tmr_cnt = 0;
 uint32_t ticker = 0 ;
 buffer_t encBuf = { 0, 0, 0, false, NULL};
 /*----------------------------------------------------------------------------
@@ -54,6 +58,10 @@ void TIMER1_IRQHandler(void)
   irqFlags = TIMER_IntGet(HIJACK_TX_TIMER);
   TIMER_IntClear(HIJACK_TX_TIMER, irqFlags);
 
+  if (enc_delay_tmr_cnt)
+    enc_delay_tmr_cnt--;
+
+  /* enc wave phase calculator. */
   ticker++;
 
   //system timer tick for delay
@@ -192,8 +200,8 @@ void findParam(uint8_t bit_msk, state_t state)
  *****************************************************************************/
 uint32_t encGetAmount(void)
 {
-  //return( encTmr? 0 :encBuf.pendingBytes);
-  return( encBuf.pendingBytes);
+  return( enc_delay_tmr_cnt? 0 :encBuf.pendingBytes);
+  //return( encBuf.pendingBytes);
 }
 
 /******************************************************************************

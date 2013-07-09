@@ -56,6 +56,25 @@ __ramfunc void USART_printHex(uint32_t integer)
   }
 }
 
+__ramfunc void USART_printHexBy16u(uint16_t integer)
+{
+  uint8_t c;
+  int     i, digit;
+  for (i = 3; i >= 0; i--)
+  {
+    digit = (integer >> (i * 4)) & 0xf;
+    if (digit < 10)
+    {
+      c = digit + 0x30;
+    }
+    else
+    {
+      c = digit + 0x37;
+    }
+    USART_txByte(c);
+  }
+}
+
 /**************************************************************************//**
  * @brief Transmit single byte to BOOTLOADER_USART
  *****************************************************************************/
@@ -122,4 +141,9 @@ void USART_init(uint32_t clkdiv)
 
   /* Enable RX/TX */
   BOOTLOADER_USART->CMD = USART_CMD_RXEN | USART_CMD_TXEN;
+}
+
+void uartPutChar(char c)
+{
+  USART_txByte(c);
 }

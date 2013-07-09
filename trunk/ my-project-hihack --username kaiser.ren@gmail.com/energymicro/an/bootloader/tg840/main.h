@@ -38,7 +38,7 @@
 #define MLX90615
 
 /* PRESCALER: 64 */
-#define HIJACK_TIMER_RESOLUTION     timerPrescale16
+#define HIJACK_TIMER_RESOLUTION     timerPrescale64
 #define HIJACK_TMR_CLK_SRC_PRESCALER ( 0x01 << HIJACK_TIMER_RESOLUTION)
 
 /* how many ticker per us. */

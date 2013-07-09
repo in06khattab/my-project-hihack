@@ -38,5 +38,6 @@ __ramfunc int USART_txByte(uint8_t data);
 __ramfunc uint8_t USART_rxByte(void);
 __ramfunc void USART_printString(uint8_t *string);
 void USART_init(uint32_t clkdiv);
-
+void uartPutChar(char c);
+__ramfunc void USART_printHexBy16u(uint16_t integer);
 #endif

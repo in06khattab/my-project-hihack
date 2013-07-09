@@ -77,14 +77,14 @@ void TIMER0_IRQHandler(void)
     	{
        	cur_edge = rising;
 			//BSP_LedSet( 0 );
-         //GPIO_PinOutSet(HIJACK_SMBUS_GPIO_PORT, HIJACK_SMBUS_GPIO_SCL);
+         	GPIO_PinOutSet(gpioPortD, 5);
 			//Debug_Print( "%d ", cur_stamp ) ;
     	}
     	else
     	{
       	cur_edge = falling;
 			//BSP_LedClear( 0 );
-         //GPIO_PinOutClear(HIJACK_SMBUS_GPIO_PORT, HIJACK_SMBUS_GPIO_SCL);
+         	GPIO_PinOutClear(gpioPortD, 5);
 			//Debug_Print( "%d ", cur_stamp ) ;
     	}
 		decode_machine();
@@ -273,6 +273,16 @@ void decode_machine(void)
 {
    	inv = offset + cur_stamp;  //update offset
 
+	if( dec.state > Sta0 ){
+	  	USART_printHexBy16u(cur_stamp);
+		if(cur_edge == rising){
+			uartPutChar( '/' ) ;
+		}
+		else{
+			uartPutChar( '\\' ) ;
+		}
+	}
+	
 	switch (dec.state){
 		case Waiting:
          	/* go to start bit if rising edge exist. */
@@ -280,6 +290,7 @@ void decode_machine(void)
             	dec.state = Sta0;
             	offset = 0;
 				inv = 0;
+				BSP_LedSet( 0 );
          	}
 			break;
 			//
@@ -288,69 +299,71 @@ void decode_machine(void)
 				dec.data = 0;  //clear data field for store new potential data
 				dec.odd = 0;   //clear odd field parity counter
 				dec.state = Bit0;
+				BSP_LedClear( 0 );	
 #if DEC_DEBUG == 1
-			  	//uartPutChar( 'S' ) ;
+			  	uartPutChar( 'S' ) ;
 				uartPutChar( '+' ) ;
 				uartPutChar( '_' ) ;
 #endif
          	}
 			else{
+			  	//BSP_LedClear( 0 );
 				dec.state = Waiting;
 			}
 	   		break;
 			//
 		case Bit0:
 #if DEC_DEBUG == 1
-			//uartPutChar( '0' ) ;
+			uartPutChar( '0' ) ;
 #endif
 		  	dec_parser(BIT0, Bit1);
 	   		break;
 			//
 		case Bit1:
 #if DEC_DEBUG == 1
-			//uartPutChar( '1' ) ;
+			uartPutChar( '1' ) ;
 #endif
 		  	dec_parser(BIT1, Bit2);
 	   		break;
 			//
 		case Bit2:
 #if DEC_DEBUG == 1
-			//uartPutChar( '2' ) ;
+			uartPutChar( '2' ) ;
 #endif
 		  	dec_parser(BIT2, Bit3);
 	   		break;
 			//
 		case Bit3:
 #if DEC_DEBUG == 1
-			//uartPutChar( '3' ) ;
+			uartPutChar( '3' ) ;
 #endif
 		  	dec_parser(BIT3, Bit4);
 	   		break;
 			//
 		case Bit4:
 #if DEC_DEBUG == 1
-			//uartPutChar( '4' ) ;
+			uartPutChar( '4' ) ;
 #endif
 		  	dec_parser(BIT4, Bit5);
 	   		break;
 			//
 		case Bit5:
 #if DEC_DEBUG == 1
-			//uartPutChar( '5' ) ;
+			uartPutChar( '5' ) ;
 #endif
 		  	dec_parser(BIT5, Bit6);
 	   		break;
 			//
 		case Bit6:
 #if DEC_DEBUG == 1
-			//uartPutChar( '6' ) ;
+			uartPutChar( '6' ) ;
 #endif
 		  	dec_parser(BIT6, Bit7);
 	   		break;
 			//
 		case Bit7:
 #if DEC_DEBUG == 1
-			//uartPutChar( '7' ) ;
+			uartPutChar( '7' ) ;
 #endif
 		  	dec_parser(BIT7, Parity);
 	   		break;
@@ -388,7 +401,7 @@ void decode_machine(void)
       	case Sto0:	
          	if ( ( suit == IsTime2Detect(inv) ) ){ //it's time to determine
 				if( rising == cur_edge ){  //stop bit is rising edge
-				    //USART_txByte(dec.data);
+				    USART_txByte(dec.data);
 #if DEC_DEBUG == 1
 					//uartPutChar( 'P' ) ;
 					uartPutChar( '_' ) ;
@@ -440,7 +453,7 @@ __ramfunc uint8_t dec_rxByte(void)
 #if CRITICAL_PROTECTION==1
   INT_Enable();
 #endif
-  USART_txByte( ch ) ;
+  //USART_txByte( ch ) ;
   return( ch );
 }
 //end of file
