@@ -392,8 +392,6 @@ void generateVectorTable(void)
 int main(void)
 {
   uint32_t clkdiv;
-  //uint32_t periodTime24_8;
-  //uint32_t tuning;
 
   /* Handle potential chip errata */
   /* Uncomment the next line to enable chip erratas for engineering samples */
@@ -442,11 +440,8 @@ int main(void)
   /* Check if the clock division is too small, if it is, we change
    * to an oversampling rate of 4x and calculate a new clkdiv.
    */
-  //if (clkdiv < 3000)
-  {
-    clkdiv = 7000000*16/BOOTLOADER_BAUD_RATE - 256;
-    BOOTLOADER_USART->CTRL |= USART_CTRL_OVS_X16;
-  }
+  clkdiv = 7000000*16/BOOTLOADER_BAUD_RATE - 256;
+  BOOTLOADER_USART->CTRL |= USART_CTRL_OVS_X16;
 
   /* Setup pins for USART */
   CONFIG_UsartGpioSetup();
@@ -454,8 +449,8 @@ int main(void)
   /* Initialize the UART */
   USART_init(clkdiv);
 
-   USART_printString("\r\n\r\n\r\n-- welcome to bootloader --\r\n");
-   USART_printString("-- Build on:"__DATE__" "__TIME__" --\r\n\r\n\r\n");
+  USART_printString("\r\n\r\n\r\n-- welcome to bootloader --\r\n");
+  USART_printString("-- Build on:"__DATE__" "__TIME__" --\r\n\r\n\r\n");
 
   /* Figure out correct flash page size */
   FLASH_CalcPageSize();
@@ -466,14 +461,6 @@ int main(void)
 #ifdef BOOTLOADER_LEUART_CLOCK
   /* Enable LEUART */
   CMU->LFBCLKEN0 = BOOTLOADER_LEUART_CLOCK;
-#endif
-
-  /* AUTOBAUD_sync() returns a value in 24.8 fixed point format */
-  //periodTime24_8 = AUTOBAUD_sync();
-  //periodTime24_8 = 2000;
-#ifndef NDEBUG
-  printf("Autobaud complete.\r\n");
-  //printf("Measured periodtime (24.8): %d.%d\r\n", periodTime24_8 >> 8, periodTime24_8 & 0xFF);
 #endif
 
   /* When autobaud has completed, we can be fairly certain that
@@ -498,12 +485,11 @@ int main(void)
   USART_printHex(DEVINFO->UNIQUEL);
   USART_printString("\r\n");
 
-
+  /* Print reset cause in order to debug.  **/
   USART_printHex( RMU_ResetCauseGet() );
   USART_printString("\r\n");
   /* Clear reset cause. */
   RMU_ResetCauseClear();
-  //RMU_ResetControl(rmuResetLockUp, false);
 
   /* Initialize flash for writing */
   FLASH_init();
