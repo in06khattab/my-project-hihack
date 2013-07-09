@@ -71,10 +71,6 @@ typedef struct module_tag
 /*----------------------------------------------------------------------------
  *        External Variable
  *----------------------------------------------------------------------------*/
-//extern encode_t enc;
-//extern uint8_t index_sample;
-//extern uint8_t ticker;
-//extern uint8_t encTmr;
 extern buffer_t encBuf;
 /*
  * a delay counter, unit is 500ms, enc machine work only if counter is zero.
@@ -83,17 +79,19 @@ extern uint32_t enc_delay_tmr_cnt;
 /*----------------------------------------------------------------------------
  *        External Function
  *----------------------------------------------------------------------------*/
-void enc_machine(void);
-uint8_t us1_get_count(void);
-uint8_t us1_get_char(void);
-void _ConfigureCom( void );
+/******************************************************************************
+ * @brief  encode peripheral part initial.
+ *
+ *****************************************************************************/
 void enc_init(void);
 /******************************************************************************
  * @brief  uartPutData function
  *
  *****************************************************************************/
 void HIJACKPutData(uint8_t * dataPtr, buffer_t * dstBuf, uint32_t dataLen);
-
+/******************************************************************************
+ * @brief  format print.
+ *****************************************************************************/
 void enc_print(const char *format, ...);
 #endif /* ENCODE_H */
 //end of file

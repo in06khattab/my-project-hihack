@@ -63,46 +63,41 @@ static void ACMP_setup(void);
  ******************************************************************************/
 void TIMER0_IRQHandler(void)
 {
-  	uint32_t irqFlags;
+	uint32_t irqFlags;
 
-  	irqFlags = TIMER_IntGet(HIJACK_RX_TIMER);
-  	TIMER_IntClear(HIJACK_RX_TIMER, irqFlags);
+  irqFlags = TIMER_IntGet(HIJACK_RX_TIMER);
+  TIMER_IntClear(HIJACK_RX_TIMER, irqFlags);
 	
  	if (TIMER_IF_CC0 & irqFlags)
-  	{
+  {
 		cur_stamp = TIMER_CaptureGet(HIJACK_RX_TIMER, 0);
-		
-		if ( cur_stamp > 0x3f ){
-			BSP_LedToggle( 0 );
-		}
-		
+
 		/* Check what transition it was. */
-    	if(ACMP0->STATUS & ACMP_STATUS_ACMPOUT)
-    	{
-       	cur_edge = rising;
+    if(ACMP0->STATUS & ACMP_STATUS_ACMPOUT)
+    {
+    	cur_edge = rising;
 			//BSP_LedSet( 0 );
-         	GPIO_PinOutSet(gpioPortD, 5);
+      GPIO_PinOutSet(gpioPortD, 5);
 			//Debug_Print( "%d ", cur_stamp ) ;
-    	}
-    	else
-    	{
-      	cur_edge = falling;
+    }
+    else
+    {
+    	cur_edge = falling;
 			//BSP_LedClear( 0 );
-         	GPIO_PinOutClear(gpioPortD, 5);
+      GPIO_PinOutClear(gpioPortD, 5);
 			//Debug_Print( "%d ", cur_stamp ) ;
-    	}
+    }
 		decode_machine();
-  	}
+  }
 }
 
 /*----------------------------------------------------------------------------
  *        Exported functions
  *----------------------------------------------------------------------------*/
 
-
-/**
- * \brief decode initial.
- */
+/**************************************************************************//**
+ * @brief  decode peripheral initial.
+ *****************************************************************************/
 void dec_init(void)
 {
 	/* Initialise the ACMP */
@@ -164,14 +159,11 @@ void TIMER_setup(void)
   /* Select ACMP as source and ACMP0OUT (ACMP0 OUTPUT) as signal */
   PRS_SourceSignalSet(5, PRS_CH_CTRL_SOURCESEL_ACMP0, PRS_CH_CTRL_SIGSEL_ACMP0OUT, prsEdgeOff);
 
-  //------------------------------------------------------------
-  	// THE INTERRUPT IS SIMPLY TO DISPLAY THE CAPTURE ON THE LCD
-  	//------------------------------------------------------------
-  	/* Enable CC0 interrupt */
-  	TIMER_IntEnable(HIJACK_RX_TIMER, TIMER_IF_CC0);
+  /* Enable CC0 interrupt */
+  TIMER_IntEnable(HIJACK_RX_TIMER, TIMER_IF_CC0);
 
-  	/* Enable TIMER0 interrupt vector in NVIC */
-  	NVIC_EnableIRQ(TIMER0_IRQn);
+  /* Enable TIMER0 interrupt vector in NVIC */
+  NVIC_EnableIRQ(TIMER0_IRQn);
 }
 
 /**************************************************************************//**
@@ -268,11 +260,10 @@ static void dec_parser(uint8_t bit_msk, state_t state)
 		dec.state = Waiting;   //state switch
 	}
 }
-
-/**
- * @brief decode state machine.
- *
- */
+/**************************************************************************//**
+ * @brief  decode state machine
+ * Invoke in TIMER_ISR for decoding.
+ *****************************************************************************/
 void decode_machine(void)
 {
    	inv = offset + cur_stamp;  //update offset
@@ -404,12 +395,10 @@ void decode_machine(void)
 				if( rising == cur_edge ){  //stop bit is rising edge
 				    USART_txByte(dec.data);
 #if DEC_DEBUG == 1
-					//uartPutChar( 'P' ) ;
 					uartPutChar( '_' ) ;
 				    uartPutChar( '+' ) ;
 #endif
 				    HIJACKPutData(&dec.data, &decBuf, sizeof(uint8_t));
-				   //encTmr = 100;
 				}
 				else{
 #if DEC_DEBUG == 1

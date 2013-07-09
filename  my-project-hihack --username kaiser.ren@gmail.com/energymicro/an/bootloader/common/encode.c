@@ -116,10 +116,10 @@ static void HIJACK_CompareConfig(HIJACK_OutputMode_t outputMode)
   TIMER_InitCC(HIJACK_TX_TIMER, 0, &txTimerCapComChConf);
 }
 
-
-/**
- * \brief encode part initial.
- */
+/******************************************************************************
+ * @brief  encode peripheral part initial.
+ *
+ *****************************************************************************/
 void enc_init(void)
 {
   static const TIMER_Init_TypeDef txTimerInit =
@@ -196,7 +196,6 @@ void findParam(uint8_t bit_msk, state_t state)
 
 /******************************************************************************
  * @brief  encGetAmount function
- *
  *****************************************************************************/
 uint32_t encGetAmount(void)
 {
@@ -206,7 +205,6 @@ uint32_t encGetAmount(void)
 
 /******************************************************************************
  * @brief  encGetChar function
- *
  *****************************************************************************/
 uint8_t encGetChar( )
 {
@@ -272,9 +270,10 @@ void HIJACKPutData(uint8_t * dataPtr, buffer_t * dstBuf, uint32_t dataLen)
 #endif
 }
 
-/*
- * format print.
-*/
+
+/******************************************************************************
+ * @brief  format print.
+ *****************************************************************************/
 void enc_print(const char *format, ...)
 {
   uint8_t 		appPrintBuf[BUFFERSIZE];
@@ -299,10 +298,10 @@ void enc_print(const char *format, ...)
   }
 }
 
-/*
- * State machine for machester encoding.
+/******************************************************************************
+ * @brief  State machine for machester encoding.
  * Achieve wave phase.
-*/
+ *****************************************************************************/
 void enc_machine(void)
 {
   	state_t sta = enc.state;
