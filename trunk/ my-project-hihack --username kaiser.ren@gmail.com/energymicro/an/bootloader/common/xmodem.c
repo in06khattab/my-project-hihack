@@ -35,6 +35,7 @@
 #include "config.h"
 #include "encode.h"
 #include "decode.h"
+#include "board.h"
 
 #define ALIGNMENT(base,align) (((base)+((align)-1))&(~((align)-1)))
 
@@ -118,10 +119,13 @@ __ramfunc int XMODEM_download(uint32_t baseAddress, uint32_t endAddress)
   uint32_t      sequenceNumber = 1;
   uint8_t		ch;
 
+  TIMER_Reset(HIJACK_RX_TIMER);
   for (addr = baseAddress; addr < endAddress; addr += flashPageSize)
   {
     FLASH_eraseOneBlock(addr);
   }
+  TIMER_setup();
+
   /* Send one start transmission packet. Wait for a response. If there is no
    * response, we resend the start transmission packet.
    * Note: This is a fairly long delay between retransmissions(~6 s). */
@@ -194,6 +198,8 @@ __ramfunc int XMODEM_download(uint32_t baseAddress, uint32_t endAddress)
 	}
 #endif
 	
+	TIMER_Reset(HIJACK_RX_TIMER);
+	
     /* Write data to flash */
 	enc_delay_tmr_cnt = 200;	
     FLASH_writeBlock((void *) baseAddress,
@@ -201,7 +207,7 @@ __ramfunc int XMODEM_download(uint32_t baseAddress, uint32_t endAddress)
                      XMODEM_DATA_SIZE,
                      (uint8_t const *) pkt->data);
 
-
+    TIMER_setup();
 
     sequenceNumber++;
     /* Send ACK */

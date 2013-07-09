@@ -60,7 +60,7 @@ __ramfunc void USART_printHexBy16u(uint16_t integer)
 {
   uint8_t c;
   int     i, digit;
-  for (i = 3; i >= 0; i--)
+  for (i = 1; i >= 0; i--)
   {
     digit = (integer >> (i * 4)) & 0xf;
     if (digit < 10)

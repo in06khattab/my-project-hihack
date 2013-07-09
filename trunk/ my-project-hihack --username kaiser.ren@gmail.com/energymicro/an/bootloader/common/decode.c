@@ -44,8 +44,8 @@ bool edge_occur = false;
 uint32_t cur_stamp = 0 ;
 uint32_t prv_stamp = 0 ;
 edge_t 	cur_edge = none ;
-static uint32_t offset = 0;
-static uint32_t inv = 0;
+volatile static uint32_t offset = 0;
+volatile static uint32_t inv = 0;
 buffer_t decBuf = { 0, 0, 0, false, NULL};
 /*----------------------------------------------------------------------------
  *        Local function
@@ -53,7 +53,7 @@ buffer_t decBuf = { 0, 0, 0, false, NULL};
 static chk_result_t IsTime2Detect(uint32_t inv);
 static void dec_parser(uint8_t bit_msk, state_t state);
 static void ACMP_setup(void);
-static void TIMER_setup(void) ;
+
 /*----------------------------------------------------------------------------
  *        ISR Handler
  *----------------------------------------------------------------------------*/
@@ -67,10 +67,14 @@ void TIMER0_IRQHandler(void)
 
   	irqFlags = TIMER_IntGet(HIJACK_RX_TIMER);
   	TIMER_IntClear(HIJACK_RX_TIMER, irqFlags);
-
+	
  	if (TIMER_IF_CC0 & irqFlags)
   	{
 		cur_stamp = TIMER_CaptureGet(HIJACK_RX_TIMER, 0);
+		
+		if ( cur_stamp > 0x3f ){
+			BSP_LedToggle( 0 );
+		}
 		
 		/* Check what transition it was. */
     	if(ACMP0->STATUS & ACMP_STATUS_ACMPOUT)
@@ -106,22 +110,13 @@ void dec_init(void)
 
   	/* Initialise the TIMER */
   	TIMER_setup();
-	
-	//------------------------------------------------------------
-  	// THE INTERRUPT IS SIMPLY TO DISPLAY THE CAPTURE ON THE LCD
-  	//------------------------------------------------------------
-  	/* Enable CC0 interrupt */
-  	TIMER_IntEnable(HIJACK_RX_TIMER, TIMER_IF_CC0);
-
-  	/* Enable TIMER0 interrupt vector in NVIC */
-  	NVIC_EnableIRQ(TIMER0_IRQn);
 }
 
 /**************************************************************************//**
  * @brief  TIMER0_setup
  * Configures the TIMER
  *****************************************************************************/
-static void TIMER_setup(void)
+void TIMER_setup(void)
 {
   /* Enable necessary clocks */
   CMU_ClockEnable(cmuClock_TIMER0, true);
@@ -168,6 +163,15 @@ static void TIMER_setup(void)
   /* PRS setup */
   /* Select ACMP as source and ACMP0OUT (ACMP0 OUTPUT) as signal */
   PRS_SourceSignalSet(5, PRS_CH_CTRL_SOURCESEL_ACMP0, PRS_CH_CTRL_SIGSEL_ACMP0OUT, prsEdgeOff);
+
+  //------------------------------------------------------------
+  	// THE INTERRUPT IS SIMPLY TO DISPLAY THE CAPTURE ON THE LCD
+  	//------------------------------------------------------------
+  	/* Enable CC0 interrupt */
+  	TIMER_IntEnable(HIJACK_RX_TIMER, TIMER_IF_CC0);
+
+  	/* Enable TIMER0 interrupt vector in NVIC */
+  	NVIC_EnableIRQ(TIMER0_IRQn);
 }
 
 /**************************************************************************//**
@@ -272,17 +276,17 @@ static void dec_parser(uint8_t bit_msk, state_t state)
 void decode_machine(void)
 {
    	inv = offset + cur_stamp;  //update offset
-
-	if( dec.state > Sta0 ){
-	  	USART_printHexBy16u(cur_stamp);
+#if 0
+	if( dec.state > Waiting ){
+	  	USART_printHexBy16u(inv);
 		if(cur_edge == rising){
-			uartPutChar( '/' ) ;
-		}
-		else{
 			uartPutChar( '\\' ) ;
 		}
+		else{
+			uartPutChar( '/' ) ;
+		}
 	}
-	
+#endif	
 	switch (dec.state){
 		case Waiting:
          	/* go to start bit if rising edge exist. */
@@ -290,7 +294,7 @@ void decode_machine(void)
             	dec.state = Sta0;
             	offset = 0;
 				inv = 0;
-				BSP_LedSet( 0 );
+				//BSP_LedSet( 0 );
          	}
 			break;
 			//
@@ -299,13 +303,29 @@ void decode_machine(void)
 				dec.data = 0;  //clear data field for store new potential data
 				dec.odd = 0;   //clear odd field parity counter
 				dec.state = Bit0;
-				BSP_LedClear( 0 );	
+				//BSP_LedClear( 0 );	
 #if DEC_DEBUG == 1
 			  	uartPutChar( 'S' ) ;
 				uartPutChar( '+' ) ;
 				uartPutChar( '_' ) ;
 #endif
          	}
+			else if(( suit == IsTime2Detect(inv) ) && ( rising == cur_edge ) ){
+				uartPutChar( 'r' ) ;
+				dec.state = Waiting;
+			}
+			else if( error == IsTime2Detect(inv) ){
+				uartPutChar( 'E' ) ;	
+				dec.state = Waiting;
+			}
+			else if( ( pass ==  IsTime2Detect(inv) ) && ( rising == cur_edge ) ){
+				uartPutChar( 'k' ) ;	
+				dec.state = Waiting;
+			}
+			else if( ( pass ==  IsTime2Detect(inv) ) && ( falling == cur_edge ) ){
+				//uartPutChar( 'f' ) ;	
+				dec.state = Waiting;
+			}
 			else{
 			  	//BSP_LedClear( 0 );
 				dec.state = Waiting;
