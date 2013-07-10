@@ -118,7 +118,7 @@ void TIMER_setup(void)
   CMU_ClockEnable(cmuClock_PRS, true);
 
   /* Select CC channel parameters */
-  const TIMER_InitCC_TypeDef timerCCInit =
+  TIMER_InitCC_TypeDef timerCCInit =
   {
     .eventCtrl  = timerEventEveryEdge,      /* Input capture event control */
     .edge       = timerEdgeBoth,       /* Input capture on falling edge */
