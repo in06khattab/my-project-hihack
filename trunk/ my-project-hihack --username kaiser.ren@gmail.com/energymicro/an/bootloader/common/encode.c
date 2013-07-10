@@ -231,7 +231,7 @@ uint8_t encGetChar( )
  * @brief  HIJACKPutData function
  *
  *****************************************************************************/
-void HIJACKPutData(uint8_t * dataPtr, buffer_t * dstBuf, uint32_t dataLen)
+__ramfunc void HIJACKPutData(uint8_t * dataPtr, buffer_t * dstBuf, uint32_t dataLen)
 {
   uint32_t i = 0;
   buffer_t* ptr = dstBuf;

@@ -88,7 +88,8 @@ void enc_init(void);
  * @brief  uartPutData function
  *
  *****************************************************************************/
-void HIJACKPutData(uint8_t * dataPtr, buffer_t * dstBuf, uint32_t dataLen);
+__ramfunc void HIJACKPutData(uint8_t * dataPtr, buffer_t * dstBuf, uint32_t dataLen);
+
 /******************************************************************************
  * @brief  format print.
  *****************************************************************************/
