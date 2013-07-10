@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<workspace>
+  <project>
+    <path>$WS_DIR$\adc_single_tg.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\adc_oversampling_tg.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\adc_timer_prs_tg.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\adc_calibration_tg.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\adc_em2_optimized_tg.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\adc_em2_interrupt_tg.ewp</path>
+  </project>
+  <batchBuild/>
+</workspace>
+
+
