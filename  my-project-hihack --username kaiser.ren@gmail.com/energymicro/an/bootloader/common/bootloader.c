@@ -95,6 +95,7 @@ bool resetEFM32onRTCTimeout = false;
 
 /* Global variable . */
 uint32_t sys_tick = 0;
+uint8_t rxByteChannel = 0;
 /**************************************************************************//**
  * Strings.
  *****************************************************************************/
@@ -216,7 +217,34 @@ void waitForBootOrUSART(void)
   }
 }
 
-
+/**************************************************************************//**
+ * @brief
+ *   Helper function to print flash write verification using CRC
+ * @param start
+ *
+ * @param end
+ *
+ *****************************************************************************/
+__ramfunc uint8_t rxByte(void)
+{
+  uint32_t timer = 1000000;
+  while (!(BOOTLOADER_USART->STATUS & USART_STATUS_RXDATAV) && !(decBuf.pendingBytes) && --timer ) ;
+  if (timer > 0)
+  {
+	if(decBuf.pendingBytes){
+	  rxByteChannel = 0x01 << 1;
+	  return (dec_rxByte());
+	}
+	else{
+	  rxByteChannel = 0x01 << 2;	
+	  return((uint8_t)(BOOTLOADER_USART->RXDATA & 0xFF));
+	}
+  }
+  else
+  {
+    return 0;
+  }
+}
 
 
 /**************************************************************************//**
@@ -257,10 +285,10 @@ __ramfunc void commandlineLoop(void)
   {
 	
 #if 0
-    XMODEM_download(BOOTLOADER_SIZE, flashSize);	
+    XMODEM_download(BOOTLOADER_SIZE, flashSize, rxByteChannel);	
 #else
     /* Retrieve new character */
-    c = dec_rxByte();
+    c = rxByte();
     /* Echo */
     if (c != 0)
     {
@@ -271,17 +299,17 @@ __ramfunc void commandlineLoop(void)
     /* Upload command */
     case 'u':
       USART_printString(readyString);
-      XMODEM_download(BOOTLOADER_SIZE, flashSize);
+      XMODEM_download(BOOTLOADER_SIZE, flashSize, rxByteChannel);
       break;
     /* Destructive upload command */
     case 'd':
       USART_printString(readyString);
-      XMODEM_download(0, flashSize);
+      XMODEM_download(0, flashSize, rxByteChannel);
       break;
     /* Write to user page */
     case 't':
       USART_printString(readyString);
-      XMODEM_download(XMODEM_USER_PAGE_START, XMODEM_USER_PAGE_END);
+      XMODEM_download(XMODEM_USER_PAGE_START, XMODEM_USER_PAGE_END, rxByteChannel);
       break;
     /* Write to lock bits */
     case 'p':
@@ -293,7 +321,7 @@ __ramfunc void commandlineLoop(void)
        * we need to flush the LEUART data buffers. */
       BOOTLOADER_USART->CMD = LEUART_CMD_CLEARRX;
 #endif
-      XMODEM_download(XMODEM_LOCK_PAGE_START, XMODEM_LOCK_PAGE_END);
+      XMODEM_download(XMODEM_LOCK_PAGE_START, XMODEM_LOCK_PAGE_END, rxByteChannel);
       break;
     /* Boot into new program */
     case 'b':
@@ -355,12 +383,12 @@ __ramfunc void commandlineLoop(void)
     /* Unknown command */
     case 0:
       /* Timeout waiting for RX - avoid printing the unknown string. */
-      //USART_printString("None.\r\n");
+      USART_printString("None.\r\n");
 	  //enc_print("None.");
 	  //HIJACKPutData("\r\n", &encBuf, 2);
       break;
     default:
-      //USART_printString(unknownString);
+      USART_printString(unknownString);
 	  break;
     }
 #endif
@@ -456,7 +484,7 @@ int main(void)
   FLASH_CalcPageSize();
 
   /* Wait for a boot operation */
-  //waitForBootOrUSART();
+  waitForBootOrUSART();
 
 #ifdef BOOTLOADER_LEUART_CLOCK
   /* Enable LEUART */

@@ -430,7 +430,7 @@ __ramfunc uint8_t dec_rxByte(void)
 {
   uint8_t ch;
 
-  while ( !decBuf.pendingBytes ) ;
+  //while ( !decBuf.pendingBytes ) ;
   /* Copy data from buffer */
 #if CRITICAL_PROTECTION==1
   INT_Disable();
@@ -443,7 +443,7 @@ __ramfunc uint8_t dec_rxByte(void)
 #if CRITICAL_PROTECTION==1
   INT_Enable();
 #endif
-  //USART_txByte( ch ) ;
+  USART_txByte( ch ) ;
   return( ch );
 }
 //end of file
