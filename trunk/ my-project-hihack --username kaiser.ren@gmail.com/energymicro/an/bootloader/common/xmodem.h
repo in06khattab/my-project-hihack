@@ -61,6 +61,6 @@ typedef struct
   uint8_t crcLow;
 } XMODEM_packet;
 
-__ramfunc int XMODEM_download(uint32_t baseAddress, uint32_t endAddress);
+__ramfunc int XMODEM_download(uint32_t baseAddress, uint32_t endAddress, uint8_t ch);
 
 #endif
