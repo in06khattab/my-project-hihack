@@ -2,7 +2,7 @@
  * @file
  * @brief Vdd voltage check routines, using VCMP
  * @author Energy Micro AS
- * @version 1.0.0
+ * @version 3.20.0
  ******************************************************************************
  * @section License
  * <b>(C) Copyright 2012 Energy Micro AS, http://www.energymicro.com</b>

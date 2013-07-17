@@ -2,7 +2,7 @@
  * @file
  * @brief Provide stdio retargeting for all supported toolchains.
  * @author Energy Micro AS
- * @version 1.0.0
+ * @version 3.20.0
  *******************************************************************************
  * @section License
  * <b>(C) Copyright 2012 Energy Micro AS, http://www.energymicro.com</b>
@@ -46,19 +46,25 @@ extern int RETARGET_ReadChar(void);
 extern int RETARGET_WriteChar(char c);
 
 #if !defined(__CROSSWORKS_ARM) && defined(__GNUC__)
+
 #include <sys/stat.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "em_device.h"
 
-int _write(int file, const char *ptr, int len);
+/** @cond DO_NOT_INCLUDE_WITH_DOXYGEN */
+int fileno(FILE *);
+/** @endcond */
+
 int _close(int file);
 int _fstat(int file, struct stat *st);
 int _isatty(int file);
 int _lseek(int file, int ptr, int dir);
 int _read(int file, char *ptr, int len);
 caddr_t _sbrk(int incr);
+int _write(int file, const char *ptr, int len);
+
 extern char _end;                 /**< Defined by the linker */
 
 /**************************************************************************//**
@@ -75,6 +81,17 @@ int _close(int file)
 {
   (void) file;
   return 0;
+}
+
+/**************************************************************************//**
+ * @brief Exit the program.
+ * @param[in] status The value to return to the parent process as the
+ *            exit status (not used).
+ *****************************************************************************/
+void _exit (int status)
+{
+  (void) status;
+  while (1) {}      /* Hang here forever... */
 }
 
 /**************************************************************************//**
@@ -98,6 +115,14 @@ int _fstat(int file, struct stat *st)
 }
 
 /**************************************************************************//**
+ * @brief Get process ID.
+ *****************************************************************************/
+int _getpid(void)
+{
+  return 1;
+}
+
+/**************************************************************************//**
  * @brief
  *  Query whether output stream is a terminal.
  *
@@ -111,6 +136,18 @@ int _isatty(int file)
 {
   (void) file;
   return 1;
+}
+
+/**************************************************************************//**
+ * @brief Send signal to process.
+ * @param[in] pid Process id (not used).
+ * @param[in] sig Signal to send (not used).
+ *****************************************************************************/
+int _kill(int pid, int sig)
+{
+  (void)pid;
+  (void)sig;
+  return -1;
 }
 
 /**************************************************************************//**

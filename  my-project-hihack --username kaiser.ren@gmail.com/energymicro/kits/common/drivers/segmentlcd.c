@@ -1,8 +1,8 @@
 /**************************************************************************//**
  * @file
- * @brief EFM32TG_STK3300 Segment LCD Display driver
+ * @brief EFM32 Segment LCD Display driver
  * @author Energy Micro AS
- * @version 1.0.0
+ * @version 3.20.0
  ******************************************************************************
  * @section License
  * <b>(C) Copyright 2012 Energy Micro AS, http://www.energymicro.com</b>
@@ -250,7 +250,7 @@ static const uint16_t EFM_Numbers[] = {
   0x006f, /* 9 */
   0x0077, /* A */
   0x007c, /* b */
-  0x0027, /* C */
+  0x0039, /* C */
   0x005e, /* d */
   0x0079, /* E */
   0x0071, /* F */
@@ -264,48 +264,255 @@ static const uint16_t signIndex = sizeof(EFM_Numbers)/sizeof(uint16_t) - 1 ;
 static const LCD_Init_TypeDef lcdInit = LCD_INIT_DEF;
 /** @endcond */
 
-/**************************************************************************//**
- * @brief Write hexadecimal number on numeric part on Segment LCD display
- * @param value Numeric value to put on display, in range 0x0000-0xFFFF
- *****************************************************************************/
-void SegmentLCD_UnsignedHex(uint16_t value)
-{
-  int      num, i, com, bit, digit;
-  uint16_t bitpattern;
 
-  /* Parameter consistancy check */
-  if (value >= 0xffff)
+/**************************************************************************//**
+ * @brief Disable all segments
+ *****************************************************************************/
+void SegmentLCD_AllOff(void)
+{
+  /* Turn on low segments */
+  LCD_ALL_SEGMENTS_OFF();
+}
+
+
+/**************************************************************************//**
+ * @brief Enable all segments
+ *****************************************************************************/
+void SegmentLCD_AllOn(void)
+{
+  LCD_ALL_SEGMENTS_ON();
+}
+
+
+/**************************************************************************//**
+ * @brief Turn all segments on alpha characters in display off
+ *****************************************************************************/
+void SegmentLCD_AlphaNumberOff(void)
+{
+  LCD_ALPHA_NUMBER_OFF();
+  return;
+}
+
+
+/**************************************************************************//**
+ * @brief Light up or shut off Ring of Indicators
+ * @param anum "Segment number" on "Ring", range 0 - 7
+ * @param on Zero is off, non-zero is on
+ *****************************************************************************/
+void SegmentLCD_ARing(int anum, int on)
+{
+  uint32_t com, bit;
+
+  com = EFM_Display.ARing.com[anum];
+  bit = EFM_Display.ARing.bit[anum];
+
+  if (on)
   {
-    value = 0xffff;
+    LCD_SegmentSet(com, bit, true);
+  }
+  else
+  {
+    LCD_SegmentSet(com, bit, false);
+  }
+}
+
+
+/**************************************************************************//**
+ * @brief Light up or shut off Battery Indicator
+ * @param batteryLevel Battery Level, 0 to 4 (0 turns all off)
+ *****************************************************************************/
+void SegmentLCD_Battery(int batteryLevel)
+{
+  uint32_t com, bit;
+  int      i, on;
+
+  for (i = 0; i < 4; i++)
+  {
+    if (i < batteryLevel)
+    {
+      on = 1;
+    }
+    else
+    {
+      on = 0;
+    }
+    com = EFM_Display.Battery.com[i];
+    bit = EFM_Display.Battery.bit[i];
+
+    if (on)
+    {
+      LCD_SegmentSet(com, bit, true);
+    }
+    else
+    {
+      LCD_SegmentSet(com, bit, false);
+    }
+  }
+}
+
+
+/**************************************************************************//**
+ * @brief Disables LCD controller
+ *****************************************************************************/
+void SegmentLCD_Disable(void)
+{
+  /* Disable LCD */
+  LCD_Enable(false);
+
+  /* Make sure CTRL register has been updated */
+  LCD_SyncBusyDelay(LCD_SYNCBUSY_CTRL);
+
+  /* Turn off LCD clock */
+  CMU_ClockEnable(cmuClock_LCD, false);
+
+  /* Turn off voltage boost if enabled */
+  CMU->LCDCTRL = 0;
+}
+
+
+/**************************************************************************//**
+ * @brief Light up or shut off Energy Mode indicator
+ * @param em Energy Mode numer 0 to 4
+ * @param on Zero is off, non-zero is on
+ *****************************************************************************/
+void SegmentLCD_EnergyMode(int em, int on)
+{
+  uint32_t com, bit;
+
+  com = EFM_Display.EMode.com[em];
+  bit = EFM_Display.EMode.bit[em];
+
+  if (on)
+  {
+    LCD_SegmentSet(com, bit, true);
+  }
+  else
+  {
+    LCD_SegmentSet(com, bit, false);
+  }
+}
+
+
+/**************************************************************************//**
+ * @brief Segment LCD Initialization routine for EFM32 STK display
+ * @param useBoost Set to use voltage boost
+ *****************************************************************************/
+void SegmentLCD_Init(bool useBoost)
+{
+
+  /* Ensure LE modules are accessible */
+  CMU_ClockEnable(cmuClock_CORELE, true);
+
+  /* Enable LFRCO as LFACLK in CMU (will also enable oscillator if not enabled) */
+  CMU_ClockSelectSet(cmuClock_LFA, cmuSelect_LFRCO);
+
+  /* LCD Controller Prescaler  */
+  CMU_ClockDivSet(cmuClock_LCDpre, LCD_CMU_CLK_PRE);
+
+  /* Frame Rate */
+  CMU_LCDClkFDIVSet(LCD_CMU_CLK_DIV);
+
+  /* Enable clock to LCD module */
+  CMU_ClockEnable(cmuClock_LCD, true);
+
+  LCD_DISPLAY_ENABLE();
+
+  /* Disable interrupts */
+  LCD_IntDisable(0xFFFFFFFF);
+
+  /* Initialize and enable LCD controller */
+  LCD_Init(&lcdInit);
+
+  /* Enable all display segments */
+  LCD_SEGMENTS_ENABLE();
+
+  /* Enable boost if necessary */
+  if (useBoost)
+  {
+    LCD_VBoostSet(LCD_BOOST_LEVEL);
+    LCD_VLCDSelect(lcdVLCDSelVExtBoost);
+    CMU->LCDCTRL |= CMU_LCDCTRL_VBOOSTEN;
   }
 
-  /* If an update is in progress we must block, or there might be tearing */
+  /* Turn all segments off */
+  SegmentLCD_AllOff();
+
   LCD_SyncBusyDelay(0xFFFFFFFF);
+}
 
-  /* Freeze updates to avoid partial refresh of display */
-  LCD_FreezeEnable(true);
 
-  /* Turn off all number LCD segments */
-  SegmentLCD_NumberOff();
+/**************************************************************************//**
+ * @brief Write a hexadecimal number on lower alphanumeric part of
+ *        Segment LCD display
+ * @param num Hexadecimal number value to put on display, in range 0
+ *        to 0x0FFFFFFF
+ *****************************************************************************/
+void SegmentLCD_LowerHex( uint32_t num )
+{
+  int       i;
+  char      str[7];
+  uint32_t  nibble;
 
-  for (digit = 0; digit < 4; digit++)
+  SegmentLCD_Symbol(LCD_SYMBOL_MINUS, 0);
+
+  for ( i=6; i>=0; i-- )
   {
-    num        = (value >> (4 * digit)) & 0x0f;
-    bitpattern = EFM_Numbers[num];
-    for (i = 0; i < 7; i++)
+    nibble = num & 0xF;
+
+    if ( nibble < 10 )
+      str[i] = nibble + '0';
+    else if ( nibble == 11 )
+      str[i] = 'b';
+    else if ( nibble == 13 )
+      str[i] = 'd';
+    else
+      str[i] = (nibble - 10) + 'A';
+
+    num >>= 4;
+  }
+
+  SegmentLCD_Write(str);
+}
+
+/**************************************************************************//**
+ * @brief Write number on lower alphanumeric part of Segment LCD display
+ * @param num Numeric value to put on display, in range -9999999 to +9999999
+ *****************************************************************************/
+void SegmentLCD_LowerNumber( int num )
+{
+  int i;
+  char str[7];
+
+  SegmentLCD_Symbol(LCD_SYMBOL_MINUS, 0);
+
+  if ( ( num > 9999999 ) || ( num < -9999999 ) )
+  {
+    SegmentLCD_Write("Ovrflow");
+    return;
+  }
+
+  if ( num < 0 )
+  {
+    SegmentLCD_Symbol(LCD_SYMBOL_MINUS, 1);
+    num = -num;
+  }
+
+  for ( i=6; i>=0; i-- )
+  {
+    if ( ( i < 6 ) && ( num == 0 ) )
     {
-      bit = EFM_Display.Number[digit].bit[i];
-      com = EFM_Display.Number[digit].com[i];
-      if (bitpattern & (1 << i))
-      {
-        LCD_SegmentSet(com, bit, true);
-      }
+      str[i] = ' ';
+    }
+    else
+    {
+      str[i] = (num % 10) + '0';
+      num /= 10;
     }
   }
 
-  /* Sync LCD registers to LE domain */
-  LCD_FreezeEnable(false);
+  SegmentLCD_Write(str);
 }
+
 
 /**************************************************************************//**
  * @brief Write number on numeric part on Segment LCD display
@@ -377,137 +584,6 @@ void SegmentLCD_NumberOff(void)
   /* Turn off all number segments */
   LCD_NUMBER_OFF();
   return;
-}
-
-
-/**************************************************************************//**
- * @brief Turn all segments on alpha characters in display off
- *****************************************************************************/
-void SegmentLCD_AlphaNumberOff(void)
-{
-  LCD_ALPHA_NUMBER_OFF();
-  return;
-}
-
-/**************************************************************************//**
- * @brief Write text on LCD display
- * @param string Text string to show on display
- *****************************************************************************/
-void SegmentLCD_Write(char *string)
-{
-  int      data, length, index;
-  uint16_t bitfield;
-  uint32_t com, bit;
-  int      i;
-
-  length = strlen(string);
-  index  = 0;
-
-  /* If an update is in progress we must block, or there might be tearing */
-  LCD_SyncBusyDelay(0xFFFFFFFF);
-
-  /* Freeze LCD to avoid partial updates */
-  LCD_FreezeEnable(true);
-
-  /* Turn all segments off */
-  SegmentLCD_AlphaNumberOff();
-
-  /* Fill out all characters on display */
-  for (index = 0; index < 7; index++)
-  {
-    if (index < length)
-    {
-      data = (int) *string;
-    }
-    else           /* Padding with space */
-    {
-      data = 0x20; /* SPACE */
-    }
-    /* Defined letters currently starts at "SPACE" - ASCII 0x20; */
-    data = data - 0x20;
-    /* Get font for this letter */
-    bitfield = EFM_Alphabet[data];
-
-    for (i = 0; i < 14; i++)
-    {
-      bit = EFM_Display.Text[index].bit[i];
-      com = EFM_Display.Text[index].com[i];
-
-      if (bitfield & (1 << i))
-      {
-        /* Turn on segment */
-        LCD_SegmentSet(com, bit, true);
-      }
-    }
-    string++;
-  }
-  /* Enable update */
-  LCD_FreezeEnable(false);
-}
-
-
-/**************************************************************************//**
- * @brief Disable all segments
- *****************************************************************************/
-void SegmentLCD_AllOff(void)
-{
-  /* Turn on low segments */
-  LCD_ALL_SEGMENTS_OFF();
-}
-
-
-/**************************************************************************//**
- * @brief Enable all segments
- *****************************************************************************/
-void SegmentLCD_AllOn(void)
-{
-  LCD_ALL_SEGMENTS_ON();
-}
-
-
-/**************************************************************************//**
- * @brief Light up or shut off Energy Mode indicator
- * @param em Energy Mode numer 0 to 4
- * @param on Zero is off, non-zero is on
- *****************************************************************************/
-void SegmentLCD_EnergyMode(int em, int on)
-{
-  uint32_t com, bit;
-
-  com = EFM_Display.EMode.com[em];
-  bit = EFM_Display.EMode.bit[em];
-
-  if (on)
-  {
-    LCD_SegmentSet(com, bit, true);
-  }
-  else
-  {
-    LCD_SegmentSet(com, bit, false);
-  }
-}
-
-
-/**************************************************************************//**
- * @brief Light up or shut off Ring of Indicators
- * @param anum "Segment number" on "Ring", range 0 - 7
- * @param on Zero is off, non-zero is on
- *****************************************************************************/
-void SegmentLCD_ARing(int anum, int on)
-{
-  uint32_t com, bit;
-
-  com = EFM_Display.ARing.com[anum];
-  bit = EFM_Display.ARing.bit[anum];
-
-  if (on)
-  {
-    LCD_SegmentSet(com, bit, true);
-  }
-  else
-  {
-    LCD_SegmentSet(com, bit, false);
-  }
 }
 
 
@@ -641,101 +717,101 @@ void SegmentLCD_Symbol(lcdSymbol s, int on)
 
 
 /**************************************************************************//**
- * @brief Light up or shut off Battery Indicator
- * @param batteryLevel Battery Level, 0 to 4 (0 turns all off)
+ * @brief Write hexadecimal number on numeric part on Segment LCD display
+ * @param value Numeric value to put on display, in range 0x0000-0xFFFF
  *****************************************************************************/
-void SegmentLCD_Battery(int batteryLevel)
+void SegmentLCD_UnsignedHex(uint16_t value)
 {
-  uint32_t com, bit;
-  int      i, on;
+  int      num, i, com, bit, digit;
+  uint16_t bitpattern;
 
-  for (i = 0; i < 4; i++)
+  /* Parameter consistancy check */
+  if (value >= 0xffff)
   {
-    if (i < batteryLevel)
-    {
-      on = 1;
-    }
-    else
-    {
-      on = 0;
-    }
-    com = EFM_Display.Battery.com[i];
-    bit = EFM_Display.Battery.bit[i];
+    value = 0xffff;
+  }
 
-    if (on)
+  /* If an update is in progress we must block, or there might be tearing */
+  LCD_SyncBusyDelay(0xFFFFFFFF);
+
+  /* Freeze updates to avoid partial refresh of display */
+  LCD_FreezeEnable(true);
+
+  /* Turn off all number LCD segments */
+  SegmentLCD_NumberOff();
+
+  for (digit = 0; digit < 4; digit++)
+  {
+    num        = (value >> (4 * digit)) & 0x0f;
+    bitpattern = EFM_Numbers[num];
+    for (i = 0; i < 7; i++)
     {
-      LCD_SegmentSet(com, bit, true);
-    }
-    else
-    {
-      LCD_SegmentSet(com, bit, false);
+      bit = EFM_Display.Number[digit].bit[i];
+      com = EFM_Display.Number[digit].com[i];
+      if (bitpattern & (1 << i))
+      {
+        LCD_SegmentSet(com, bit, true);
+      }
     }
   }
+
+  /* Sync LCD registers to LE domain */
+  LCD_FreezeEnable(false);
 }
 
 
 /**************************************************************************//**
- * @brief Segment LCD Initialization routine for EFM32 STK display
- * @param useBoost Set to use voltage boost
+ * @brief Write text on LCD display
+ * @param string Text string to show on display
  *****************************************************************************/
-void SegmentLCD_Init(bool useBoost)
+void SegmentLCD_Write(char *string)
 {
+  int      data, length, index;
+  uint16_t bitfield;
+  uint32_t com, bit;
+  int      i;
 
-  /* Ensure LE modules are accessible */
-  CMU_ClockEnable(cmuClock_CORELE, true);
+  length = strlen(string);
+  index  = 0;
 
-  /* Enable LFRCO as LFACLK in CMU (will also enable oscillator if not enabled) */
-  CMU_ClockSelectSet(cmuClock_LFA, cmuSelect_LFRCO);
+  /* If an update is in progress we must block, or there might be tearing */
+  LCD_SyncBusyDelay(0xFFFFFFFF);
 
-  /* LCD Controller Prescaler  */
-  CMU_ClockDivSet(cmuClock_LCDpre, LCD_CMU_CLK_PRE);
-
-  /* Frame Rate */
-  CMU_LCDClkFDIVSet(LCD_CMU_CLK_DIV);
-
-  /* Enable clock to LCD module */
-  CMU_ClockEnable(cmuClock_LCD, true);
-
-  LCD_DISPLAY_ENABLE();
-
-  /* Disable interrupts */
-  LCD_IntDisable(0xFFFFFFFF);
-
-  /* Initialize and enable LCD controller */
-  LCD_Init(&lcdInit);
-
-  /* Enable all display segments */
-  LCD_SEGMENTS_ENABLE();
-
-  /* Enable boost if necessary */
-  if (useBoost)
-  {
-    LCD_VBoostSet(LCD_BOOST_LEVEL);
-    LCD_VLCDSelect(lcdVLCDSelVExtBoost);
-    CMU->LCDCTRL |= CMU_LCDCTRL_VBOOSTEN;
-  }
+  /* Freeze LCD to avoid partial updates */
+  LCD_FreezeEnable(true);
 
   /* Turn all segments off */
-  SegmentLCD_AllOff();
+  SegmentLCD_AlphaNumberOff();
 
-  LCD_SyncBusyDelay(0xFFFFFFFF);
-}
+  /* Fill out all characters on display */
+  for (index = 0; index < 7; index++)
+  {
+    if (index < length)
+    {
+      data = (int) *string;
+    }
+    else           /* Padding with space */
+    {
+      data = 0x20; /* SPACE */
+    }
+    /* Defined letters currently starts at "SPACE" - ASCII 0x20; */
+    data = data - 0x20;
+    /* Get font for this letter */
+    bitfield = EFM_Alphabet[data];
 
+    for (i = 0; i < 14; i++)
+    {
+      bit = EFM_Display.Text[index].bit[i];
+      com = EFM_Display.Text[index].com[i];
 
-/**************************************************************************//**
- * @brief Disables LCD controller
- *****************************************************************************/
-void SegmentLCD_Disable(void)
-{
-  /* Disable LCD */
-  LCD_Enable(false);
-
-  /* Make sure CTRL register has been updated */
-  LCD_SyncBusyDelay(LCD_SYNCBUSY_CTRL);
-
-  /* Turn off LCD clock */
-  CMU_ClockEnable(cmuClock_LCD, false);
-
-  /* Turn off voltage boost if enabled */
-  CMU->LCDCTRL = 0;
+      if (bitfield & (1 << i))
+      {
+        /* Turn on segment */
+        LCD_SegmentSet(com, bit, true);
+      }
+    }
+    string++;
+  }
+  /* Enable update */
+  LCD_FreezeEnable(false);
 }
