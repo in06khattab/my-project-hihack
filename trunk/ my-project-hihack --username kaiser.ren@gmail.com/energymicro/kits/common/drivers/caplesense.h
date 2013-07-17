@@ -2,7 +2,7 @@
  * @file
  * @brief Capacitive sense driver
  * @author Energy Micro AS
- * @version 1.0.0
+ * @version 3.20.0
  ******************************************************************************
  * @section License
  * <b>(C) Copyright 2012 Energy Micro AS, http://www.energymicro.com</b>
@@ -56,7 +56,7 @@ uint8_t  CAPLESENSE_getSegmentChannel(uint8_t capSegment);
 uint32_t CAPLESENSE_getVal(uint8_t channel);
 uint32_t CAPLESENSE_getNormalizedVal(uint8_t channel);
 int32_t CAPLESENSE_getSliderPosition(void);
-void CAPLESENSE_Init(void);
+void CAPLESENSE_Init(bool sleep);
 void CAPLESENSE_setupLESENSE(bool sleep);
 void CAPLESENSE_setupCallbacks(void (*scanCb)(void), void (*chCb)(void));
 void CAPLESENSE_Sleep(void);
