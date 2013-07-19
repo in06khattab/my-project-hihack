@@ -58,6 +58,14 @@ uint32_t vectorTable[47] __attribute__((aligned(512)));
 #error Undefined toolkit, need to define alignment
 #endif
 
+#pragma location=0x200000fc
+__no_init __root uint32_t bootFromApp;
+
+#pragma location=0x30fc
+__root const uint32_t bootTagHead;
+
+#pragma location=0x7ffc
+__root const uint32_t bootTagTail;
 
 /*
  * This variable holds the computed CRC-16 of the bootloader and is used during
