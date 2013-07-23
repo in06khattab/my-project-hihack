@@ -1,76 +1,57 @@
 ###############################################################################
 #                                                                             #
-# IAR ELF Linker V6.30.6.53336/W32 for ARM              21/Jun/2013  15:38:52 #
+# IAR ELF Linker V6.30.6.53336/W32 for ARM              23/Jul/2013  13:07:43 #
 # Copyright 2007-2012 IAR Systems AB.                                         #
 #                                                                             #
-#    Output file  =  D:\Firmware\my-project-hihack\trunk\ my-project-hihack   #
-#                    --username kaiser.ren@gmail.com\energymicro\an\an0003_ef #
-#                    m32_uart_bootloader\iar\bootloader-tg840\Debug\Exe\bootl #
-#                    oader-tg840.out                                          #
-#    Map file     =  D:\Firmware\my-project-hihack\trunk\ my-project-hihack   #
-#                    --username kaiser.ren@gmail.com\energymicro\an\an0003_ef #
-#                    m32_uart_bootloader\iar\bootloader-tg840\Debug\List\boot #
-#                    loader-tg840.map                                         #
-#    Command line =  "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
-#                    --username kaiser.ren@gmail.com\energymicro\an\an0003_ef #
-#                    m32_uart_bootloader\iar\bootloader-tg840\Debug\Obj\autob #
-#                    aud.o" "D:\Firmware\my-project-hihack\trunk\             #
-#                    my-project-hihack --username                             #
-#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
-#                    otloader\iar\bootloader-tg840\Debug\Obj\boot.o"          #
-#                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
-#                    --username kaiser.ren@gmail.com\energymicro\an\an0003_ef #
-#                    m32_uart_bootloader\iar\bootloader-tg840\Debug\Obj\bootl #
-#                    oader.o" "D:\Firmware\my-project-hihack\trunk\           #
-#                    my-project-hihack --username                             #
-#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
-#                    otloader\iar\bootloader-tg840\Debug\Obj\crc.o"           #
-#                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
-#                    --username kaiser.ren@gmail.com\energymicro\an\an0003_ef #
-#                    m32_uart_bootloader\iar\bootloader-tg840\Debug\Obj\debug #
-#                    .o" "D:\Firmware\my-project-hihack\trunk\                #
-#                    my-project-hihack --username                             #
-#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
-#                    otloader\iar\bootloader-tg840\Debug\Obj\debuglock.o"     #
-#                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
-#                    --username kaiser.ren@gmail.com\energymicro\an\an0003_ef #
-#                    m32_uart_bootloader\iar\bootloader-tg840\Debug\Obj\em_cm #
-#                    u.o" "D:\Firmware\my-project-hihack\trunk\               #
-#                    my-project-hihack --username                             #
-#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
-#                    otloader\iar\bootloader-tg840\Debug\Obj\flash.o"         #
-#                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
-#                    --username kaiser.ren@gmail.com\energymicro\an\an0003_ef #
-#                    m32_uart_bootloader\iar\bootloader-tg840\Debug\Obj\iarwr #
-#                    ite.o" "D:\Firmware\my-project-hihack\trunk\             #
-#                    my-project-hihack --username                             #
-#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
-#                    otloader\iar\bootloader-tg840\Debug\Obj\startup_efm32.o" #
-#                     "D:\Firmware\my-project-hihack\trunk\                   #
-#                    my-project-hihack --username                             #
-#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
-#                    otloader\iar\bootloader-tg840\Debug\Obj\system_efm32tg.o #
-#                    " "D:\Firmware\my-project-hihack\trunk\                  #
-#                    my-project-hihack --username                             #
-#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
-#                    otloader\iar\bootloader-tg840\Debug\Obj\usart.o"         #
-#                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
-#                    --username kaiser.ren@gmail.com\energymicro\an\an0003_ef #
-#                    m32_uart_bootloader\iar\bootloader-tg840\Debug\Obj\xmode #
-#                    m.o" --redirect _Printf=_PrintfFull --redirect           #
-#                    _Scanf=_ScanfFull -o "D:\Firmware\my-project-hihack\trun #
-#                    k\ my-project-hihack --username                          #
-#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
-#                    otloader\iar\bootloader-tg840\Debug\Exe\bootloader-tg840 #
-#                    .out" --map "D:\Firmware\my-project-hihack\trunk\        #
-#                    my-project-hihack --username                             #
-#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
-#                    otloader\iar\bootloader-tg840\Debug\List\bootloader-tg84 #
-#                    0.map" --config "D:\Firmware\my-project-hihack\trunk\    #
-#                    my-project-hihack --username                             #
-#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
-#                    otloader\iar\..\iar_linker_files\EFM32TG840F32.icf"      #
-#                    --entry __iar_program_start --vfe                        #
+#    Output file  =  D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Debu #
+#                    g\Exe\bootloader-tg840.out                               #
+#    Map file     =  D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Debu #
+#                    g\List\bootloader-tg840.map                              #
+#    Command line =  D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Debu #
+#                    g\Obj\autobaud.o D:\Firmware\my-project-hihack\branches\ #
+#                    uart_bootloader\an\an0003_efm32_uart_bootloader\iar\boot #
+#                    loader-tg840\Debug\Obj\boot.o                            #
+#                    D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Debu #
+#                    g\Obj\bootloader.o D:\Firmware\my-project-hihack\branche #
+#                    s\uart_bootloader\an\an0003_efm32_uart_bootloader\iar\bo #
+#                    otloader-tg840\Debug\Obj\crc.o                           #
+#                    D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Debu #
+#                    g\Obj\debug.o D:\Firmware\my-project-hihack\branches\uar #
+#                    t_bootloader\an\an0003_efm32_uart_bootloader\iar\bootloa #
+#                    der-tg840\Debug\Obj\debuglock.o                          #
+#                    D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Debu #
+#                    g\Obj\em_cmu.o D:\Firmware\my-project-hihack\branches\ua #
+#                    rt_bootloader\an\an0003_efm32_uart_bootloader\iar\bootlo #
+#                    ader-tg840\Debug\Obj\flash.o                             #
+#                    D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Debu #
+#                    g\Obj\iarwrite.o D:\Firmware\my-project-hihack\branches\ #
+#                    uart_bootloader\an\an0003_efm32_uart_bootloader\iar\boot #
+#                    loader-tg840\Debug\Obj\startup_efm32.o                   #
+#                    D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Debu #
+#                    g\Obj\system_efm32tg.o D:\Firmware\my-project-hihack\bra #
+#                    nches\uart_bootloader\an\an0003_efm32_uart_bootloader\ia #
+#                    r\bootloader-tg840\Debug\Obj\usart.o                     #
+#                    D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Debu #
+#                    g\Obj\xmodem.o --redirect _Printf=_PrintfFull            #
+#                    --redirect _Scanf=_ScanfFull -o                          #
+#                    D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Debu #
+#                    g\Exe\bootloader-tg840.out --map                         #
+#                    D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Debu #
+#                    g\List\bootloader-tg840.map --config                     #
+#                    D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\..\iar_linker_files\E #
+#                    FM32TG840F32.icf --entry __iar_program_start --vfe       #
 #                                                                             #
 #                                                                             #
 ###############################################################################
@@ -97,7 +78,7 @@ __SystemLibrary = DLib
   .intvec            ro code  0x00000000    0x8  startup_efm32.o [1]
                             - 0x00000008    0x8
 
-"P1":                                     0xbcc
+"P1":                                     0xc1c
   .text              ro code  0x00000008  0x240  em_cmu.o [1]
   .text              ro code  0x00000248  0x108  system_efm32tg.o [1]
   Veneer             ro code  0x00000350    0x8  - Linker created -
@@ -105,36 +86,45 @@ __SystemLibrary = DLib
   Veneer             ro code  0x00000360    0x8  - Linker created -
   Veneer             ro code  0x00000368    0x8  - Linker created -
   Veneer             ro code  0x00000370    0x8  - Linker created -
-  .text              ro code  0x00000378  0x14c  bootloader.o [1]
-  .text              ro code  0x000004c4   0x16  boot.o [1]
-  .text              ro code  0x000004da   0x2e  copy_init3.o [4]
-  .text              ro code  0x00000508   0x28  usart.o [1]
-  .text              ro code  0x00000530   0x74  flash.o [1]
-  .rodata            const    0x000005a4   0x2c  bootloader.o [1]
-  .text              ro code  0x000005d0   0x2c  data_init3.o [4]
-  .rodata            const    0x000005fc   0x24  bootloader.o [1]
-  .text              ro code  0x00000620   0x22  zero_init3.o [4]
-  .iar.init_table    const    0x00000644   0x24  - Linker created -
-  .text              ro code  0x00000668   0x16  cmain.o [4]
-  .text              ro code  0x0000067e    0x4  low_level_init.o [3]
-  .text              ro code  0x00000682    0x4  exit.o [3]
-  .text              ro code  0x00000688    0xa  cexit.o [4]
-  .text              ro code  0x00000694    0xc  XXexit.o [4]
-  .rodata            const    0x000006a0   0x14  bootloader.o [1]
-  .text              ro code  0x000006b4    0xc  cstartup_M.o [4]
-  .rodata            const    0x000006c0    0x8  bootloader.o [1]
-  .rodata            const    0x000006c8    0x0  bwt_init3c.o [4]
-  Initializer bytes  ro data  0x000006c8  0x50c  <for P2 s0>
-                            - 0x00000bd4  0xbcc
+  .text              ro code  0x00000378  0x19c  bootloader.o [1]
+  .text              ro code  0x00000514   0x16  boot.o [1]
+  .text              ro code  0x0000052a   0x2e  copy_init3.o [4]
+  .text              ro code  0x00000558   0x28  usart.o [1]
+  .text              ro code  0x00000580   0x74  flash.o [1]
+  .rodata            const    0x000005f4   0x2c  bootloader.o [1]
+  .text              ro code  0x00000620   0x2c  data_init3.o [4]
+  .rodata            const    0x0000064c   0x24  bootloader.o [1]
+  .text              ro code  0x00000670   0x22  zero_init3.o [4]
+  .iar.init_table    const    0x00000694   0x24  - Linker created -
+  .text              ro code  0x000006b8   0x16  cmain.o [4]
+  .text              ro code  0x000006ce    0x4  low_level_init.o [3]
+  .text              ro code  0x000006d2    0x4  exit.o [3]
+  .text              ro code  0x000006d8    0xa  cexit.o [4]
+  .text              ro code  0x000006e4    0xc  XXexit.o [4]
+  .rodata            const    0x000006f0   0x14  bootloader.o [1]
+  .text              ro code  0x00000704    0xc  cstartup_M.o [4]
+  .rodata            const    0x00000710    0x8  bootloader.o [1]
+  .rodata            const    0x00000718    0x0  bwt_init3c.o [4]
+  Initializer bytes  ro data  0x00000718  0x50c  <for P2 s0>
+                            - 0x00000c24  0xc1c
 
-Absolute sections, part 1 of 2:            0xbe
+Absolute sections, part 1 of 4:             0x4
+  .rodata            const    0x000030fc    0x4  bootloader.o [1]
+                            - 0x00003100    0x4
+
+Absolute sections, part 2 of 4:             0x4
+  .rodata            const    0x00007ffc    0x4  bootloader.o [1]
+                            - 0x00008000    0x4
+
+Absolute sections, part 3 of 4:            0xbe
   .noinit            uninit   0x20000000   0xbc  bootloader.o [1]
   .noinit            uninit   0x200000bc    0x2  bootloader.o [1]
                             - 0x200000be   0xbe
 
-Absolute sections, part 2 of 2:            0x10
+Absolute sections, part 4 of 4:            0x14
+  .noinit            uninit   0x200000fc    0x4  bootloader.o [1]
   .noinit            uninit   0x20000100   0x10  flash.o [1]
-                            - 0x20000110   0x10
+                            - 0x20000110   0x14
 
 "P2", part 1 of 3:                        0x50c
   P2 s0                       0x20000110  0x50c  <Init block>
@@ -178,7 +168,7 @@ Zero (__iar_zero_init3)
 
 Copy (__iar_copy_init3)
     1 source range, total size 0x50c:
-          0x000006c8  0x50c
+          0x00000718  0x50c
     1 destination range, total size 0x50c:
           0x20000110  0x50c
 
@@ -188,31 +178,31 @@ Copy (__iar_copy_init3)
 *** MODULE SUMMARY
 ***
 
-    Module            ro code  rw code  ro data  rw data  rw data
-                                                           (abs)
-    ------            -------  -------  -------  -------  -------
-D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Debug\Obj: [1]
+    Module            ro code  rw code  ro data  rw data  ro data  rw data
+                                                           (abs)    (abs)
+    ------            -------  -------  -------  -------  -------  -------
+D:\Firmware\my-project-hihack\branches\uart_bootloader\an\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Debug\Obj: [1]
     boot.o                 22      180      180
-    bootloader.o          332      204      332       20      190
+    bootloader.o          412      204      332       20        8      194
     crc.o                           50       50
     debuglock.o                    160      184       24
     em_cmu.o              576
-    flash.o               116      184      184        4       16
+    flash.o               116      184      184        4                16
     startup_efm32.o         8
     system_efm32tg.o      264                 8       12
     usart.o                40      150      150
     xmodem.o                       312      312      272
-    -------------------------------------------------------------
-    Total:              1 358    1 240    1 400      332      206
+    ----------------------------------------------------------------------
+    Total:              1 438    1 240    1 400      332        8      210
 
 command line: [2]
-    -------------------------------------------------------------
+    ----------------------------------------------------------------------
     Total:
 
 dl7M_tln.a: [3]
     exit.o                  4
     low_level_init.o        4
-    -------------------------------------------------------------
+    ----------------------------------------------------------------------
     Total:                  8
 
 rt7M_tl.a: [4]
@@ -224,13 +214,13 @@ rt7M_tl.a: [4]
     cstartup_M.o           12
     data_init3.o           44
     zero_init3.o           34
-    -------------------------------------------------------------
+    ----------------------------------------------------------------------
     Total:                180
 
     Gaps                    4                 2
     Linker created         40                36    1 024
------------------------------------------------------------------
-    Grand Total:        1 590    1 240    1 438    1 356      206
+--------------------------------------------------------------------------
+    Grand Total:        1 670    1 240    1 438    1 356        8      210
 
 
 *******************************************************************************
@@ -239,10 +229,10 @@ rt7M_tl.a: [4]
 
 Entry                     Address   Size  Type      Object
 -----                     -------   ----  ----      ------
-?main                  0x00000669         Code  Gb  cmain.o [4]
+?main                  0x000006b9         Code  Gb  cmain.o [4]
 BOOT_boot              0x200004e5   0x72  Code  Gb  boot.o [1]
 BOOT_checkFirmwareIsValid
-                       0x000004c5   0x16  Code  Gb  boot.o [1]
+                       0x00000515   0x16  Code  Gb  boot.o [1]
 BOOT_jump              0x200004d9    0xc  Code  Gb  boot.o [1]
 CMU_ClockSelectGet     0x00000099   0xf2  Code  Gb  em_cmu.o [1]
 CMU_FlashWaitStateControl
@@ -255,20 +245,21 @@ CSTACK$$Base           0x20000738          --   Gb  - Linker created -
 CSTACK$$Limit          0x20000b38          --   Gb  - Linker created -
 DEBUGLOCK_startDebugInterface
                        0x20000495   0x36  Code  Gb  debuglock.o [1]
-FLASH_CalcPageSize     0x00000531   0x34  Code  Gb  flash.o [1]
+FLASH_CalcPageSize     0x00000581   0x34  Code  Gb  flash.o [1]
 FLASH_eraseOneBlock    0x20000245   0x3c  Code  Gb  flash.o [1]
-FLASH_init             0x00000565   0x22  Code  Gb  flash.o [1]
+FLASH_init             0x000005b5   0x22  Code  Gb  flash.o [1]
 FLASH_writeBlock       0x200001ed   0x58  Code  Gb  flash.o [1]
 GetProdRev             0x00000249    0xa  Code  Lc  system_efm32tg.o [1]
+IsBootReady            0x000003a3   0x2e  Code  Gb  bootloader.o [1]
 NVIC_DisableIRQ        0x00000379   0x18  Code  Lc  bootloader.o [1]
-Region$$Table$$Base    0x00000644          --   Gb  - Linker created -
-Region$$Table$$Limit   0x00000668          --   Gb  - Linker created -
+Region$$Table$$Base    0x00000694          --   Gb  - Linker created -
+Region$$Table$$Limit   0x000006b8          --   Gb  - Linker created -
 SystemCoreClock        0x20000730    0x4  Data  Gb  system_efm32tg.o [1]
 SystemCoreClockGet     0x00000253   0x1a  Code  Gb  system_efm32tg.o [1]
 SystemHFClockGet       0x0000026d   0xa6  Code  Gb  system_efm32tg.o [1]
 SystemHFXOClock        0x20000614    0x4  Data  Lc  system_efm32tg.o [1]
 SystemLFXOClock        0x20000618    0x4  Data  Lc  system_efm32tg.o [1]
-USART_init             0x00000509   0x28  Code  Gb  usart.o [1]
+USART_init             0x00000559   0x28  Code  Gb  usart.o [1]
 USART_printHex         0x200002a5   0x3c  Code  Gb  usart.o [1]
 USART_printString      0x20000325   0x16  Code  Gb  usart.o [1]
 USART_rxByte           0x200002e1   0x20  Code  Gb  usart.o [1]
@@ -281,41 +272,44 @@ _DEBUGLOCK_swData      0x200005e8   0x18  Data  Gb  debuglock.o [1]
 __Vectors              0x00000000          --   Gb  startup_efm32.o [1]
 __Vectors_End          0x00000008         Data  Gb  startup_efm32.o [1]
 __Vectors_Size {Abs}   0x00000008          --   Gb  startup_efm32.o [1]
-__cmain                0x00000669         Code  Gb  cmain.o [4]
-__exit                 0x00000695         Code  Gb  XXexit.o [4]
-__iar_SB               0x000006c8         Data  Gb  bwt_init3c.o [4]
-__iar_copy_init3       0x000004db   0x2e  Code  Gb  copy_init3.o [4]
-__iar_data_init3       0x000005d1   0x2c  Code  Gb  data_init3.o [4]
-__iar_program_start    0x000006b5         Code  Gb  cstartup_M.o [4]
-__iar_zero_init3       0x00000621   0x22  Code  Gb  zero_init3.o [4]
-__low_level_init       0x0000067f    0x4  Code  Gb  low_level_init.o [3]
+__cmain                0x000006b9         Code  Gb  cmain.o [4]
+__exit                 0x000006e5         Code  Gb  XXexit.o [4]
+__iar_SB               0x00000718         Data  Gb  bwt_init3c.o [4]
+__iar_copy_init3       0x0000052b   0x2e  Code  Gb  copy_init3.o [4]
+__iar_data_init3       0x00000621   0x2c  Code  Gb  data_init3.o [4]
+__iar_program_start    0x00000705         Code  Gb  cstartup_M.o [4]
+__iar_zero_init3       0x00000671   0x22  Code  Gb  zero_init3.o [4]
+__low_level_init       0x000006cf    0x4  Code  Gb  low_level_init.o [3]
 __vector_table         0x00000000         Data  Gb  startup_efm32.o [1]
-_call_main             0x00000675         Code  Gb  cmain.o [4]
-_exit                  0x00000689         Code  Gb  cexit.o [4]
-_main                  0x0000067b         Code  Gb  cmain.o [4]
+_call_main             0x000006c5         Code  Gb  cmain.o [4]
+_exit                  0x000006d9         Code  Gb  cexit.o [4]
+_main                  0x000006cb         Code  Gb  cmain.o [4]
+bootTagHead            0x000030fc    0x4  Data  Gb  bootloader.o [1]
+bootTagRam             0x200000fc    0x4  Data  Gb  bootloader.o [1]
+bootTagTail            0x00007ffc    0x4  Data  Gb  bootloader.o [1]
 bootloaderCRC          0x200000bc    0x2  Data  Gb  bootloader.o [1]
 commandlineLoop        0x200003c9   0xa6  Code  Gb  bootloader.o [1]
 descr                  0x20000100   0x10  Data  Gb  flash.o [1]
-exit                   0x00000683    0x4  Code  Gb  exit.o [3]
+exit                   0x000006d3    0x4  Code  Gb  exit.o [3]
 flashPageSize          0x2000072c    0x4  Data  Gb  flash.o [1]
-generateVectorTable    0x000003d5    0xa  Code  Gb  bootloader.o [1]
-main                   0x000003df   0x9a  Code  Gb  bootloader.o [1]
+generateVectorTable    0x0000041d    0xa  Code  Gb  bootloader.o [1]
+main                   0x00000427   0x9a  Code  Gb  bootloader.o [1]
 rawPacket              0x2000061c  0x110  Data  Gb  xmodem.o [1]
 readyString            0x20000600    0xc  Data  Gb  bootloader.o [1]
 unknownString          0x2000060c    0x8  Data  Gb  bootloader.o [1]
 vectorTable            0x20000000   0xbc  Data  Gb  bootloader.o [1]
-waitForBootOrUSART     0x000003a3   0x32  Code  Gb  bootloader.o [1]
+waitForBootOrUSART     0x000003d1   0x4c  Code  Gb  bootloader.o [1]
 
 
-[1] = D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Debug\Obj
+[1] = D:\Firmware\my-project-hihack\branches\uart_bootloader\an\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Debug\Obj
 [2] = command line
 [3] = dl7M_tln.a
 [4] = rt7M_tl.a
 
-  1 590 bytes of readonly  code memory
+  1 670 bytes of readonly  code memory
   1 240 bytes of readwrite code memory
-  1 438 bytes of readonly  data memory
-  1 356 bytes of readwrite data memory (+ 206 absolute)
+  1 438 bytes of readonly  data memory (+ 8   absolute)
+  1 356 bytes of readwrite data memory (+ 210 absolute)
 
 Errors: none
 Warnings: none
