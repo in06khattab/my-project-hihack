@@ -44,6 +44,7 @@
 
 /** Version string, used when the user connects */
 #define BOOTLOADER_VERSION_STRING "1.63 "
+#define APP_IS_READY_TAG 0xa5a55a5a
 
 /* Vector table in RAM. We construct a new vector table to conserve space in
  * flash as it is sparsly populated. */
@@ -59,7 +60,7 @@ uint32_t vectorTable[47] __attribute__((aligned(512)));
 #endif
 
 #pragma location=0x200000fc
-__no_init __root uint32_t bootFromApp;
+__no_init uint32_t bootTagRam;
 
 #pragma location=0x30fc
 __root const uint32_t bootTagHead;
@@ -127,6 +128,28 @@ void RTC_IRQHandler(void)
 
 /**************************************************************************//**
  * @brief
+ *   This function is to check whether application is ready for boot:
+ *   1) RAM tag is 0xa5a55a5a, then retain in loader for uploading.
+ *   OR:
+ *   2) flash head and tail are 0xa5a55a5a, then jump to app.
+ *****************************************************************************/
+uint8_t IsBootReady(void)
+{
+  //pro 1
+  if ( bootTagRam == APP_IS_READY_TAG ){
+    return 0;
+  }
+
+  //pro 2
+  if ( ( bootTagHead == APP_IS_READY_TAG ) && ( bootTagTail == APP_IS_READY_TAG ) ){
+	 return 1;
+  }
+
+  return 0;
+}
+
+/**************************************************************************//**
+ * @brief
  *   This function is an infinite loop. It actively waits for one of the
  *   following conditions to be true:
  *   1) The SWDClk Debug pins is not asserted and a valid application is
@@ -143,6 +166,7 @@ void RTC_IRQHandler(void)
 void waitForBootOrUSART(void)
 {
   uint32_t SWDpins;
+  uint8_t isAppReady;
 #ifndef NDEBUG
   uint32_t oldPins = 0xf;
 #endif
@@ -181,7 +205,8 @@ void waitForBootOrUSART(void)
 #endif
 
     /* Check if pins are not asserted AND firmware is valid */
-    if ((SWDpins != 0x1) && (BOOT_checkFirmwareIsValid()))
+	isAppReady = IsBootReady();
+    if ((SWDpins != 0x1) && (BOOT_checkFirmwareIsValid()) && isAppReady )
     {
       /* Boot application */
 #ifndef NDEBUG
@@ -192,7 +217,7 @@ void waitForBootOrUSART(void)
 
     /* SWDCLK (F0) is pulled high and SWDIO (F1) is pulled low */
     /* Enter bootloader mode */
-    if (SWDpins == 0x1)
+    if ( (SWDpins == 0x1) || !(isAppReady) )
     {
 #if defined SIZE_TAILOR==0
       /* Increase timeout to 30 seconds */
@@ -204,6 +229,7 @@ void waitForBootOrUSART(void)
 #ifndef NDEBUG
       printf("Starting autobaud sequence\r\n");
 #endif
+	  bootTagRam = 0;
       return;
     }
     /* Go to EM2 and wait for RTC wakeup. */
@@ -241,7 +267,7 @@ __ramfunc void commandlineLoop(void)
 {
   uint32_t flashSize;
   uint8_t  c;
-  uint8_t *returnString;
+  //uint8_t *returnString;
 
   /* Find the size of the flash. DEVINFO->MSIZE is the
    * size in KB so left shift by 10. */

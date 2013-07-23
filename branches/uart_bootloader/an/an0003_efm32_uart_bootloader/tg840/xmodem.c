@@ -109,7 +109,7 @@ __ramfunc int XMODEM_download(uint32_t baseAddress, uint32_t endAddress)
   while (1)
   {
     USART_txByte(XMODEM_NCG);
-    for (i = 0; i < 10000000; i++)
+    for (i = 0; i < 1000000; i++)
     {
 #ifdef BOOTLOADER_LEUART_CLOCK
       if (BOOTLOADER_USART->STATUS & LEUART_STATUS_RXDATAV)
