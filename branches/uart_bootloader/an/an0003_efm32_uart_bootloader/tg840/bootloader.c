@@ -62,7 +62,7 @@ uint32_t vectorTable[47] __attribute__((aligned(512)));
 #pragma location=0x200000fc
 __no_init uint32_t bootTagRam;
 
-#pragma location=0x30fc
+#pragma location=(BOOTLOADER_SIZE + 0xfc)
 __root const uint32_t bootTagHead;
 
 #pragma location=0x7ffc
