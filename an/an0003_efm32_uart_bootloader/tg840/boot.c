@@ -47,11 +47,11 @@ bool BOOT_checkFirmwareIsValid(void)
   uint32_t pc;
   pc = *((uint32_t *) BOOTLOADER_SIZE + 1);
 #ifndef NDEBUG
-  if (!printedPC)
-  {
-    printedPC = true;
-    printf("Application Reset vector = 0x%x \r\n", pc);
-  }
+  //if (!printedPC)
+  //{
+  //  printedPC = true;
+  //  printf("Application Reset vector = 0x%x \r\n", pc);
+  //}
 #endif
   if (pc < MAX_SIZE_OF_FLASH)
     return true;

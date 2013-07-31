@@ -1,55 +1,58 @@
 ###############################################################################
 #                                                                             #
-# IAR ELF Linker V6.30.6.53336/W32 for ARM              29/Jul/2013  13:15:34 #
+# IAR ELF Linker V6.30.6.53336/W32 for ARM              31/Jul/2013  12:57:36 #
 # Copyright 2007-2012 IAR Systems AB.                                         #
 #                                                                             #
-#    Output file  =  E:\kren\Firmware\HiJack\branches\uart_bootloader\an\an00 #
-#                    03_efm32_uart_bootloader\iar\bootloader-tg840\Release\Ex #
-#                    e\bootloader-tg840.out                                   #
-#    Map file     =  E:\kren\Firmware\HiJack\branches\uart_bootloader\an\an00 #
-#                    03_efm32_uart_bootloader\iar\bootloader-tg840\Release\Li #
-#                    st\bootloader-tg840.map                                  #
-#    Command line =  E:\kren\Firmware\HiJack\branches\uart_bootloader\an\an00 #
-#                    03_efm32_uart_bootloader\iar\bootloader-tg840\Release\Ob #
-#                    j\autobaud.o E:\kren\Firmware\HiJack\branches\uart_bootl #
-#                    oader\an\an0003_efm32_uart_bootloader\iar\bootloader-tg8 #
-#                    40\Release\Obj\boot.o E:\kren\Firmware\HiJack\branches\u #
+#    Output file  =  D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Rele #
+#                    ase\Exe\bootloader-tg840.out                             #
+#    Map file     =  D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Rele #
+#                    ase\List\bootloader-tg840.map                            #
+#    Command line =  D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Rele #
+#                    ase\Obj\autobaud.o D:\Firmware\my-project-hihack\branche #
+#                    s\uart_bootloader\an\an0003_efm32_uart_bootloader\iar\bo #
+#                    otloader-tg840\Release\Obj\boot.o                        #
+#                    D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Rele #
+#                    ase\Obj\bootloader.o D:\Firmware\my-project-hihack\branc #
+#                    hes\uart_bootloader\an\an0003_efm32_uart_bootloader\iar\ #
+#                    bootloader-tg840\Release\Obj\crc.o                       #
+#                    D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Rele #
+#                    ase\Obj\debug.o D:\Firmware\my-project-hihack\branches\u #
 #                    art_bootloader\an\an0003_efm32_uart_bootloader\iar\bootl #
-#                    oader-tg840\Release\Obj\bootloader.o                     #
-#                    E:\kren\Firmware\HiJack\branches\uart_bootloader\an\an00 #
-#                    03_efm32_uart_bootloader\iar\bootloader-tg840\Release\Ob #
-#                    j\crc.o E:\kren\Firmware\HiJack\branches\uart_bootloader #
-#                    \an\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Re #
-#                    lease\Obj\debug.o E:\kren\Firmware\HiJack\branches\uart_ #
-#                    bootloader\an\an0003_efm32_uart_bootloader\iar\bootloade #
-#                    r-tg840\Release\Obj\debuglock.o                          #
-#                    E:\kren\Firmware\HiJack\branches\uart_bootloader\an\an00 #
-#                    03_efm32_uart_bootloader\iar\bootloader-tg840\Release\Ob #
-#                    j\em_cmu.o E:\kren\Firmware\HiJack\branches\uart_bootloa #
-#                    der\an\an0003_efm32_uart_bootloader\iar\bootloader-tg840 #
-#                    \Release\Obj\flash.o E:\kren\Firmware\HiJack\branches\ua #
-#                    rt_bootloader\an\an0003_efm32_uart_bootloader\iar\bootlo #
-#                    ader-tg840\Release\Obj\iarwrite.o                        #
-#                    E:\kren\Firmware\HiJack\branches\uart_bootloader\an\an00 #
-#                    03_efm32_uart_bootloader\iar\bootloader-tg840\Release\Ob #
-#                    j\startup_efm32.o E:\kren\Firmware\HiJack\branches\uart_ #
-#                    bootloader\an\an0003_efm32_uart_bootloader\iar\bootloade #
-#                    r-tg840\Release\Obj\system_efm32tg.o                     #
-#                    E:\kren\Firmware\HiJack\branches\uart_bootloader\an\an00 #
-#                    03_efm32_uart_bootloader\iar\bootloader-tg840\Release\Ob #
-#                    j\usart.o E:\kren\Firmware\HiJack\branches\uart_bootload #
-#                    er\an\an0003_efm32_uart_bootloader\iar\bootloader-tg840\ #
-#                    Release\Obj\xmodem.o --redirect _Printf=_PrintfFull      #
+#                    oader-tg840\Release\Obj\debuglock.o                      #
+#                    D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Rele #
+#                    ase\Obj\em_cmu.o D:\Firmware\my-project-hihack\branches\ #
+#                    uart_bootloader\an\an0003_efm32_uart_bootloader\iar\boot #
+#                    loader-tg840\Release\Obj\flash.o                         #
+#                    D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Rele #
+#                    ase\Obj\iarwrite.o D:\Firmware\my-project-hihack\branche #
+#                    s\uart_bootloader\an\an0003_efm32_uart_bootloader\iar\bo #
+#                    otloader-tg840\Release\Obj\startup_efm32.o               #
+#                    D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Rele #
+#                    ase\Obj\system_efm32tg.o D:\Firmware\my-project-hihack\b #
+#                    ranches\uart_bootloader\an\an0003_efm32_uart_bootloader\ #
+#                    iar\bootloader-tg840\Release\Obj\usart.o                 #
+#                    D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Rele #
+#                    ase\Obj\xmodem.o --redirect _Printf=_PrintfFull          #
 #                    --redirect _Scanf=_ScanfFull -o                          #
-#                    E:\kren\Firmware\HiJack\branches\uart_bootloader\an\an00 #
-#                    03_efm32_uart_bootloader\iar\bootloader-tg840\Release\Ex #
-#                    e\bootloader-tg840.out --map                             #
-#                    E:\kren\Firmware\HiJack\branches\uart_bootloader\an\an00 #
-#                    03_efm32_uart_bootloader\iar\bootloader-tg840\Release\Li #
-#                    st\bootloader-tg840.map --config                         #
-#                    E:\kren\Firmware\HiJack\branches\uart_bootloader\an\an00 #
-#                    03_efm32_uart_bootloader\iar\..\iar_linker_files\EFM32TG #
-#                    840F32.icf --entry __iar_program_start --inline --vfe    #
+#                    D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Rele #
+#                    ase\Exe\bootloader-tg840.out --map                       #
+#                    D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Rele #
+#                    ase\List\bootloader-tg840.map --config                   #
+#                    D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\..\iar_linker_files\E #
+#                    FM32TG840F32.icf --entry __iar_program_start --inline    #
+#                    --vfe                                                    #
 #                                                                             #
 #                                                                             #
 ###############################################################################
@@ -157,7 +160,7 @@ Copy (__iar_copy_init3)
     Module            ro code  rw code  ro data  rw data  ro data  rw data
                                                            (abs)    (abs)
     ------            -------  -------  -------  -------  -------  -------
-E:\kren\Firmware\HiJack\branches\uart_bootloader\an\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Release\Obj: [1]
+D:\Firmware\my-project-hihack\branches\uart_bootloader\an\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Release\Obj: [1]
     startup_efm32.o         8
     system_efm32tg.o      988      820      864      324        8      210
     ----------------------------------------------------------------------
@@ -245,7 +248,7 @@ unknownString         0x20000468    0x8  Data  Gb  system_efm32tg.o [1]
 vectorTable           0x20000000   0xbc  Data  Gb  system_efm32tg.o [1]
 
 
-[1] = E:\kren\Firmware\HiJack\branches\uart_bootloader\an\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Release\Obj
+[1] = D:\Firmware\my-project-hihack\branches\uart_bootloader\an\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Release\Obj
 [2] = command line
 [3] = dl7M_tln.a
 [4] = rt7M_tl.a

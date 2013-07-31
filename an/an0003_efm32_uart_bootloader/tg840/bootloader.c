@@ -45,6 +45,8 @@
 /** Version string, used when the user connects */
 #define BOOTLOADER_VERSION_STRING "1.63 "
 #define APP_IS_READY_TAG 0xa5a55a5a
+/** Define USART baudrate. **/
+#define BOOTLOADER_BAUD_RATE 115200
 
 /* Vector table in RAM. We construct a new vector table to conserve space in
  * flash as it is sparsly populated. */
