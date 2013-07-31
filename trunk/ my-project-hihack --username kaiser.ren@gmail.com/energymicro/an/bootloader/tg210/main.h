@@ -105,4 +105,5 @@ typedef struct _circularBuffer_
 }buffer_t;
 
 extern uint32_t sys_tick;
+extern uint8_t rxByteChannel;
 #endif//_MAIN_H_
