@@ -41,6 +41,9 @@
 /** uart buffer size*/
 #define US_BUFFER_SIZE (200)
 
+/** bias step. */
+#define BIAS_STEP (MAX_DIGITAL/50)
+
 /*----------------------------------------------------------------------------
  *        Typedef
  *----------------------------------------------------------------------------*/
@@ -83,7 +86,7 @@ extern us_rx_t us1;
 extern const int16_t sine_data[SAMPLES];
 extern uint16_t amplitude ;
 extern uint16_t frequency ;
-
+extern int8_t bias;
 /*----------------------------------------------------------------------------
  *        External Function
  *----------------------------------------------------------------------------*/
