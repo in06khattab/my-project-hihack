@@ -34,7 +34,8 @@ uint8_t DACC_channel_sine = DACC_CHANNEL_0;
 uint16_t frequency = 0;
 /** amplitude */
 uint16_t amplitude = 0;
-
+/** offset. */
+int8_t bias = 0;
 /*----------------------------------------------------------------------------
  *        Static functions
  *----------------------------------------------------------------------------*/
@@ -111,7 +112,8 @@ void SysTick_Handler( void )
 
     {
 		if ( 0 == ( ticker%enc.factor) ){
-			value = sine_data[index_sample++] * amplitude / (MAX_DIGITAL/2) + MAX_DIGITAL/2;
+			value = sine_data[index_sample++] * amplitude / (MAX_DIGITAL/2)  \
+			  		+ MAX_DIGITAL/2 /*- MAX_DIGITAL/50*/ + BIAS_STEP*bias ;
         	DACC_SetConversionData(DACC, value ) ;
 			DACC->DACC_IER = DACC_IER_EOC;
 		}
@@ -142,7 +144,7 @@ void TC0_IrqHandler( void )
 void enc_init(void)
 {
 	/* initialize amplitude and frequency */
-    amplitude = MAX_DIGITAL / 2;
+    amplitude = MAX_DIGITAL * 2 / 5;
     frequency = HIJACK_CARRIER_FREQ_CONF;
 
     /*10 us timer*/

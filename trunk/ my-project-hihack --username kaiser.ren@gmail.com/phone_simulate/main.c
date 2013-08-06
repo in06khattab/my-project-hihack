@@ -136,6 +136,13 @@ const Pin pins[] = {
     BOARD_PIN_PA18B_PCK2
 };
 
+/** Pushbutton \#1 pin instance. */
+const Pin pinPB1 = PIN_PUSHBUTTON_1;
+const Pin pinPB2 = PIN_PUSHBUTTON_2;
+
+/** Pushbutton \#1 pin event flag. */
+volatile bool button1Evt = false;
+volatile bool button2Evt = false;
 
 /** usart1 rx entity. **/
 us_rx_t us1 = {.count = 0, .head = 0, .tail = 0};
@@ -178,6 +185,62 @@ const int16_t cosine_data[SAMPLES]=
 /*----------------------------------------------------------------------------
  *        Local functions
  *----------------------------------------------------------------------------*/
+/**
+ *  \brief Handler for Button 1 rising edge interrupt.
+ *
+ *  Set button1 event flag (button1Evt).
+ */
+static void _Button1_Handler( const Pin *pin )
+{
+    if ( pin->mask == pinPB1.mask && pin->id == pinPB1.id )
+    {
+        button1Evt = true ;
+		bias++;
+    }
+    else
+    {
+        button1Evt = false ;
+    }
+}
+
+static void _Button2_Handler( const Pin *pin )
+{
+    if ( pin->mask == pinPB2.mask && pin->id == pinPB2.id )
+    {
+        button2Evt = true ;
+		bias--;
+    }
+    else
+    {
+        button2Evt = false ;
+    }
+}
+
+
+/**
+ *  \brief Configure the Pushbutton
+ *
+ *  Configure the PIO as inputs and generate corresponding interrupt when
+ *  pressed or released.
+ */
+static void _ConfigureButton( void )
+{
+    /* Configure pios as inputs. */
+    PIO_Configure(&pinPB1, 1 );
+	PIO_Configure(&pinPB2, 1 );
+    /* Adjust pio debounce filter parameters, uses 10 Hz filter. */
+    PIO_SetDebounceFilter(&pinPB1, 10);
+	PIO_SetDebounceFilter(&pinPB2, 10);
+    /* Initialize pios interrupt handlers, see PIO definition in board.h. */
+    PIO_ConfigureIt( &pinPB1, _Button1_Handler); /* Interrupt on rising edge  */
+	PIO_ConfigureIt( &pinPB2, _Button2_Handler); /* Interrupt on rising edge  */
+    /* Enable PIO controller IRQs. */
+    NVIC_EnableIRQ(PIOB_IRQn);
+	NVIC_EnableIRQ(PIOC_IRQn);
+    /* Enable PIO line interrupts. */
+    PIO_EnableIt(&pinPB1);
+	PIO_EnableIt(&pinPB2);
+}
 
 /**
  * \brief Get input from user, the biggest 4-digit decimal number is allowed
@@ -287,6 +350,9 @@ extern int main( void )
 	
 	/* Configure pins*/
     PIO_Configure( pins, PIO_LISTSIZE( pins ) ) ;
+	
+	/* Configure buttion. */
+	_ConfigureButton();
 
 #if defined	sam3s4	
 	/* Configure leds . */
