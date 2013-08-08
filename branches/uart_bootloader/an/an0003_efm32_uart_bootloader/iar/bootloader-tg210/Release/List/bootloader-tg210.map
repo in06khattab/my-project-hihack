@@ -1,68 +1,53 @@
 ###############################################################################
 #                                                                             #
-# IAR ELF Linker V6.30.6.53336/W32 for ARM              18/Feb/2013  11:10:19 #
+# IAR ELF Linker V6.30.6.53336/W32 for ARM              08/Aug/2013  15:10:06 #
 # Copyright 2007-2012 IAR Systems AB.                                         #
 #                                                                             #
-#    Output file  =  D:\Firmware\my-project-hihack\trunk\ my-project-hihack   #
-#                    --username kaiser.ren@gmail.com\energymicro\an\an0003_ef #
-#                    m32_uart_bootloader\iar\bootloader-tg210\Release\Exe\boo #
-#                    tloader-tg210.out                                        #
-#    Map file     =  D:\Firmware\my-project-hihack\trunk\ my-project-hihack   #
-#                    --username kaiser.ren@gmail.com\energymicro\an\an0003_ef #
-#                    m32_uart_bootloader\iar\bootloader-tg210\Release\List\bo #
-#                    otloader-tg210.map                                       #
-#    Command line =  "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
-#                    --username kaiser.ren@gmail.com\energymicro\an\an0003_ef #
-#                    m32_uart_bootloader\iar\bootloader-tg210\Release\Obj\aut #
-#                    obaud.o" "D:\Firmware\my-project-hihack\trunk\           #
-#                    my-project-hihack --username                             #
-#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
-#                    otloader\iar\bootloader-tg210\Release\Obj\boot.o"        #
-#                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
-#                    --username kaiser.ren@gmail.com\energymicro\an\an0003_ef #
-#                    m32_uart_bootloader\iar\bootloader-tg210\Release\Obj\boo #
-#                    tloader.o" "D:\Firmware\my-project-hihack\trunk\         #
-#                    my-project-hihack --username                             #
-#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
-#                    otloader\iar\bootloader-tg210\Release\Obj\crc.o"         #
-#                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
-#                    --username kaiser.ren@gmail.com\energymicro\an\an0003_ef #
-#                    m32_uart_bootloader\iar\bootloader-tg210\Release\Obj\deb #
-#                    ug.o" "D:\Firmware\my-project-hihack\trunk\              #
-#                    my-project-hihack --username                             #
-#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
-#                    otloader\iar\bootloader-tg210\Release\Obj\debuglock.o"   #
-#                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
-#                    --username kaiser.ren@gmail.com\energymicro\an\an0003_ef #
-#                    m32_uart_bootloader\iar\bootloader-tg210\Release\Obj\fla #
-#                    sh.o" "D:\Firmware\my-project-hihack\trunk\              #
-#                    my-project-hihack --username                             #
-#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
-#                    otloader\iar\bootloader-tg210\Release\Obj\iarwrite.o"    #
-#                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
-#                    --username kaiser.ren@gmail.com\energymicro\an\an0003_ef #
-#                    m32_uart_bootloader\iar\bootloader-tg210\Release\Obj\sta #
-#                    rtup_efm32.o" "D:\Firmware\my-project-hihack\trunk\      #
-#                    my-project-hihack --username                             #
-#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
-#                    otloader\iar\bootloader-tg210\Release\Obj\usart.o"       #
-#                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
-#                    --username kaiser.ren@gmail.com\energymicro\an\an0003_ef #
-#                    m32_uart_bootloader\iar\bootloader-tg210\Release\Obj\xmo #
-#                    dem.o" --redirect _Printf=_PrintfFull --redirect         #
-#                    _Scanf=_ScanfFull -o "D:\Firmware\my-project-hihack\trun #
-#                    k\ my-project-hihack --username                          #
-#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
-#                    otloader\iar\bootloader-tg210\Release\Exe\bootloader-tg2 #
-#                    10.out" --map "D:\Firmware\my-project-hihack\trunk\      #
-#                    my-project-hihack --username                             #
-#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
-#                    otloader\iar\bootloader-tg210\Release\List\bootloader-tg #
-#                    210.map" --config "D:\Firmware\my-project-hihack\trunk\  #
-#                    my-project-hihack --username                             #
-#                    kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bo #
-#                    otloader\iar\..\iar_linker_files\EFM32TG210F32.icf"      #
-#                    --entry __iar_program_start --inline --vfe               #
+#    Output file  =  D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg210\Rele #
+#                    ase\Exe\bootloader-tg210.out                             #
+#    Map file     =  D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg210\Rele #
+#                    ase\List\bootloader-tg210.map                            #
+#    Command line =  D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg210\Rele #
+#                    ase\Obj\autobaud.o D:\Firmware\my-project-hihack\branche #
+#                    s\uart_bootloader\an\an0003_efm32_uart_bootloader\iar\bo #
+#                    otloader-tg210\Release\Obj\boot.o                        #
+#                    D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg210\Rele #
+#                    ase\Obj\bootloader.o D:\Firmware\my-project-hihack\branc #
+#                    hes\uart_bootloader\an\an0003_efm32_uart_bootloader\iar\ #
+#                    bootloader-tg210\Release\Obj\crc.o                       #
+#                    D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg210\Rele #
+#                    ase\Obj\debug.o D:\Firmware\my-project-hihack\branches\u #
+#                    art_bootloader\an\an0003_efm32_uart_bootloader\iar\bootl #
+#                    oader-tg210\Release\Obj\debuglock.o                      #
+#                    D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg210\Rele #
+#                    ase\Obj\flash.o D:\Firmware\my-project-hihack\branches\u #
+#                    art_bootloader\an\an0003_efm32_uart_bootloader\iar\bootl #
+#                    oader-tg210\Release\Obj\iarwrite.o                       #
+#                    D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg210\Rele #
+#                    ase\Obj\startup_efm32.o D:\Firmware\my-project-hihack\br #
+#                    anches\uart_bootloader\an\an0003_efm32_uart_bootloader\i #
+#                    ar\bootloader-tg210\Release\Obj\usart.o                  #
+#                    D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg210\Rele #
+#                    ase\Obj\xmodem.o --redirect _Printf=_PrintfFull          #
+#                    --redirect _Scanf=_ScanfFull -o                          #
+#                    D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg210\Rele #
+#                    ase\Exe\bootloader-tg210.out --map                       #
+#                    D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\bootloader-tg210\Rele #
+#                    ase\List\bootloader-tg210.map --config                   #
+#                    D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
+#                    n\an0003_efm32_uart_bootloader\iar\..\iar_linker_files\E #
+#                    FM32TG210F32.icf --entry __iar_program_start --inline    #
+#                    --vfe                                                    #
 #                                                                             #
 #                                                                             #
 ###############################################################################
@@ -162,7 +147,7 @@ Copy (__iar_copy_init3)
     Module           ro code  rw code  ro data  rw data  rw data
                                                           (abs)
     ------           -------  -------  -------  -------  -------
-D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bootloader\iar\bootloader-tg210\Release\Obj: [1]
+D:\Firmware\my-project-hihack\branches\uart_bootloader\an\an0003_efm32_uart_bootloader\iar\bootloader-tg210\Release\Obj: [1]
     autobaud.o           440    1 004    1 080      380      206
     startup_efm32.o        8
     ------------------------------------------------------------
@@ -253,7 +238,7 @@ vectorTable             0x20000000   0xbc  Data  Gb  autobaud.o [1]
 verify                  0x20000169   0x24  Code  Gb  autobaud.o [1]
 
 
-[1] = D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\energymicro\an\an0003_efm32_uart_bootloader\iar\bootloader-tg210\Release\Obj
+[1] = D:\Firmware\my-project-hihack\branches\uart_bootloader\an\an0003_efm32_uart_bootloader\iar\bootloader-tg210\Release\Obj
 [2] = command line
 [3] = dl7M_tln.a
 [4] = rt7M_tl.a
