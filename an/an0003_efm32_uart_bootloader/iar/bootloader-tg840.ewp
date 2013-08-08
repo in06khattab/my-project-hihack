@@ -569,7 +569,7 @@
         <option>
           <name>OOCOutputFormat</name>
           <version>2</version>
-          <state>1</state>
+          <state>2</state>
         </option>
         <option>
           <name>OCOutputOverride</name>
@@ -577,7 +577,7 @@
         </option>
         <option>
           <name>OOCOutputFile</name>
-          <state>$PROJ_FNAME$.hex</state>
+          <state>$PROJ_FNAME$.bin</state>
         </option>
         <option>
           <name>OOCCommandLineProducer</name>
@@ -607,7 +607,7 @@
       <archiveVersion>1</archiveVersion>
       <data>
         <prebuild></prebuild>
-        <postbuild></postbuild>
+        <postbuild>ielftool --ihex "$TARGET_BPATH$.out" "$TARGET_BPATH$.hex"</postbuild>
       </data>
     </settings>
     <settings>
@@ -1490,7 +1490,7 @@
         <option>
           <name>OOCOutputFormat</name>
           <version>2</version>
-          <state>1</state>
+          <state>2</state>
         </option>
         <option>
           <name>OCOutputOverride</name>
@@ -1498,7 +1498,7 @@
         </option>
         <option>
           <name>OOCOutputFile</name>
-          <state>$PROJ_FNAME$.hex</state>
+          <state>$PROJ_FNAME$.bin</state>
         </option>
         <option>
           <name>OOCCommandLineProducer</name>
@@ -1528,7 +1528,7 @@
       <archiveVersion>1</archiveVersion>
       <data>
         <prebuild></prebuild>
-        <postbuild></postbuild>
+        <postbuild>ielftool --ihex "$TARGET_BPATH$.out" "$TARGET_BPATH$.hex"</postbuild>
       </data>
     </settings>
     <settings>
