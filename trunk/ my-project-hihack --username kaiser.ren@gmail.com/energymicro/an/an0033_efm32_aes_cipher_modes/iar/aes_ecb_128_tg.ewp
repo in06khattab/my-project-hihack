@@ -99,7 +99,7 @@
         </option>
         <option>
           <name>OGChipSelectEditMenu</name>
-          <state>EFM32G890F128	EnergyMicro EFM32G890F128</state>
+          <state>EFM32TG840F32	EnergyMicro EFM32TG840F32</state>
         </option>
         <option>
           <name>GenLowLevelInterface</name>
@@ -694,7 +694,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>$TOOLKIT_DIR$\config\linker\EnergyMicro\EFM32G890F128.icf</state>
+          <state>$TOOLKIT_DIR$\config\linker\EnergyMicro\EFM32TG840F32.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -1846,19 +1846,7 @@
   <group>
     <name>CMSIS</name>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Device\EnergyMicro\EFM32G\Source\IAR\startup_efm32g.s</name>
-      <excluded>
-        <configuration>Debug</configuration>
-      </excluded>
-    </file>
-    <file>
       <name>$PROJ_DIR$\..\..\..\Device\EnergyMicro\EFM32TG\Source\IAR\startup_efm32tg.s</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\Device\EnergyMicro\EFM32G\Source\system_efm32g.c</name>
-      <excluded>
-        <configuration>Debug</configuration>
-      </excluded>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\Device\EnergyMicro\EFM32TG\Source\system_efm32tg.c</name>
