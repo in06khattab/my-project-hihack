@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<workspace>
+  <project>
+    <path>$WS_DIR$\aes_ecb_128_g.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\aes_cbc_128_g.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\aes_cfb_128_g.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\aes_cbc_128_dma_wg.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\aes_ecb_128_tg.ewp</path>
+  </project>
+  <batchBuild/>
+</workspace>
+
+
