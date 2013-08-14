@@ -64,11 +64,11 @@ uint32_t vectorTable[47] __attribute__((aligned(512)));
 #pragma location=0x200000fc
 __no_init uint32_t bootTagRam;
 
-#pragma location=(BOOTLOADER_SIZE + 0xfc)
-__root const uint32_t bootTagHead;
+//#pragma location=(BOOTLOADER_SIZE + 0xfc)
+//__no_init  const uint32_t bootTagHead;
 
-#pragma location=0x7ffc
-__root const uint32_t bootTagTail;
+//#pragma location=0x7ffc
+//__no_init  const uint32_t bootTagTail;
 
 /*
  * This variable holds the computed CRC-16 of the bootloader and is used during
@@ -143,7 +143,7 @@ uint8_t IsBootReady(void)
   }
 
   //pro 2
-  if ( ( bootTagHead == APP_IS_READY_TAG ) && ( bootTagTail == APP_IS_READY_TAG ) ){
+  if ( ( *(uint32_t*)APP_VALID_HEAD_ADDR == APP_IS_READY_TAG ) && ( *(uint32_t*)APP_VALID_TAIL_ADDR == APP_IS_READY_TAG ) ){
 	 return 1;
   }
 
