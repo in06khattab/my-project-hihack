@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR ELF Linker V6.30.6.53336/W32 for ARM              31/Jul/2013  12:57:36 #
+# IAR ELF Linker V6.30.6.53336/W32 for ARM              14/Aug/2013  14:18:08 #
 # Copyright 2007-2012 IAR Systems AB.                                         #
 #                                                                             #
 #    Output file  =  D:\Firmware\my-project-hihack\branches\uart_bootloader\a #
@@ -99,20 +99,12 @@ __SystemLibrary = DLib
   Initializer bytes  ro data  0x000004ec  0x360  <for P2 s0>
                             - 0x0000084c  0x844
 
-Absolute sections, part 1 of 4:             0x4
-  .rodata            const    0x000020fc    0x4  system_efm32tg.o [1]
-                            - 0x00002100    0x4
-
-Absolute sections, part 2 of 4:             0x4
-  .rodata            const    0x00007ffc    0x4  system_efm32tg.o [1]
-                            - 0x00008000    0x4
-
-Absolute sections, part 3 of 4:            0xbe
+Absolute sections, part 1 of 2:            0xbe
   .noinit            uninit   0x20000000   0xbc  system_efm32tg.o [1]
   .noinit            uninit   0x200000bc    0x2  system_efm32tg.o [1]
                             - 0x200000be   0xbe
 
-Absolute sections, part 4 of 4:            0x14
+Absolute sections, part 2 of 2:            0x14
   .noinit            uninit   0x200000fc    0x4  system_efm32tg.o [1]
   .noinit            uninit   0x20000100   0x10  system_efm32tg.o [1]
                             - 0x20000110   0x14
@@ -157,22 +149,22 @@ Copy (__iar_copy_init3)
 *** MODULE SUMMARY
 ***
 
-    Module            ro code  rw code  ro data  rw data  ro data  rw data
-                                                           (abs)    (abs)
-    ------            -------  -------  -------  -------  -------  -------
+    Module            ro code  rw code  ro data  rw data  rw data
+                                                           (abs)
+    ------            -------  -------  -------  -------  -------
 D:\Firmware\my-project-hihack\branches\uart_bootloader\an\an0003_efm32_uart_bootloader\iar\bootloader-tg840\Release\Obj: [1]
     startup_efm32.o         8
-    system_efm32tg.o      988      820      864      324        8      210
-    ----------------------------------------------------------------------
-    Total:                996      820      864      324        8      210
+    system_efm32tg.o      988      820      864      324      210
+    -------------------------------------------------------------
+    Total:                996      820      864      324      210
 
 command line: [2]
-    ----------------------------------------------------------------------
+    -------------------------------------------------------------
     Total:
 
 dl7M_tln.a: [3]
     exit.o                  4
-    ----------------------------------------------------------------------
+    -------------------------------------------------------------
     Total:                  4
 
 rt7M_tl.a: [4]
@@ -184,13 +176,13 @@ rt7M_tl.a: [4]
     cstartup_M.o           12
     data_init3.o           44
     zero_init3.o           34
-    ----------------------------------------------------------------------
+    -------------------------------------------------------------
     Total:                180
 
     Gaps                    4
     Linker created         40                36    1 024
---------------------------------------------------------------------------
-    Grand Total:        1 224      820      900    1 348        8      210
+-----------------------------------------------------------------
+    Grand Total:        1 224      820      900    1 348      210
 
 
 *******************************************************************************
@@ -233,9 +225,7 @@ __vector_table        0x00000000         Data  Gb  startup_efm32.o [1]
 _call_main            0x000004b9         Code  Gb  cmain.o [4]
 _exit                 0x000004c9         Code  Gb  cexit.o [4]
 _main                 0x000004bf         Code  Gb  cmain.o [4]
-bootTagHead           0x000020fc    0x4  Data  Gb  system_efm32tg.o [1]
 bootTagRam            0x200000fc    0x4  Data  Gb  system_efm32tg.o [1]
-bootTagTail           0x00007ffc    0x4  Data  Gb  system_efm32tg.o [1]
 bootloaderCRC         0x200000bc    0x2  Data  Gb  system_efm32tg.o [1]
 commandlineLoop       0x2000015f   0x88  Code  Gb  system_efm32tg.o [1]
 descr                 0x20000100   0x10  Data  Gb  system_efm32tg.o [1]
@@ -255,7 +245,7 @@ vectorTable           0x20000000   0xbc  Data  Gb  system_efm32tg.o [1]
 
   1 224 bytes of readonly  code memory
     820 bytes of readwrite code memory
-    900 bytes of readonly  data memory (+ 8   absolute)
+    900 bytes of readonly  data memory
   1 348 bytes of readwrite data memory (+ 210 absolute)
 
 Errors: none

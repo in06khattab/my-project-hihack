@@ -45,6 +45,15 @@
 /** The size of the bootloader flash image */
 #define BOOTLOADER_SIZE      0x2000
 
+/** The size of the maximum flash image */
+#define APPLICATION_SIZE      0x6000
+
+/** The address of head of application valid tag.  */
+#define APP_VALID_HEAD_ADDR (BOOTLOADER_SIZE + 0xfc)
+
+/** The address of head of application valid tag.  */
+#define APP_VALID_TAIL_ADDR (BOOTLOADER_SIZE + APPLICATION_SIZE - 4)
+
 /** USART used for communication. */
 #define BOOTLOADER_USART           USART0
 #define BOOTLOADER_USART_CLOCK     CMU_HFPERCLKEN0_USART0
