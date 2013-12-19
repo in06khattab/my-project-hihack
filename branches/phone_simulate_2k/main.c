@@ -375,6 +375,11 @@ extern int main( void )
 #if defined	__SAM4S16C__
     printf( "-- Platform: sam4s-xplained --\r\n" ) ;
 #endif
+#if HIJACK_CARRIER_FREQ_CONF==HIJACK_CARRIER_FREQ_1KHZ
+	 printf( "-- Carrier: 1000Hz --\r\n" ) ;
+#elif HIJACK_CARRIER_FREQ_CONF==HIJACK_CARRIER_FREQ_2KHZ
+	 printf( "-- Carrier: 2000Hz --\r\n" );
+#endif
 	
 	/* Initialize encode function. */
    	enc_init();
