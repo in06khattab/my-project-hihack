@@ -1,39 +1,45 @@
 ###############################################################################
 #                                                                             #
-# IAR ELF Linker V6.30.6.53336/W32 for ARM              06/Aug/2013  13:01:59 #
+# IAR ELF Linker V6.30.6.53336/W32 for ARM              07/Feb/2014  12:35:24 #
 # Copyright 2007-2012 IAR Systems AB.                                         #
 #                                                                             #
-#    Output file  =  D:\Firmware\my-project-hihack\trunk\ my-project-hihack   #
-#                    --username kaiser.ren@gmail.com\phone_simulate\build\ewa #
-#                    rm_630\sam3s\Exe\sam3s.out                               #
-#    Map file     =  D:\Firmware\my-project-hihack\trunk\ my-project-hihack   #
-#                    --username kaiser.ren@gmail.com\phone_simulate\build\ewa #
-#                    rm_630\sam3s\List\sam3s.map                              #
-#    Command line =  "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
-#                    --username kaiser.ren@gmail.com\phone_simulate\build\ewa #
-#                    rm_630\sam3s\Obj\decode.o" "D:\Firmware\my-project-hihac #
-#                    k\trunk\ my-project-hihack --username                    #
-#                    kaiser.ren@gmail.com\phone_simulate\build\ewarm_630\sam3 #
-#                    s\Obj\encode.o" "D:\Firmware\my-project-hihack\trunk\    #
-#                    my-project-hihack --username                             #
-#                    kaiser.ren@gmail.com\phone_simulate\build\ewarm_630\sam3 #
-#                    s\Obj\main.o" "D:\Firmware\my-project-hihack\trunk\      #
-#                    my-project-hihack --username                             #
-#                    kaiser.ren@gmail.com\phone_simulate\libboard_sam3s-ek\li #
-#                    b\libboard_sam3s_ek_ewarm_dbg.a"                         #
-#                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
-#                    --username kaiser.ren@gmail.com\phone_simulate\libchip_s #
-#                    am3s\lib\libchip_sam3s4_ewarm_dbg.a" --redirect          #
+#    Output file  =  D:\Firmware\svn\hijack\branches\phone_simulate_cipher\bu #
+#                    ild\ewarm_630\sam3s\Exe\sam3s.out                        #
+#    Map file     =  D:\Firmware\svn\hijack\branches\phone_simulate_cipher\bu #
+#                    ild\ewarm_630\sam3s\List\sam3s.map                       #
+#    Command line =  D:\Firmware\svn\hijack\branches\phone_simulate_cipher\bu #
+#                    ild\ewarm_630\sam3s\Obj\aes128_dec.o                     #
+#                    D:\Firmware\svn\hijack\branches\phone_simulate_cipher\bu #
+#                    ild\ewarm_630\sam3s\Obj\aes128_enc.o                     #
+#                    D:\Firmware\svn\hijack\branches\phone_simulate_cipher\bu #
+#                    ild\ewarm_630\sam3s\Obj\aes_dec.o                        #
+#                    D:\Firmware\svn\hijack\branches\phone_simulate_cipher\bu #
+#                    ild\ewarm_630\sam3s\Obj\aes_enc.o                        #
+#                    D:\Firmware\svn\hijack\branches\phone_simulate_cipher\bu #
+#                    ild\ewarm_630\sam3s\Obj\aes_invsbox.o                    #
+#                    D:\Firmware\svn\hijack\branches\phone_simulate_cipher\bu #
+#                    ild\ewarm_630\sam3s\Obj\aes_keyschedule.o                #
+#                    D:\Firmware\svn\hijack\branches\phone_simulate_cipher\bu #
+#                    ild\ewarm_630\sam3s\Obj\aes_sbox.o                       #
+#                    D:\Firmware\svn\hijack\branches\phone_simulate_cipher\bu #
+#                    ild\ewarm_630\sam3s\Obj\decode.o                         #
+#                    D:\Firmware\svn\hijack\branches\phone_simulate_cipher\bu #
+#                    ild\ewarm_630\sam3s\Obj\encode.o                         #
+#                    D:\Firmware\svn\hijack\branches\phone_simulate_cipher\bu #
+#                    ild\ewarm_630\sam3s\Obj\gf256mul.o                       #
+#                    D:\Firmware\svn\hijack\branches\phone_simulate_cipher\bu #
+#                    ild\ewarm_630\sam3s\Obj\main.o                           #
+#                    D:\Firmware\svn\hijack\branches\phone_simulate_cipher\li #
+#                    bboard_sam3s-ek\lib\libboard_sam3s_ek_ewarm_dbg.a        #
+#                    D:\Firmware\svn\hijack\branches\phone_simulate_cipher\li #
+#                    bchip_sam3s\lib\libchip_sam3s4_ewarm_dbg.a --redirect    #
 #                    _Printf=_PrintfSmall --redirect _Scanf=_ScanfSmall -o    #
-#                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
-#                    --username kaiser.ren@gmail.com\phone_simulate\build\ewa #
-#                    rm_630\sam3s\Exe\sam3s.out" --map                        #
-#                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
-#                    --username kaiser.ren@gmail.com\phone_simulate\build\ewa #
-#                    rm_630\sam3s\List\sam3s.map" --config                    #
-#                    "D:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
-#                    --username kaiser.ren@gmail.com\phone_simulate\build\ewa #
-#                    rm_630/../../resource/sam3s4c/flash.icf" --entry         #
+#                    D:\Firmware\svn\hijack\branches\phone_simulate_cipher\bu #
+#                    ild\ewarm_630\sam3s\Exe\sam3s.out --map                  #
+#                    D:\Firmware\svn\hijack\branches\phone_simulate_cipher\bu #
+#                    ild\ewarm_630\sam3s\List\sam3s.map --config              #
+#                    D:\Firmware\svn\hijack\branches\phone_simulate_cipher\bu #
+#                    ild\ewarm_630/../../resource/sam3s4c/flash.icf --entry   #
 #                    __iar_program_start --vfe                                #
 #                                                                             #
 #                                                                             #
@@ -183,7 +189,7 @@ Zero (__iar_zero_init3)
 
     Module                ro code  ro data  rw data
     ------                -------  -------  -------
-D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\phone_simulate\build\ewarm_630\sam3s\Obj: [1]
+D:\Firmware\svn\hijack\branches\phone_simulate_cipher\build\ewarm_630\sam3s\Obj: [1]
     decode.o                  868       12       18
     encode.o                1 708                17
     main.o                  1 188      860      206
@@ -407,7 +413,7 @@ us1_get_char            0x004003c3   0x50  Code  Gb  encode.o [1]
 us1_get_count           0x004003bb    0x8  Code  Gb  encode.o [1]
 
 
-[1] = D:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\phone_simulate\build\ewarm_630\sam3s\Obj
+[1] = D:\Firmware\svn\hijack\branches\phone_simulate_cipher\build\ewarm_630\sam3s\Obj
 [2] = command line
 [3] = dl7M_tln.a
 [4] = libboard_sam3s_ek_ewarm_dbg.a
