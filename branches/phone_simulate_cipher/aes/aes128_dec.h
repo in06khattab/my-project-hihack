@@ -1,5 +1,5 @@
-/* aes128_dec.h */
 /*
+	aes128_dec.h
     This file is part of the ARM-Crypto-Lib.
     Copyright (C) 2008  Daniel Otte (daniel.otte@rub.de)
 

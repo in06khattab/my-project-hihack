@@ -1,4 +1,6 @@
-/* aes inverted sbox */
+/*
+	aes inverted sbox
+*/
 
 #include <stdint.h>
 

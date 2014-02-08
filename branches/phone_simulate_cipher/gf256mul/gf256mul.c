@@ -1,5 +1,5 @@
-/* gf256mul.c */
 /*
+	gf256mul.c
     This file is part of the ARM-Crypto-Lib.
     Copyright (C) 2006-2010  Daniel Otte (daniel.otte@rub.de)
 

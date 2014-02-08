@@ -186,6 +186,57 @@ void enc_init(void)
 	 DACC->DACC_IER = DACC_IER_EOC;	//Enable DACC end-of-convertion interrupt
 }
 
+/******************************************************************************
+ * @brief  HIJACKPutData function
+ *
+ *****************************************************************************/
+void HIJACKPutData(uint8_t * dataPtr, buffer_t * dstBuf, uint32_t dataLen)
+{
+  uint8_t i = 0;
+  uint8_t len = 0;
+  uint8_t round = 0;
+  buffer_t* ptr = dstBuf;
+
+  /* Check if buffer is large enough for data */
+  if (dataLen > BUFFERSIZE)
+  {
+    /* Buffer can never fit the requested amount of data */
+    return;
+  }
+
+  /* Check if buffer has room for new data */
+  if ((ptr->pendingBytes + dataLen) > BUFFERSIZE)
+  {
+    /* Wait until room */
+    while ( (ptr->pendingBytes + dataLen) > BUFFERSIZE) ;
+  }
+
+  /* Fill dataPtr[0:dataLen-1] into txBuffer */
+#if CRITICAL_PROTECTION==1
+  __disable_irq();
+#endif
+
+  while (i < dataLen){
+    ptr->data[ptr->wrI] = *(dataPtr + i);
+    ptr->wrI             = (ptr->wrI + 1) % BUFFERSIZE;
+    i++;
+  }
+
+  /* Increment pending byte counter */
+  //ptr->pendingBytes += dataLen;
+
+  // Calculate the round
+  round = 16 - ( ( dataLen % 16 ) == 0 ? 16 : ( dataLen % 16 ) ) ;
+  len = dataLen + round;
+  ptr->wrI = (ptr->wrI + round) % BUFFERSIZE;
+
+#if CRITICAL_PROTECTION==1
+  __enable_irq();
+#endif
+
+  ptr->pendingBytes += len;
+}
+
 /*----------------------------------------------------------------------------
  *        Exported functions
  *----------------------------------------------------------------------------*/

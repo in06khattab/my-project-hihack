@@ -54,6 +54,9 @@
 /* how manu ticks when precision is about 5%. */
 #define HIJACK_NUM_TICKS_PER_5_PCNT	(HIJACK_NUM_TICKS_PER_FULL_CYCLE/20)
 
+/* Declare a circular buffer structure to use for Rx and Tx queues */
+#define BUFFERSIZE          128
+
 /*----------------------------------------------------------------------------
  *        Typedef
  *----------------------------------------------------------------------------*/
@@ -89,5 +92,15 @@ typedef enum modulation_state_tag
 	Sto1,
 	Parity
 }state_t;
+
+typedef struct _circularBuffer_
+{
+
+  uint32_t rdI;               /* read index */
+  uint32_t wrI;               /* write index */
+  uint32_t pendingBytes;      /* count of how many bytes are not yet handled */
+  bool     overflow;          /* buffer overflow indicator */
+  uint8_t  data[BUFFERSIZE];  /* data buffer */
+}buffer_t;
 
 #endif//_MAIN_H_

@@ -1,5 +1,5 @@
-/* aes sbox */
 /*
+	aes sbox
     This file is part of the ARM-Crypto-Lib.
     Copyright (C) 2006-2010  Daniel Otte (daniel.otte@rub.de)
 

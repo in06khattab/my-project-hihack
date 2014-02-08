@@ -1,5 +1,5 @@
-/* aes_enc.c */
 /*
+	aes_enc.c
     This file is part of the ARM-Crypto-Lib.
     Copyright (C) 2006-2010  Daniel Otte (daniel.otte@rub.de)
 
@@ -19,10 +19,10 @@
 /**
  * \file     aes_enc.c
  * \email    daniel.otte@rub.de
- * \author   Daniel Otte 
+ * \author   Daniel Otte
  * \date     2008-12-30
  * \license  GPLv3 or later
- * 
+ *
  */
 
 #include <stdint.h>
