@@ -352,9 +352,6 @@ static void _DisplayMenuChoices( void )
  */
 extern int main( void )
 {
-    uint8_t c ;
-    int16_t freq, amp ;
-
     /* Disable watchdog */
     WDT_Disable( WDT ) ;
 	
@@ -424,11 +421,11 @@ extern int main( void )
 
     while( 1 )
     {
-		aes128_enc(data, &ctx); /* encrypting the data block */
+		//aes128_enc(data, &ctx); /* encrypting the data block */
 
-		aes128_dec(data, &ctx); /* decrypting the data block */
+		//aes128_dec(data, &ctx); /* decrypting the data block */
 		
-	  	if(edge_occur){
+	  	/*if(edge_occur){
 #if defined	__SAM4S16C__
     		XplnLED_Set(0);	//LED0 on
 #endif
@@ -447,57 +444,7 @@ extern int main( void )
 #if defined	sam3s4	
 			LED_Clear(0);	
 #endif
-		}
-		
-        //c = UART_GetChar() ;
-        switch ( c )
-        {
-            case '0' :
-                printf( "Frequency:" ) ;
-                freq = _GetInputValue( 200, 3000 ) ;
-                printf( "\r\n" ) ;
-                printf( "Set frequency to:%dHz\n", freq ) ;
-
-                if ( freq > 0 )
-                {
-                    SysTick_Config( BOARD_MCK / (freq*SAMPLES) ) ;
-                    frequency = freq ;
-                }
-            break ;
-
-            case '1' :
-                printf( "Amplitude:" ) ;
-                amp = _GetInputValue( 100, 2047 ) ;
-                printf( "\r\n" ) ;
-                printf( "Set amplitude to %d \n", amp ) ;
-                if ( amp > 0 )
-                {
-                    amplitude = amp ;
-                }
-            break ;
-
-            case 'i' :
-            case 'I' :
-                printf( "-I- Frequency:%d Hz Amplitude:%d\r\n", frequency, amplitude ) ;
-			break ;
-
-            case 'm' :
-            case 'M' :
-                _DisplayMenuChoices() ;
-            break ;
-				
-			case 'G':
-			case 'g':
-		  		if(us1_get_count()){
-		        	printf( "-U- Buffer is active, %c\r\n", us1_get_char() ) ;	
-		  		}
-		  		else{
-		        	printf( "-U- Buffer is empty.\r\n" ) ;
-		  		}
-		 		break;
-		}
-
-        //printf( "Press \'m\' or \'M\' to display the main menu again!!\r\n" ) ;
+		} */
     }
 }
 

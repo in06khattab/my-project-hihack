@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR ELF Linker V6.30.6.53336/W32 for ARM              07/Feb/2014  12:41:48 #
+# IAR ELF Linker V6.30.6.53336/W32 for ARM              08/Feb/2014  14:34:18 #
 # Copyright 2007-2012 IAR Systems AB.                                         #
 #                                                                             #
 #    Output file  =  D:\Firmware\svn\hijack\branches\phone_simulate_cipher\bu #
@@ -68,7 +68,7 @@ __SystemLibrary = DLib
     .vectors         const    0x00400000    0xd0  board_cstartup_iar.o [4]
                             - 0x004000d0    0xd0
 
-"P1":                                     0x2e3c
+"P1":                                     0x22c8
   SOFTPACK           ro code  0x004000d0   0x6ac  encode.o [1]
   SAM3S-EK           ro code  0x0040077c    0xb4  uart_console.o [4]
   SAM3S4             ro code  0x00400830    0xcc  dacc.o [5]
@@ -80,115 +80,93 @@ __SystemLibrary = DLib
   .text              ro code  0x00400c68     0x6  abort.o [3]
   .text              ro code  0x00400c6e    0x22  zero_init3.o [6]
   .text              ro code  0x00400c90     0xc  XXexit.o [6]
-  SOFTPACK           ro code  0x00400c9c   0x4d0  main.o [1]
-  SAM3S4             ro code  0x0040116c   0x1a0  pio_it.o [5]
-  .text              ro code  0x0040130c    0x24  printf.o [3]
-  SAM3S4             ro code  0x00401330     0x8  wdt.o [5]
-  SAM3S-EK           ro code  0x00401338    0x9c  led.o [4]
-  SOFTPACK           ro code  0x004013d4   0x364  decode.o [1]
-  SOFTPACK           ro code  0x00401738   0x14a  aes_keyschedule.o [1]
-  SOFTPACK           ro code  0x00401882    0x12  aes128_enc.o [1]
-  SOFTPACK           ro code  0x00401894    0x12  aes128_dec.o [1]
-  SAM3S4             ro code  0x004018a8    0x90  pio_capture.o [5]
-  .text              ro code  0x00401938   0x4a4  xprintfsmall.o [3]
-  SOFTPACK           ro code  0x00401ddc    0x16  aes_keyschedule.o [1]
-  SOFTPACK           ro code  0x00401df4   0x26e  aes_enc.o [1]
-  SOFTPACK           ro code  0x00402064   0x30e  aes_dec.o [1]
-  .text              ro code  0x00402374    0x16  strchr.o [6]
-  .text              ro code  0x0040238c    0x36  strlen.o [6]
-  .text              ro code  0x004023c4    0x58  memchr.o [6]
-  .text              ro code  0x0040241c    0x76  ABImemcpy.o [6]
-  SOFTPACK           ro code  0x00402492    0x30  gf256mul.o [1]
-  SAM3S-EK           ro code  0x004024c4   0x15c  board_lowlevel.o [4]
-  .rodata            const    0x00402620   0x100  aes_invsbox.o [1]
-  .rodata            const    0x00402720   0x100  aes_sbox.o [1]
-  .rodata            const    0x00402820    0xc8  main.o [1]
-  .rodata            const    0x004028e8    0x80  pmc.o [5]
-  .rodata            const    0x00402968    0x80  dacc.o [5]
-  .rodata            const    0x004029e8    0x80  pio_it.o [5]
-  .rodata            const    0x00402a68    0x48  main.o [1]
-  SAM3S4             ro code  0x00402ab0    0x44  exceptions.o [5]
-  SAM3S-EK           ro code  0x00402af4    0x38  board_cstartup_iar.o [4]
-  .rodata            const    0x00402b2c    0x34  main.o [1]
-  .text              ro code  0x00402b60    0x2c  data_init3.o [6]
-  .rodata            const    0x00402b8c    0x28  main.o [1]
-  .rodata            const    0x00402bb4    0x28  main.o [1]
-  .rodata            const    0x00402bdc    0x28  pio_it.o [5]
-  .rodata            const    0x00402c04    0x24  main.o [1]
-  .rodata            const    0x00402c28    0x24  main.o [1]
-  .rodata            const    0x00402c4c    0x24  main.o [1]
-  .rodata            const    0x00402c70    0x24  led.o [4]
-  .iar.init_table    const    0x00402c94    0x24  - Linker created -
-  .rodata            const    0x00402cb8    0x20  main.o [1]
-  .rodata            const    0x00402cd8    0x20  main.o [1]
-  .rodata            const    0x00402cf8    0x20  main.o [1]
-  .rodata            const    0x00402d18    0x20  dacc.o [5]
-  .rodata            const    0x00402d38    0x1c  main.o [1]
-  .rodata            const    0x00402d54    0x1c  main.o [1]
-  .rodata            const    0x00402d70    0x1c  main.o [1]
-  .rodata            const    0x00402d8c    0x18  main.o [1]
-  .rodata            const    0x00402da4    0x18  main.o [1]
-  .rodata            const    0x00402dbc    0x18  main.o [1]
-  .rodata            const    0x00402dd4    0x18  main.o [1]
-  .text              ro code  0x00402dec    0x16  cmain.o [6]
-  .text              ro code  0x00402e02     0x4  exit.o [3]
-  .text              ro code  0x00402e08     0xa  cexit.o [6]
-  .text              ro code  0x00402e12    0x16  xprout.o [3]
-  .rodata            const    0x00402e28    0x14  pio_it.o [5]
-  .rodata            const    0x00402e3c    0x10  pio_it.o [5]
-  .rodata            const    0x00402e4c    0x10  pio_it.o [5]
-  .rodata            const    0x00402e5c     0xc  decode.o [1]
-  .rodata            const    0x00402e68     0xc  main.o [1]
-  .rodata            const    0x00402e74     0xc  main.o [1]
-  .rodata            const    0x00402e80     0xc  main.o [1]
-  .rodata            const    0x00402e8c     0xc  main.o [1]
-  .rodata            const    0x00402e98     0xc  main.o [1]
-  .rodata            const    0x00402ea4     0xc  main.o [1]
-  .rodata            const    0x00402eb0     0xc  pmc.o [5]
-  .rodata            const    0x00402ebc     0xc  uart_console.o [4]
-  .text              ro code  0x00402ec8     0xc  cstartup_M.o [6]
-  .rodata            const    0x00402ed4     0x8  pio_it.o [5]
-  .rodata            const    0x00402edc     0x4  led.o [4]
-  .rodata            const    0x00402ee0     0x0  bwt_init3c.o [6]
-  Initializer bytes  ro data  0x00402ee0    0x2c  <for P2 s0>
-                            - 0x00402f0c  0x2e3c
+  .text              ro code  0x00400c9c   0x4a4  xprintfsmall.o [3]
+  .text              ro code  0x00401140    0x16  strchr.o [6]
+  .text              ro code  0x00401158    0x36  strlen.o [6]
+  .text              ro code  0x00401190    0x58  memchr.o [6]
+  SOFTPACK           ro code  0x004011e8   0x388  decode.o [1]
+  SAM3S-EK           ro code  0x00401570    0x9c  led.o [4]
+  SOFTPACK           ro code  0x0040160c   0x1e0  main.o [1]
+  SAM3S4             ro code  0x004017ec   0x1a0  pio_it.o [5]
+  SAM3S4             ro code  0x0040198c     0x8  wdt.o [5]
+  .text              ro code  0x00401994    0x24  printf.o [3]
+  SOFTPACK           ro code  0x004019b8   0x14a  aes_keyschedule.o [1]
+  SAM3S4             ro code  0x00401b04    0x90  pio_capture.o [5]
+  SOFTPACK           ro code  0x00401b94    0x16  aes_keyschedule.o [1]
+  .text              ro code  0x00401bac    0x76  ABImemcpy.o [6]
+  SAM3S-EK           ro code  0x00401c24   0x15c  board_lowlevel.o [4]
+  .rodata            const    0x00401d80   0x100  aes_sbox.o [1]
+  .rodata            const    0x00401e80    0xc8  main.o [1]
+  .rodata            const    0x00401f48    0x80  pmc.o [5]
+  .rodata            const    0x00401fc8    0x80  dacc.o [5]
+  .rodata            const    0x00402048    0x80  pio_it.o [5]
+  .rodata            const    0x004020c8    0x48  main.o [1]
+  SAM3S4             ro code  0x00402110    0x44  exceptions.o [5]
+  SAM3S-EK           ro code  0x00402154    0x38  board_cstartup_iar.o [4]
+  .text              ro code  0x0040218c    0x2c  data_init3.o [6]
+  .rodata            const    0x004021b8    0x28  pio_it.o [5]
+  .rodata            const    0x004021e0    0x24  main.o [1]
+  .rodata            const    0x00402204    0x24  led.o [4]
+  .iar.init_table    const    0x00402228    0x24  - Linker created -
+  .rodata            const    0x0040224c    0x20  dacc.o [5]
+  .rodata            const    0x0040226c    0x1c  main.o [1]
+  .rodata            const    0x00402288    0x18  main.o [1]
+  .text              ro code  0x004022a0    0x16  cmain.o [6]
+  .text              ro code  0x004022b6     0x4  exit.o [3]
+  .text              ro code  0x004022bc     0xa  cexit.o [6]
+  .text              ro code  0x004022c6    0x16  xprout.o [3]
+  .rodata            const    0x004022dc    0x14  pio_it.o [5]
+  .rodata            const    0x004022f0    0x10  pio_it.o [5]
+  .rodata            const    0x00402300    0x10  pio_it.o [5]
+  .rodata            const    0x00402310     0xc  decode.o [1]
+  .rodata            const    0x0040231c     0xc  main.o [1]
+  .rodata            const    0x00402328     0xc  main.o [1]
+  .rodata            const    0x00402334     0xc  main.o [1]
+  .rodata            const    0x00402340     0xc  main.o [1]
+  .rodata            const    0x0040234c     0xc  pmc.o [5]
+  .rodata            const    0x00402358     0xc  uart_console.o [4]
+  .text              ro code  0x00402364     0xc  cstartup_M.o [6]
+  .rodata            const    0x00402370     0x8  pio_it.o [5]
+  .rodata            const    0x00402378     0x4  led.o [4]
+  .rodata            const    0x0040237c     0x0  bwt_init3c.o [6]
+  Initializer bytes  ro data  0x0040237c    0x1c  <for P2 s0>
+                            - 0x00402398  0x22c8
 
-"P2", part 1 of 3:                          0x2c
-  P2 s0                       0x20000000    0x2c  <Init block>
+"P2", part 1 of 3:                          0x1c
+  P2 s0                       0x20000000    0x1c  <Init block>
     .data            inited   0x20000000    0x10  main.o [1]
-    .data            inited   0x20000010    0x10  main.o [1]
-    .data            inited   0x20000020     0xc  aes_keyschedule.o [1]
-                            - 0x2000002c    0x2c
+    .data            inited   0x20000010     0xc  aes_keyschedule.o [1]
+                            - 0x2000001c    0x1c
 
 "P2", part 2 of 3:                         0x1e4
-  .bss               zero     0x2000002c    0xcc  main.o [1]
-  .bss               zero     0x200000f8    0xb0  main.o [1]
-  .bss               zero     0x200001a8    0x38  pio_it.o [5]
-  .bss               zero     0x200001e0     0x8  encode.o [1]
-  .bss               zero     0x200001e8     0x4  decode.o [1]
-  .bss               zero     0x200001ec     0x4  decode.o [1]
-  .bss               zero     0x200001f0     0x4  decode.o [1]
-  .bss               zero     0x200001f4     0x4  decode.o [1]
-  .bss               zero     0x200001f8     0x4  pio_it.o [5]
-  .bss               zero     0x200001fc     0x4  pio_capture.o [5]
-  .bss               zero     0x20000200     0x2  encode.o [1]
-  .bss               zero     0x20000202     0x2  encode.o [1]
-  .bss               zero     0x20000204     0x1  decode.o [1]
-  .bss               zero     0x20000205     0x1  decode.o [1]
-  .bss               zero     0x20000206     0x1  encode.o [1]
-  .bss               zero     0x20000207     0x1  encode.o [1]
-  .bss               zero     0x20000208     0x1  encode.o [1]
-  .bss               zero     0x20000209     0x1  encode.o [1]
-  .bss               zero     0x2000020a     0x1  encode.o [1]
-  .bss               zero     0x2000020b     0x1  main.o [1]
-  .bss               zero     0x2000020c     0x1  main.o [1]
-  .bss               zero     0x2000020d     0x1  uart_console.o [4]
-                            - 0x2000020e   0x1e2
+  .bss               zero     0x2000001c    0xcc  main.o [1]
+  .bss               zero     0x200000e8    0xb0  main.o [1]
+  .bss               zero     0x20000198    0x38  pio_it.o [5]
+  .bss               zero     0x200001d0     0x8  encode.o [1]
+  .bss               zero     0x200001d8     0x4  decode.o [1]
+  .bss               zero     0x200001dc     0x4  decode.o [1]
+  .bss               zero     0x200001e0     0x4  decode.o [1]
+  .bss               zero     0x200001e4     0x4  decode.o [1]
+  .bss               zero     0x200001e8     0x4  pio_it.o [5]
+  .bss               zero     0x200001ec     0x4  pio_capture.o [5]
+  .bss               zero     0x200001f0     0x2  encode.o [1]
+  .bss               zero     0x200001f2     0x2  encode.o [1]
+  .bss               zero     0x200001f4     0x1  decode.o [1]
+  .bss               zero     0x200001f5     0x1  decode.o [1]
+  .bss               zero     0x200001f6     0x1  encode.o [1]
+  .bss               zero     0x200001f7     0x1  encode.o [1]
+  .bss               zero     0x200001f8     0x1  encode.o [1]
+  .bss               zero     0x200001f9     0x1  encode.o [1]
+  .bss               zero     0x200001fa     0x1  encode.o [1]
+  .bss               zero     0x200001fb     0x1  main.o [1]
+  .bss               zero     0x200001fc     0x1  main.o [1]
+  .bss               zero     0x200001fd     0x1  uart_console.o [4]
+                            - 0x200001fe   0x1e2
 
 "P2", part 3 of 3:                        0x3000
-  CSTACK                      0x20000210  0x3000  <Block>
-    CSTACK           uninit   0x20000210  0x3000  <Block tail>
-                            - 0x20003210  0x3000
+  CSTACK                      0x20000200  0x3000  <Block>
+    CSTACK           uninit   0x20000200  0x3000  <Block tail>
+                            - 0x20003200  0x3000
 
 
 *******************************************************************************
@@ -199,13 +177,13 @@ __SystemLibrary = DLib
           -------     ----
 Zero (__iar_zero_init3)
     1 destination range, total size 0x1e2:
-          0x2000002c  0x1e2
+          0x2000001c  0x1e2
 
 Copy (__iar_copy_init3)
-    1 source range, total size 0x2c:
-          0x00402ee0   0x2c
-    1 destination range, total size 0x2c:
-          0x20000000   0x2c
+    1 source range, total size 0x1c:
+          0x0040237c   0x1c
+    1 destination range, total size 0x1c:
+          0x20000000   0x1c
 
 
 
@@ -216,19 +194,13 @@ Copy (__iar_copy_init3)
     Module                ro code  ro data  rw data
     ------                -------  -------  -------
 D:\Firmware\svn\hijack\branches\phone_simulate_cipher\build\ewarm_630\sam3s\Obj: [1]
-    aes128_dec.o               18
-    aes128_enc.o               18
-    aes_dec.o                 782
-    aes_enc.o                 622
-    aes_invsbox.o                      256
     aes_keyschedule.o         352       12       12
     aes_sbox.o                         256
-    decode.o                  868       12       18
+    decode.o                  904       12       18
     encode.o                1 708                17
-    gf256mul.o                 48
-    main.o                  1 232      892      414
+    main.o                    480      424      398
     -----------------------------------------------
-    Total:                  5 648    1 428      461
+    Total:                  3 444      704      445
 
 command line: [2]
     -----------------------------------------------
@@ -280,10 +252,10 @@ rt7M_tl.a: [6]
     -----------------------------------------------
     Total:                    462
 
-    Gaps                       16
+    Gaps                       12
     Linker created                      36   12 288
 ---------------------------------------------------
-    Grand Total:            9 792    2 252   12 814
+    Grand Total:            7 584    1 528   12 798
 
 
 *******************************************************************************
@@ -294,44 +266,44 @@ Entry                      Address   Size  Type      Object
 -----                      -------   ----  ----      ------
 .vectors$$Base          0x00400000          --   Gb  - Linker created -
 .vectors$$Limit         0x004000d0          --   Gb  - Linker created -
-?main                   0x00402ded         Code  Gb  cmain.o [6]
-ACC_IrqHandler          0x00402af1    0x2  Code  Wk  exceptions.o [5]
-ADC_IrqHandler          0x00402aeb    0x2  Code  Wk  exceptions.o [5]
-BusFault_Handler        0x00402ab9    0x2  Code  Wk  exceptions.o [5]
-CRCCU_IrqHandler        0x00402aef    0x2  Code  Wk  exceptions.o [5]
-CSTACK$$Base            0x20000210          --   Gb  - Linker created -
-CSTACK$$Limit           0x20003210          --   Gb  - Linker created -
+?main                   0x004022a1         Code  Gb  cmain.o [6]
+ACC_IrqHandler          0x00402151    0x2  Code  Wk  exceptions.o [5]
+ADC_IrqHandler          0x0040214b    0x2  Code  Wk  exceptions.o [5]
+BusFault_Handler        0x00402119    0x2  Code  Wk  exceptions.o [5]
+CRCCU_IrqHandler        0x0040214f    0x2  Code  Wk  exceptions.o [5]
+CSTACK$$Base            0x20000200          --   Gb  - Linker created -
+CSTACK$$Limit           0x20003200          --   Gb  - Linker created -
 DACC_Initialize         0x00400831   0xae  Code  Gb  dacc.o [5]
 DACC_SetConversionData  0x004008ed   0x10  Code  Gb  dacc.o [5]
-DACC_channel_sine       0x20000209    0x1  Data  Gb  encode.o [1]
+DACC_channel_sine       0x200001f9    0x1  Data  Gb  encode.o [1]
 DAC_IrqHandler          0x00400149   0x8c  Code  Gb  encode.o [1]
-DebugMon_Handler        0x00402abf    0x2  Code  Wk  exceptions.o [5]
-EEFC_IrqHandler         0x00402acf    0x2  Code  Wk  exceptions.o [5]
-HardFault_Handler       0x00402ab5    0x2  Code  Wk  exceptions.o [5]
-IrqHandlerNotUsed       0x00402ab1    0x2  Code  Gb  exceptions.o [5]
-IsAboutFullCycle        0x00401479   0x24  Code  Lc  decode.o [1]
-IsAboutHalfCycle        0x00401455   0x24  Code  Lc  decode.o [1]
-LED_Clear               0x00401391   0x3a  Code  Gb  led.o [4]
-LED_Configure           0x00401339   0x1e  Code  Gb  led.o [4]
-LED_Set                 0x00401357   0x3a  Code  Gb  led.o [4]
-LowLevelInit            0x004024c5  0x15c  Code  Wk  board_lowlevel.o [4]
-MCI_IrqHandler          0x00402ad9    0x2  Code  Wk  exceptions.o [5]
-MemManage_Handler       0x00402ab7    0x2  Code  Wk  exceptions.o [5]
-NMI_Handler             0x00402ab3    0x2  Code  Wk  exceptions.o [5]
-NVIC_ClearPendingIRQ    0x00400cd1   0x1a  Code  Lc  main.o [1]
-NVIC_DisableIRQ         0x00400cb7   0x1a  Code  Lc  main.o [1]
+DebugMon_Handler        0x0040211f    0x2  Code  Wk  exceptions.o [5]
+EEFC_IrqHandler         0x0040212f    0x2  Code  Wk  exceptions.o [5]
+HardFault_Handler       0x00402115    0x2  Code  Wk  exceptions.o [5]
+IrqHandlerNotUsed       0x00402111    0x2  Code  Gb  exceptions.o [5]
+IsAboutFullCycle        0x004012af   0x24  Code  Lc  decode.o [1]
+IsAboutHalfCycle        0x0040128b   0x24  Code  Lc  decode.o [1]
+LED_Clear               0x004015c9   0x3a  Code  Gb  led.o [4]
+LED_Configure           0x00401571   0x1e  Code  Gb  led.o [4]
+LED_Set                 0x0040158f   0x3a  Code  Gb  led.o [4]
+LowLevelInit            0x00401c25  0x15c  Code  Wk  board_lowlevel.o [4]
+MCI_IrqHandler          0x00402139    0x2  Code  Wk  exceptions.o [5]
+MemManage_Handler       0x00402117    0x2  Code  Wk  exceptions.o [5]
+NMI_Handler             0x00402113    0x2  Code  Wk  exceptions.o [5]
+NVIC_ClearPendingIRQ    0x0040163d   0x18  Code  Lc  main.o [1]
+NVIC_DisableIRQ         0x00401625   0x18  Code  Lc  main.o [1]
 NVIC_EnableIRQ          0x004000d1   0x1a  Code  Lc  encode.o [1]
-NVIC_EnableIRQ          0x00400c9d   0x1a  Code  Lc  main.o [1]
+NVIC_EnableIRQ          0x0040160d   0x18  Code  Lc  main.o [1]
 NVIC_SetPriority        0x004000eb   0x26  Code  Lc  encode.o [1]
-NVIC_SetPriority        0x00400ceb   0x26  Code  Lc  main.o [1]
-PIOA_IrqHandler         0x004011cf   0x18  Code  Gb  pio_it.o [5]
-PIOB_IrqHandler         0x004011e7    0xc  Code  Gb  pio_it.o [5]
-PIOC_IrqHandler         0x004011f3    0xc  Code  Gb  pio_it.o [5]
-PIO_CaptureHandler      0x004018a9   0x84  Code  Gb  pio_capture.o [5]
+NVIC_SetPriority        0x00401655   0x22  Code  Lc  main.o [1]
+PIOA_IrqHandler         0x0040184f   0x18  Code  Gb  pio_it.o [5]
+PIOB_IrqHandler         0x00401867    0xc  Code  Gb  pio_it.o [5]
+PIOC_IrqHandler         0x00401873    0xc  Code  Gb  pio_it.o [5]
+PIO_CaptureHandler      0x00401b05   0x84  Code  Gb  pio_capture.o [5]
 PIO_Clear               0x00400aa3    0x8  Code  Gb  pio.o [5]
 PIO_Configure           0x004009e7   0xb4  Code  Gb  pio.o [5]
-PIO_ConfigureIt         0x004011ff   0x86  Code  Gb  pio_it.o [5]
-PIO_EnableIt            0x00401285   0x58  Code  Gb  pio_it.o [5]
+PIO_ConfigureIt         0x0040187f   0x86  Code  Gb  pio_it.o [5]
+PIO_EnableIt            0x00401905   0x58  Code  Gb  pio_it.o [5]
 PIO_Set                 0x00400a9b    0x8  Code  Gb  pio.o [5]
 PIO_SetDebounceFilter   0x00400aab   0x1e  Code  Gb  pio.o [5]
 PIO_SetInput            0x00400985   0x30  Code  Lc  pio.o [5]
@@ -341,135 +313,119 @@ PIO_SetPeripheralB      0x00400923   0x22  Code  Lc  pio.o [5]
 PIO_SetPeripheralC      0x00400945   0x22  Code  Lc  pio.o [5]
 PIO_SetPeripheralD      0x00400967   0x1e  Code  Lc  pio.o [5]
 PMC_EnablePeripheral    0x00400b5d   0x54  Code  Gb  pmc.o [5]
-PMC_IrqHandler          0x00402acd    0x2  Code  Wk  exceptions.o [5]
-PWM_IrqHandler          0x00402aed    0x2  Code  Wk  exceptions.o [5]
-PendSV_Handler          0x00402ac1    0x2  Code  Wk  exceptions.o [5]
-PioInterruptHandler     0x0040116d   0x62  Code  Gb  pio_it.o [5]
-RSTC_IrqHandler         0x00402ac5    0x2  Code  Wk  exceptions.o [5]
-RTC_IrqHandler          0x00402ac7    0x2  Code  Wk  exceptions.o [5]
-RTT_IrqHandler          0x00402ac9    0x2  Code  Wk  exceptions.o [5]
-Region$$Table$$Base     0x00402c94          --   Gb  - Linker created -
-Region$$Table$$Limit    0x00402cb8          --   Gb  - Linker created -
-SMC_IrqHandler          0x00402ad3    0x2  Code  Wk  exceptions.o [5]
-SPI_IrqHandler          0x00402adf    0x2  Code  Wk  exceptions.o [5]
-SSC_IrqHandler          0x00402ae1    0x2  Code  Wk  exceptions.o [5]
-SUPC_IrqHandler         0x00402ac3    0x2  Code  Wk  exceptions.o [5]
-SVC_Handler             0x00402abd    0x2  Code  Wk  exceptions.o [5]
+PMC_IrqHandler          0x0040212d    0x2  Code  Wk  exceptions.o [5]
+PWM_IrqHandler          0x0040214d    0x2  Code  Wk  exceptions.o [5]
+PendSV_Handler          0x00402121    0x2  Code  Wk  exceptions.o [5]
+PioInterruptHandler     0x004017ed   0x62  Code  Gb  pio_it.o [5]
+RSTC_IrqHandler         0x00402125    0x2  Code  Wk  exceptions.o [5]
+RTC_IrqHandler          0x00402127    0x2  Code  Wk  exceptions.o [5]
+RTT_IrqHandler          0x00402129    0x2  Code  Wk  exceptions.o [5]
+Region$$Table$$Base     0x00402228          --   Gb  - Linker created -
+Region$$Table$$Limit    0x0040224c          --   Gb  - Linker created -
+SMC_IrqHandler          0x00402133    0x2  Code  Wk  exceptions.o [5]
+SPI_IrqHandler          0x0040213f    0x2  Code  Wk  exceptions.o [5]
+SSC_IrqHandler          0x00402141    0x2  Code  Wk  exceptions.o [5]
+SUPC_IrqHandler         0x00402123    0x2  Code  Wk  exceptions.o [5]
+SVC_Handler             0x0040211d    0x2  Code  Wk  exceptions.o [5]
 SysTick_Config          0x00400111   0x38  Code  Lc  encode.o [1]
-SysTick_Config          0x00400d11   0x38  Code  Lc  main.o [1]
 SysTick_Handler         0x0040023f   0x7e  Code  Gb  encode.o [1]
 TC0_IrqHandler          0x004002bd    0xa  Code  Gb  encode.o [1]
-TC1_IrqHandler          0x00402ae3    0x2  Code  Wk  exceptions.o [5]
-TC2_IrqHandler          0x004013d5   0x46  Code  Gb  decode.o [1]
-TC3_IrqHandler          0x00402ae5    0x2  Code  Wk  exceptions.o [5]
-TC4_IrqHandler          0x00402ae7    0x2  Code  Wk  exceptions.o [5]
-TC5_IrqHandler          0x00402ae9    0x2  Code  Wk  exceptions.o [5]
-TWI0_IrqHandler         0x00402adb    0x2  Code  Wk  exceptions.o [5]
-TWI1_IrqHandler         0x00402add    0x2  Code  Wk  exceptions.o [5]
-TcCaptureInitialize     0x0040141b   0x3a  Code  Gb  decode.o [1]
+TC1_IrqHandler          0x00402143    0x2  Code  Wk  exceptions.o [5]
+TC2_IrqHandler          0x004011e9   0x68  Code  Gb  decode.o [1]
+TC3_IrqHandler          0x00402145    0x2  Code  Wk  exceptions.o [5]
+TC4_IrqHandler          0x00402147    0x2  Code  Wk  exceptions.o [5]
+TC5_IrqHandler          0x00402149    0x2  Code  Wk  exceptions.o [5]
+TWI0_IrqHandler         0x0040213b    0x2  Code  Wk  exceptions.o [5]
+TWI1_IrqHandler         0x0040213d    0x2  Code  Wk  exceptions.o [5]
+TcCaptureInitialize     0x00401251   0x3a  Code  Gb  decode.o [1]
 UART0_IrqHandler        0x004001d5   0x6a  Code  Gb  encode.o [1]
-UART1_IrqHandler        0x00402ad1    0x2  Code  Wk  exceptions.o [5]
+UART1_IrqHandler        0x00402131    0x2  Code  Wk  exceptions.o [5]
 UART_Configure          0x0040077d   0x4c  Code  Gb  uart_console.o [4]
 UART_GetChar            0x004007ed   0x20  Code  Gb  uart_console.o [4]
 UART_PutChar            0x004007c9   0x24  Code  Gb  uart_console.o [4]
-USART0_IrqHandler       0x00402ad5    0x2  Code  Wk  exceptions.o [5]
-USART1_IrqHandler       0x00402ad7    0x2  Code  Wk  exceptions.o [5]
-USBD_IrqHandler         0x00402af3    0x2  Code  Wk  exceptions.o [5]
-UsageFault_Handler      0x00402abb    0x2  Code  Wk  exceptions.o [5]
-WDT_Disable             0x00401331    0x8  Code  Gb  wdt.o [5]
-WDT_IrqHandler          0x00402acb    0x2  Code  Wk  exceptions.o [5]
-_Button1_Handler        0x00400d49   0x3a  Code  Lc  main.o [1]
-_Button2_Handler        0x00400d83   0x36  Code  Lc  main.o [1]
-_ConfigureButton        0x00400db9   0x4c  Code  Lc  main.o [1]
+USART0_IrqHandler       0x00402135    0x2  Code  Wk  exceptions.o [5]
+USART1_IrqHandler       0x00402137    0x2  Code  Wk  exceptions.o [5]
+USBD_IrqHandler         0x00402153    0x2  Code  Wk  exceptions.o [5]
+UsageFault_Handler      0x0040211b    0x2  Code  Wk  exceptions.o [5]
+WDT_Disable             0x0040198d    0x8  Code  Gb  wdt.o [5]
+WDT_IrqHandler          0x0040212b    0x2  Code  Wk  exceptions.o [5]
+_Button1_Handler        0x00401677   0x2e  Code  Lc  main.o [1]
+_Button2_Handler        0x004016a5   0x2e  Code  Lc  main.o [1]
+_ConfigureButton        0x004016d3   0x4c  Code  Lc  main.o [1]
 _ConfigureCom           0x004003a9   0x12  Code  Gb  encode.o [1]
-_DisplayMenuChoices     0x00400f15   0x2e  Code  Lc  main.o [1]
-_GetInputValue          0x00400e05  0x110  Code  Lc  main.o [1]
-_LitobSmall             0x00401d05   0xd0  Code  Lc  xprintfsmall.o [3]
-_PioCaptureCopy         0x200001fc    0x4  Data  Lc  pio_capture.o [5]
-_PrintfSmall            0x00401939  0x3cc  Code  Gb  xprintfsmall.o [3]
-_Prout                  0x00402e13   0x16  Code  Gb  xprout.o [3]
+_LitobSmall             0x00401069   0xd0  Code  Lc  xprintfsmall.o [3]
+_PioCaptureCopy         0x200001ec    0x4  Data  Lc  pio_capture.o [5]
+_PrintfSmall            0x00400c9d  0x3cc  Code  Gb  xprintfsmall.o [3]
+_Prout                  0x004022c7   0x16  Code  Gb  xprout.o [3]
 __aeabi_assert          0x00400acb   0x64  Code  Gb  xassert.o [3]
-__aeabi_memcpy          0x0040241d         Code  Gb  ABImemcpy.o [6]
-__aeabi_memcpy4         0x0040243d         Code  Gb  ABImemcpy.o [6]
-__aeabi_memcpy8         0x0040243d         Code  Gb  ABImemcpy.o [6]
-__cmain                 0x00402ded         Code  Gb  cmain.o [6]
+__aeabi_memcpy          0x00401bad         Code  Gb  ABImemcpy.o [6]
+__aeabi_memcpy4         0x00401bcd         Code  Gb  ABImemcpy.o [6]
+__aeabi_memcpy8         0x00401bcd         Code  Gb  ABImemcpy.o [6]
+__cmain                 0x004022a1         Code  Gb  cmain.o [6]
 __exit                  0x00400c91         Code  Gb  XXexit.o [6]
 __iar_EmptyStepPoint    0x00400ac9    0x2  Code  Gb  xassert.o [3]
-__iar_Memchr            0x004023c5         Code  Gb  memchr.o [6]
+__iar_Memchr            0x00401191         Code  Gb  memchr.o [6]
 __iar_ReportAssert      0x00400bdf   0x50  Code  Gb  xreportassert.o [3]
-__iar_SB                0x00402ee0         Data  Gb  bwt_init3c.o [6]
-__iar_Strchr            0x00402375         Code  Gb  strchr.o [6]
+__iar_SB                0x0040237c         Data  Gb  bwt_init3c.o [6]
+__iar_Strchr            0x00401141         Code  Gb  strchr.o [6]
 __iar_copy_init3        0x00400b2f   0x2e  Code  Gb  copy_init3.o [6]
-__iar_data_init3        0x00402b61   0x2c  Code  Gb  data_init3.o [6]
-__iar_program_start     0x00402ec9         Code  Gb  cstartup_M.o [6]
+__iar_data_init3        0x0040218d   0x2c  Code  Gb  data_init3.o [6]
+__iar_program_start     0x00402365         Code  Gb  cstartup_M.o [6]
 __iar_zero_init3        0x00400c6f   0x22  Code  Gb  zero_init3.o [6]
-__low_level_init        0x00402af5   0x38  Code  Gb  board_cstartup_iar.o [4]
+__low_level_init        0x00402155   0x38  Code  Gb  board_cstartup_iar.o [4]
 __vector_table          0x00400000   0xd0  Data  Gb  board_cstartup_iar.o [4]
-_aIntSources            0x200001a8   0x38  Data  Lc  pio_it.o [5]
-_call_main              0x00402df9         Code  Gb  cmain.o [6]
-_dwNumSources           0x200001f8    0x4  Data  Lc  pio_it.o [5]
-_exit                   0x00402e09         Code  Gb  cexit.o [6]
-_main                   0x00402dff         Code  Gb  cmain.o [6]
+_aIntSources            0x20000198   0x38  Data  Lc  pio_it.o [5]
+_call_main              0x004022ad         Code  Gb  cmain.o [6]
+_dwNumSources           0x200001e8    0x4  Data  Lc  pio_it.o [5]
+_exit                   0x004022bd         Code  Gb  cexit.o [6]
+_main                   0x004022b3         Code  Gb  cmain.o [6]
 _ucIsConsoleInitialized
-                        0x2000020d    0x1  Data  Lc  uart_console.o [4]
+                        0x200001fd    0x1  Data  Lc  uart_console.o [4]
 abort                   0x00400c69    0x6  Code  Gb  abort.o [3]
-aes128_dec              0x00401895   0x12  Code  Gb  aes128_dec.o [1]
-aes128_enc              0x00401883   0x12  Code  Gb  aes128_enc.o [1]
-aes128_init             0x00401871   0x12  Code  Gb  aes_keyschedule.o [1]
-aes_dec_firstround      0x004022c7   0x56  Code  Lc  aes_dec.o [1]
-aes_dec_round           0x004020c3  0x204  Code  Lc  aes_dec.o [1]
-aes_decrypt_core        0x00402325   0x4e  Code  Gb  aes_dec.o [1]
-aes_enc_lastround       0x00401fb9   0x56  Code  Lc  aes_enc.o [1]
-aes_enc_round           0x00401e49  0x170  Code  Lc  aes_enc.o [1]
-aes_encrypt_core        0x00402015   0x4e  Code  Gb  aes_enc.o [1]
-aes_init                0x0040174d  0x11c  Code  Gb  aes_keyschedule.o [1]
-aes_invsbox             0x00402620  0x100  Data  Gb  aes_invsbox.o [1]
-aes_invshiftcol         0x00402065   0x5e  Code  Gb  aes_dec.o [1]
-aes_rotword             0x00401739   0x14  Code  Lc  aes_keyschedule.o [1]
-aes_sbox                0x00402720  0x100  Data  Gb  aes_sbox.o [1]
-aes_shiftcol            0x00401df5   0x54  Code  Gb  aes_enc.o [1]
-amplitude               0x20000202    0x2  Data  Gb  encode.o [1]
-bias                    0x2000020a    0x1  Data  Gb  encode.o [1]
-button1Evt              0x2000020b    0x1  Data  Gb  main.o [1]
-button2Evt              0x2000020c    0x1  Data  Gb  main.o [1]
-ctx                     0x200000f8   0xb0  Data  Gb  main.o [1]
-cur_edge                0x20000205    0x1  Data  Lc  decode.o [1]
-cur_stamp               0x200001ec    0x4  Data  Lc  decode.o [1]
-data                    0x20000010   0x10  Data  Gb  main.o [1]
-dec                     0x200001e8    0x4  Data  Gb  decode.o [1]
-dec_parser              0x0040149d   0x86  Code  Lc  decode.o [1]
-decode_machine          0x00401523  0x1de  Code  Gb  decode.o [1]
-edge_occur              0x20000204    0x1  Data  Gb  decode.o [1]
-enc                     0x200001e0    0x8  Data  Lc  encode.o [1]
+aes128_init             0x00401af1   0x12  Code  Gb  aes_keyschedule.o [1]
+aes_init                0x004019cd  0x11c  Code  Gb  aes_keyschedule.o [1]
+aes_rotword             0x004019b9   0x14  Code  Lc  aes_keyschedule.o [1]
+aes_sbox                0x00401d80  0x100  Data  Gb  aes_sbox.o [1]
+amplitude               0x200001f2    0x2  Data  Gb  encode.o [1]
+bias                    0x200001fa    0x1  Data  Gb  encode.o [1]
+button1Evt              0x200001fb    0x1  Data  Gb  main.o [1]
+button2Evt              0x200001fc    0x1  Data  Gb  main.o [1]
+ctx                     0x200000e8   0xb0  Data  Gb  main.o [1]
+cur_edge                0x200001f5    0x1  Data  Lc  decode.o [1]
+cur_stamp               0x200001dc    0x4  Data  Lc  decode.o [1]
+dec                     0x200001d8    0x4  Data  Gb  decode.o [1]
+dec_parser              0x004012d3   0x86  Code  Lc  decode.o [1]
+decode_machine          0x00401359  0x1de  Code  Gb  decode.o [1]
+edge_occur              0x200001f4    0x1  Data  Gb  decode.o [1]
+enc                     0x200001d0    0x8  Data  Lc  encode.o [1]
 enc_init                0x004002c7   0xe2  Code  Gb  encode.o [1]
 enc_parser              0x00400413   0xbe  Code  Gb  encode.o [1]
 encode_machine          0x004004d1  0x248  Code  Gb  encode.o [1]
-exit                    0x00402e03    0x4  Code  Gb  exit.o [3]
-frequency               0x20000200    0x2  Data  Gb  encode.o [1]
-gf256mul                0x00402493   0x30  Code  Gb  gf256mul.o [1]
-index_sample            0x20000207    0x1  Data  Lc  encode.o [1]
-inv                     0x200001f4    0x4  Data  Lc  decode.o [1]
+exit                    0x004022b7    0x4  Code  Gb  exit.o [3]
+frequency               0x200001f0    0x2  Data  Gb  encode.o [1]
+index_sample            0x200001f7    0x1  Data  Lc  encode.o [1]
+inv                     0x200001e4    0x4  Data  Lc  decode.o [1]
 key                     0x20000000   0x10  Data  Gb  main.o [1]
-main                    0x00400f4d  0x16c  Code  Gb  main.o [1]
-memchr                  0x004023c5         Code  Gb  memchr.o [6]
-memcpy                  0x00401ddd   0x16  Code  Gb  aes_keyschedule.o [1]
-numLeds                 0x00402edc    0x4  Data  Lc  led.o [4]
-odd                     0x20000206    0x1  Data  Lc  encode.o [1]
-offset                  0x200001f0    0x4  Data  Lc  decode.o [1]
+main                    0x0040171f   0x76  Code  Gb  main.o [1]
+memchr                  0x00401191         Code  Gb  memchr.o [6]
+memcpy                  0x00401b95   0x16  Code  Gb  aes_keyschedule.o [1]
+numLeds                 0x00402378    0x4  Data  Lc  led.o [4]
+odd                     0x200001f6    0x1  Data  Lc  encode.o [1]
+offset                  0x200001e0    0x4  Data  Lc  decode.o [1]
 out                     0x00400bc9   0x16  Code  Lc  xreportassert.o [3]
-pTcPins                 0x00402e5c    0xc  Data  Lc  decode.o [1]
-pinPB1                  0x00402e98    0xc  Data  Gb  main.o [1]
-pinPB2                  0x00402ea4    0xc  Data  Gb  main.o [1]
-pins                    0x00402a68   0x48  Data  Gb  main.o [1]
-pinsLeds                0x00402c70   0x24  Data  Lc  led.o [4]
-printf                  0x0040130d   0x24  Code  Gb  printf.o [3]
+pTcPins                 0x00402310    0xc  Data  Lc  decode.o [1]
+pinPB1                  0x00402334    0xc  Data  Gb  main.o [1]
+pinPB2                  0x00402340    0xc  Data  Gb  main.o [1]
+pins                    0x004020c8   0x48  Data  Gb  main.o [1]
+pinsLeds                0x00402204   0x24  Data  Lc  led.o [4]
+printf                  0x00401995   0x24  Code  Gb  printf.o [3]
 putchar                 0x00400821   0x10  Code  Wk  uart_console.o [4]
-rc_tab                  0x20000020    0xc  Data  Gb  aes_keyschedule.o [1]
-sine_data               0x00402820   0xc8  Data  Gb  main.o [1]
-strchr                  0x00402375         Code  Gb  strchr.o [6]
-strlen                  0x0040238d         Code  Gb  strlen.o [6]
-ticker                  0x20000208    0x1  Data  Lc  encode.o [1]
-us1                     0x2000002c   0xcc  Data  Gb  main.o [1]
+rc_tab                  0x20000010    0xc  Data  Gb  aes_keyschedule.o [1]
+sine_data               0x00401e80   0xc8  Data  Gb  main.o [1]
+strchr                  0x00401141         Code  Gb  strchr.o [6]
+strlen                  0x00401159         Code  Gb  strlen.o [6]
+ticker                  0x200001f8    0x1  Data  Lc  encode.o [1]
+us1                     0x2000001c   0xcc  Data  Gb  main.o [1]
 us1_get_char            0x004003c3   0x50  Code  Gb  encode.o [1]
 us1_get_count           0x004003bb    0x8  Code  Gb  encode.o [1]
 
@@ -481,9 +437,9 @@ us1_get_count           0x004003bb    0x8  Code  Gb  encode.o [1]
 [5] = libchip_sam3s4_ewarm_dbg.a
 [6] = rt7M_tl.a
 
-   9 792 bytes of readonly  code memory
-   2 252 bytes of readonly  data memory
-  12 814 bytes of readwrite data memory
+   7 584 bytes of readonly  code memory
+   1 528 bytes of readonly  data memory
+  12 798 bytes of readwrite data memory
 
 Errors: none
 Warnings: none

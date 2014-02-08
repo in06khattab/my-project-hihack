@@ -96,6 +96,26 @@ void TC2_IrqHandler( void )
 			cur_edge = falling;
 			//printf( "%u0 ", cur_stamp) ;
 		}
+		if(edge_occur){
+#if defined	__SAM4S16C__
+    		XplnLED_Set(0);	//LED0 on
+#endif
+			
+#if defined	sam3s4	
+			LED_Set(0);	
+#endif
+			
+	  		edge_occur = false;
+			decode_machine();
+			
+#if defined	__SAM4S16C__
+    		XplnLED_Clear(0); 	//LED0 off
+#endif
+			
+#if defined	sam3s4	
+			LED_Clear(0);	
+#endif
+		}
 	}
 }
 #endif
