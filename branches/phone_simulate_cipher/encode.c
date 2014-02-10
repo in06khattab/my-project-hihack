@@ -226,15 +226,15 @@ void HIJACKPutData(uint8_t * dataPtr, buffer_t * dstBuf, uint32_t dataLen)
   //ptr->pendingBytes += dataLen;
 
   // Calculate the round
-  round = 16 - ( ( dataLen % 16 ) == 0 ? 16 : ( dataLen % 16 ) ) ;
-  len = dataLen + round;
-  ptr->wrI = (ptr->wrI + round) % BUFFERSIZE;
+  //round = 16 - ( ( dataLen % 16 ) == 0 ? 16 : ( dataLen % 16 ) ) ;
+  //len = dataLen + round;
+  //ptr->wrI = (ptr->wrI + round) % BUFFERSIZE;
 
 #if CRITICAL_PROTECTION==1
   __enable_irq();
 #endif
 
-  ptr->pendingBytes += len;
+  ptr->pendingBytes += dataLen;
 }
 
 /*----------------------------------------------------------------------------

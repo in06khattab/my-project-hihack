@@ -20,6 +20,9 @@
  *        Variable
  *----------------------------------------------------------------------------*/
 decode_t dec;
+buffer_t decBuf = { 0, 0, 0, false, NULL};
+uint8_t decTmrWaitForFree = 0;
+
 bool edge_occur = false;
 static uint32_t cur_stamp = 0 ;
 static edge_t 	cur_edge = none ;
@@ -347,20 +350,21 @@ void decode_machine(void)
 			//
       	case Sto0:
          	if ( IsAboutFullCycle(inv) ){ //it's time to determine
-				if( rising == cur_edge ){  //stop bit is rising edge
-				   UART_PutChar(dec.data);
-				}
-				dec.state = Waiting;
-				offset = 0;
-				inv = 0;
+					if( rising == cur_edge ){  //stop bit is rising edge
+				   	//UART_PutChar(dec.data);
+					}
+					dec.state = Waiting;
+					offset = 0;
+					inv = 0;
+					HIJACKPutData( &dec.data, &decBuf, sizeof(uint8_t) );
          	}
          	else if ( IsAboutHalfCycle(inv) && (0 == offset) ){   //wait for edge detection time
             	offset = HIJACK_NUM_TICKS_PER_HALF_CYCLE;  //update half cycle ticks
          	}
          	else {
-				dec.state = Waiting;
-				offset = 0;
-				inv = 0;
+					dec.state = Waiting;
+					offset = 0;
+					inv = 0;
          	}
          	break;
          	//
@@ -369,4 +373,41 @@ void decode_machine(void)
 			//
 	}
 }
+
+/**************************************************************************//**
+ * @brief Decode single byte to BOOTLOADER_Hijack
+ *****************************************************************************/
+uint8_t dec_rxByte(void)
+{
+  uint8_t ch;
+
+  /* Copy data from buffer */
+#if CRITICAL_PROTECTION==1
+  __disable_irq();
+#endif
+  ch        = decBuf.data[decBuf.rdI];
+  decBuf.rdI = (decBuf.rdI + 1) % BUFFERSIZE;
+  /* Decrement pending byte counter */
+  decBuf.pendingBytes--;
+
+#if CRITICAL_PROTECTION==1
+  __enable_irq();
+#endif
+
+  return( ch );
+}
+
+/**************************************************************************//**
+ * @brief  hijack decode stream process.
+ *****************************************************************************/
+void dec_stream_process(void)
+{
+  uint8_t ch;
+
+  while ( !( decTmrWaitForFree ) && decBuf.pendingBytes ){
+  	 ch = dec_rxByte();
+	 UART_PutChar( ch );
+  }
+}
+
 //end of file

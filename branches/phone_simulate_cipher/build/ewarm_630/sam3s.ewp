@@ -1845,18 +1845,6 @@
     </settings>
   </configuration>
   <group>
-    <name>inc</name>
-    <file>
-      <name>$PROJ_DIR$\..\..\decode.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\encode.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\main.h</name>
-    </file>
-  </group>
-  <group>
     <name>libraries</name>
     <file>
       <name>$PROJ_DIR$\..\..\libboard_sam3s-ek\lib\libboard_sam3s_ek_ewarm_dbg.a</name>
@@ -1931,10 +1919,25 @@
       <name>$PROJ_DIR$\..\..\decode.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\..\decode.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\encode.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\..\encode.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\hijack_decode.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\main.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\main.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\xplained.h</name>
     </file>
   </group>
 </project>

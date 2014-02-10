@@ -248,6 +248,7 @@ extern int main( void )
 
 		//aes128_dec(data, &ctx); /* decrypting the data block */
 		
+		dec_stream_process() ;
 	  	/*if(edge_occur){
 #if defined	__SAM4S16C__
     		XplnLED_Set(0);	//LED0 on

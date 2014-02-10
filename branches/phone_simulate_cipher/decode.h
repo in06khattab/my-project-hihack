@@ -65,12 +65,19 @@ typedef enum _edge_tag_
  *        External Variable
  *----------------------------------------------------------------------------*/
 extern bool	edge_occur;
+extern buffer_t decBuf ;
+extern uint8_t decTmrWaitForFree  ;
 
 /*----------------------------------------------------------------------------
  *        External Function
  *----------------------------------------------------------------------------*/
 void TcCaptureInitialize(void);
 void decode_machine(void);
+
+/**************************************************************************//**
+ * @brief  hijack decode stream process.
+ *****************************************************************************/
+void dec_stream_process(void) ;
 
 #endif 	//_DECODE_H_
 //end of file
