@@ -22,6 +22,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include "board.h"
+#include "aes.h"
 
 /*----------------------------------------------------------------------------
  *        Macro
@@ -103,4 +104,5 @@ typedef struct _circularBuffer_
   uint8_t  data[BUFFERSIZE];  /* data buffer */
 }buffer_t;
 
+extern aes128_ctx_t ctx; /* the context where the round keys are stored */
 #endif//_MAIN_H_

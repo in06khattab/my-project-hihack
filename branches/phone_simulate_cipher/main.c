@@ -94,7 +94,8 @@ const int16_t cosine_data[SAMPLES]=
 };
 
 /* a sample key, key must be located in RAM */
-uint8_t key[]  = {0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef, 0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef };
+uint8_t key[]  = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+                               'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
 /* sample data, you can encrypt what you want but keep in mind that only 128 bits (not less not more) get encrypted*/
 uint8_t data[] = { 0x01, 0x02, 0x03, 0x04,
                    0x05, 0x06, 0x07, 0x08,

@@ -14,6 +14,7 @@
  *        Headers
  *----------------------------------------------------------------------------*/
 #include "decode.h"
+#include "aes.h"
 #include "xplained.h"
 
 /*----------------------------------------------------------------------------
@@ -404,10 +405,13 @@ void dec_stream_process(void)
 {
   uint8_t ch;
 
-  while ( !( decTmrWaitForFree ) && decBuf.pendingBytes ){
-  	 ch = dec_rxByte();
-	 UART_PutChar( ch );
-  }
+  	while ( !( decTmrWaitForFree ) && ( decBuf.pendingBytes >= 16 ) ){
+	 	aes128_dec( &decBuf.data[decBuf.rdI], &ctx); /* decrypting the data block */
+		while( decBuf.pendingBytes ){
+		 	ch = dec_rxByte();
+	 		UART_PutChar( ch );
+		}
+  	}
 }
 
 //end of file
