@@ -1,5 +1,5 @@
-/* aes_invsbox.h */
 /*
+	aes_invsbox.h
     This file is part of the ARM-Crypto-Lib.
     Copyright (C) 2008  Daniel Otte (daniel.otte@rub.de)
 
@@ -19,10 +19,10 @@
 /**
  * \file     aes_invsbox.h
  * \email    daniel.otte@rub.de
- * \author   Daniel Otte 
+ * \author   Daniel Otte
  * \date     2008-12-30
  * \license  GPLv3 or later
- * 
+ *
  */
 #ifndef AES_INVSBOX_H_
 #define AES_INVSBOX_H_

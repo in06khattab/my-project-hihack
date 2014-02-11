@@ -13,6 +13,7 @@
 /*----------------------------------------------------------------------------
  *        Headers
  *----------------------------------------------------------------------------*/
+#include <string.h>
 #include "decode.h"
 #include "aes.h"
 #include "xplained.h"
@@ -22,7 +23,8 @@
  *----------------------------------------------------------------------------*/
 decode_t dec;
 buffer_t decBuf = { 0, 0, 0, false, NULL};
-uint8_t decTmrWaitForFree = 0;
+buffer_t aes_decBuf = { 0, 0, 0, false, NULL};
+uint32_t decTmrWaitForFree = 0;
 
 bool edge_occur = false;
 static uint32_t cur_stamp = 0 ;
@@ -358,6 +360,7 @@ void decode_machine(void)
 					offset = 0;
 					inv = 0;
 					HIJACKPutData( &dec.data, &decBuf, sizeof(uint8_t) );
+					decTmrWaitForFree = 12 ;
          	}
          	else if ( IsAboutHalfCycle(inv) && (0 == offset) ){   //wait for edge detection time
             	offset = HIJACK_NUM_TICKS_PER_HALF_CYCLE;  //update half cycle ticks
@@ -386,10 +389,10 @@ uint8_t dec_rxByte(void)
 #if CRITICAL_PROTECTION==1
   __disable_irq();
 #endif
-  ch        = decBuf.data[decBuf.rdI];
-  decBuf.rdI = (decBuf.rdI + 1) % BUFFERSIZE;
+  ch        = aes_decBuf.data[aes_decBuf.rdI];
+  aes_decBuf.rdI = (aes_decBuf.rdI + 1) % BUFFERSIZE;
   /* Decrement pending byte counter */
-  decBuf.pendingBytes--;
+  aes_decBuf.pendingBytes--;
 
 #if CRITICAL_PROTECTION==1
   __enable_irq();
@@ -406,8 +409,20 @@ void dec_stream_process(void)
   uint8_t ch;
 
   	while ( !( decTmrWaitForFree ) && ( decBuf.pendingBytes >= 16 ) ){
-	 	aes128_dec( &decBuf.data[decBuf.rdI], &ctx); /* decrypting the data block */
-		while( decBuf.pendingBytes ){
+  /* Fill dataPtr[0:dataLen-1] into txBuffer */
+#if CRITICAL_PROTECTION==1
+  __disable_irq();
+#endif
+    memcpy( &aes_decBuf.data[aes_decBuf.rdI], &decBuf.data[decBuf.rdI], AES_128_BYTES_SIZE) ;
+	 decBuf.pendingBytes -= AES_128_BYTES_SIZE ;
+	 decBuf.rdI = ( decBuf.rdI + AES_128_BYTES_SIZE ) % 128 ;
+#if CRITICAL_PROTECTION==1
+  __enable_irq();
+#endif
+	 	aes128_dec( &aes_decBuf.data[aes_decBuf.rdI], &ctx); /* decrypting the data block */
+		aes_decBuf.pendingBytes += AES_128_BYTES_SIZE ;
+		aes_decBuf.wrI = ( aes_decBuf.wrI + AES_128_BYTES_SIZE ) % 128 ;
+		while( aes_decBuf.pendingBytes ){
 		 	ch = dec_rxByte();
 	 		UART_PutChar( ch );
 		}

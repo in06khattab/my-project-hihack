@@ -14,6 +14,7 @@
  *        Headers
  *----------------------------------------------------------------------------*/
 #include "encode.h"
+#include "decode.h"
 #include "xplained.h"
 
 /*----------------------------------------------------------------------------
@@ -131,6 +132,7 @@ void TC0_IrqHandler( void )
     status = REG_TC0_SR0 ;
 
 	if ( (status & TC_SR_CPCS) == TC_SR_CPCS ){
+	  	decTmrWaitForFree--;
 #if defined	__SAM4S16C__
 		XplnLED_Toggle(1);	//LED1 toggle
 #endif
@@ -149,8 +151,8 @@ void enc_init(void)
 
     /*10 us timer*/
     SysTick_Config( BOARD_MCK / (frequency * SAMPLES) ) ;
-	//_ConfigureTc0( HIJACK_CARRIER_FREQ_8KHZ );
-	//TC_Start( TC0, 0 ) ;
+	_ConfigureTc0( HIJACK_CARRIER_FREQ_8KHZ );
+	TC_Start( TC0, 0 ) ;
 	
     /* Initialize DACC */
     DACC_Initialize( DACC,
@@ -258,12 +260,12 @@ static void _ConfigureTc0( uint32_t freq )
 	 */
     TC_Configure( TC0, 0, TC_CMR_TCCLKS_TIMER_CLOCK1 | TC_CMR_CPCTRG ) ;
 
-    TC0->TC_CHANNEL[0].TC_RC = 32*100 ;
+    TC0->TC_CHANNEL[0].TC_RC = 64000000 / 2 / freq ;
 
     /* Configure interrupt on RC compare*/
     TC0->TC_CHANNEL[0].TC_IER = TC_SR_CPCS ;
 
-	NVIC_DisableIRQ( TC0_IRQn ) ;
+	 NVIC_DisableIRQ( TC0_IRQn ) ;
     NVIC_ClearPendingIRQ( TC0_IRQn ) ;
     NVIC_SetPriority( TC0_IRQn, 0 ) ;
     NVIC_EnableIRQ( TC0_IRQn ) ;

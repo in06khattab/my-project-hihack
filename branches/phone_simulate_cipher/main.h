@@ -58,6 +58,9 @@
 /* Declare a circular buffer structure to use for Rx and Tx queues */
 #define BUFFERSIZE          128
 
+/* Declare a circular buffer structure to use for Rx and Tx queues */
+#define AES_128_BYTES_SIZE          16
+
 /*----------------------------------------------------------------------------
  *        Typedef
  *----------------------------------------------------------------------------*/

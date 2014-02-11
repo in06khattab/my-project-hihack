@@ -66,7 +66,7 @@ typedef enum _edge_tag_
  *----------------------------------------------------------------------------*/
 extern bool	edge_occur;
 extern buffer_t decBuf ;
-extern uint8_t decTmrWaitForFree  ;
+extern uint32_t decTmrWaitForFree  ;
 
 /*----------------------------------------------------------------------------
  *        External Function
