@@ -1177,7 +1177,7 @@
         </option>
         <option>
           <name>CCRequirePrototypes</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>CCMultibyteSupport</name>
@@ -1213,6 +1213,8 @@
         </option>
         <option>
           <name>CCIncludePath2</name>
+          <state>$PROJ_DIR$/../../aes</state>
+          <state>$PROJ_DIR$/../../gf256mul</state>
           <state>$PROJ_DIR$/../../libboard_sam3s-ek</state>
           <state>$PROJ_DIR$/../../libchip_sam3s</state>
           <state>$PROJ_DIR$/../../libboard_sam3s-ek/include</state>
@@ -1865,6 +1867,66 @@
   </group>
   <group>
     <name>src</name>
+    <group>
+      <name>aes</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\aes\aes.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\aes\aes128_dec.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\aes\aes128_dec.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\aes\aes128_enc.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\aes\aes128_enc.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\aes\aes_dec.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\aes\aes_dec.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\aes\aes_enc.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\aes\aes_enc.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\aes\aes_invsbox.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\aes\aes_invsbox.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\aes\aes_keyschedule.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\aes\aes_keyschedule.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\aes\aes_sbox.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\aes\aes_sbox.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\aes\aes_types.h</name>
+      </file>
+    </group>
+    <group>
+      <name>gf256mul</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\gf256mul\gf256mul.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\gf256mul\gf256mul.h</name>
+      </file>
+    </group>
     <file>
       <name>$PROJ_DIR$\..\..\decode.c</name>
     </file>

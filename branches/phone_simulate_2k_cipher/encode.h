@@ -95,5 +95,12 @@ uint8_t us1_get_count(void);
 uint8_t us1_get_char(void);
 void _ConfigureCom( void );
 void enc_init(void);
+
+/******************************************************************************
+ * @brief  HIJACKPutData function
+ *
+ *****************************************************************************/
+void HIJACKPutData(uint8_t * dataPtr, buffer_t * dstBuf, uint32_t dataLen);
+
 #endif /* ENCODE_H */
 //end of file

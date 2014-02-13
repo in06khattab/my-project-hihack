@@ -13,13 +13,19 @@
 /*----------------------------------------------------------------------------
  *        Headers
  *----------------------------------------------------------------------------*/
+#include <string.h>
 #include "decode.h"
+#include "aes.h"
 #include "xplained.h"
 
 /*----------------------------------------------------------------------------
  *        Variable
  *----------------------------------------------------------------------------*/
 decode_t dec;
+buffer_t decBuf = { 0, 0, 0, false, NULL};
+buffer_t aes_decBuf = { 0, 0, 0, false, NULL};
+uint32_t decTmrWaitForFree = 0;
+
 bool edge_occur = false;
 static uint32_t cur_stamp = 0 ;
 static edge_t 	cur_edge = none ;
@@ -95,6 +101,26 @@ void TC2_IrqHandler( void )
 			LED_Set(0) ;	//PA19 output low
 			cur_edge = falling;
 			//printf( "%u0 ", cur_stamp) ;
+		}
+		if(edge_occur){
+#if defined	__SAM4S16C__
+    		XplnLED_Set(0);	//LED0 on
+#endif
+			
+#if defined	sam3s4	
+			LED_Set(0);	
+#endif
+			
+	  		edge_occur = false;
+			decode_machine();
+			
+#if defined	__SAM4S16C__
+    		XplnLED_Clear(0); 	//LED0 off
+#endif
+			
+#if defined	sam3s4	
+			LED_Clear(0);	
+#endif
 		}
 	}
 }
@@ -328,11 +354,13 @@ void decode_machine(void)
       	case Sto0:
          	if ( IsAboutFullCycle(inv) ){ //it's time to determine
 				if( rising == cur_edge ){  //stop bit is rising edge
-				   UART_PutChar(dec.data);
+				   	//UART_PutChar(dec.data);
 				}
 				dec.state = Waiting;
 				offset = 0;
 				inv = 0;
+					HIJACKPutData( &dec.data, &decBuf, sizeof(uint8_t) );
+					decTmrWaitForFree = 12 ;
          	}
          	else if ( IsAboutHalfCycle(inv) && (0 == offset) ){   //wait for edge detection time
             	offset = HIJACK_NUM_TICKS_PER_HALF_CYCLE;  //update half cycle ticks
@@ -349,4 +377,56 @@ void decode_machine(void)
 			//
 	}
 }
+
+/**************************************************************************//**
+ * @brief Decode single byte to BOOTLOADER_Hijack
+ *****************************************************************************/
+uint8_t dec_rxByte(void)
+{
+  uint8_t ch;
+
+  /* Copy data from buffer */
+#if CRITICAL_PROTECTION==1
+  __disable_irq();
+#endif
+  ch        = aes_decBuf.data[aes_decBuf.rdI];
+  aes_decBuf.rdI = (aes_decBuf.rdI + 1) % BUFFERSIZE;
+  /* Decrement pending byte counter */
+  aes_decBuf.pendingBytes--;
+
+#if CRITICAL_PROTECTION==1
+  __enable_irq();
+#endif
+
+  return( ch );
+}
+
+/**************************************************************************//**
+ * @brief  hijack decode stream process.
+ *****************************************************************************/
+void dec_stream_process(void)
+{
+  uint8_t ch;
+
+  	while ( !( decTmrWaitForFree ) && ( decBuf.pendingBytes >= 16 ) ){
+  /* Fill dataPtr[0:dataLen-1] into txBuffer */
+#if CRITICAL_PROTECTION==1
+  __disable_irq();
+#endif
+    memcpy( &aes_decBuf.data[aes_decBuf.rdI], &decBuf.data[decBuf.rdI], AES_128_BYTES_SIZE) ;
+	 decBuf.pendingBytes -= AES_128_BYTES_SIZE ;
+	 decBuf.rdI = ( decBuf.rdI + AES_128_BYTES_SIZE ) % 128 ;
+#if CRITICAL_PROTECTION==1
+  __enable_irq();
+#endif
+	 	aes128_dec( &aes_decBuf.data[aes_decBuf.rdI], &ctx); /* decrypting the data block */
+		aes_decBuf.pendingBytes += AES_128_BYTES_SIZE ;
+		aes_decBuf.wrI = ( aes_decBuf.wrI + AES_128_BYTES_SIZE ) % 128 ;
+		while( aes_decBuf.pendingBytes ){
+		 	ch = dec_rxByte();
+	 		UART_PutChar( ch );
+		}
+  	}
+}
+
 //end of file

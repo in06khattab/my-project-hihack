@@ -1,93 +1,3 @@
-/* ----------------------------------------------------------------------------
- *         ATMEL Microcontroller Software Support
- * ----------------------------------------------------------------------------
- * Copyright (c) 2009, Atmel Corporation
- *
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * - Redistributions of source code must retain the above copyright notice,
- * this list of conditions and the disclaimer below.
- *
- * Atmel's name may not be used to endorse or promote products derived from
- * this software without specific prior written permission.
- *
- * DISCLAIMER: THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR ANY DIRECT, INDIRECT,
- * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
- * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- * ----------------------------------------------------------------------------
- */
-
-/**
- *  \page dac12_sinewave DAC12 Sinewave Example
- *
- *  \section Purpose
- *
- *  The dac12_sinewave example demonstrates how to use DACC peripheral.
- *
- *  \section Requirements
- *
- *  This package can only be used with sam3s-ek.
- *
- *  \section Description
- *
- *  This application is aimed to demonstrate how to use DACC in free running
- *  mode.
- *
- *  The example allows to configure the frequency and amplitude of output
- *  sinewave. The frequency could be set from 200Hz to 3KHz, and the peak amplitude
- *  could be set from 100 to 2047 in regard to 12bit resolution.
- *
- *  The output could be monitored by connecting PB13/DAC0 to one channel of an
- *  oscilloscope or heard by ear when plugging a headphone to J11 on the EK board.
- *
- *  \section Usage
- *
- *  -# Build the program and download it inside the evaluation board. Please
- *     refer to the
- *     <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6224.pdf">
- *     SAM-BA User Guide</a>, the
- *     <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6310.pdf">
- *     GNU-Based Software Development</a>
- *     application note or to the
- *     <a href="ftp://ftp.iar.se/WWWfiles/arm/Guides/EWARM_UserGuide.ENU.pdf">
- *     IAR EWARM User Guide</a>,
- *     depending on your chosen solution.
- *  -# On the computer, open and configure a terminal application
- *     (e.g. HyperTerminal on Microsoft Windows) with these settings:
- *    - 115200 bauds
- *    - 8 bits of data
- *    - No parity
- *    - 1 stop bit
- *    - No flow control
- *  -# In the terminal window, the
- *     following text should appear (values depend on the board and chip used):
- *     \code
- *      -- DAC12 Sinewave Example xxx --
- *      -- xxxxxx-xx
- *      -- Compiled: xxx xx xxxx xx:xx:xx --
- *      -- Menu Choices for this example--
- *      -- 0: Set frequency(200Hz-3kHz).--
- *      -- 1: Set amplitude(100-2047).--
- *      -- i: Display present frequency and amplitude.--
- *      -- m: Display this menu.--
- *     \endcode
- *  -# Input command according to the menu.
- *
- *  \section References
- *  - dac12_sinewave/main.c
- *  - dacc.h
- */
-
 /** \file
  *
  *  This file contains all the specific code for the dac12_sinewave.
@@ -104,6 +14,7 @@
 #include "encode.h"
 #include "decode.h"
 #include "xplained.h"
+#include "aes.h"
 
 /*----------------------------------------------------------------------------
  *        Macro
@@ -182,6 +93,16 @@ const int16_t cosine_data[SAMPLES]=
     0x79b, 0x7bf, 0x7db, 0x7ef, 0x7fb
 };
 
+/* a sample key, key must be located in RAM */
+uint8_t key[]  = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+                               'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
+/* sample data, you can encrypt what you want but keep in mind that only 128 bits (not less not more) get encrypted*/
+uint8_t data[] = { 0x01, 0x02, 0x03, 0x04,
+                   0x05, 0x06, 0x07, 0x08,
+                   0x09, 0x0A, 0x0B, 0x0C,
+                   0x0D, 0x0E, 0x0F, 0x00 };
+aes128_ctx_t ctx; /* the context where the round keys are stored */
+
 /*----------------------------------------------------------------------------
  *        Local functions
  *----------------------------------------------------------------------------*/
@@ -242,93 +163,6 @@ static void _ConfigureButton( void )
 	PIO_EnableIt(&pinPB2);
 }
 
-/**
- * \brief Get input from user, the biggest 4-digit decimal number is allowed
- *
- * \param lower_limit the lower limit of input
- * \param upper_limit the upper limit of input
- */
-static int16_t _GetInputValue( int16_t lower_limit, int16_t upper_limit )
-{
-    int8_t i = 0, c ;
-    int16_t value = 0 ;
-    int8_t length = 0 ;
-    int8_t str_temp[5] = { 0 } ;
-
-    while ( 1 )
-    {
-        c = UART_GetChar() ;
-        if ( c == '\n' || c == '\r' )
-        {
-            printf( "\r\n" ) ;
-            break ;
-        }
-
-        if ( '0' <= c && '9' >= c )
-        {
-            printf( "%c", c ) ;
-            str_temp[i++] = c ;
-
-            if ( i >= 4 )
-            {
-                break ;
-            }
-        }
-    }
-
-    str_temp[i] = '\0' ;
-    /* input string length */
-    length = i ;
-    value = 0 ;
-
-    /* convert string to integer */
-    for ( i = 0 ; i < 4 ; i++ )
-    {
-        if ( str_temp[i] != '0' )
-        {
-            switch ( length - i - 1 )
-            {
-                case 0 :
-                    value += (str_temp[i] - '0') ;
-                break ;
-
-                case 1 :
-                    value += (str_temp[i] - '0') * 10 ;
-                break ;
-
-                case 2 :
-                    value += (str_temp[i] - '0') * 100 ;
-                break ;
-
-                case 3 :
-                    value += (str_temp[i] - '0') * 1000 ;
-                break ;
-            }
-
-        }
-    }
-
-    if ( value > upper_limit || value < lower_limit )
-    {
-        printf( "\r\n-F- Input value is invalid!\n" ) ;
-
-        return -1 ;
-    }
-
-    return value ;
-}
-
-/** Display main menu */
-static void _DisplayMenuChoices( void )
-{
-    printf( "-- Menu Choices for this example--\r\n" ) ;
-    printf( "-- 0: Set frequency(200Hz-3kHz).--\r\n" ) ;
-    printf( "-- 1: Set amplitude(100-2047).--\r\n" ) ;
-    printf( "-- i: Display present frequency and amplitude.--\r\n" ) ;
-    printf( "-- m: Display this menu.--\r\n" ) ;
-	 printf( "-- s: output sine wave.--\r\n" ) ;
-	 printf( "-- c: output cosine wave.--\r\n" ) ;
-}
 
 /*----------------------------------------------------------------------------
  *        Exported functions
@@ -342,9 +176,6 @@ static void _DisplayMenuChoices( void )
  */
 extern int main( void )
 {
-    uint8_t c ;
-    int16_t freq, amp ;
-
     /* Disable watchdog */
     WDT_Disable( WDT ) ;
 	
@@ -364,7 +195,7 @@ extern int main( void )
     XplnLED_Configure();
 #endif
 	
-	UART_Configure(115200, BOARD_MCK);
+	UART_Configure(1200, BOARD_MCK);
 	
     /* Output example information */
     printf( "-- Phone Simulator V%d.%02d%c --\r\n", VER_MAJOR, VER_MINOR, VER_PATCH ) ;
@@ -412,12 +243,19 @@ extern int main( void )
 	 /* Initial Com port, uart0. */
 	 _ConfigureCom();
 	
+	 aes128_init(key, &ctx); /* generating the round keys from the 128 bit key */
+	
     /* main menu*/
     //_DisplayMenuChoices() ;
 
     while( 1 )
     {
-	  	if(edge_occur){
+		//aes128_enc(data, &ctx); /* encrypting the data block */
+
+		//aes128_dec(data, &ctx); /* decrypting the data block */
+		
+		dec_stream_process() ;
+	  	/*if(edge_occur){
 #if defined	__SAM4S16C__
     		XplnLED_Set(0);	//LED0 on
 #endif
@@ -436,57 +274,7 @@ extern int main( void )
 #if defined	sam3s4	
 			LED_Clear(0);	
 #endif
-		}
-		
-        //c = UART_GetChar() ;
-        switch ( c )
-        {
-            case '0' :
-                printf( "Frequency:" ) ;
-                freq = _GetInputValue( 200, 3000 ) ;
-                printf( "\r\n" ) ;
-                printf( "Set frequency to:%dHz\n", freq ) ;
-
-                if ( freq > 0 )
-                {
-                    SysTick_Config( BOARD_MCK / (freq*SAMPLES) ) ;
-                    frequency = freq ;
-                }
-            break ;
-
-            case '1' :
-                printf( "Amplitude:" ) ;
-                amp = _GetInputValue( 100, 2047 ) ;
-                printf( "\r\n" ) ;
-                printf( "Set amplitude to %d \n", amp ) ;
-                if ( amp > 0 )
-                {
-                    amplitude = amp ;
-                }
-            break ;
-
-            case 'i' :
-            case 'I' :
-                printf( "-I- Frequency:%d Hz Amplitude:%d\r\n", frequency, amplitude ) ;
-			break ;
-
-            case 'm' :
-            case 'M' :
-                _DisplayMenuChoices() ;
-            break ;
-				
-			case 'G':
-			case 'g':
-		  		if(us1_get_count()){
-		        	printf( "-U- Buffer is active, %c\r\n", us1_get_char() ) ;	
-		  		}
-		  		else{
-		        	printf( "-U- Buffer is empty.\r\n" ) ;
-		  		}
-		 		break;
-		}
-
-        //printf( "Press \'m\' or \'M\' to display the main menu again!!\r\n" ) ;
+		} */
     }
 }
 
