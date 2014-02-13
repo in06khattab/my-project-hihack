@@ -1,73 +1,0 @@
-SUDT ACCESSPORT LOG FILE - Monitor mode
-
-Monitor: COM40
-Create Time: 2013-06-27, 10:59:32
-Computer Name: REC-RENKAI
-System version: Microsoft Windows XP Professional Service Pack 3 (Build 2600)
-
-#       Time        Function                        Data ( String )	
-
-1       [00000697]  IOCTL_SERIAL_SET_BAUD_RATE      Baud Rate: 38400
-2       [00000697]  IOCTL_SERIAL_SET_LINE_CONTROL   StopBits: 1, Parity: No, DataBits: 8
-3       [00001834]  IRP_MJ_READ                     Length: 0001, Data: C
-4       [00001836]  IRP_MJ_WRITE                    Length: 0133, Data: þÐ. Í7..é7..í7..ñ7..õ7..ù7..................ý7..8......8..	8..8..8..8..Ï4..5..!8..%8..)8..-8..18..58..98..=8..A8..E8..I8..ÃN
-5       [00001837]  IRP_MJ_READ                     Length: 0001, Data: 
-6       [00001839]  IRP_MJ_WRITE                    Length: 0133, Data: ýM8..Q8..U8..Y8..]8..a8..e8..ßø˜.hôà`Ð°õ€Ð°õ.Ð°õ@Ð°õÀoÐ°õàoÐàßøppGßøppGßølpGßølpGßøhpGßøhpG. pG€µßø`
-hC.Ú@ð`÷
-7       [00001840]  IRP_MJ_READ                     Length: 0001, Data: 
-8       [00001842]  IRP_MJ_WRITE                    Length: 0133, Data: üÐ*ÐÓ*Ðà½è@.ðt¹½è@.ðw¹.ð!ù@½	h€.01ú.ð¿½è@.ðf¹. ½..0µ.#ßø"ðd,'ØßèðFàò<àò8	àòP#àòX#àò
-9       [00001843]  IRP_MJ_READ                     Length: 0001, Data: 
-10      [00001845]  IRP_MJ_WRITE                    Length: 0133, Data: ûpÀó0.ÐÕlíÔ•lí²BûÑ€..ëD.ñ„@`0½µßø¬AôxiÐ°õ.?!Ð°õ€/"Ð°õÀ/#Ð°õ./"Ð°õ /%Ð°õ@/)Ð°õ`/.Ð°õ€9Ð°õ:Ð°õ ;Ð°õÀ@Ð°õÐIÐKà.ð½øec
-11      [00001846]  IRP_MJ_READ                     Length: 0001, Data: 
-12      [00001848]  IRP_MJ_WRITE                    Length: 0133, Data: ú!hà½è@.ð¬¸. 'à.ðBø!nÁó*à.ð<ø!n	
-ð#à.ð5ø!n	ð	à.ð-ø!n	ðÈ@aoðI°ûñð½.ðø!nà ½è@Dç ÿ÷Bÿ¡nðÈ@½ßøä..ðø(´
-13      [00001849]  IRP_MJ_READ                     Length: 0001, Data: 
-14      [00001851]  IRP_MJ_WRITE                    Length: 0133, Data: ùÐ(Ñ½è@.ðv¸½è@ç. ½. )ç!ßøÀ .ð.(ÐBÓ( ÐÓ(2Ð<àÐj.ôpP°õ.oÐ°õ€_Ð°õ._Ðà!.à!,àj.ð.(ÐÓ(ÐÓjÀàj.ð.(Ð(Ðj:
-15      [00001852]  IRP_MJ_READ                     Length: 0001, Data: 
-16      [00001854]  IRP_MJ_WRITE                    Length: 0133, Data: ø(Ðà!à!à!àjÀÕ	!àhð€PÐ°ñ€_¿!à!.à.!FpG€@@B.ÀÏj.ÀØ§.€ŸÕ.@o@.?«(€@€@...€@€µ.ðø*I	hðÈ@(I`½(H(Ij.Q
-17      [00001855]  IRP_MJ_READ                     Length: 0001, Data: 
-18      [00001857]  IRP_MJ_WRITE                    Length: 0133, Data: ÷ôpR²õ.oÐ²õ€_Ð²õ._ÑHhpG1àhpG I.hôà`Ð°õ€Ð°õ.Ð°õ@	Ð°õ€oÐ°õ oÑHpGHpGHpGHpGh.(ÓHpGHpGh.(ÓHpGHpG. pGpG.¿i£
-19      [00001858]  IRP_MJ_READ                     Length: 0001, Data: 
-20      [00001860]  IRP_MJ_WRITE                    Length: 0133, Data: 	öOô.@pGOôzppGH@hpG..€@Ì. €@¤.. üà.?«@o@€ŸÕ.ÀØ§.@µd.ÀÏj.€O.@B.µ!@Hÿ÷wþ#"
-! .ð‹ø.#"! .ð…ø:I. pH`Oô@ˆ`. s Hsi
-21      [00001861]  IRP_MJ_READ                     Length: 0001, Data: 
-22      [00001863]  IRP_MJ_WRITE                    Length: 0133, Data: 
-õ. ÈOô€P‚. H‚u1L F.ðÏøAöÿp d/H!`.H` `e! F½è@.ð¸¸€µ!+Hÿ÷?þ!*H½è@ÿ÷9¾µ!L i.Õ F.ðýø!IÑø!PTÑø@À²ÁøòAhIA`Ah±õ
-23      [00001864]  IRP_MJ_READ                     Length: 0001, Data: 
-24      [00001866]  IRP_MJ_WRITE                    Length: 0133, Data: ô€„¿!r  d½pµL l i@ÕNò.¨hp±Öø.] F.ðÚøÖø.@À²Æø.¨h@¨`¨h¹àl ð.àdp½.b.Œ.. .À.@€â.à.á.à¬.. ¼. ..".ðµ$$Mû.P$vð
-25      [00001867]  IRP_MJ_READ                     Length: 0001, Data: 
-26      [00001869]  IRP_MJ_WRITE                    Length: 0133, Data: óŒ@±.+¿aDa&)	Ò‰.GhŽ@'êúñ1CA`	à9‰.‡hŽ@'êúñ1C`¹±að½Dað½...`.@pµFFFF¹.ð#ø1.Ð .Ð@.Ð`.Ðp½!à!à!.à!"h"ð{
-27      [00001870]  IRP_MJ_READ                     Length: 0001, Data: 
-28      [00001872]  IRP_MJ_WRITE                    Length: 0133, Data: ò`"`"h2C"`iCJë€.°ûñð.)Iê€`ap½(Hÿ÷¿½ÊCðR.Â`Á`pG8µFF.ðø¨|± h@ð€@ `è|±(}@ð. eh{µùCµùC``+{ªhih Fÿ÷¬ÿÿç(xà`1½@öªaÃÃ
-29      [00001873]  IRP_MJ_READ                     Length: 0001, Data: 
-30      [00001875]  IRP_MJ_WRITE                    Length: 0133, Data: ñÁ`.!`AòA`.!`AaÁdAöùqd.!Ae
-IˆBÑ	I."
-`.!eIˆBÑH.!`pG....Àÿ...À.@PÀ.@.Ä.@\Ä.@i	üÕÀiÀ²pGiRüÕAcpG´Pø±h.Pø;•º
-31      [00001876]  IRP_MJ_READ                     Length: 0001, Data: 
-32      [00001878]  IRP_MJ_WRITE                    Length: 0133, Data: ðÜD¿©ñãRøKCøK	ùÑëç¼pGµIyD1L|D4¡BÐ
-hQˆGF¡BøÑ½.¿,...L...Pøa±Pø+ÓD¿©ñš.#Bø;	úÑïçpG..Ýÿÿÿ$..¬.. ....sÿÿÿô
-33      [00001879]  IRP_MJ_READ                     Length: 0001, Data: 
-34      [00001881]  IRP_MJ_WRITE                    Length: 0133, Data: ï¬...ä...... ....ßø.ð..  ÀF.(Ðÿ÷¼ÿ. ÿ÷óÿ.ð.ø.ð¸..F8F.ðøûç..I «¾ûç&..H€GH.Gý3..Ý7..ÀFÀFÀFÀFÿ÷Øÿÿ÷þ¿ÿ÷þ¿ÿ÷þ¿ÿ÷þ¿ÿ÷þ¿ÿ÷þ¿Y[
-35      [00001882]  IRP_MJ_READ                     Length: 0001, Data: 
-36      [00001884]  IRP_MJ_WRITE                    Length: 0133, Data: îÿ÷þ¿ÿ÷þ¿ÿ÷þ¿ÿ÷þ¿ÿ÷þ¿ÿ÷þ¿ÿ÷Y¾ÿ÷w¾ÿ÷þ¿ÿ÷þ¿ÿ÷þ¿ÿ÷þ¿ÿ÷þ¿ÿ÷þ¿ÿ÷þ¿ÿ÷þ¿ÿ÷þ¿ÿ÷þ¿ÿ÷þ¿ÿ÷þ¿ÿ÷þ¿ÿ÷þ¿ÿ÷þ¿ÿ÷þ¿ÿ÷þ¿ÿ÷þ¿ßø.ð¹4..ßø.ðI4..€µÿ÷õÿÿ÷6â
-37      [00001885]  IRP_MJ_READ                     Length: 0001, Data: 
-38      [00001887]  IRP_MJ_WRITE                    Length: 0133, Data: í÷ÿ!ò`..ðøþçpµ."@ò©B ÒKòfhŽ®BÓfhŽ®BûÒŠBÒÓøQ\îTÓøQmí²ÃøQRñç`h``HhAð`p½..¼. LÀ.@10:55:19............–..¼P
-39      [00001888]  IRP_MJ_READ                     Length: 0001, Data: 
-40      [00001890]  IRP_MJ_WRITE                    Length: 0133, Data: ì...........Hè.€..
-41      [00001891]  IRP_MJ_READ                     Length: 0001, Data: 
-42      [00001891]  IRP_MJ_WRITE                    Length: 0001, Data: 
-43      [00001892]  IRP_MJ_READ                     Length: 0001, Data: 
-44      [00001892]  IOCTL_SERIAL_SET_BAUD_RATE      Baud Rate: 38400
-45      [00001892]  IOCTL_SERIAL_SET_LINE_CONTROL   StopBits: 1, Parity: No, DataBits: 8
-46      [00002018]  IRP_MJ_READ                     Length: 0007, Data: None.
-
-47      [00002145]  IRP_MJ_READ                     Length: 0007, Data: None.
-
-48      [00002271]  IRP_MJ_READ                     Length: 0007, Data: None.
-
-49      [00002398]  IRP_MJ_READ                     Length: 0007, Data: None.
-
-50      [00002525]  IRP_MJ_READ                     Length: 0007, Data: None.
-
-51      [00002571]  IRP_MJ_WRITE                    Length: 0001, Data: b
-52      [00002573]  IRP_MJ_READ                     Length: 0009, Data: ‚ÒªªÒŠÊþ
