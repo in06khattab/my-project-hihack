@@ -22,6 +22,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include "board.h"
+#include "aes.h"
 
 /*----------------------------------------------------------------------------
  *        Macro
@@ -53,6 +54,12 @@
 
 /* how manu ticks when precision is about 5%. */
 #define HIJACK_NUM_TICKS_PER_5_PCNT	(HIJACK_NUM_TICKS_PER_FULL_CYCLE/10)
+
+/* Declare a circular buffer structure to use for Rx and Tx queues */
+#define BUFFERSIZE          128
+
+/* Declare a circular buffer structure to use for Rx and Tx queues */
+#define AES_128_BYTES_SIZE          16
 
 /*----------------------------------------------------------------------------
  *        Typedef
@@ -90,4 +97,15 @@ typedef enum modulation_state_tag
 	Parity
 }state_t;
 
+typedef struct _circularBuffer_
+{
+
+  uint32_t rdI;               /* read index */
+  uint32_t wrI;               /* write index */
+  uint32_t pendingBytes;      /* count of how many bytes are not yet handled */
+  bool     overflow;          /* buffer overflow indicator */
+  uint8_t  data[BUFFERSIZE];  /* data buffer */
+}buffer_t;
+
+extern aes128_ctx_t ctx; /* the context where the round keys are stored */
 #endif//_MAIN_H_
