@@ -374,25 +374,37 @@ void encode_machine(void)
 	    	break;
 			//
 		case Bit7: 	//prepare for Parity
-		  	if( ( 0 == ( odd % 2 ) ) && (SET == enc.cur) ){//there is even 1(s), output 1, cur is 1 	
-				enc.factor = Div1;
-				enc.cur = SET;
-				if( 50 == index_sample )
-					enc.reverse = 1;
+		  	if( ( 0 == ( odd % 2 ) ) && (SET == enc.cur) ){//there is even 1(s), output 0, cur is 1 	
+				//enc.factor = Div1;
+				//enc.cur = SET;
+				//if( 50 == index_sample )
+				//	enc.reverse = 1;
+            enc.factor = Div2;
+				enc.cur = CLR;
 			}
-			else if( ( 0 == ( odd % 2 ) ) && (CLR == enc.cur) ){//there is even 1(s), output 1, cur is 0 	
-				enc.factor = Div2;
-				enc.cur = SET;
-			}
-			else if( ( 1 == ( odd % 2 ) ) && (CLR == enc.cur) ){//there is odd 1(s), output 0, cur is 0 	
-				enc.factor = Div1;
+			else if( ( 0 == ( odd % 2 ) ) && (CLR == enc.cur) ){//there is even 1(s), output 0, cur is 0 	
+				//enc.factor = Div2;
+				//enc.cur = SET;
+            enc.factor = Div1;
 				enc.cur = CLR;
 				if( 50 == index_sample )
 					enc.reverse = 1;
 			}
-			else if( ( 1 == ( odd % 2 ) ) && (SET == enc.cur) ){//there is odd 1(s), output 0, cur is 1
-				enc.factor = Div2;
-				enc.cur = CLR;
+			else if( ( 1 == ( odd % 2 ) ) && (CLR == enc.cur) ){//there is odd 1(s), output 1, cur is 0 	
+				//enc.factor = Div1;
+				//enc.cur = CLR;
+				//if( 50 == index_sample )
+				//	enc.reverse = 1;
+            enc.factor = Div2;
+				enc.cur = SET;
+			}
+			else if( ( 1 == ( odd % 2 ) ) && (SET == enc.cur) ){//there is odd 1(s), output 1, cur is 1
+				//enc.factor = Div2;
+				//enc.cur = CLR;
+            enc.factor = Div1;
+				enc.cur = SET;
+				if( 50 == index_sample )
+					enc.reverse = 1;
 			}
 			enc.state = Parity;
 	    	break;

@@ -1,22 +1,22 @@
 ###############################################################################
 #                                                                             #
-# IAR ELF Linker V6.40.4.54170/W32 for ARM              07/Mar/2014  20:14:43 #
+# IAR ELF Linker V6.40.4.54170/W32 for ARM              09/Mar/2014  07:32:38 #
 # Copyright 2007-2012 IAR Systems AB.                                         #
 #                                                                             #
 #    Output file  =  F:\Firmware\my-project-hihack\trunk\ my-project-hihack   #
 #                    --username kaiser.ren@gmail.com\phone_simulate\build\ewa #
-#                    rm_630\sam3s\Exe\sam3s.out                               #
+#                    rm_640\sam3s\Exe\sam3s.out                               #
 #    Map file     =  F:\Firmware\my-project-hihack\trunk\ my-project-hihack   #
 #                    --username kaiser.ren@gmail.com\phone_simulate\build\ewa #
-#                    rm_630\sam3s\List\sam3s.map                              #
+#                    rm_640\sam3s\List\sam3s.map                              #
 #    Command line =  "F:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
 #                    --username kaiser.ren@gmail.com\phone_simulate\build\ewa #
-#                    rm_630\sam3s\Obj\decode.o" "F:\Firmware\my-project-hihac #
+#                    rm_640\sam3s\Obj\decode.o" "F:\Firmware\my-project-hihac #
 #                    k\trunk\ my-project-hihack --username                    #
-#                    kaiser.ren@gmail.com\phone_simulate\build\ewarm_630\sam3 #
+#                    kaiser.ren@gmail.com\phone_simulate\build\ewarm_640\sam3 #
 #                    s\Obj\encode.o" "F:\Firmware\my-project-hihack\trunk\    #
 #                    my-project-hihack --username                             #
-#                    kaiser.ren@gmail.com\phone_simulate\build\ewarm_630\sam3 #
+#                    kaiser.ren@gmail.com\phone_simulate\build\ewarm_640\sam3 #
 #                    s\Obj\main.o" "F:\Firmware\my-project-hihack\trunk\      #
 #                    my-project-hihack --username                             #
 #                    kaiser.ren@gmail.com\phone_simulate\libboard_sam3s-ek\li #
@@ -27,13 +27,13 @@
 #                    _Printf=_PrintfSmall --redirect _Scanf=_ScanfSmall -o    #
 #                    "F:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
 #                    --username kaiser.ren@gmail.com\phone_simulate\build\ewa #
-#                    rm_630\sam3s\Exe\sam3s.out" --map                        #
+#                    rm_640\sam3s\Exe\sam3s.out" --map                        #
 #                    "F:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
 #                    --username kaiser.ren@gmail.com\phone_simulate\build\ewa #
-#                    rm_630\sam3s\List\sam3s.map" --config                    #
+#                    rm_640\sam3s\List\sam3s.map" --config                    #
 #                    "F:\Firmware\my-project-hihack\trunk\ my-project-hihack  #
 #                    --username kaiser.ren@gmail.com\phone_simulate\build\ewa #
-#                    rm_630/../../resource/sam3s4c/flash.icf" --entry         #
+#                    rm_640/../../resource/sam3s4c/flash.icf" --entry         #
 #                    __iar_program_start --vfe                                #
 #                                                                             #
 #                                                                             #
@@ -183,7 +183,7 @@ Zero (__iar_zero_init3)
 
     Module                ro code  ro data  rw data
     ------                -------  -------  -------
-F:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\phone_simulate\build\ewarm_630\sam3s\Obj: [1]
+F:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\phone_simulate\build\ewarm_640\sam3s\Obj: [1]
     decode.o                  868       12       18
     encode.o                1 708                17
     main.o                  1 188      860      206
@@ -405,7 +405,7 @@ us1_get_char            0x004003c3   0x50  Code  Gb  encode.o [1]
 us1_get_count           0x004003bb    0x8  Code  Gb  encode.o [1]
 
 
-[1] = F:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\phone_simulate\build\ewarm_630\sam3s\Obj
+[1] = F:\Firmware\my-project-hihack\trunk\ my-project-hihack --username kaiser.ren@gmail.com\phone_simulate\build\ewarm_640\sam3s\Obj
 [2] = command line
 [3] = dl7M_tln.a
 [4] = libboard_sam3s_ek_ewarm_dbg.a

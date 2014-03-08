@@ -28,13 +28,14 @@
  *----------------------------------------------------------------------------*/
 /* several carrier frequency definition. */
 #define HIJACK_CARRIER_FREQ_1KHZ	1000ul
+#define HIJACK_CARRIER_FREQ_1K4HZ 1400ul
 #define HIJACK_CARRIER_FREQ_2KHZ	2000ul
 #define HIJACK_CARRIER_FREQ_4KHZ	4000ul
 #define HIJACK_CARRIER_FREQ_8KHZ	8000ul
 #define HIJACK_CARRIER_FREQ_10KHZ 10000ul
 
 /* current carrier frequency definition. */
-#define HIJACK_CARRIER_FREQ_CONF HIJACK_CARRIER_FREQ_1KHZ
+#define HIJACK_CARRIER_FREQ_CONF HIJACK_CARRIER_FREQ_1K4HZ
 
 /* PRESCALER: 8 */
 #define HIJACK_TMR_CLK_SRC_PRESCALER 8
