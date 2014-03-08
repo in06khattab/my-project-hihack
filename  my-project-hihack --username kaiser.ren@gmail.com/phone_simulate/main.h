@@ -55,6 +55,8 @@
 /* how manu ticks when precision is about 5%. */
 #define HIJACK_NUM_TICKS_PER_5_PCNT	(HIJACK_NUM_TICKS_PER_FULL_CYCLE/20)
 
+#define CRITICAL_PROTECTION 1
+
 /*----------------------------------------------------------------------------
  *        Typedef
  *----------------------------------------------------------------------------*/

@@ -17,8 +17,8 @@
         <debug>1</debug>
         <option>
           <name>Variant</name>
-          <version>19</version>
-          <state>38</state>
+          <version>20</version>
+          <state>39</state>
         </option>
         <option>
           <name>ExePath</name>
@@ -137,13 +137,13 @@
         </option>
         <option>
           <name>GFPUCoreSlave</name>
-          <version>19</version>
-          <state>38</state>
+          <version>20</version>
+          <state>39</state>
         </option>
         <option>
           <name>GBECoreSlave</name>
-          <version>19</version>
-          <state>38</state>
+          <version>20</version>
+          <state>39</state>
         </option>
         <option>
           <name>OGUseCmsis</name>
@@ -162,6 +162,10 @@
         <version>28</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
+        <option>
+          <name>CCOptimizationNoSizeConstraints</name>
+          <state>0</state>
+        </option>
         <option>
           <name>CCDefines</name>
           <state>__SAM4S16C__</state>
@@ -935,8 +939,8 @@
         <debug>1</debug>
         <option>
           <name>Variant</name>
-          <version>19</version>
-          <state>37</state>
+          <version>20</version>
+          <state>38</state>
         </option>
         <option>
           <name>ExePath</name>
@@ -1005,7 +1009,7 @@
         </option>
         <option>
           <name>OGLastSavedByProductVersion</name>
-          <state>6.30.7.53437</state>
+          <state>6.40.5.54273</state>
         </option>
         <option>
           <name>GeneralEnableMisra</name>
@@ -1055,13 +1059,13 @@
         </option>
         <option>
           <name>GFPUCoreSlave</name>
-          <version>19</version>
-          <state>37</state>
+          <version>20</version>
+          <state>38</state>
         </option>
         <option>
           <name>GBECoreSlave</name>
-          <version>19</version>
-          <state>37</state>
+          <version>20</version>
+          <state>38</state>
         </option>
         <option>
           <name>OGUseCmsis</name>
@@ -1080,6 +1084,10 @@
         <version>28</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
+        <option>
+          <name>CCOptimizationNoSizeConstraints</name>
+          <state>0</state>
+        </option>
         <option>
           <name>CCDefines</name>
           <state>sam3s4</state>
@@ -1177,7 +1185,7 @@
         </option>
         <option>
           <name>CCRequirePrototypes</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>CCMultibyteSupport</name>
@@ -1845,10 +1853,16 @@
   <group>
     <name>inc</name>
     <file>
+      <name>$PROJ_DIR$\..\..\com.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\decode.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\encode.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\irq.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\main.h</name>
@@ -1866,10 +1880,16 @@
   <group>
     <name>src</name>
     <file>
+      <name>$PROJ_DIR$\..\..\com.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\decode.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\encode.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\irq.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\main.c</name>

@@ -14,19 +14,21 @@
  *        Headers
  *----------------------------------------------------------------------------*/
 #include "encode.h"
+#include "irq.h"
+#include "com.h"
 #include "xplained.h"
 
 /*----------------------------------------------------------------------------
  *        Variable
  *----------------------------------------------------------------------------*/
 /** encode structure */
-static encode_t enc;
+encode_t enc;
+
+/** ticker counter. */
+uint8_t ticker = 0;
+
 /** store odd parity consequence */
 static uint8_t odd;	
-/** current index_sample */
-static uint8_t index_sample = 0;
-/** ticker counter. */
-static uint8_t ticker = 0;
 
 /** channel 0 */
 uint8_t DACC_channel_sine = DACC_CHANNEL_0;
@@ -44,99 +46,7 @@ static void _ConfigureTc0( uint32_t freq );
 /*----------------------------------------------------------------------------
  *        ISR Handler
  *----------------------------------------------------------------------------*/
-/**
- *  \brief Interrupt handler for DACC.
- *
- * Server routine when DACC complete the convertion.
- */
-void DAC_IrqHandler(void)
-{
-	uint32_t status ;
 
-    status = DACC_GetStatus( DACC ) ;
-
-    /* if conversion is done*/
-    if ( (status & DACC_IER_EOC) == DACC_IER_EOC ){
-		if ( index_sample >= SAMPLES ){
-		  	if(0 == enc.reverse)
-				encode_machine();
-			index_sample = 0;
-			ticker = 0;
-		}
-		else if( ( (SAMPLES/2) == index_sample ) && (Div2 == enc.factor ) ){
-			encode_machine();
-			ticker = 0;
-		}
-		else if( ( (SAMPLES/2) == index_sample ) && ( 1 == enc.reverse ) ){
-		  	enc.reverse = 0;
-			encode_machine();
-			ticker = 0;
-		}
-		DACC->DACC_IDR = DACC_IER_EOC;
-	}
-
-}
-
-/**
- *  \brief Interrupt handler for UART0.
- *
- */
-void UART0_IrqHandler(void)
-{
-    uint32_t status;
-
-    /* Read USART status*/
-    status = UART0->UART_SR;
-
-    /* Receive byte is stored in buffer. */
-    if ((status & UART_SR_RXRDY) == UART_SR_RXRDY) {
-		if(us1.count < US_BUFFER_SIZE){
-	    	us1.buff[us1.head++] = UART_GetChar();
-			us1.count++;
-			if(us1.head >= US_BUFFER_SIZE)
-				us1.head = 0;
-	  	}
-		else{
-			us1.buff[us1.head] = UART_GetChar();
-		}
-    }
-}
-
-/**
- *  \brief Interrupt handler for SysTick.
- *
- */
-void SysTick_Handler( void )
-{
-	uint16_t value;
-
-    {
-		if ( 0 == ( ticker%enc.factor) ){
-			value = sine_data[index_sample++] * amplitude / (MAX_DIGITAL/2)  \
-			  		+ MAX_DIGITAL/2 /*- MAX_DIGITAL/50*/ + BIAS_STEP*bias ;
-        	DACC_SetConversionData(DACC, value ) ;
-			DACC->DACC_IER = DACC_IER_EOC;
-		}
-		ticker++;
-    }
-}
-
-/**
- *  \brief Interrupt handler for TC0.
- *
- */
-void TC0_IrqHandler( void )
-{
-  	uint32_t status ;
-    status = REG_TC0_SR0 ;
-
-	if ( (status & TC_SR_CPCS) == TC_SR_CPCS ){
-#if defined	__SAM4S16C__
-		XplnLED_Toggle(1);	//LED1 toggle
-#endif
-	}
-
-}
 
 /**
  * \brief DAC initialization.
@@ -219,49 +129,6 @@ static void _ConfigureTc0( uint32_t freq )
 
 }
 
-/**
- *  \brief UART0 hardware configuration
- *
- * Configures UART0 in hardware handshaking mode, asynchronous, 8 bits, 1 stop
- * bit, no parity, 115200 bauds and enables its transmitter and receiver.
- */
-void _ConfigureCom( void )
-{
-  	/* Enaboe UART0 interrupt*/
-    NVIC_EnableIRQ( UART0_IRQn ) ;
-	/* Enable UART0 RXREADY interrupt. */
-	UART0->UART_IER = UART_IER_RXRDY ;
-}
-/*
- * Get us1 buffer amount.
-*/
-uint8_t us1_get_count(void)
-{
-  	return (us1.count);
-}
-
-/*
- * Get a charactors.
-*/
-uint8_t us1_get_char(void)
-{
-  	uint8_t temp;
-	
-	if(us1.count){
-#if CRITICAL_PROTECTION==1
-		__disable_irq();
-#endif
-    	temp = us1.buff[us1.tail++];
-		us1.count--;
-		if(us1.tail >= US_BUFFER_SIZE){
-			us1.tail = 0;
-		}
-#if CRITICAL_PROTECTION==1
-		__enable_irq();
-#endif
-  	}
-    return temp;
-}
 /*
  * Find proper factor depending on state and bit mask.
 */

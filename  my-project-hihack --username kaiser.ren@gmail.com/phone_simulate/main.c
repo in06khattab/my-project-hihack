@@ -144,9 +144,6 @@ const Pin pinPB2 = PIN_PUSHBUTTON_2;
 volatile bool button1Evt = false;
 volatile bool button2Evt = false;
 
-/** usart1 rx entity. **/
-us_rx_t us1 = {.count = 0, .head = 0, .tail = 0};
-
 /** amplitude is MAX_DIGITAL/2,SAMPLES is fixed at 100 */
 const int16_t sine_data[SAMPLES]=
 {
