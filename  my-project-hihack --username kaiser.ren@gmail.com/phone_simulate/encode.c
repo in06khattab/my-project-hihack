@@ -122,7 +122,7 @@ static void _ConfigureTc0( uint32_t freq )
     /* Configure interrupt on RC compare*/
     TC0->TC_CHANNEL[0].TC_IER = TC_SR_CPCS ;
 
-	NVIC_DisableIRQ( TC0_IRQn ) ;
+    NVIC_DisableIRQ( TC0_IRQn ) ;
     NVIC_ClearPendingIRQ( TC0_IRQn ) ;
     NVIC_SetPriority( TC0_IRQn, 0 ) ;
     NVIC_EnableIRQ( TC0_IRQn ) ;
