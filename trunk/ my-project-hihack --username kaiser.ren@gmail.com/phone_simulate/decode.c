@@ -242,7 +242,9 @@ static void dec_parser(uint8_t bit_msk, state_t state)
  */
 void decode_machine(void)
 {
-   	inv = offset + cur_stamp;  //update offset
+   uint8_t po = 0;
+   
+   inv = offset + cur_stamp;  //update offset
 
 	switch (dec.state){
 		case Waiting:
@@ -255,19 +257,19 @@ void decode_machine(void)
 			break;
 			//
 		case Sta0:
-         	if( IsAboutFullCycle(inv) && ( falling == cur_edge ) ){
+         if( IsAboutFullCycle(inv) && ( falling == cur_edge ) ){
 				offset = 0; //start from edge field
 				inv = 0;
 				dec.data = 0;  //clear data field for store new potential data
 				dec.odd = 0;   //clear odd field parity counter
 				dec.state = Bit0;
-         	}
-         	else{
+         }
+         else{
 				offset = 0; //start from edge field
 				inv = 0;
 				dec.state = Waiting;
-         	}
-	   		break;
+         }
+	   	break;
 			//
 		case Bit0:
 		  	dec_parser(BIT0, Bit1);
@@ -306,7 +308,8 @@ void decode_machine(void)
 				if( rising == cur_edge ){
 				   dec.odd++;
 				}
-				if( 1 == (dec.odd%2)){  //parity pass
+            po = dec.odd % 2 ;
+				if( 0 == ( dec.odd % 2) ){  //parity pass, even
 				   dec.state = Sto0;
 				}
 				else{ //parity failed
@@ -327,20 +330,20 @@ void decode_machine(void)
 			//
       	case Sto0:
          	if ( IsAboutFullCycle(inv) ){ //it's time to determine
-				if( rising == cur_edge ){  //stop bit is rising edge
-				   UART_PutChar(dec.data);
-				}
-				dec.state = Waiting;
-				offset = 0;
-				inv = 0;
+               if( rising == cur_edge ){  //stop bit is rising edge
+                  UART_PutChar(dec.data);
+               }
+               dec.state = Waiting;
+               offset = 0;
+               inv = 0;
          	}
          	else if ( IsAboutHalfCycle(inv) && (0 == offset) ){   //wait for edge detection time
             	offset = HIJACK_NUM_TICKS_PER_HALF_CYCLE;  //update half cycle ticks
          	}
          	else {
-				dec.state = Waiting;
-				offset = 0;
-				inv = 0;
+               dec.state = Waiting;
+               offset = 0;
+               inv = 0;
          	}
          	break;
          	//
