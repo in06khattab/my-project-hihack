@@ -28,7 +28,7 @@
  *----------------------------------------------------------------------------*/
 /* several carrier frequency definition. */
 #define HIJACK_CARRIER_FREQ_1KHZ	1000ul
-#define HIJACK_CARRIER_FREQ_1K4HZ 1400ul
+#define HIJACK_CARRIER_FREQ_1K4HZ 1370ul
 #define HIJACK_CARRIER_FREQ_2KHZ	2000ul
 #define HIJACK_CARRIER_FREQ_4KHZ	4000ul
 #define HIJACK_CARRIER_FREQ_8KHZ	8000ul
